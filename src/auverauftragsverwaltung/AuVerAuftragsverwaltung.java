@@ -34,4 +34,9 @@ public class AuVerAuftragsverwaltung extends Application {
         launch(args);
     }
     
+    
+    public void HDF() {
+            System.out.println("Test");
+    }
+    
 }
