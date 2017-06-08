@@ -38,7 +38,10 @@ public class AuVerAuftragsverwaltung extends Application {
     public void FDD(){
         System.out.println("APfelsaft von Mudi!");
     }
-    
+ 
+    public void He(){
+        System.out.println("stirb");
+    }
     
     public void HDF() {
             System.out.println("Test");
