@@ -36,7 +36,8 @@ public class AuVerAuftragsverwaltung extends Application {
     }
     
     public void FDD(){
-        System.out.println("APfelsaft von Mudi!");
+        // Diese Ausgabe wurde nicht von Mudimbi implementiert
+        System.out.println("Apfelsaft von Mudi!");
     }
  
     public void He(){
