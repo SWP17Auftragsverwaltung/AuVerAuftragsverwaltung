@@ -39,6 +39,7 @@ public class AuVerAuftragsverwaltung extends Application {
         // Diese Ausgabe wurde nicht von Mudimbi implementiert
         System.out.println("Apfelsaft von Mudi!");
         System.out.println("Fischer Fritze fischt frische Fische!");
+        System.out.println("Blaukraut bleibt blaukraut!");
     }
  
     public void He(){
