@@ -41,6 +41,7 @@ public class AuVerAuftragsverwaltung extends Application {
         System.out.println("Fischer Fritze fischt frische Fische!");
         System.out.println("Blaukraut bleibt blaukraut!");
         System.out.println("Blaukraut bleibt blaukraut!");
+        System.out.println("Blaukraut bleibt blaukraut!");
     }
  
     public void He(){
