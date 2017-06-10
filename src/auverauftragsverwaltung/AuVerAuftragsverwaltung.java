@@ -38,7 +38,7 @@ public class AuVerAuftragsverwaltung extends Application {
     public void FDD(){
         // Diese Ausgabe wurde nicht von Mudimbi implementiert
         System.out.println("Apfelsaft von Mudi!");
-        System.out.println("Fischer Fritze fischt frische Fische!");
+        System.out.println("Fischers Fritze fischt frische Fische!");
         System.out.println("Blaukraut bleibt blaukraut!");
         System.out.println("Blaukraut bleibt blaukraut!");
         System.out.println("Blaukraut bleibt blaukraut!");
