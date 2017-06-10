@@ -43,6 +43,7 @@ public class AuVerAuftragsverwaltung extends Application {
         System.out.println("Blaukraut bleibt blaukraut!");
         System.out.println("Blaukraut bleibt blaukraut!");
         System.out.println("Blaukraut bleibt blaukraut!");
+        System.out.println("Es sieht nur nach einem Tet aus!");
     }
  
     public void He(){
