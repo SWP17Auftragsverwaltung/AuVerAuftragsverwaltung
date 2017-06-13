@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="1095.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.StartmaskeController">
+   <children>
+      <Button layoutX="468.0" layoutY="20.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Artikel suchen " AnchorPane.leftAnchor="468.0" />
+      <TableView layoutX="38.0" layoutY="72.0" prefHeight="335.0" prefWidth="692.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0">
+        <columns>
+          <TableColumn prefWidth="97.0" text="MaterialNr" />
+          <TableColumn prefWidth="136.0" text="Artikelbeschreibung" />
+            <TableColumn prefWidth="83.0" text="Einzelwert" />
+            <TableColumn prefWidth="124.0" text="Bestellbeschreibung" />
+            <TableColumn prefWidth="70.0" text="FREI" />
+            <TableColumn prefWidth="103.0" text="RESERVIERT" />
+            <TableColumn prefWidth="92.0" text="ZULAUF" />
+            <TableColumn prefWidth="139.0" text="VERKAUFT" />
+        </columns>
+      </TableView>
+      <ScrollBar layoutX="748.0" layoutY="96.0" orientation="VERTICAL" prefHeight="312.0" prefWidth="14.0" AnchorPane.rightAnchor="36.0" />
+      <TitledPane collapsible="false" layoutX="38.0" layoutY="287.0" prefHeight="232.0" prefWidth="1020.0" text="Artikeldatensatz" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0">
+         <content>
+            <Pane prefHeight="193.0" prefWidth="1018.0">
+               <children>
+                  <TextField layoutX="14.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
+                  <Label layoutX="14.0" layoutY="22.0" text="MaterialNr" />
+                  <Label layoutX="111.0" layoutY="22.0" text="Artikelbschreibung" />
+                  <TextArea layoutX="111.0" layoutY="39.0" prefHeight="65.0" prefWidth="173.0" />
+                  <Label layoutX="295.0" layoutY="22.0" text="Einzelwert" />
+                  <TextField layoutX="295.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextArea layoutX="393.0" layoutY="40.0" prefHeight="65.0" prefWidth="173.0" />
+                  <Label layoutX="393.0" layoutY="23.0" text="Bestellbeschreibung" />
+                  <TextField layoutX="581.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
+                  <Label layoutX="581.0" layoutY="23.0" text="Bestellwert" />
+                  <Label layoutX="815.0" layoutY="22.0" prefHeight="17.0" prefWidth="61.0" text="Bestand" />
+                  <TextField layoutX="846.0" layoutY="43.0" prefHeight="25.0" prefWidth="85.0" />
+                  <Label layoutX="781.0" layoutY="47.0" text="FREI" />
+                  <Label layoutX="781.0" layoutY="75.0" text="RESERVIERT" />
+                  <TextField layoutX="846.0" layoutY="71.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField layoutX="846.0" layoutY="100.0" prefHeight="25.0" prefWidth="85.0" />
+                  <Label layoutX="781.0" layoutY="104.0" text="ZULAUF" />
+                  <Label layoutX="781.0" layoutY="135.0" text="VERKAUFT" />
+                  <TextField layoutX="846.0" layoutY="131.0" prefHeight="25.0" prefWidth="85.0" />
+                  <Button layoutX="35.0" layoutY="152.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Artikel löschen" />
+                  <Button layoutX="204.0" layoutY="152.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Artikel anlegen " />
+                  <Button layoutX="373.0" layoutY="152.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Artikel speichern" />
+                  <Button layoutX="544.0" layoutY="152.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Abbrechen " />
+               </children>
+            </Pane>
+         </content>
+      </TitledPane>
+      <Label layoutX="246.0" layoutY="20.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
+      <TextField layoutX="246.0" layoutY="37.0" prefHeight="25.0" prefWidth="199.0" />
+      <Label layoutX="25.0" layoutY="20.0" prefHeight="17.0" prefWidth="72.0" text="Feld" />
+      <ComboBox layoutX="25.0" layoutY="37.0" prefHeight="25.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>

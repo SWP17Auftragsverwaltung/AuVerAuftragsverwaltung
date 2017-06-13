@@ -7,8 +7,10 @@ package auverauftragsverwaltung;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -19,11 +21,12 @@ public class AuVerAuftragsverwaltung extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        
+        Parent root = FXMLLoader.load(getClass().getResource("Start.fxml"));
+
         Scene scene = new Scene(root);
-        
+        stage.setMaximized(true);
         stage.setScene(scene);
+       
         stage.show();
     }
 
@@ -32,23 +35,7 @@ public class AuVerAuftragsverwaltung extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-        System.out.println("Apfelsaft!");
+       
     }
-    
-    public void FDD(){
-        // Diese Ausgabe wurde nicht von Mudimbi implementiert
-        System.out.println("Apfelsaft von Mudi!");
-        System.out.println("Fischers Fritze fischt frische Fische!");
-        System.out.println("Blaukraut bleibt blaukraut!");
-        // Neuer Tag, neuer Versuch
-    }
- 
-    public void He(){
-        System.out.println("stirb");
-    }
-    
-    public void HDF() {
-            System.out.println("Test von 111");
-    }
-    
+
 }
