@@ -13,8 +13,15 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+/*----------------------------------------------------------*/
+/* Datum Name Was */
+/* 08.06.17 AHen angelegt */
+/* 13.06.17 JGet StartGUI(Start.fxml) eingebunden */
+/* 
+/*----------------------------------------------------------*/
+
 /**
- *
+ * AuVerAuftragsverwaltung 
  * @author Jakob
  */
 public class AuVerAuftragsverwaltung extends Application {

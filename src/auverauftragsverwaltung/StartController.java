@@ -14,7 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 /**
- * FXML Controller class
+ * FXML Controller-Klasse der StartGUI
  *
  * @author Jakob
  */
