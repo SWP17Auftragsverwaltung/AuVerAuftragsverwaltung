@@ -4,8 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.GeschaeftspartnerverwaltungController">
    <children>
       <Button layoutX="380.0" layoutY="36.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner suchen" AnchorPane.bottomAnchor="524.0" AnchorPane.topAnchor="36.0" />
       <ScrollPane layoutX="47.0" layoutY="92.0" prefHeight="250.0" prefWidth="652.0">

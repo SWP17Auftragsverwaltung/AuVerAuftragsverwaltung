@@ -16,6 +16,15 @@ import javafx.fxml.Initializable;
  */
 public class GeschaeftspartnerverwaltungController implements Initializable {
     
+    /*
+    *
+    Hier wird die Geschätspartner Scene verwaltet. Der Zugriff auf die Datenbank etc wird hier 
+    implementiert
+    */
+    
+    
+    
+    
     /**
      * Initializes the controller class.
      */

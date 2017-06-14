@@ -14,12 +14,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller-Klasse der StartGUI
@@ -29,29 +25,62 @@ import javafx.stage.StageStyle;
 public class StartController implements Initializable {
 
     @FXML
-    private void oeffneArtikelverwaltung(ActionEvent event) throws IOException{
-        ViewArtikelverwaltung viewArtikelverwaltung = new ViewArtikelverwaltung();
+    void oeffneArtikelverwaltung(ActionEvent event){
+        try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Artikelverwaltung.fxml"));
+       Scene scene = new Scene(loader.load(), 1000, 600);
+        Stage stage = new Stage();
+        stage.setTitle("Artikelverwaltung");
+        stage.setScene(scene);
+        stage.show();
+    } catch(IOException e){
+        System.out.println("Can't load the Artikel!");
     }
-    
-    @FXML
-    private AnchorPane rootPane;
+    }
     
     @FXML
     void oeffneGeschaeftspartner(ActionEvent event){
         try {
+            //Die Ressource wird bezogen
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Geschaeftspartnerverwaltung.fxml"));
-        //Parent root1 =  (Parent) loader.load();
-       Scene scene = new Scene(loader.load(), 800, 600);
+        // Die Ressource wird geladen und Abmessungen werden festgelegt
+       Scene scene = new Scene(loader.load(), 1000, 600);
         Stage stage = new Stage();
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setTitle("Business Partners");
-        //stage.setScene(new Scene(root1));
+        stage.setTitle("Geschäftspartnerverwaltung");
         stage.setScene(scene);
         stage.show();
     } catch(IOException e){
-        System.out.println("Can't load the fckn window!");
+        System.out.println("Can't load the Businesspartner!");
     }
     }
+    
+//    @FXML
+//    void oeffneAdressverwaltung(ActionEvent event){
+//        try {
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("Adressverwaltung.fxml"));
+//       Scene scene = new Scene(loader.load(), 800, 600);
+//        Stage stage = new Stage();
+//        stage.setTitle("Adressverwaltung");
+//        stage.setScene(scene);
+//        stage.show();
+//    } catch(IOException e){
+//        System.out.println("Can't load the Adress!");
+//    }
+//    }
+    
+//    @FXML
+//    void oeffneZahlungskondition(ActionEvent event){
+//        try {
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("Zahlungskonditionsverwaltung.fxml"));
+//       Scene scene = new Scene(loader.load(), 800, 600);
+//        Stage stage = new Stage();
+//        stage.setTitle("Zahlungskonditionsverwaltung");
+//        stage.setScene(scene);
+//        stage.show();
+//    } catch(IOException e){
+//        System.out.println("Can't load the Conditions!");
+//    }
+//    }
     
     /**
      * Initializes the controller class.
