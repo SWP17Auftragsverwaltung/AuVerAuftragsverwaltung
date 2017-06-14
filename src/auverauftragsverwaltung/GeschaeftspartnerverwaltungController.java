@@ -5,11 +5,8 @@
  */
 package auverauftragsverwaltung;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 /**
@@ -19,11 +16,6 @@ import javafx.fxml.Initializable;
  */
 public class GeschaeftspartnerverwaltungController implements Initializable {
     
-    public void oeffneGeschaeftspartner(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("Geschaeftspartnerverwaltung.fxml"));
-    }
-
     /**
      * Initializes the controller class.
      */
