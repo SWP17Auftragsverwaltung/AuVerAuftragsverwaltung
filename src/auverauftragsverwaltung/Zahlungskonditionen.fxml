@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.ZahlungskonditionenController">
+   <children>
+      <SplitPane dividerPositions="0.6814621409921671" layoutX="320.0" layoutY="200.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
+         <items>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <TableView layoutY="60.0" prefHeight="510.0" prefWidth="1022.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+                     <columns>
+                        <TableColumn prefWidth="96.0" text="Konditionen-ID" />
+                        <TableColumn prefWidth="75.0" text="Bestellwert" />
+                        <TableColumn prefWidth="95.0" text="Auftragsart" />
+                        <TableColumn minWidth="9.0" prefWidth="115.0" text="Lieferzeit SOFORT" />
+                        <TableColumn minWidth="0.0" prefWidth="129.0" text="Lieferzeit WUNSCH" />
+                        <TableColumn prefWidth="86.0" text="Skontozeit 1" />
+                        <TableColumn prefWidth="69.0" text="Skonto 1" />
+                        <TableColumn prefWidth="91.0" text="Skontozeit 2" />
+                        <TableColumn prefWidth="104.0" text="Skonto 2" />
+                        <TableColumn prefWidth="77.0" text="Mahnzeit 1" />
+                        <TableColumn prefWidth="72.0" text="Mahnzeit 2" />
+                        <TableColumn prefWidth="87.0" text="Mahnzeit 3" />
+                     </columns>
+                  </TableView>
+                  <ComboBox layoutX="14.0" layoutY="39.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Label layoutX="14.0" layoutY="22.0" prefHeight="17.0" prefWidth="72.0" text="Feld" />
+                  <TextField layoutX="235.0" layoutY="39.0" prefHeight="25.0" prefWidth="199.0" />
+                  <Label layoutX="235.0" layoutY="22.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
+                  <Button layoutX="457.0" layoutY="22.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Artikel suchen " />
+               </children>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="227.0" prefWidth="1022.0">
+               <children>
+                  <Pane layoutY="332.0" prefHeight="48.0" prefWidth="1022.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
+                     <children>
+                        <Button layoutX="14.0" layoutY="13.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
+                        <Button layoutX="120.0" layoutY="13.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
+                        <Button layoutX="226.0" layoutY="13.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
+                        <Button fx:id="closeZK" layoutX="332.0" layoutY="13.0" mnemonicParsing="false" onAction="#CloseZahlungskondition" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
+                     </children>
+                  </Pane>
+                  <Label layoutX="14.0" layoutY="23.0" text="Konditionen-D" />
+                  <TextField layoutX="14.0" layoutY="40.0" prefHeight="25.0" prefWidth="100.0" />
+                  <Label layoutX="127.0" layoutY="23.0" prefHeight="17.0" prefWidth="78.0" text="Auftragsart" />
+                  <Label layoutX="290.0" layoutY="23.0" text="Lieferzeit SOFORT" />
+                  <TextField layoutX="290.0" layoutY="40.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Label layoutX="455.0" layoutY="23.0" text="Lieferzeit WUNSCH" />
+                  <TextField layoutX="455.0" layoutY="40.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Label layoutX="860.0" layoutY="23.0" text="Mahnzeit 2" />
+                  <TextField layoutX="860.0" layoutY="41.0" prefHeight="25.0" prefWidth="59.0" />
+                  <Label layoutX="785.0" layoutY="23.0" text="Mahnzeit 1" />
+                  <TextField layoutX="785.0" layoutY="41.0" prefHeight="25.0" prefWidth="59.0" />
+                  <Label layoutX="14.0" layoutY="95.0" text="Skontozeit 1" />
+                  <TextField layoutX="14.0" layoutY="112.0" prefHeight="25.0" prefWidth="100.0" />
+                  <Label layoutX="127.0" layoutY="95.0" text="Skonto 1" />
+                  <TextField layoutX="127.0" layoutY="112.0" prefHeight="25.0" prefWidth="100.0" />
+                  <Label layoutX="243.0" layoutY="95.0" text="Skontozeit 2" />
+                  <TextField layoutX="243.0" layoutY="112.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Label layoutX="407.0" layoutY="95.0" text="Skonto 2" />
+                  <TextField layoutX="407.0" layoutY="112.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Label layoutX="935.0" layoutY="23.0" text="Mahnzeit 3" />
+                  <TextField layoutX="935.0" layoutY="41.0" prefHeight="25.0" prefWidth="59.0" />
+                  <TextField layoutX="127.0" layoutY="40.0" />
+                  <Label layoutX="622.0" layoutY="23.0" text="Bestellwert" />
+                  <TextField layoutX="622.0" layoutY="41.0" />
+               </children>
+            </AnchorPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

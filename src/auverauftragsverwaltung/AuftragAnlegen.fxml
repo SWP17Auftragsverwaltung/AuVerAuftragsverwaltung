@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="652.0" prefWidth="1158.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.AuftragAnlegenController">
+   <children>
+      <TitledPane animated="false" collapsible="false" layoutX="25.0" layoutY="37.0" prefHeight="336.0" prefWidth="1058.0" text="Auftragskopfdatensatz" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="329.0" prefWidth="1056.0">
+               <children>
+                  <TextField layoutX="41.0" layoutY="101.0" AnchorPane.leftAnchor="41.0" />
+                  <Label layoutX="41.0" layoutY="87.0" text="Auftragskopf-ID" AnchorPane.leftAnchor="41.0" />
+                  <TextArea layoutX="200.0" layoutY="102.0" prefHeight="48.0" prefWidth="200.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="665.5999999999998" />
+                  <Label layoutX="201.0" layoutY="87.0" prefHeight="17.0" prefWidth="116.0" text="Text zum Auftrag" AnchorPane.leftAnchor="201.0" AnchorPane.rightAnchor="737.1999999999998" />
+                  <Label layoutX="404.0" layoutY="87.0" text="Partner-ID" AnchorPane.rightAnchor="597.0" />
+                  <TextField layoutX="403.0" layoutY="101.0" AnchorPane.rightAnchor="504.0" />
+                  <Label layoutX="578.0" layoutY="87.0" text="Erfassungsdatum" AnchorPane.rightAnchor="387.0" />
+                  <DatePicker layoutX="577.0" layoutY="101.0" prefHeight="25.0" prefWidth="131.0" AnchorPane.rightAnchor="348.0" />
+                  <DatePicker layoutX="884.0" layoutY="101.0" prefHeight="25.0" prefWidth="131.0" AnchorPane.rightAnchor="41.0" />
+                  <Label layoutX="727.0" layoutY="87.0" text="Lieferdatum" AnchorPane.rightAnchor="265.0" />
+                  <Label layoutX="884.0" layoutY="87.0" text="Wunschlieferdatum" AnchorPane.rightAnchor="69.0" />
+                  <DatePicker layoutX="729.0" layoutY="101.0" prefHeight="25.0" prefWidth="131.0" AnchorPane.rightAnchor="196.0" />
+                  <Label layoutX="42.0" layoutY="181.0" text="Auftragswert" />
+                  <TextField layoutX="42.0" layoutY="198.0" />
+                  <ComboBox layoutX="201.0" layoutY="198.0" prefWidth="150.0" />
+                  <Label layoutX="201.0" layoutY="181.0" text="Auftragsstatus" />
+                  <Label layoutX="363.0" layoutY="181.0" text="Auftragsart" />
+                  <ComboBox layoutX="365.0" layoutY="198.0" prefWidth="150.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </TitledPane>
+      <Button layoutX="136.0" layoutY="295.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Auftragspositionen" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="872.0" />
+      <Button layoutX="304.0" layoutY="295.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Auftrag anlegen " AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="704.0" />
+      <Button layoutX="474.0" layoutY="295.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Auftrag ändern" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="534.0" />
+      <Button layoutX="650.0" layoutY="295.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Auftrag löschen" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="358.0" />
+      <Button fx:id="closeAAn" layoutX="958.0" layoutY="295.0" mnemonicParsing="false" onAction="#CloseAuftraegeAnlegen" prefHeight="40.0" prefWidth="150.0" text="Abbrechen" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="50.0" />
+   </children>
+</AnchorPane>

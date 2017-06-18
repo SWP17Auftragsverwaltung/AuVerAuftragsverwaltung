@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="400.0" maxWidth="755.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="755.0" snapToPixel="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.AuftragSuchenController">
+   <children>
+      <TitledPane animated="false" collapsible="false" layoutX="8.0" layoutY="26.0" prefHeight="252.0" prefWidth="740.0" text="Suche nach ">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="218.0" prefWidth="738.0">
+               <children>
+                  <TextField layoutX="14.0" layoutY="39.0" />
+                  <Label layoutX="14.0" layoutY="22.0" text="Auftragsnummer" />
+                  <Label layoutX="171.0" layoutY="22.0" text="Kundenname" />
+                  <TextField layoutX="171.0" layoutY="39.0" />
+                  <TextField layoutX="327.0" layoutY="39.0" />
+                  <Label layoutX="327.0" layoutY="22.0" text="Lieferantenname" />
+                  <Label layoutX="483.0" layoutY="22.0" text="Datum" />
+                  <TextField layoutX="483.0" layoutY="39.0" />
+                  <TextField layoutX="14.0" layoutY="106.0" />
+                  <Label layoutX="14.0" layoutY="89.0" text="Artikel" />
+                  <Label layoutX="171.0" layoutY="89.0" text="Auftragsart" />
+                  <TextField layoutX="171.0" layoutY="106.0" />
+                  <TextField layoutX="14.0" layoutY="173.0" />
+                  <Label layoutX="327.0" layoutY="89.0" text="Auftragsstatus" />
+                  <ComboBox layoutX="327.0" layoutY="106.0" prefWidth="150.0" />
+                  <ComboBox layoutX="483.0" layoutY="106.0" prefWidth="150.0" />
+                  <Label layoutX="481.0" layoutY="89.0" text="Materialstatus" />
+                  <Label layoutX="14.0" layoutY="156.0" text="Steuersätze" />
+                  <Label layoutX="171.0" layoutY="156.0" text="Mahnstufe" />
+                  <TextField layoutX="171.0" layoutY="173.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </TitledPane>
+      <Button layoutX="145.0" layoutY="316.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Suchen " />
+      <Button fx:id="closeAS" layoutX="511.0" layoutY="316.0" mnemonicParsing="false" onAction="#CloseAuftragSuchen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " />
+   </children>
+</AnchorPane>

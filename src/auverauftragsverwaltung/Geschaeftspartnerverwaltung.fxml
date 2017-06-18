@@ -32,7 +32,7 @@
       <Button layoutX="47.0" layoutY="516.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner anlegen" />
       <Button layoutX="240.0" layoutY="516.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner ändern" />
       <Button layoutX="432.0" layoutY="516.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner löschen" />
-      <Button fx:id="cancelButton" layoutX="620.0" layoutY="516.0" mnemonicParsing="false" onAction="#handleCloseButtonAction" prefHeight="40.0" text="Abbrechen" />
+      <Button fx:id="closeGP" layoutX="620.0" layoutY="516.0" mnemonicParsing="false" onAction="#CloseGeschaeftspartner" prefHeight="40.0" text="Abbrechen" />
       <Label layoutX="47.0" layoutY="400.0" text="Partner-ID" />
       <Label layoutX="172.0" layoutY="400.0" text="Partner-Typ" />
       <Label layoutX="303.0" layoutY="400.0" text="Anschrift-ID" />

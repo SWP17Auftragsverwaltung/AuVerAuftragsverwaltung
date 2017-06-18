@@ -18,22 +18,16 @@ import javafx.stage.Stage;
  *
  * @author Mudimbi
  */
-public class GeschaeftspartnerverwaltungController implements Initializable {
-    
-    /*
-    *
-    Hier wird die Geschätspartner Scene verwaltet. Der Zugriff auf die Datenbank etc wird hier 
-    implementiert
-    */
-   @FXML
-    private Button closeGP;
+public class AuftragSuchenController implements Initializable {
+
+     @FXML
+    private Button closeAS;
    
    @FXML
-    public void CloseGeschaeftspartner(ActionEvent event) {
-    Stage stage = (Stage) closeGP.getScene().getWindow();
+    public void CloseAuftragSuchen(ActionEvent event) {
+    Stage stage = (Stage) closeAS.getScene().getWindow();
     stage.close();
 }
-    
     
     /**
      * Initializes the controller class.
