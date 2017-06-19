@@ -6,6 +6,7 @@
 package auverauftragsverwaltung;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -33,8 +34,8 @@ public class AuVerAuftragsverwaltung extends Application {
         Scene scene = new Scene(root);
         stage.setMaximized(true);
         stage.setScene(scene);
-       
         stage.show();
+        stage.setOnCloseRequest(e -> Platform.exit());
     }
 
     /**
