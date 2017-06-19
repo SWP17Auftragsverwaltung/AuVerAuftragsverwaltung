@@ -32,6 +32,7 @@ public class StartController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Artikelverwaltung");
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
     } catch(IOException e){
         System.out.println("Can't load the Artikelverwaltung!");
@@ -49,6 +50,7 @@ public class StartController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Geschäftspartnerverwaltung");
         stage.setScene(scene);
+//        stage.setMaximized(true);
         stage.show();
     } catch(IOException e){
         System.out.println("Can't load the Geschaeftspartnerverwaltung!");
@@ -63,6 +65,7 @@ public class StartController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Adressverwaltung");
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
     } catch(IOException e){
         System.out.println("Can't load the Adressverwaltung!");
@@ -77,6 +80,7 @@ public class StartController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Zahlungskonditionsverwaltung");
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
     } catch(IOException e){
         System.out.println("Can't load the Zahlungskonditionen!");
@@ -91,6 +95,7 @@ public class StartController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Aufträge Anzeigen");
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
     } catch(IOException e){
         System.out.println("Can't load the Auftraege!");
@@ -105,6 +110,7 @@ public class StartController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Auftrag anlegen");
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
     } catch(IOException e){
         System.out.println("Can't load the Auftrag anlegen!");
@@ -115,7 +121,7 @@ public class StartController implements Initializable {
     void AuftragSuchen(ActionEvent event){
         try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AuftragSuchen.fxml"));
-       Scene scene = new Scene(loader.load(), 1024, 768);
+       Scene scene = new Scene(loader.load(), 755, 500);
         Stage stage = new Stage();
         stage.setTitle("Auftrag suchen");
         stage.setScene(scene);
