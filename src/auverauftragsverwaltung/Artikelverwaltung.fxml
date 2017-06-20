@@ -19,7 +19,6 @@
             <TableColumn prefWidth="139.0" text="VERKAUFT" />
         </columns>
       </TableView>
-      <ScrollBar layoutX="748.0" layoutY="96.0" orientation="VERTICAL" prefHeight="312.0" prefWidth="14.0" AnchorPane.rightAnchor="36.0" />
       <TitledPane collapsible="false" layoutX="38.0" layoutY="287.0" prefHeight="232.0" prefWidth="1020.0" text="Artikeldatensatz" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0">
          <content>
             <Pane prefHeight="193.0" prefWidth="1018.0">

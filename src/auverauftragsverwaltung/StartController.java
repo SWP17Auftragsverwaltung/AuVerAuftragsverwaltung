@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package auverauftragsverwaltung;
 
 
@@ -50,7 +45,7 @@ public class StartController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Geschäftspartnerverwaltung");
         stage.setScene(scene);
-//        stage.setMaximized(true);
+        stage.setMaximized(true);
         stage.show();
     } catch(IOException e){
         System.out.println("Can't load the Geschaeftspartnerverwaltung!");

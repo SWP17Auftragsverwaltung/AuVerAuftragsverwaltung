@@ -1,43 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.GeschaeftspartnerverwaltungController">
    <children>
-      <Button layoutX="380.0" layoutY="36.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner suchen" AnchorPane.bottomAnchor="524.0" AnchorPane.topAnchor="36.0" />
-      <ScrollPane layoutX="47.0" layoutY="92.0" prefHeight="250.0" prefWidth="652.0">
+      <Button layoutX="380.0" layoutY="36.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner suchen" AnchorPane.topAnchor="36.0" />
+      <TableView editable="true" layoutX="25.0" layoutY="100.0" prefHeight="248.0" prefWidth="751.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="100.0">
+         <columns>
+            <TableColumn fx:id="age" prefWidth="112.0" text="Partner-ID" />
+            <TableColumn fx:id="id" prefWidth="124.0" text="Partner-Typ" />
+            <TableColumn fx:id="name" prefWidth="129.0" text="Anschrift-ID" />
+            <TableColumn fx:id="surname" prefWidth="139.0" text="Liefer-ID" />
+            <TableColumn fx:id="tableID" prefWidth="131.0" text="Kreditlimit" />
+         </columns>
+      </TableView>
+      <TitledPane animated="false" collapsible="false" layoutX="25.0" layoutY="370.0" text="Geschäftspartnerdatensatz" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="370.0">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane>
                <children>
-                  <TableView editable="true" prefHeight="250.0" prefWidth="636.0" AnchorPane.topAnchor="0.0">
-                     <columns>
-                        <TableColumn fx:id="age" prefWidth="112.0" text="Partner-ID" />
-                        <TableColumn fx:id="id" prefWidth="124.0" text="Partner-Typ" />
-                        <TableColumn fx:id="name" prefWidth="129.0" text="Anschrift-ID" />
-                        <TableColumn fx:id="surname" prefWidth="139.0" text="Liefer-ID" />
-                        <TableColumn fx:id="tableID" prefWidth="131.0" text="Kreditlimit" />
-                     </columns>
-                  </TableView>
+                  <Button layoutX="207.0" layoutY="116.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner ändern" />
+                  <Label layoutX="139.0" layoutY="8.0" text="Partner-Typ" />
+                  <Button layoutX="399.0" layoutY="116.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner löschen" />
+                  <Button fx:id="closeGP" layoutX="587.0" layoutY="116.0" mnemonicParsing="false" onAction="#CloseGeschaeftspartner" prefHeight="40.0" text="Abbrechen" />
+                  <Label layoutX="14.0" layoutY="8.0" text="Partner-ID" />
+                  <TextField layoutX="14.0" layoutY="25.0" prefWidth="112.0" />
+                  <ComboBox layoutX="139.0" layoutY="25.0" prefWidth="112.0" promptText="Typ" />
+                  <Label layoutX="538.0" layoutY="8.0" text="Kreditlimit" />
+                  <Button layoutX="14.0" layoutY="116.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner anlegen">
+                     <tooltip>
+                        <Tooltip text="Ermöglicht das Anlegen eines Geschäftspartners" />
+                     </tooltip>
+                  </Button>
+                  <TextField layoutX="270.0" layoutY="25.0" prefWidth="112.0" />
+                  <Label layoutX="406.0" layoutY="8.0" text="Liefer-ID" />
+                  <TextField layoutX="538.0" layoutY="25.0" prefWidth="112.0" />
+                  <Label layoutX="270.0" layoutY="8.0" text="Anschrift-ID" />
+                  <TextField layoutX="406.0" layoutY="25.0" prefWidth="112.0" />
                </children>
             </AnchorPane>
          </content>
-      </ScrollPane>
-      <TextField layoutX="47.0" layoutY="417.0" prefWidth="112.0" />
-      <TextField layoutX="439.0" layoutY="417.0" prefWidth="112.0" />
-      <TextField layoutX="303.0" layoutY="417.0" prefWidth="112.0" />
-      <ComboBox layoutX="172.0" layoutY="417.0" prefWidth="112.0" promptText="Typ" />
-      <TextField layoutX="571.0" layoutY="417.0" prefWidth="112.0" />
-      <Button layoutX="47.0" layoutY="516.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner anlegen" />
-      <Button layoutX="240.0" layoutY="516.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner ändern" />
-      <Button layoutX="432.0" layoutY="516.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner löschen" />
-      <Button fx:id="closeGP" layoutX="620.0" layoutY="516.0" mnemonicParsing="false" onAction="#CloseGeschaeftspartner" prefHeight="40.0" text="Abbrechen" />
-      <Label layoutX="47.0" layoutY="400.0" text="Partner-ID" />
-      <Label layoutX="172.0" layoutY="400.0" text="Partner-Typ" />
-      <Label layoutX="303.0" layoutY="400.0" text="Anschrift-ID" />
-      <Label layoutX="439.0" layoutY="400.0" text="Liefer-ID" />
-      <Label layoutX="571.0" layoutY="400.0" text="Kreditlimit" />
+         <padding>
+            <Insets bottom="50.0" />
+         </padding>
+      </TitledPane>
       <ComboBox layoutX="47.0" layoutY="42.0" prefWidth="112.0" promptText="Typ" />
       <TextField layoutX="190.0" layoutY="42.0" prefHeight="27.0" prefWidth="150.0" />
       <Label layoutX="47.0" layoutY="19.0" text="Feld" />
