@@ -7,9 +7,9 @@
 <AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.AdressverwaltungController">
    <children>
       <Label layoutX="25.0" />
-      <AnchorPane layoutX="25.0" minHeight="0.0" minWidth="0.0" prefHeight="462.0" prefWidth="1022.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+      <AnchorPane layoutX="25.0" minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="1013.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <children>
-            <TableView layoutY="95.0" prefHeight="487.0" prefWidth="1022.0" AnchorPane.bottomAnchor="-23.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="95.0">
+            <TableView layoutY="95.0" prefHeight="359.0" prefWidth="1013.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="95.0">
                <columns>
                   <TableColumn prefWidth="75.0" text="AnschriftID" />
                   <TableColumn prefWidth="50.0" text="Anrede" />
@@ -32,7 +32,7 @@
             <Button layoutX="468.0" layoutY="24.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Adresse suchen " />
          </children>
       </AnchorPane>
-      <TitledPane animated="false" collapsible="false" layoutX="25.0" layoutY="502.0" prefHeight="259.0" prefWidth="1029.0" text="Adressdatensatz" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+      <TitledPane animated="false" collapsible="false" layoutX="25.0" layoutY="502.0" prefHeight="256.0" prefWidth="1013.0" text="Adressdatensatz" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>

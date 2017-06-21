@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -37,7 +38,10 @@
                   <TextField layoutX="846.0" layoutY="43.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="781.0" layoutY="47.0" text="FREI" />
                   <Label layoutX="781.0" layoutY="75.0" text="RESERVIERT" />
-                  <TextField layoutX="846.0" layoutY="71.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField layoutX="846.0" layoutY="71.0" prefHeight="25.0" prefWidth="85.0">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding></TextField>
                   <TextField layoutX="846.0" layoutY="100.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="781.0" layoutY="104.0" text="ZULAUF" />
                   <Label layoutX="781.0" layoutY="135.0" text="VERKAUFT" />

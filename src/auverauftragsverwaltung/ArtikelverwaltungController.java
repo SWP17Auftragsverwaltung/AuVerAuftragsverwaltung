@@ -9,28 +9,36 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * FXML Controller class.
  *
  * @author Mudimbi
  */
 public class ArtikelverwaltungController implements Initializable {
 
+    /**
+     *
+     */
     @FXML
     private Button closeArW;
-   
-   @FXML
-    public void CloseArtikelverwaltung(ActionEvent event) {
-    Stage stage = (Stage) closeArW.getScene().getWindow();
-    stage.close();
-}
-    
-    
+
     /**
-     * Initializes the controller class.
+     *
+     * @param event ActionEvent.
+     */
+    @FXML
+    public void closeArtikelverwaltung(ActionEvent event) {
+        Stage stage = (Stage) closeArW.getScene().getWindow();
+        stage.close();
+    }
+
+    /**
+     * Initialisiert die Controller-Klasse.
+     * @param url URL zur initialisierung.
+     * @param rb Resourcen die geladen werden sollen.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+       
+    }
+
 }

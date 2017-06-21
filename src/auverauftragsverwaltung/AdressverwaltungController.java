@@ -9,28 +9,37 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * FXML Controller-Klasse.
  *
  * @author Mudimbi
  */
 public class AdressverwaltungController implements Initializable {
 
+    /**
+     *  Der Abbrechen-Button in der Adressverwaltung.
+     */
     @FXML
     private Button closeAW;
-   
-   @FXML
-    public void CloseAdressverwaltung(ActionEvent event) {
-    Stage stage = (Stage) closeAW.getScene().getWindow();
-    stage.close();
-}
-    
-    
+
+     /**
+     *  Methode zum Abbrechen der Adressverwaltung.
+     * @param event ActionEvent welches das Klicken des Buttons "Abbrechen" 
+     *              abfängt.
+     */
+    @FXML
+    public void closeAdressverwaltung(ActionEvent event) {
+        Stage stage = (Stage) closeAW.getScene().getWindow();
+        stage.close();
+    }
+
     /**
-     * Initializes the controller class.
+     * Initialisiert die Controller-Klasse.
+     * @param url URL zur initialisierung.
+     * @param rb Resourcen die geladen werden sollen.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }

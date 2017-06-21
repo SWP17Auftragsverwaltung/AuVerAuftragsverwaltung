@@ -25,7 +25,6 @@
          </font>
       </TitledPane>
       <Button layoutX="25.0" layoutY="36.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftrag Suchen " AnchorPane.leftAnchor="25.0" />
-      <ScrollBar layoutX="1045.0" layoutY="147.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="14.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="150.0" />
       <Button layoutX="25.0" layoutY="546.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftragspositionen" />
       <Button layoutX="200.0" layoutY="546.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftrag anlegen " />
       <Button layoutX="376.0" layoutY="546.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftrag ändern" />

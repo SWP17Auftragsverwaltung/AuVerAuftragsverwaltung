@@ -10,13 +10,13 @@ import javafx.stage.Stage;
 
 /*----------------------------------------------------------*/
 /* Datum Name Was */
-/* 08.06.17 AHen angelegt */
-/* 13.06.17 JGet StartGUI(Start.fxml) eingebunden */
+/* 08.06.17 AHen angelegt.*/
+/* 13.06.17 JGet StartGUI(Start.fxml) eingebunden. */
 /* 
 /*----------------------------------------------------------*/
 
 /**
- * AuVerAuftragsverwaltung 
+ * AuVerAuftragsverwaltung. Main-Klasse zur Ausführung der Software.
  * @author Jakob
  */
 public class AuVerAuftragsverwaltung extends Application {
@@ -27,6 +27,7 @@ public class AuVerAuftragsverwaltung extends Application {
 
         Scene scene = new Scene(root);
         stage.setMaximized(true);
+        stage.setTitle("AuVer - Auftragsverwaltung");
         stage.setScene(scene);
         stage.show();
         stage.setOnCloseRequest(e -> Platform.exit());
