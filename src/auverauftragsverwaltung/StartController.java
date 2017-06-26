@@ -1,12 +1,13 @@
-/**----------------------------------------------------------
-* FXML Controller für die Klasse: Start
-* 
-* Datum     Name    Was
-* 15.06.17  Get     angelegt
-*----------------------------------------------------------*/
+/*
+ * ----------------------------------------------------------
+ * FXML Controller für die Klasse: Start
+ *
+ * Datum     Name    Was
+ * 15.06.17  Get     angelegt
+ * 26.06.17  Get     Checkstyleprüfung.
+ *----------------------------------------------------------
+ */
 package auverauftragsverwaltung;
-
-
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,124 +20,184 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller-Klasse der StartGUI
+ * FXML Controller-Klasse der StartGUI.
  *
  * @author Jakob
  */
 public class StartController implements Initializable {
 
+    /**
+     * Methode zum öffnen der Artikelverwaltung durch das betätigen des Buttons
+     * "Artikelverwaltung" im Startfenster.
+     *
+     * @param event ActionEvent zur Prüfung ob der "Artikelverwaltung" - Button
+     * getätigt wurde.
+     */
     @FXML
-    void oeffneArtikelverwaltung(ActionEvent event){
+    public void oeffneArtikelverwaltung(ActionEvent event) {
         try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Artikelverwaltung.fxml"));
-       Scene scene = new Scene(loader.load(), 1095, 600);
-        Stage stage = new Stage();
-        stage.setTitle("Artikelverwaltung");
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
-    } catch(IOException e){
-        System.out.println("Can't load the Artikelverwaltung!");
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "Artikelverwaltung.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Artikelverwaltung");
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Can't load the Artikelverwaltung!");
+        }
     }
-    }
-    
-    
+
+    /**
+     * Methode zum öffnen der Geschäftspartnerverwaltung durch das betätigen des
+     * Buttons "Geschäftspartnerverwaltung" im Startfenster.
+     *
+     * @param event ActionEvent zur Prüfung ob der "Geschäftspartnerverwaltung"
+     * - Button getätigt wurde.
+     */
     @FXML
-    void oeffneGeschaeftspartner(ActionEvent event){
+    public void oeffneGeschaeftspartner(ActionEvent event) {
         try {
             //Die Ressource wird bezogen
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Geschaeftspartnerverwaltung.fxml"));
-        // Die Ressource wird geladen und Abmessungen werden festgelegt
-       Scene scene = new Scene(loader.load(), 800, 600);
-        Stage stage = new Stage();
-        stage.setTitle("Geschäftspartnerverwaltung");
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
-    } catch(IOException e){
-        System.out.println("Can't load the Geschaeftspartnerverwaltung!");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "Geschaeftspartnerverwaltung.fxml"));
+            // Die Ressource wird geladen und Abmessungen werden festgelegt
+            Scene scene = new Scene(loader.load(), 800, 600);
+            Stage stage = new Stage();
+            stage.setTitle("Geschäftspartnerverwaltung");
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Can't load the Geschaeftspartnerverwaltung!");
+        }
     }
-    }
-    
+
+    /**
+     * Methode zum öffnen der Adressverwaltung durch das betätigen des Buttons
+     * "Adressverwaltung" im Startfenster.
+     *
+     * @param event ActionEvent zur Prüfung ob der "Adressverwaltung"-Button
+     * getätigt wurde.
+     */
     @FXML
-    void oeffneAdressverwaltung(ActionEvent event){
+    public void oeffneAdressverwaltung(ActionEvent event) {
         try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Adressverwaltung.fxml"));
-        Scene scene = new Scene(loader.load(), 1024, 768);
-        Stage stage = new Stage();
-        stage.setTitle("Adressverwaltung");
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
-    } catch(IOException e){
-        System.out.println("Can't load the Adressverwaltung!");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "Adressverwaltung.fxml"));
+            Scene scene = new Scene(loader.load(), 1024, 768);
+            Stage stage = new Stage();
+            stage.setTitle("Adressverwaltung");
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Can't load the Adressverwaltung!");
+        }
     }
-    }
-    
+
+    /**
+     * Methode zum öffnen der Zahlungskonditionverwaltung durch das betätigen
+     * des Buttons "Zahlungskonditionverwaltung" im Startfenster.
+     *
+     * @param event ActionEvent zur Prüfung ob der
+     * "Zahlungskonditionverwaltung"-Button getätigt wurde.
+     */
     @FXML
-    void oeffneZahlungskondition(ActionEvent event){
+    public void oeffneZahlungskondition(ActionEvent event) {
         try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Zahlungskonditionen.fxml"));
-       Scene scene = new Scene(loader.load(), 1024, 768);
-        Stage stage = new Stage();
-        stage.setTitle("Zahlungskonditionsverwaltung");
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
-    } catch(IOException e){
-        System.out.println("Can't load the Zahlungskonditionen!");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "Zahlungskonditionen.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Zahlungskonditionsverwaltung");
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Can't load the Zahlungskonditionen!");
+        }
     }
-    }
-    
+
+    /**
+     * Methode zum öffnen der Auftragsanzeige durch das betätigen des Buttons
+     * "Aufträge anzeigen" im Startfenster.
+     *
+     * @param event ActionEvent zur Prüfung ob der "Aufträge anzeigen"-Button
+     * getätigt wurde.
+     */
     @FXML
-    void AuftraegeAnzeigen(ActionEvent event){
+    public void zeigeAuftragAn(ActionEvent event) {
         try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AuftraegeAnzeigen.fxml"));
-       Scene scene = new Scene(loader.load(), 1095, 600);
-        Stage stage = new Stage();
-        stage.setTitle("Aufträge Anzeigen");
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
-    } catch(IOException e){
-        System.out.println("Can't load the Auftraege!");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "AuftraegeAnzeigen.fxml"));
+            Scene scene = new Scene(loader.load(), 1095, 600);
+            Stage stage = new Stage();
+            stage.setTitle("Aufträge Anzeigen");
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            stage.show();
+        } catch (IOException e) {
+
+            System.out.println("Can't load the Auftraege!");
+        }
     }
-    }
-    
+
+    /**
+     * Methode zum öffnen des Fensters zum Anlegen von Aufträgen durch das
+     * betätigen des Buttons "Auftrag anlegen" im Startfenster.
+     *
+     * @param event ActionEvent zur Prüfung ob der "Auftrag anlegen"-Button
+     * getätigt wurde.
+     */
     @FXML
-    void AuftragAnlegen(ActionEvent event){
+    public void legeAuftragAn(ActionEvent event) {
         try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AuftragAnlegen.fxml"));
-       Scene scene = new Scene(loader.load(), 1024, 768);
-        Stage stage = new Stage();
-        stage.setTitle("Auftrag anlegen");
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        stage.show();
-    } catch(IOException e){
-        System.out.println("Can't load the Auftrag anlegen!");
-    }
-    }
-    
-    @FXML
-    void AuftragSuchen(ActionEvent event){
-        try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AuftragSuchen.fxml"));
-       Scene scene = new Scene(loader.load(), 755, 500);
-        Stage stage = new Stage();
-        stage.setTitle("Auftrag suchen");
-        stage.setScene(scene);
-        stage.show();
-    } catch(IOException e){
-        System.out.println("Can't load the AuftragSuchen!");
-    }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "AuftragAnlegen.fxml"));
+            Scene scene = new Scene(loader.load(), 1024, 768);
+            Stage stage = new Stage();
+            stage.setTitle("Auftrag anlegen");
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Can't load the Auftrag anlegen!");
+        }
     }
     
     /**
-     * Initializes the controller class.
+     * Methode zum öffnen des Fensters zum Suchen von Aufträgen durch das
+     * betätigen des Buttons "Auftrag suchen" im Startfenster.
+     *
+     * @param event ActionEvent zur Prüfung ob der "Auftrag suchen"-Button
+     * getätigt wurde.
+     */
+    @FXML
+    public void sucheAuftrag(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "AuftragSuchen.fxml"));
+            Scene scene = new Scene(loader.load(), 755, 500);
+            Stage stage = new Stage();
+            stage.setTitle("Auftrag suchen");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Can't load the AuftragSuchen!");
+        }
+    }
+
+    /**
+     * Initialisiert die Controller-Klasse.
+     * 
+     * @param url URL zur initialisierung.
+     * @param rb Resourcen die geladen werden sollen.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
-    }    
+
+    }
 }

@@ -1,9 +1,12 @@
-/**----------------------------------------------------------
-* FXML Controller für die Klasse: Zahlungskonditionen
-* 
-* Datum     Name    Was
-* 15.06.17  Sam     angelegt
-*----------------------------------------------------------*/
+/**
+ * ----------------------------------------------------------
+ * FXML Controller für die Klasse: Zahlungskonditionen
+ *
+ * Datum     Name    Was
+ * 15.06.17  Sam     angelegt
+ * 26.06.17  Get     Checkstyleprüfung.
+ *----------------------------------------------------------
+ */
 package auverauftragsverwaltung;
 
 import java.net.URL;
@@ -15,27 +18,39 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * FXML Controller-Klasse : Zahlungskonditionverwaltung.
  *
  * @author Mudimbi
  */
 public class ZahlungskonditionenController implements Initializable {
 
-     @FXML
-    private Button closeZK;
-   
-   @FXML
-    public void CloseZahlungskondition(ActionEvent event) {
-    Stage stage = (Stage) closeZK.getScene().getWindow();
-    stage.close();
-}
-    
     /**
-     * Initializes the controller class.
+     * Abbrechen-Button der Zahlungskonditionverwaltung.
+     */
+    @FXML
+    private Button closeZK;
+
+    /**
+     * Methode zum Abbrechen der Zahlungskonditionverwaltung.
+     *
+     * @param event ActionEvent welches das Klicken des Buttons "Abbrechen"
+     * abfängt.
+     */
+    @FXML
+    public void closeZahlungskondition(ActionEvent event) {
+        Stage stage = (Stage) closeZK.getScene().getWindow();
+        stage.close();
+    }
+
+    /**
+     * Initialisiert die Controller-Klasse.
+     *
+     * @param url URL zur initialisierung.
+     * @param rb Resourcen die geladen werden sollen.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }

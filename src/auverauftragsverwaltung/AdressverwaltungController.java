@@ -3,6 +3,7 @@
 * 
 * Datum     Name    Was
 * 15.06.17  Sam     angelegt
+* 26.06.17  Get     Checkstyleprüfung.
 *----------------------------------------------------------*/
 package auverauftragsverwaltung;
 
@@ -15,7 +16,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller-Klasse.
+ * FXML Controller-Klasse : Adressverwaltung.
  *
  * @author Mudimbi
  */
@@ -40,6 +41,7 @@ public class AdressverwaltungController implements Initializable {
 
     /**
      * Initialisiert die Controller-Klasse.
+     * 
      * @param url URL zur initialisierung.
      * @param rb Resourcen die geladen werden sollen.
      */

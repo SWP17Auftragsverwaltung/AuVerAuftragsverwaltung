@@ -1,3 +1,10 @@
+/*----------------------------------------------------------*/
+/* Datum Name Was */
+/* 08.06.17 AHen angelegt.*/
+/* 13.06.17 JGet StartGUI(Start.fxml) eingebunden. 
+/* 26.06.17  Get     Checkstyleprüfung.
+/*----------------------------------------------------------*/
+
 package auverauftragsverwaltung;
 
 
@@ -8,12 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/*----------------------------------------------------------*/
-/* Datum Name Was */
-/* 08.06.17 AHen angelegt.*/
-/* 13.06.17 JGet StartGUI(Start.fxml) eingebunden. */
-/* 
-/*----------------------------------------------------------*/
+
 
 /**
  * AuVerAuftragsverwaltung. Main-Klasse zur Ausführung der Software.

@@ -24,7 +24,7 @@
                   <Button layoutX="207.0" layoutY="116.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner ändern" />
                   <Label layoutX="139.0" layoutY="8.0" text="Partner-Typ" />
                   <Button layoutX="399.0" layoutY="116.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner löschen" />
-                  <Button fx:id="closeGP" layoutX="587.0" layoutY="116.0" mnemonicParsing="false" onAction="#CloseGeschaeftspartner" prefHeight="40.0" text="Abbrechen" />
+                  <Button fx:id="closeGP" layoutX="587.0" layoutY="116.0" mnemonicParsing="false" onAction="#closeGeschaeftspartner" prefHeight="40.0" text="Abbrechen" />
                   <Label layoutX="14.0" layoutY="8.0" text="Partner-ID" />
                   <TextField layoutX="14.0" layoutY="25.0" prefWidth="112.0" />
                   <ComboBox layoutX="139.0" layoutY="25.0" prefWidth="112.0" promptText="Typ" />

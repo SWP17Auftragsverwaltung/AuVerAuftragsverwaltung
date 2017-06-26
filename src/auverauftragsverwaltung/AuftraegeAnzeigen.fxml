@@ -24,11 +24,11 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </TitledPane>
-      <Button layoutX="25.0" layoutY="36.0" mnemonicParsing="false" onAction="#AuftragSuchen" prefHeight="40.0" prefWidth="160.0" text="Auftrag Suchen " AnchorPane.leftAnchor="25.0" />
+      <Button layoutX="25.0" layoutY="36.0" mnemonicParsing="false" onAction="#sucheAuftrag" prefHeight="40.0" prefWidth="160.0" text="Auftrag Suchen " AnchorPane.leftAnchor="25.0" />
       <Button layoutX="25.0" layoutY="546.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftragspositionen" />
       <Button layoutX="200.0" layoutY="546.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftrag anlegen " />
       <Button layoutX="376.0" layoutY="546.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftrag ändern" />
-      <Button fx:id="closeAA" layoutX="885.0" layoutY="546.0" mnemonicParsing="false" onAction="#CloseAuftraegeAnzeigen" prefHeight="40.0" prefWidth="160.0" text="Abbrechen " />
+      <Button fx:id="closeAA" layoutX="885.0" layoutY="546.0" mnemonicParsing="false" onAction="#closeAuftraegeAnzeigen" prefHeight="40.0" prefWidth="160.0" text="Abbrechen " />
       <Button layoutX="555.0" layoutY="546.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftrag löschen" />
    </children>
 </AnchorPane>

@@ -39,7 +39,7 @@
                   <Button layoutX="132.0" layoutY="172.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
                   <Button layoutX="24.0" layoutY="172.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
                   <Button layoutX="242.0" layoutY="172.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
-                  <Button fx:id="closeAW" layoutX="353.0" layoutY="172.0" mnemonicParsing="false" onAction="#CloseAdressverwaltung" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
+                  <Button fx:id="closeAW" layoutX="353.0" layoutY="172.0" mnemonicParsing="false" onAction="#closeAdressverwaltung" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
                   <Label layoutX="24.0" layoutY="20.0" text="AschriftI-D" />
                   <TextField layoutX="24.0" layoutY="38.0" prefHeight="25.0" prefWidth="100.0" />
                   <Label layoutX="136.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" text="Anrede" />

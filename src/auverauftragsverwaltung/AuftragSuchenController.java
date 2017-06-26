@@ -1,8 +1,9 @@
-/**----------------------------------------------------------
+/*----------------------------------------------------------
 * FXML Controller für die Klasse: AufträgeSuchen
 * 
 * Datum     Name    Was
 * 15.06.17  Sam     angelegt
+* 26.06.17  Get     Checkstyleprüfung.
 *----------------------------------------------------------*/
 package auverauftragsverwaltung;
 
@@ -15,27 +16,39 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * FXML Controller-Klasse : Auftragssuche.
  *
  * @author Mudimbi
  */
 public class AuftragSuchenController implements Initializable {
 
-     @FXML
-    private Button closeAS;
-   
-   @FXML
-    public void CloseAuftragSuchen(ActionEvent event) {
-    Stage stage = (Stage) closeAS.getScene().getWindow();
-    stage.close();
-}
-    
     /**
-     * Initializes the controller class.
+     * Abbrechen-Button der Auftragssuchmaske.
+     */
+    @FXML
+    private Button closeAS;
+
+    /**
+     * Mehtode zum Abbrechen der Auftragssuche.
+     *
+     * @param event ActionEvent zur Prüfung ob der "Auftrag suchen" - Button
+     * getätigt wurde.
+     */
+    @FXML
+    public void closeAuftragSuchen(ActionEvent event) {
+        Stage stage = (Stage) closeAS.getScene().getWindow();
+        stage.close();
+    }
+
+    /**
+     * Initialisiert die Controller-Klasse.
+     * 
+     * @param url URL zur initialisierung.
+     * @param rb Resourcen die geladen werden sollen.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }

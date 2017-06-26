@@ -1,9 +1,12 @@
-/**----------------------------------------------------------
-* FXML Controller für die Klasse: AufträgeAnzeigen
-* 
-* Datum     Name    Was
-* 15.06.17  Sam     angelegt
-*----------------------------------------------------------*/
+/*
+ * ----------------------------------------------------------
+ * FXML Controller für die Klasse: AufträgeAnzeigen
+ *
+ * Datum     Name    Was
+ * 15.06.17  Sam     angelegt
+ * 26.06.17  Get     Checkstyleprüfung.
+ *----------------------------------------------------------
+ */
 package auverauftragsverwaltung;
 
 import java.io.IOException;
@@ -18,42 +21,60 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * FXML Controller-Klasse : AufträgeAnzeigen.
  *
  * @author Mudimbi
  */
 public class AuftraegeAnzeigenController implements Initializable {
-
-    
-    @FXML
-    void AuftragSuchen(ActionEvent event){
-        try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AuftragSuchen.fxml"));
-       Scene scene = new Scene(loader.load(), 755, 500);
-        Stage stage = new Stage();
-        stage.setTitle("Auftrag suchen");
-        stage.setScene(scene);
-        stage.show();
-    } catch(IOException e){
-        System.out.println("Can't load the AuftragSuchen!");
-    }
-    }
-    
+    /**
+     *  Abbrechen-Button der Auftragsanzeige.
+     */
     @FXML
     private Button closeAA;
-   
-   @FXML
-    public void CloseAuftraegeAnzeigen(ActionEvent event) {
-    Stage stage = (Stage) closeAA.getScene().getWindow();
-    stage.close();
-}
-    
+
     /**
-     * Initializes the controller class.
+     * 
+     * Mehtode die das öffnen der Suchmaske für Aufträge, durch den Button
+     * "Auftrag suchen" ermöglicht.
+     * 
+     * @param event ActionEvent zur Prüfung ob der "Auftrag suchen" -
+     *              Button getätigt wurde.
+     */
+    @FXML
+    public void sucheAuftrag(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "AuftragSuchen.fxml"));
+            Scene scene = new Scene(loader.load(), 755, 500);
+            Stage stage = new Stage();
+            stage.setTitle("Auftrag suchen");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Can't load the AuftragSuchen!");
+        }
+    }
+
+    /**
+     * Methode zum Abbrechen der Auftragsanzeige.
+     * @param event ActionEvent welches das Klicken des Buttons "Abbrechen" 
+     *              abfängt.
+     */
+    @FXML
+    public void closeAuftraegeAnzeigen(ActionEvent event) {
+        Stage stage = (Stage) closeAA.getScene().getWindow();
+        stage.close();
+    }
+
+    /**
+     * Initialisiert die Controller-Klasse.
+     * 
+     * @param url URL zur initialisierung.
+     * @param rb Resourcen die geladen werden sollen.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }

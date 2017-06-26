@@ -49,7 +49,7 @@
                   <Button layoutX="35.0" layoutY="152.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Artikel löschen" />
                   <Button layoutX="204.0" layoutY="152.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Artikel anlegen " />
                   <Button layoutX="373.0" layoutY="152.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Artikel speichern" />
-                  <Button fx:id="closeArW" layoutX="544.0" layoutY="152.0" mnemonicParsing="false" onAction="#CloseArtikelverwaltung" prefHeight="40.0" prefWidth="160.0" text="Abbrechen " />
+                  <Button fx:id="closeArW" layoutX="544.0" layoutY="152.0" mnemonicParsing="false" onAction="#closeArtikelverwaltung" prefHeight="40.0" prefWidth="160.0" text="Abbrechen " />
                </children>
             </Pane>
          </content>
