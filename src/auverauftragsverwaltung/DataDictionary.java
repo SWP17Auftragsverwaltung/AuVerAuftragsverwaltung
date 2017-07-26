@@ -1,7 +1,14 @@
 /*------------------------------------------------------------------------------
- * Datum     Name    Was
- * 26.06.17  Hen     DataDictionary Klasse angelegt.
- *--------------------------------------------------------------------------- */
+* Klasse: DataDictionary.
+*-------------------------------------------------------------------------------
+* Zweck:
+* - Diese Klasse erstellt ein DataDictionary Objekt, das alle Informationen
+*   einer Tabelle zu darstellt.
+*-------------------------------------------------------------------------------
+* Historie:
+* 2017-06-26 HEN Erstellt.
+*-------------------------------------------------------------------------------
+*/
 package auverauftragsverwaltung;
 
 /**
@@ -51,9 +58,10 @@ public class DataDictionary {
      * @param feldlaenge Gibt die Länge des Attributs an.
      * @param position Gibt die Position des Attributs.
      */
-    public DataDictionary(String tabellenID,
-            String attributID, String attributName,
-            String datentyp, int feldlaenge, int position) {
+    public DataDictionary(String tabellenID, String attributID, 
+            String attributName, String datentyp, int feldlaenge, 
+            int position) {
+        
         this.tabellenID     = tabellenID;
         this.attributID     = attributID;
         this.attributName   = attributName;
@@ -62,7 +70,6 @@ public class DataDictionary {
         this.position       = position;
     }
 
-    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 23.06.17    Hen     toString Methode erstellt, gen. Code

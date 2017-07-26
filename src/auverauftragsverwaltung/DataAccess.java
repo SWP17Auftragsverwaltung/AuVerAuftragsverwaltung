@@ -1,7 +1,14 @@
 /*------------------------------------------------------------------------------
- * Datum     Name    Was
- * 23.06.17  Hen     DataAccess Klasse angelegt.
- *--------------------------------------------------------------------------- */
+* Klasse: DataAccess.
+*-------------------------------------------------------------------------------
+* Zweck:
+* - Diese Klasse dient zum Verbindungsaufbau zur Datenbank. Weiterhin schließt
+*   sie die Verbindung und erzeugt einen Pfad zur Datenbank.
+*-------------------------------------------------------------------------------
+* Historie:
+* 2017-06-26 HEN Erstellt.
+*-------------------------------------------------------------------------------
+*/
 package auverauftragsverwaltung;
 
 import java.io.File;
