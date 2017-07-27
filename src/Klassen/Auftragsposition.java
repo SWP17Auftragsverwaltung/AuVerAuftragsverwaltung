@@ -5,7 +5,7 @@
 * - Diese Klasse dient zur Verwaltung der Auftragsposition.
 *-------------------------------------------------------------------------------
 * Historie:
-* 2017-06-26 HEN Erstellt.
+* 2017-07-26 HEN Erstellt.
 *-------------------------------------------------------------------------------
 */
 package Klassen;

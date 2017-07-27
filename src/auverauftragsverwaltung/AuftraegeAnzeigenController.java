@@ -1,12 +1,15 @@
-/*
- * ----------------------------------------------------------
- * FXML Controller für die Klasse: AufträgeAnzeigen
- *
- * Datum     Name    Was
- * 15.06.17  Sam     angelegt
- * 26.06.17  Get     Checkstyleprüfung.
- *----------------------------------------------------------
- */
+/*------------------------------------------------------------------------------
+* Klasse: AufträgeAnzeigenController.
+*-------------------------------------------------------------------------------
+* Zweck:
+* - FXML Controller-Klasse.
+*-------------------------------------------------------------------------------
+* Historie:
+* 2017-06-15 SAM Angelegt.
+* 2017-06-26 GET Checkstyleprüfung.
+* 2017-07-27 BER Kommentarlayout angepasst.
+*-------------------------------------------------------------------------------
+*/
 package auverauftragsverwaltung;
 
 import java.io.IOException;
@@ -21,7 +24,6 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller-Klasse : AufträgeAnzeigen.
  *
  * @author Mudimbi
  */

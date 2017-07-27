@@ -1,9 +1,16 @@
-/*----------------------------------------------------------*/
-/* Datum Name Was */
-/* 08.06.17 AHen angelegt.*/
-/* 13.06.17 JGet StartGUI(Start.fxml) eingebunden. 
-/* 26.06.17  Get     Checkstyleprüfung.
-/*----------------------------------------------------------*/
+/*------------------------------------------------------------------------------
+* Klasse: AuVerAuftragsverwaltung.
+*-------------------------------------------------------------------------------
+* Zweck:
+* - Main-Klasse zur Ausführung der Software.
+*-------------------------------------------------------------------------------
+* Historie:
+* 2017-06-08 HEN Angelegt.
+* 2017-06-13 GET StartGui eingebunden.
+* 2017-06-26 GET Checkstyleprüfung.
+* 2017-07-27 BER Kommentarlayout angepasst.
+*-------------------------------------------------------------------------------
+*/
 
 package auverauftragsverwaltung;
 
@@ -18,7 +25,6 @@ import javafx.stage.Stage;
 
 
 /**
- * AuVerAuftragsverwaltung. Main-Klasse zur Ausführung der Software.
  * @author Jakob
  */
 public class AuVerAuftragsverwaltung extends Application {

@@ -1,12 +1,15 @@
-/*
- * ----------------------------------------------------------
- * FXML Controller für die Klasse: Aufträge anlegen
- *
- * Datum     Name    Was
- * 15.06.17  Sam     angelegt
- * 26.06.17  Get     Checkstyleprüfung.
- *----------------------------------------------------------
- */
+/*------------------------------------------------------------------------------
+* Klasse: AuftragAnlegenController.
+*-------------------------------------------------------------------------------
+* Zweck:
+* - FXML Controller-Klasse.
+*-------------------------------------------------------------------------------
+* Historie:
+* 2017-06-15 SAM Angelegt.
+* 2017-06-26 GET Checkstyleprüfung.
+* 2017-07-27 BER Kommentarlayout angepasst.
+*-------------------------------------------------------------------------------
+*/
 package auverauftragsverwaltung;
 
 import java.net.URL;
@@ -18,7 +21,6 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller-Klasse : Auftrag anlegen.
  *
  * @author Mudimbi
  */

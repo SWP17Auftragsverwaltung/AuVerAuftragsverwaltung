@@ -5,7 +5,8 @@
 * - Diese Klasse dient zur Verwaltung des Auftragskopfs.
 *-------------------------------------------------------------------------------
 * Historie:
-* 2017-06-26 HEN Erstellt.
+* 2017-07-26 HEN Erstellt.
+* 2017-07-27 BER Erweitert.
 *-------------------------------------------------------------------------------
 */
 package Klassen;

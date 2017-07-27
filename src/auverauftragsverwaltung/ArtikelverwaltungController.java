@@ -1,13 +1,16 @@
-/**
- * ----------------------------------------------------------
- * FXML Controller für die Klasse: Artikelverwaltung
- *
- * Datum     Name    Was
- * 15.06.17  Sam     angelegt
- * 26.06.17  Get     fehler bei Start der GUI behoben.
- *                   Checkstyleprüfung.
- *----------------------------------------------------------
- */
+/*------------------------------------------------------------------------------
+* Klasse: ArtikelverwaltungController.
+*-------------------------------------------------------------------------------
+* Zweck:
+* - FXML Controller-Klasse.
+*-------------------------------------------------------------------------------
+* Historie:
+* 2017-06-14 SAM Angelegt.
+* 2017-06-26 GET Checkstyleprüfung.
+*                Fehler bei Start der GUI behoben.
+* 2017-07-27 BER Kommentarlayout angepasst.
+*-------------------------------------------------------------------------------
+*/
 package auverauftragsverwaltung;
 
 import java.net.URL;
@@ -19,7 +22,6 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class.
  *
  * @author Mudimbi
  */

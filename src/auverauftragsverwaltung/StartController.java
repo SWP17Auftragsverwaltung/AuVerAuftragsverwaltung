@@ -1,12 +1,15 @@
-/*
- * ----------------------------------------------------------
- * FXML Controller für die Klasse: Start
- *
- * Datum     Name    Was
- * 15.06.17  Get     angelegt
- * 26.06.17  Get     Checkstyleprüfung.
- *----------------------------------------------------------
- */
+/*------------------------------------------------------------------------------
+* Klasse: StartController.
+*-------------------------------------------------------------------------------
+* Zweck:
+* - FXML Controller-Klasse.
+*-------------------------------------------------------------------------------
+* Historie:
+* 2017-06-15 SAM Angelegt.
+* 2017-06-26 GET Checkstyleprüfung.
+* 2017-07-27 BER Kommentarlayout angepasst.
+*-------------------------------------------------------------------------------
+*/
 package auverauftragsverwaltung;
 
 import java.io.IOException;
@@ -20,7 +23,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller-Klasse der StartGUI.
  *
  * @author Jakob
  */
