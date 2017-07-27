@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.AdressverwaltungController">
+   <children>
+      <Label layoutX="25.0" />
+      <AnchorPane layoutX="25.0" minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="1013.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+         <children>
+            <TableView layoutY="95.0" prefHeight="359.0" prefWidth="1013.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="95.0">
+               <columns>
+                  <TableColumn prefWidth="75.0" text="AnschriftID" />
+                  <TableColumn prefWidth="50.0" text="Anrede" />
+                  <TableColumn text="Name" />
+                  <TableColumn text="Vorname" />
+                  <TableColumn text="Straße" />
+                  <TableColumn prefWidth="50.0" text="HausNr." />
+                  <TableColumn prefWidth="50.0" text="PLZ" />
+                  <TableColumn prefWidth="130.0" text="Ort" />
+                  <TableColumn prefWidth="130.0" text="Staat" />
+                  <TableColumn prefWidth="100.0" text="Tel." />
+                  <TableColumn prefWidth="100.0" text="E-Mail" />
+                  <TableColumn prefWidth="100.0" text="Erf.Datum" />
+               </columns>
+            </TableView>
+            <ComboBox layoutX="25.0" layoutY="41.0" prefHeight="25.0" prefWidth="150.0" />
+            <Label layoutX="25.0" layoutY="24.0" prefHeight="17.0" prefWidth="72.0" text="Feld" />
+            <TextField layoutX="246.0" layoutY="41.0" prefHeight="25.0" prefWidth="199.0" />
+            <Label layoutX="246.0" layoutY="24.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
+            <Button layoutX="468.0" layoutY="24.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Adresse suchen " />
+         </children>
+      </AnchorPane>
+      <TitledPane animated="false" collapsible="false" layoutX="25.0" layoutY="502.0" prefHeight="256.0" prefWidth="1013.0" text="Adressdatensatz" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="132.0" layoutY="172.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
+                  <Button layoutX="24.0" layoutY="172.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
+                  <Button layoutX="242.0" layoutY="172.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
+                  <Button fx:id="closeAW" layoutX="353.0" layoutY="172.0" mnemonicParsing="false" onAction="#closeAdressverwaltung" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
+                  <Label layoutX="24.0" layoutY="20.0" text="AschriftI-D" />
+                  <TextField layoutX="24.0" layoutY="38.0" prefHeight="25.0" prefWidth="100.0" />
+                  <Label layoutX="136.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" text="Anrede" />
+                  <SplitMenuButton layoutX="132.0" layoutY="38.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Frau" />
+                        <MenuItem mnemonicParsing="false" text="Herr" />
+                     </items>
+                  </SplitMenuButton>
+                  <Label layoutX="292.0" layoutY="20.0" text="Name" />
+                  <TextField layoutX="292.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Label layoutX="454.0" layoutY="20.0" text="Vorname" />
+                  <TextField layoutX="453.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Label layoutX="615.0" layoutY="20.0" text="Telefon" />
+                  <TextField layoutX="613.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Label layoutX="771.0" layoutY="20.0" text="E-Mail" />
+                  <TextField layoutX="771.0" layoutY="36.0" prefHeight="25.0" prefWidth="220.0" />
+                  <Label layoutX="24.0" layoutY="76.0" text="Straße" />
+                  <TextField layoutX="24.0" layoutY="90.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Label layoutX="182.0" layoutY="75.0" text="PLZ" />
+                  <TextField layoutX="182.0" layoutY="90.0" prefHeight="25.0" prefWidth="100.0" />
+                  <Label layoutX="292.0" layoutY="76.0" text="Ort" />
+                  <TextField layoutX="292.0" layoutY="90.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Label layoutX="454.0" layoutY="76.0" text="Staat" />
+                  <TextField layoutX="453.0" layoutY="90.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Label layoutX="771.0" layoutY="75.0" text="Erfassungsdatum" />
+                  <TextField layoutX="771.0" layoutY="90.0" prefHeight="25.0" prefWidth="220.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </TitledPane>
+   </children>
+</AnchorPane>
