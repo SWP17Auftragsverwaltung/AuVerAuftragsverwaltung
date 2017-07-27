@@ -5,8 +5,8 @@
 * - Diese Klasse dient zur Verwaltung der Artikel.
 *-------------------------------------------------------------------------------
 * Historie:
-* 2017-07-26 HEN Erstellt.
-* 2017-07-27 BER Erweitert.
+* 26.07.2017    HEN     Erstellt.
+* 26.07.2017    BER     Erweitert.
 *-------------------------------------------------------------------------------
 */
 package Klassen;

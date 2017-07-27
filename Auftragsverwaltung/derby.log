@@ -12,3 +12,9 @@ os.arch=amd64
 os.version=6.3
 derby.system.home=C:\Users\Andre\Documents\NetBeansProjects\AuVerAuftragsverwaltung\Auftragsverwaltung
 Datenbank-Class Loader wurde gestartet - derby.database.classpath=''
+----------------------------------------------------------------
+Thu Jul 27 00:32:08 CEST 2017: Derby-Engine wird heruntergefahren
+----------------------------------------------------------------
+Thu Jul 27 00:32:08 CEST 2017:
+Instanz a816c00e-015d-80e7-417a-fffffdf91c1a im Datenbankverzeichnis C:\Users\Andre\Documents\NetBeansProjects\AuVerAuftragsverwaltung\Auftragsverwaltung\SPWI_2017 mit Class Loader sun.misc.Launcher$AppClassLoader@6f94fa3e wird heruntergefahren
+----------------------------------------------------------------

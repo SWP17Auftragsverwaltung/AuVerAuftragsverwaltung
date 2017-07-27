@@ -6,7 +6,7 @@
 *   sie die Verbindung und erzeugt einen Pfad zur Datenbank.
 *-------------------------------------------------------------------------------
 * Historie:
-* 2017-06-26 HEN Erstellt.
+* 26.07.2017    HEN     Erstellt.
 *-------------------------------------------------------------------------------
 */
 package Datenbank;
