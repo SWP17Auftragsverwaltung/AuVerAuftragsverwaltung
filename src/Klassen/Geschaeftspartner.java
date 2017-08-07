@@ -60,6 +60,7 @@ public class Geschaeftspartner {
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstellt.
+     * 01.08.17  CEL     Anpassungen - neue DB-Struktur
      *--------------------------------------------------------------------------
     */
     
@@ -153,6 +154,7 @@ public class Geschaeftspartner {
 
     /**
      * @return the adresseID
+     * 
     */
     public int getAdresseID() {
         return adresseID;

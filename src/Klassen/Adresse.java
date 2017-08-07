@@ -105,6 +105,8 @@ public class Adresse {
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstellt.
+     * 05.08.17  CEL     Anpassung - neue DB-Struktur und 
+     *                   Javadoc Kommentare hinzugefügt
      *--------------------------------------------------------------------------
     */
     
@@ -128,6 +130,11 @@ public class Adresse {
      * @param lkz Löschkennzeichen
      * @param firmenname Firmenname
      */
+    
+    /*
+    *  Initialisierung aller vorhandenen Variablen innerhalb der Adresse-Klasse.
+    */
+    
     public Adresse(int adresseID, String titel, String vorname, String nachname,
             String strasse, String hausnummer, int plz, String ort, 
             String staat, String telefon, String fax, String eMail, 
@@ -177,6 +184,10 @@ public class Adresse {
      * Equals Methode für Adressen Objekt.
      * @return Gleichheit von Adressenobjekten.
      * @param obj Objekt
+     * 
+     * Die equals-Methode dient dem Zweck,
+     * Objekte auf Gleichheit zu überprüfen.
+     * 
     */
     @Override
     public boolean equals(Object obj) {

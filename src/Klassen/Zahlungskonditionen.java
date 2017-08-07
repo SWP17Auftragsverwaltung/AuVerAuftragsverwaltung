@@ -86,6 +86,7 @@ public class Zahlungskonditionen {
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstellt.
+     * 30.07.17  CEL     Erweitert und getestet.
      *--------------------------------------------------------------------------
     */
     
