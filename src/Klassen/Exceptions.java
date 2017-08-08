@@ -6,6 +6,7 @@
 *-------------------------------------------------------------------------------
 * Historie:
 * 26.07.2017    HEN     Erstellt.
+* 07.08.17      BER     Erweitert.
 *-------------------------------------------------------------------------------
 */
 package Klassen;
@@ -29,6 +30,7 @@ public class Exceptions extends Exception {
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstellung allgemeiner Fehlerexceptions.
+     * 07.08.17  BER     Fehlerexceptions hinzugefügt.
      *--------------------------------------------------------------------------
     */
      
@@ -114,6 +116,7 @@ public class Exceptions extends Exception {
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstelltung Fehlerexception bezüglich Aufträge.
+     * 07.08.17  BER     Fehlerexceptions hinzugefügt.
      *--------------------------------------------------------------------------
     */
 
@@ -145,6 +148,7 @@ public class Exceptions extends Exception {
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstelltung Fehlerexception bezüglich Artikel.
+     * 07.08.17  BER     Fehlerexceptions hinzugefügt.
      *--------------------------------------------------------------------------
     */
     

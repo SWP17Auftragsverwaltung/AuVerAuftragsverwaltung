@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------
-* Klasse: Geschaeftspartner.
+* Klasse: Zahlungskonditionen.
 *-------------------------------------------------------------------------------
 * Zweck:
 * - Diese Klasse dient zur Verwaltung der Zahlungskonditionen.
