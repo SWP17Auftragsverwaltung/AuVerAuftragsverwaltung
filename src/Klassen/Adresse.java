@@ -105,8 +105,7 @@ public class Adresse {
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstellt.
-     * 05.08.17  CEL     Anpassung - neue DB-Struktur und 
-     *                   Javadoc Kommentare hinzugefügt
+     * 26.07.17  CEL     Erweitert & Javadoc Kommentare hinzugefügt
      *--------------------------------------------------------------------------
     */
     
