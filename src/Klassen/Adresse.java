@@ -186,7 +186,7 @@ public class Adresse {
      * @param obj Objekt
      * 
      * Die equals-Methode dient dem Zweck,
-     * Objekte auf Gleichheit zu überprüfen.
+     * Objekte auf Gleichheit zu prüfen.
      * 
     */
     @Override
