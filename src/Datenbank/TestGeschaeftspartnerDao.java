@@ -31,7 +31,7 @@ public class TestGeschaeftspartnerDao {
             */
             Geschaeftspartner geschaeftspartner = getGeschaeftspartnerFromResultSet(rsGep);
  
-            //Return employee object
+            //Return geschaeftspartner object
             return geschaeftspartner;
         } catch (SQLException e) {
             System.out.println("While searching an geschaeftspartner with " + gepId + " id, an error occurred: " + e);
@@ -65,8 +65,8 @@ public class TestGeschaeftspartnerDao {
  
   /*      
         try {
-            ResultSet rsEmps = DBUtil.dbExecuteQuery(selectStmt);
-            ObservableList<Geschaeftspartner> gepList = getGeschaeftspartnerList(rsEmps);
+            ResultSet rsGeps = DBUtil.dbExecuteQuery(selectStmt);
+            ObservableList<Geschaeftspartner> gepList = getGeschaeftspartnerList(rsGeps);
             return gepList;
         } catch (SQLException e) {
             System.out.println("SQL select operation has been failed: " + e);
