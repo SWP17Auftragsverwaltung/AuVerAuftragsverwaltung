@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import validierung.NumberTextField?>
+<?import validierung.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="1095.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.ArtikelverwaltungController">
    <children>
@@ -25,28 +25,28 @@
          <content>
             <Pane prefHeight="193.0" prefWidth="1018.0">
                <children>
-                  <TextField fx:id="tf_materialNr" editable="false" layoutX="14.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="materialNr" editable="false" layoutX="14.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="14.0" layoutY="22.0" text="MaterialNr" />
                   <Label layoutX="111.0" layoutY="22.0" text="Artikelbschreibung" />
-                  <TextArea fx:id="ta_artikelbeschreibung" layoutX="111.0" layoutY="39.0" prefHeight="65.0" prefWidth="173.0" />
+                  <TextArea fx:id="artikelbeschreibung" layoutX="111.0" layoutY="39.0" prefHeight="65.0" prefWidth="173.0" />
                   <Label layoutX="295.0" layoutY="22.0" text="Einzelwert" />
-                  <NumberTextField fx:id="tf_einzelwert" layoutX="295.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
-                  <TextArea fx:id="ta_bestellbeschreibung" layoutX="393.0" layoutY="40.0" prefHeight="65.0" prefWidth="173.0" />
+                  <NumberTextField fx:id="einzelwert" layoutX="295.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextArea fx:id="bestellbeschreibung" layoutX="393.0" layoutY="40.0" prefHeight="65.0" prefWidth="173.0" />
                   <Label layoutX="393.0" layoutY="23.0" text="Bestellbeschreibung" />
-                  <NumberTextField fx:id="tf_bestellwert" layoutX="581.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
+                  <NumberTextField fx:id="bestellwert" layoutX="581.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="581.0" layoutY="23.0" text="Bestellwert" />
                   <Label layoutX="815.0" layoutY="22.0" prefHeight="17.0" prefWidth="61.0" text="Bestand" />
-                  <TextField editable="false" layoutX="846.0" layoutY="43.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="bestandFREI" editable="false" layoutX="846.0" layoutY="43.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="781.0" layoutY="47.0" text="FREI" />
                   <Label layoutX="781.0" layoutY="75.0" text="RESERVIERT" />
-                  <TextField editable="false" layoutX="846.0" layoutY="71.0" prefHeight="25.0" prefWidth="85.0">
+                  <TextField fx:id="bestandRESERVIERT" editable="false" layoutX="846.0" layoutY="71.0" prefHeight="25.0" prefWidth="85.0">
                      <padding>
                         <Insets left="5.0" />
                      </padding></TextField>
-                  <TextField editable="false" layoutX="846.0" layoutY="100.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="bestandZULAUF" editable="false" layoutX="846.0" layoutY="100.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="781.0" layoutY="104.0" text="ZULAUF" />
                   <Label layoutX="781.0" layoutY="135.0" text="VERKAUFT" />
-                  <TextField editable="false" layoutX="846.0" layoutY="131.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="bestandVERKAUFT" editable="false" layoutX="846.0" layoutY="131.0" prefHeight="25.0" prefWidth="85.0" />
                   <Button layoutX="35.0" layoutY="152.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Artikel löschen" />
                   <Button layoutX="204.0" layoutY="152.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Artikel anlegen " />
                   <Button layoutX="373.0" layoutY="152.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Artikel speichern" />

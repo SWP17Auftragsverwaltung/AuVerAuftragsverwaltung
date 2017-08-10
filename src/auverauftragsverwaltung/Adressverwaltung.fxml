@@ -3,6 +3,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import validierung.*?>
 
 <AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.AdressverwaltungController">
    <children>
@@ -25,9 +26,9 @@
                   <TableColumn prefWidth="100.0" text="Erf.Datum" />
                </columns>
             </TableView>
-            <ComboBox layoutX="25.0" layoutY="41.0" prefHeight="25.0" prefWidth="150.0" />
+            <ComboBox fx:id="cb_suchfeld" layoutX="25.0" layoutY="41.0" prefHeight="25.0" prefWidth="150.0" />
             <Label layoutX="25.0" layoutY="24.0" prefHeight="17.0" prefWidth="72.0" text="Feld" />
-            <TextField layoutX="246.0" layoutY="41.0" prefHeight="25.0" prefWidth="199.0" />
+            <TextField fx:id="tf_suchbegriff" layoutX="246.0" layoutY="41.0" prefHeight="25.0" prefWidth="199.0" />
             <Label layoutX="246.0" layoutY="24.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
             <Button layoutX="468.0" layoutY="24.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Adresse suchen " />
          </children>
@@ -40,33 +41,36 @@
                   <Button layoutX="24.0" layoutY="172.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
                   <Button layoutX="242.0" layoutY="172.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
                   <Button fx:id="closeAW" layoutX="353.0" layoutY="172.0" mnemonicParsing="false" onAction="#closeAdressverwaltung" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
-                  <Label layoutX="24.0" layoutY="20.0" text="AschriftI-D" />
-                  <TextField layoutX="24.0" layoutY="38.0" prefHeight="25.0" prefWidth="100.0" />
+                  <Label layoutX="24.0" layoutY="20.0" text="Aschrift-ID" />
+                  <TextField fx:id="tf_anschriftID" editable="false" layoutX="24.0" layoutY="38.0" prefHeight="25.0" prefWidth="100.0" />
                   <Label layoutX="136.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" text="Anrede" />
-                  <SplitMenuButton layoutX="132.0" layoutY="38.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0">
+                  <SplitMenuButton fx:id="cb_anrede" layoutX="132.0" layoutY="38.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0">
                      <items>
                         <MenuItem mnemonicParsing="false" text="Frau" />
                         <MenuItem mnemonicParsing="false" text="Herr" />
                      </items>
                   </SplitMenuButton>
                   <Label layoutX="292.0" layoutY="20.0" text="Name" />
-                  <TextField layoutX="292.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
+                  <NameTextField fx:id="tf_name" layoutX="292.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
                   <Label layoutX="454.0" layoutY="20.0" text="Vorname" />
-                  <TextField layoutX="453.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
+                  <NameTextField fx:id="tf_vorname" layoutX="453.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
                   <Label layoutX="615.0" layoutY="20.0" text="Telefon" />
-                  <TextField layoutX="613.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
+                  <TelTextField fx:id="tf_telefon" layoutX="613.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
                   <Label layoutX="771.0" layoutY="20.0" text="E-Mail" />
-                  <TextField layoutX="771.0" layoutY="36.0" prefHeight="25.0" prefWidth="220.0" />
+                  <TextField fx:id="tf_email" layoutX="771.0" layoutY="36.0" prefHeight="25.0" prefWidth="220.0" />
                   <Label layoutX="24.0" layoutY="76.0" text="Straße" />
-                  <TextField layoutX="24.0" layoutY="90.0" prefHeight="25.0" prefWidth="150.0" />
-                  <Label layoutX="182.0" layoutY="75.0" text="PLZ" />
-                  <TextField layoutX="182.0" layoutY="90.0" prefHeight="25.0" prefWidth="100.0" />
-                  <Label layoutX="292.0" layoutY="76.0" text="Ort" />
-                  <TextField layoutX="292.0" layoutY="90.0" prefHeight="25.0" prefWidth="150.0" />
-                  <Label layoutX="454.0" layoutY="76.0" text="Staat" />
-                  <TextField layoutX="453.0" layoutY="90.0" prefHeight="25.0" prefWidth="150.0" />
+                  <StreetTextField fx:id="tf_strasse" layoutX="24.0" layoutY="90.0" prefHeight="25.0" prefWidth="150.0" />
+                  <TextField fx:id="tf_hausNr" layoutX="187.0" layoutY="89.0" prefHeight="25.0" prefWidth="100.0" />
+                  <Label layoutX="187.0" layoutY="74.0" text="HausNr" />
+                  <Label layoutX="298.0" layoutY="73.0" text="PLZ" />
+                  <NumberTextField fx:id="tf_plz" layoutX="298.0" layoutY="88.0" prefHeight="25.0" prefWidth="100.0" />
+                  <Label layoutX="408.0" layoutY="74.0" text="Ort" />
+                  <NameTextField fx:id="tf_ort" layoutX="408.0" layoutY="88.0" prefHeight="25.0" prefWidth="150.0" />
+                  <Label layoutX="570.0" layoutY="74.0" text="Staat" />
+                  <NameTextField fx:id="tf_staat" layoutX="569.0" layoutY="88.0" prefHeight="25.0" prefWidth="150.0" />
                   <Label layoutX="771.0" layoutY="75.0" text="Erfassungsdatum" />
-                  <TextField layoutX="771.0" layoutY="90.0" prefHeight="25.0" prefWidth="220.0" />
+                  <DatePicker fx:id="dp_erfassungsdatum" editable="false" layoutX="771.0" layoutY="90.0" />
+                  
                </children>
             </AnchorPane>
          </content>

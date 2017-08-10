@@ -10,12 +10,11 @@
 *                Fehler bei Start der GUI behoben.
 * 2017-07-27 BER Kommentarlayout angepasst.
 *-------------------------------------------------------------------------------
-*/
+ */
 package auverauftragsverwaltung;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,24 +31,18 @@ import javafx.stage.Stage;
  * @author Mudimbi
  */
 public class ArtikelverwaltungController implements Initializable {
-    
+
     @FXML
-    private ComboBox cb_feldwahl;
+    private TextArea artikelbeschreibung;
     @FXML
-    private TableView tv_artikel;
-//    @FXML
-//    private TextField tf_materialNr;
+    private TextField einzelwert;
     @FXML
-    private TextArea ta_artikelbeschreibung;
+    private TextArea bestellbeschreibung;
     @FXML
-    private TextField tf_einzelwert;
-    @FXML
-    private TextArea ta_bestellbeschreibung;
-    @FXML
-    private TextField tf_bestellwert;
+    private TextField bestellwert;
 
     /**
-     *  Abbrechen-Button der Artikelverwaltung.
+     * Abbrechen-Button der Artikelverwaltung.
      */
     @FXML
     private Button closeArW;
@@ -75,37 +68,30 @@ public class ArtikelverwaltungController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-       // Zeilenumbruch bei Artikelbeschreibung 
-        ta_artikelbeschreibung.setWrapText(true);
         //  Artikelbeschreibung auf 250 Zeichen begrenzt
-        ta_artikelbeschreibung.setTextFormatter(new TextFormatter<>(change -> 
-            change.getControlNewText().length() <= 250 ? change : null));
-        
-        // Zeilenumbruch bei Bestellbeschreibung 
-        ta_bestellbeschreibung.setWrapText(true);
+        begrenzeTextAreaEingabe(artikelbeschreibung, 250);
+
         // Bestellbeschreibung auf 250 Zeichen begrenzt
-        ta_bestellbeschreibung.setTextFormatter(new TextFormatter<>(change -> 
-            change.getControlNewText().length() <= 250 ? change : null));
-        
-        // Einzelwert auf 6 Zeichen begrenzt
-         tf_einzelwert.setTextFormatter(new TextFormatter<>(change -> 
-            change.getControlNewText().length() <= 6 ? change : null));
-        
-         // bestellwert auf 6 Zeichen begrenzt
-         tf_bestellwert.setTextFormatter(new TextFormatter<>(change -> 
-            change.getControlNewText().length() <= 6 ? change : null));
-        
-        setComboBox(tv_artikel);
+        begrenzeTextAreaEingabe(bestellbeschreibung, 250);
 
+        // Einzelwert auf 6 Zeichen begrenzt      
+        begrenzeTextFeldEingabe(einzelwert, 6);
+
+        // Bestellwert auf 6 Zeichen begrenzt
+        begrenzeTextFeldEingabe(bestellwert, 6);
     }
-    
-    private void setComboBox(TableView tv){
-        
-        ObservableList<Object> liste;
-        liste = tv.getColumns();
 
-        this.cb_feldwahl.getItems().addAll(liste);
-        
+    private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
+
+        tf.setTextFormatter(new TextFormatter<>(change
+                -> change.getControlNewText().length() <= zahl ? change : null));
+    }
+
+    private void begrenzeTextAreaEingabe(TextArea ta, int zahl) {
+        // Zeilenumbruch im TextArea Feld
+        ta.setWrapText(true);
+        ta.setTextFormatter(new TextFormatter<>(change
+                -> change.getControlNewText().length() <= zahl ? change : null));
     }
 
 }

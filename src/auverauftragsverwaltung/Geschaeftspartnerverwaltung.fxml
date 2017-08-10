@@ -4,6 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import validierung.*?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.GeschaeftspartnerverwaltungController">
    <children>
@@ -19,14 +20,14 @@
       </TableView>
       <TitledPane animated="false" collapsible="false" layoutX="25.0" layoutY="370.0" text="Geschäftspartnerdatensatz" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="370.0">
          <content>
-            <AnchorPane>
+            <AnchorPane fx:id="tf_partnerID">
                <children>
                   <Button layoutX="207.0" layoutY="116.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner ändern" />
                   <Label layoutX="139.0" layoutY="8.0" text="Partner-Typ" />
                   <Button layoutX="399.0" layoutY="116.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner löschen" />
                   <Button fx:id="closeGP" layoutX="587.0" layoutY="116.0" mnemonicParsing="false" onAction="#closeGeschaeftspartner" prefHeight="40.0" text="Abbrechen" />
                   <Label layoutX="14.0" layoutY="8.0" text="Partner-ID" />
-                  <TextField layoutX="14.0" layoutY="25.0" prefWidth="112.0" />
+                  <TextField  editable="false" layoutX="14.0" layoutY="25.0" prefWidth="112.0" />
                   <ComboBox layoutX="139.0" layoutY="25.0" prefWidth="112.0" promptText="Typ" />
                   <Label layoutX="538.0" layoutY="8.0" text="Kreditlimit" />
                   <Button layoutX="14.0" layoutY="116.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner anlegen">
@@ -34,11 +35,11 @@
                         <Tooltip text="Ermöglicht das Anlegen eines Geschäftspartners" />
                      </tooltip>
                   </Button>
-                  <TextField layoutX="270.0" layoutY="25.0" prefWidth="112.0" />
+                  <TextField fx:id="tf_anschriftID" layoutX="270.0" layoutY="25.0" prefWidth="112.0" />
                   <Label layoutX="406.0" layoutY="8.0" text="Liefer-ID" />
-                  <TextField layoutX="538.0" layoutY="25.0" prefWidth="112.0" />
+                  <NumberTextField fx:id="tf_kreditlimit" layoutX="538.0" layoutY="25.0" prefWidth="112.0" />
                   <Label layoutX="270.0" layoutY="8.0" text="Anschrift-ID" />
-                  <TextField layoutX="406.0" layoutY="25.0" prefWidth="112.0" />
+                  <TextField fx:id="tf_lieferID" layoutX="406.0" layoutY="25.0" prefWidth="112.0" />
                </children>
             </AnchorPane>
          </content>
