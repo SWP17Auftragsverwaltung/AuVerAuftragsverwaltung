@@ -9,7 +9,7 @@
 * 2017-06-26 GET Checkstyleprüfung.
 * 2017-07-27 BER Kommentarlayout angepasst.
 *-------------------------------------------------------------------------------
-*/
+ */
 package auverauftragsverwaltung;
 
 import java.net.URL;
@@ -18,6 +18,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 
 /**
@@ -31,6 +34,17 @@ public class AuftragAnlegenController implements Initializable {
      */
     @FXML
     private Button closeAAn;
+    /**
+     * Text zum Auftrag.
+     */
+    @FXML
+    private TextArea textZumAuftrag;
+
+    /**
+     * Auftragswert des Auftrags.
+     */
+    @FXML
+    private TextField auftragswert;
 
     /**
      * Methode zum Abbrechen der "Auftrag anlegen" - View.
@@ -52,7 +66,38 @@ public class AuftragAnlegenController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
+        begrenzeTextFeldEingabe(auftragswert, 10);
+       
+        begrenzeTextAreaEingabe(textZumAuftrag, 30);
+
+
+    }
+
+    /**
+     * Methode zum begrenzen der Anzahl der Zeichen, die in ein Textfeld
+     * eingetragen werden können.
+     *
+     * @param tf Textfeld welches begrenzt wird.
+     * @param zahl Anzahl Zeichen.
+     */
+    private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
+
+        tf.setTextFormatter(new TextFormatter<>(change
+            -> change.getControlNewText().length() <= zahl
+                        ? change : null));
+    }
+    /**
+     * Methode zum begrenzen der Anzahl der Zeichen, die in eins Textfeld
+     * eingetragen werden können. 
+     * @param ta
+     * @param zahl 
+     */
+    private void begrenzeTextAreaEingabe(TextArea ta, int zahl) {
+        // Zeilenumbruch im TextArea Feld
+        ta.setWrapText(true);
+        ta.setTextFormatter(new TextFormatter<>(change
+            -> change.getControlNewText().length() <= zahl ? change : null));
     }
 
 }

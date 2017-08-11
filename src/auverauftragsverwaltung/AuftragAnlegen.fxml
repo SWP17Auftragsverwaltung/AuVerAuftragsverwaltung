@@ -3,6 +3,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import validierung.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="652.0" prefWidth="1158.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.AuftragAnlegenController">
    <children>
@@ -10,24 +11,24 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="329.0" prefWidth="1056.0">
                <children>
-                  <TextField layoutX="41.0" layoutY="101.0" />
+                  <TextField editable="false" layoutX="41.0" layoutY="101.0" />
                   <Label layoutX="41.0" layoutY="87.0" text="Auftragskopf-ID" />
-                  <TextArea layoutX="200.0" layoutY="102.0" prefHeight="48.0" prefWidth="200.0" />
+                  <TextArea fx:id="textZumAuftrag" layoutX="200.0" layoutY="102.0" prefHeight="48.0" prefWidth="200.0" />
                   <Label layoutX="201.0" layoutY="87.0" prefHeight="17.0" prefWidth="116.0" text="Text zum Auftrag" />
                   <Label layoutX="404.0" layoutY="87.0" text="Partner-ID" />
-                  <TextField layoutX="403.0" layoutY="101.0" />
+                  <TextField fx:id="partnerID" layoutX="403.0" layoutY="101.0" />
                   <Label layoutX="578.0" layoutY="87.0" text="Erfassungsdatum" />
-                  <DatePicker layoutX="577.0" layoutY="101.0" prefHeight="25.0" prefWidth="131.0" />
-                  <DatePicker layoutX="884.0" layoutY="101.0" prefHeight="25.0" prefWidth="131.0" />
+                  <DatePicker fx:id="erfassungsdatum" editable="false" layoutX="577.0" layoutY="101.0" prefHeight="25.0" prefWidth="131.0" />
+                  <DatePicker fx:id="lieferdatum" editable="false" layoutX="729.0" layoutY="101.0" prefHeight="25.0" prefWidth="131.0" />
+                  <DatePicker fx:id="wunschlieferdatum" editable="false" layoutX="884.0" layoutY="101.0" prefHeight="25.0" prefWidth="131.0" />
                   <Label layoutX="727.0" layoutY="87.0" text="Lieferdatum" />
-                  <Label layoutX="884.0" layoutY="87.0" text="Wunschlieferdatum" />
-                  <DatePicker layoutX="729.0" layoutY="101.0" prefHeight="25.0" prefWidth="131.0" />
+                  <Label layoutX="884.0" layoutY="87.0" text="Wunschlieferdatum" />                
                   <Label layoutX="42.0" layoutY="181.0" text="Auftragswert" />
-                  <TextField layoutX="42.0" layoutY="198.0" />
-                  <ComboBox layoutX="201.0" layoutY="198.0" prefWidth="150.0" />
+                  <NumberTextField fx:id="auftragswert" layoutX="42.0" layoutY="198.0" />
+                  <ComboBox fx:id="auftragsstatusCB" layoutX="201.0" layoutY="198.0" prefWidth="150.0" />
                   <Label layoutX="201.0" layoutY="181.0" text="Auftragsstatus" />
                   <Label layoutX="363.0" layoutY="181.0" text="Auftragsart" />
-                  <ComboBox layoutX="365.0" layoutY="198.0" prefWidth="150.0" />
+                  <ComboBox fx:id="auftragsartCB" layoutX="365.0" layoutY="198.0" prefWidth="150.0" />
                </children>
             </AnchorPane>
          </content>

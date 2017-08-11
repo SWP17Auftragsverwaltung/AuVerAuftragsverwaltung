@@ -18,6 +18,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
@@ -53,6 +55,11 @@ public class AdressverwaltungController implements Initializable {
     private TextField tf_staat;
     @FXML
     private TextField tf_erfassungsdatum;
+    
+    @FXML
+    private TableView tableVW;
+    
+    
 
     /**
      * Methode zum Abbrechen der Adressverwaltung.
@@ -110,6 +117,15 @@ public class AdressverwaltungController implements Initializable {
                 -> {
             return change.getControlNewText().length() <= zahl ? change : null;
         }));
+        
+    }
+    
+    public boolean importiereAdressen(TableView tv, TableColumn tc){
+        
+        
+       
+        
+        return false;
         
     }
 

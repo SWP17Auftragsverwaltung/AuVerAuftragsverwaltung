@@ -34,13 +34,21 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      */
     @FXML
     private Button closeGP;
- 
+    /**
+     * Liefer-ID des Lieferanten.
+     */
     @FXML
-    private TextField tf_lieferID;
+    private TextField lieferID;
+    /**
+     * Anschrift-ID des Geschäftspartners.
+     */
     @FXML
-    private TextField tf_anschriftID;
+    private TextField anschriftID;
+    /**
+     * Kreditlimit des Geschäftspartners.
+     */
     @FXML
-    private TextField tf_kreditlimit;
+    private TextField kreditlimit;
 
     /**
      * Methode zum Schließen der Geschäftspartnerverwaltung durch den Button
@@ -64,15 +72,23 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        begrenzeTextFeldEingabe(tf_anschriftID, 6);
-        begrenzeTextFeldEingabe(tf_lieferID, 6);
-        begrenzeTextFeldEingabe(tf_kreditlimit, 6);
+        begrenzeTextFeldEingabe(anschriftID, 6);
+        begrenzeTextFeldEingabe(lieferID, 6);
+        begrenzeTextFeldEingabe(kreditlimit, 6);
     }
 
+    /**
+     * Methode zum begrenzen der Anzahl der Zeichen, die in ein Textfeld
+     * eingetragen werden können.
+     *
+     * @param tf Textfeld welches begrenzt wird.
+     * @param zahl Anzahl Zeichen.
+     */
     private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
 
         tf.setTextFormatter(new TextFormatter<>(change
-                -> change.getControlNewText().length() <= zahl ? change : null));
+            -> change.getControlNewText().length() <= zahl
+                        ? change : null));
     }
 
 }

@@ -10,7 +10,7 @@
       <Label layoutX="25.0" />
       <AnchorPane layoutX="25.0" minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="1013.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <children>
-            <TableView layoutY="95.0" prefHeight="359.0" prefWidth="1013.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="95.0">
+            <TableView fx:id = "adresseTV" layoutY="95.0" prefHeight="359.0" prefWidth="1013.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="95.0">
                <columns>
                   <TableColumn prefWidth="75.0" text="AnschriftID" />
                   <TableColumn prefWidth="50.0" text="Anrede" />
