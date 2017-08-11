@@ -9,12 +9,6 @@ package Datenbank;
  *
  * @author Chakir
  */
-public class AdresseDAO extends DataAccess {
-
-    /**
-     * Instanziierung des QueryManager-Objektes.
-     */
-    QueryManager q = new QueryManager();
-
+public class DataDictionaryDAO extends DataAccess {
     
 }
