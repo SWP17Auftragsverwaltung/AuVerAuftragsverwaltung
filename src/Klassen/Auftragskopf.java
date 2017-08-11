@@ -64,6 +64,11 @@ public class Auftragskopf {
     */
     private java.sql.Date abschlussDatum;
     
+     /**
+     * Lieferdatum des Auftragskopfes.
+     */
+    private java.sql.Date lieferdatum;
+    
     /**
      * LKZ des Auftragskopfes.
     */
@@ -90,6 +95,7 @@ public class Auftragskopf {
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstellt.
+     * 11.08.17  Ber     Lieferdatum hinzugefügt.
      *--------------------------------------------------------------------------
     */
     
@@ -99,6 +105,7 @@ public class Auftragskopf {
      * @param auftragskopfID AuftragskopfID, Primärschlüssel
      * @param geschaeftspartnerID ID des Geschäftspartners
      * @param erfassungsdatum Datum wo Auftrag erfasst wird
+     * @param lieferdatum Berechnetes Lieferdatum
      * @param auftragsart Art des Auftrages
      * @param status Status des Auftrages
      * @param auftragswert berechneter Auftragswert
@@ -108,13 +115,14 @@ public class Auftragskopf {
      * @param zahlungskonditionsID ID der Zahlungskonditionen
      */
     public Auftragskopf(int auftragskopfID, int geschaeftspartnerID,
-            Date erfassungsdatum, String auftragsart, String status,
-            double auftragswert, String auftragstext, Date abschlussDatum, 
-            boolean lkz, int zahlungskonditionsID) {
+            Date erfassungsdatum, Date lieferdatum, String auftragsart, 
+            String status, double auftragswert, String auftragstext, 
+            Date abschlussDatum, boolean lkz, int zahlungskonditionsID) {
 
         this.auftragskopfID = auftragskopfID;    
         this.geschaeftspartnerID = geschaeftspartnerID;
-        this.erfassungsdatum = erfassungsdatum;       
+        this.erfassungsdatum = erfassungsdatum;
+        this.lieferdatum = lieferdatum;
         this.auftragsart = auftragsart;
         this.status = status;
         this.auftragswert = auftragswert;
@@ -222,6 +230,20 @@ public class Auftragskopf {
         this.erfassungsdatum = erfassungsdatum;
     }
 
+        /**
+     * @return the Lieferdatum
+     */
+    public Date getLieferdatum() {
+        return lieferdatum;
+    }
+
+    /**
+     * @param lieferdatum the Lieferdatum to set
+     */
+    public void setLieferdatum(Date lieferdatum) {
+        this.lieferdatum = lieferdatum;
+    }
+    
     /**
      * @return the Auftragsart
     */

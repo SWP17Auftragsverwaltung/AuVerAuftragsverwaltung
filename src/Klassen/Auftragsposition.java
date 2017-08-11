@@ -217,7 +217,7 @@ public class Auftragsposition {
     /**
      * @return lkz 
      */
-    public boolean isLkz() {
+    public boolean getLkz() {
         return lkz;
     }
 
