@@ -69,6 +69,8 @@ public class DataAccess {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 23.06.17    Hen     Methode datenbankVerbindung erstellt.
+    /* 24.06.17    CEL     'try-catch'-Block erweitert.
+    */
     /*------------------------------------------------------------------------*/
     
     /**
