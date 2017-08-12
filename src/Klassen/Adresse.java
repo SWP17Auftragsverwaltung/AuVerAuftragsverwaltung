@@ -12,8 +12,6 @@
 */
 package Klassen;
 
-import java.util.Date;
-
 /**
  * @author Andre
  */
@@ -26,22 +24,22 @@ public class Adresse {
     /**
      * Primärschlüssel des Adressobjektes.
     */
-    private int adresseID;
+    private String adresseID;
     
     /**
      * Vorname des Geschäftspartners.
      */
-    private String vorname;
+    private String name;
     
     /**
      * Nachname des Geschäftspartners.
     */
-    private String nachname;
+    private String vorname;
     
     /**
-     * Titel des Geschäftspartners.
+     * Anrede des Geschäftspartners.
     */
-    private String titel;
+    private String anrede;
     
     /**
      * Straße des Geschäftspartners.
@@ -56,7 +54,7 @@ public class Adresse {
     /**
      * PLZ des Geschäftspartners.
     */
-    private int plz;
+    private String plz;
     
     /**
      * Ort des Geschäftspartners.
@@ -72,36 +70,21 @@ public class Adresse {
      * Telefonnummer des Geschäftspartners.
     */
     private String telefon;
-    
-    /**
-     * Faxnummer des Geschäftspartners.
-    */
-    private String fax;
-    
+
     /**
      * eMail-Adresse des Geschäftspartners.
     */
     private String eMail;
     
     /**
-     * Geburtsdatum des Geschäftspartners.
-     */
-    private Date geburtsdatum;
-    
-    /**
      * Erfassungsdatum des Objektes.
      */
-    private Date erfassungsdatum;
-    
-    /**
-     * Firmenname des Geschäftspartners.
-     */
-    private String firmenname;
+    private String erfassungsdatum;
     
     /**
      * LKZ des Adressobjektes.
      */
-    private boolean lkz;
+    private String lkz;
 
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
@@ -114,49 +97,37 @@ public class Adresse {
      * Konstruktor für Adresse Objekt.
      *
      * @param adresseID Adress ID
-     * @param titel Titel
-     * @param vorname Vorname
-     * @param nachname Nachname
+     * @param anrede Anrede
+     * @param name Vorname
+     * @param vorname Nachname
      * @param strasse Straße
      * @param hausnummer HausNr
      * @param plz PLZ
      * @param ort Ort
      * @param staat Staat
      * @param telefon Telefon
-     * @param fax FAX
      * @param eMail Email
-     * @param geburtsdatum Geburtsdatum
      * @param erfassungsdatum Erfassungsdatum
      * @param lkz Löschkennzeichen
-     * @param firmenname Firmenname
      */
-    
-    /*
-    *  Initialisierung aller vorhandenen Variablen innerhalb der Adresse-Klasse.
-    */
-    
-    public Adresse(int adresseID, String titel, String vorname, String nachname,
-            String strasse, String hausnummer, int plz, String ort, 
-            String staat, String telefon, String fax, String eMail, 
-            Date geburtsdatum, Date erfassungsdatum, Boolean lkz, 
-            String firmenname) {
+    public Adresse(String adresseID, String anrede, String name, 
+            String vorname, String strasse, String hausnummer, String plz, 
+            String ort, String staat, String telefon, String eMail, 
+            String erfassungsdatum, String lkz) {
 
         this.adresseID = adresseID;
+        this.name = name;
         this.vorname = vorname;
-        this.nachname = nachname;
-        this.titel = titel;
+        this.anrede = anrede;
         this.strasse = strasse;
         this.hausnummer = hausnummer;
         this.plz = plz;
         this.ort = ort;
         this.staat = staat;
         this.telefon = telefon;
-        this.fax = fax;
         this.eMail = eMail;
-        this.geburtsdatum = geburtsdatum;
         this.erfassungsdatum = erfassungsdatum;
         this.lkz = lkz;
-        this.firmenname = firmenname;
     }
 
     /*--------------------------------------------------------------------------
@@ -171,7 +142,7 @@ public class Adresse {
      */
     @Override
     public int hashCode() {
-        return adresseID;
+        return adresseID.hashCode();
     }
     
     /*--------------------------------------------------------------------------
@@ -193,7 +164,7 @@ public class Adresse {
     public boolean equals(Object obj) {
         Adresse a = (Adresse) obj;
         return (obj instanceof Adresse)
-                && this.adresseID == a.adresseID;
+                && this.adresseID.equals(a.adresseID);
     }
 
     /*--------------------------------------------------------------------------
@@ -219,14 +190,14 @@ public class Adresse {
     /**
      * @return the AdresseID
      */
-    public int getAdresseID() {
+    public String getAdresseID() {
         return adresseID;
     }
 
     /**
      * @param adresseID the AdresseID to set
      */
-    public void setAdresseID(int adresseID) {
+    public void setAdresseID(String adresseID) {
         this.adresseID = adresseID;
     }
 
@@ -245,31 +216,31 @@ public class Adresse {
     }
 
     /**
-     * @return the Nachname
+     * @return the Name
      */
-    public String getNachname() {
-        return nachname;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param nachname the Nachname to set
+     * @param name the Name to set
      */
-    public void setNachname(String nachname) {
-        this.nachname = nachname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
-     * @return the Titel
+     * @return the Anrede
      */
-    public String getTitel() {
-        return titel;
+    public String getAnrede() {
+        return anrede;
     }
 
     /**
-     * @param titel the Titel to set
+     * @param anrede the Anrede to set
      */
-    public void setTitel(String titel) {
-        this.titel = titel;
+    public void setAnrede(String anrede) {
+        this.anrede = anrede;
     }
 
     /**
@@ -303,14 +274,14 @@ public class Adresse {
     /**
      * @return the PLZ
      */
-    public int getPLZ() {
+    public String getPLZ() {
         return plz;
     }
 
     /**
      * @param plz the PLZ to set
      */
-    public void setPLZ(int plz) {
+    public void setPLZ(String plz) {
         this.plz = plz;
     }
 
@@ -357,20 +328,6 @@ public class Adresse {
     }
 
     /**
-     * @return the Fax
-     */
-    public String getFax() {
-        return fax;
-    }
-
-    /**
-     * @param fax the Fax to set
-     */
-    public void setFax(String fax) {
-        this.fax = fax;
-    }
-
-    /**
      * @return the eMail
      */
     public String geteMail() {
@@ -385,60 +342,32 @@ public class Adresse {
     }
 
     /**
-     * @return the Geburtsdatum
-     */
-    public Date getGeburtsdatum() {
-        return geburtsdatum;
-    }
-
-    /**
-     * @param geburtsdatum the Geburtsdatum to set
-     */
-    public void setGeburtsdatum(Date geburtsdatum) {
-        this.geburtsdatum = geburtsdatum;
-    }
-
-    /**
      * @return the Erfassungsdatum
      */
-    public Date getErfassungsdatum() {
+    public String getErfassungsdatum() {
         return erfassungsdatum;
     }
 
     /**
      * @param erfassungsdatum the Erfassungsdatum to set
      */
-    public void setErfassungsdatum(Date erfassungsdatum) {
+    public void setErfassungsdatum(String erfassungsdatum) {
         this.erfassungsdatum = erfassungsdatum;
     }
 
     /**
      * @return the LKZ
      */
-    public boolean getLKZ() {
+    public String getLKZ() {
         return lkz;
     }
 
     /**
      * @param lkz the LKZ to set
      */
-    public void setLKZ(boolean lkz) {
+    public void setLKZ(String lkz) {
         this.lkz = lkz;
-    }
-
-    /**
-     * @return the Firmenname
-     */
-    public String getFirmenname() {
-        return firmenname;
-    }
-
-    /**
-     * @param firmenname the Firmenname to set
-     */
-    public void setFirmenname(String firmenname) {
-        this.firmenname = firmenname;
-    }
+    }    
 
     /*------------------------------------------------
      *            Generierter Code Ende

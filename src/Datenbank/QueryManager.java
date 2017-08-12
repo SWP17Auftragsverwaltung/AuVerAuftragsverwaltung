@@ -41,7 +41,7 @@ public class QueryManager {
         /*Der update-Query Befehl wird befüllt, 
         *hierfür wird der Tabellenname eingefügt
         */
-        String query = "UPDATE APP." + tabellenname + " SET ";
+        String query = "UPDATE ROOT." + tabellenname + " SET ";
 
         try {
             if (o instanceof Adresse) {
@@ -49,9 +49,9 @@ public class QueryManager {
                 query += "" + hm.get("Vorname") + " = '" 
                         + a.getVorname() + "',";
                 query += "" + hm.get("Nachname") + " = '" 
-                        + a.getNachname() + "',";
+                        + a.getName() + "',";
                 query += "" + hm.get("Titel") + " = '" 
-                        + a.getTitel() + "',";
+                        + a.getAnrede() + "',";
                 query += "" + hm.get("Strasse") + " = '" 
                         + a.getStrasse() + "',";
                 query += "" + hm.get("Hausnummer") + " = '" 
@@ -61,14 +61,9 @@ public class QueryManager {
                 query += "" + hm.get("Staat") + " = '" + a.getStaat() + "',";
                 query += "" + hm.get("Telefon") + " = '" 
                         + a.getTelefon() + "',";
-                query += "" + hm.get("Fax") + " = '" + a.getFax() + "',";
                 query += "" + hm.get("eMail") + " = '" + a.geteMail() + "',";
-                query += "" + hm.get("Geburtsdatum") + " = '" 
-                        + a.getGeburtsdatum() + "',";
                 query += "" + hm.get("Erfassungsdatum") + " = '" 
                         + a.getErfassungsdatum() + "',";
-                query += "" + hm.get("Firmenname") + " = '" 
-                        + a.getFirmenname() + "',";
                 query += "" + hm.get("LKZ") + " = '" + a.getLKZ() + "',";
                 query += " WHERE ";
                 query += "" + hm.get("AdresseID") + " = '" 
@@ -225,7 +220,7 @@ public class QueryManager {
      * @return String Query für alle Objekte in der befindlichen Tabelle.
      */
     public String gibKompletteTabelle(String tabellenname) {
-        String query = "Select * FROM APP.";
+        String query = "Select * FROM ROOT.";
         query += "" + tabellenname + "";
         return query;
     }
@@ -247,7 +242,7 @@ public class QueryManager {
     public String gibInsertQuery(ArrayList<DataDictionary> datadic,
             String tabellenname, Object o) {
         //InsertQuery wird gestartet mit dem Tabellenname der befüllt wird
-        String insertQuery = "INSERT INTO APP." + tabellenname + " (";
+        String insertQuery = "INSERT INTO ROOT." + tabellenname + " (";
 
         //Iteration über die komplette übergebene DataDictionary ArrayList um 
         //geordnet nach der Positionsnummer die Attribute auszulesen. Attribute
@@ -319,21 +314,18 @@ public class QueryManager {
             } else if (o instanceof Adresse) {
                 Adresse a = Adresse.class.cast(o);
                 insertQuery += " " + a.getAdresseID() + ",";
-                insertQuery += " '" + a.getTitel() + "',";
+                insertQuery += " '" + a.getAnrede() + "',";
                 insertQuery += " '" + a.getVorname() + "',";
-                insertQuery += "'" + a.getNachname() + "',";
+                insertQuery += "'" + a.getName() + "',";
                 insertQuery += "'" + a.getStrasse() + "',";
                 insertQuery += "'" + a.getHausnummer() + "',";
                 insertQuery += "" + a.getPLZ() + ",";
                 insertQuery += "'" + a.getOrt() + "',";
                 insertQuery += "'" + a.getStaat() + "',";
                 insertQuery += "'" + a.getTelefon() + "',";
-                insertQuery += "'" + a.getFax() + "',";
                 insertQuery += "'" + a.geteMail() + "',";
-                insertQuery += "'" + a.getGeburtsdatum() + "',";
                 insertQuery += "'" + a.getErfassungsdatum() + "',";
                 insertQuery += "" + "" + false + ",";
-                insertQuery += "'" + a.getFirmenname() + "')";
 
             } else if (o instanceof Zahlungskonditionen) {
                 Zahlungskonditionen z = Zahlungskonditionen.class.cast(o);
@@ -390,7 +382,7 @@ public class QueryManager {
      * @return String Query für alle Objekte in der befindlichen Tabelle.
      */
     public String gibKompletteTabellemitLKZ(String tabellenname, String lkz) {
-        String query = "Select * FROM APP.";
+        String query = "Select * FROM ROOT.";
         query += "" + tabellenname + "";
         query += " WHERE LKZ = " + lkz + "";
         return query;
@@ -411,7 +403,7 @@ public class QueryManager {
      */
     public String gibNaechsteID(String id, String tabellenname) {
         //maximale ID wird aus der Tabelle ausglesen
-        String query = "Select MAX(" + id + ") FROM APP." + tabellenname + "";
+        String query = "Select MAX(" + id + ") FROM ROOT." + tabellenname + "";
 
         return query;
     }
@@ -434,7 +426,7 @@ public class QueryManager {
     public String gibLkzBefehl(HashMap<String, String> hmAttribute,
             String tabellenname, Object o) {
         //Update Befehl wird gestartet mit den update befehl
-        String query = "UPDATE APP." + tabellenname + " SET LKZ = true WHERE ";
+        String query = "UPDATE ROOT." + tabellenname + " SET LKZ = true WHERE ";
 
         try {
             //mittels instanceof wird entschieden welche Query kreiert wird
