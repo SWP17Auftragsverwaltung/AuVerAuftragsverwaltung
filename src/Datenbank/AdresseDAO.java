@@ -18,8 +18,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javafx.scene.control.Alert;
-import javafx.stage.StageStyle;
 
 /**
  * @author Andre
@@ -103,29 +101,6 @@ public class AdresseDAO {
         return adressListe;
     }  
         
-//        //Query Erstellung zur Laufzeit mit der alle Adressen ausgegeben werden
-//        try {
-//            stmt = con.createStatement();
-//            rs = stmt.executeQuery(query);
-//
-//            while (rs.next()) {
-//                adresse = new Adresse(rs.getInt(1), rs.getString(2),
-//                        rs.getString(3), rs.getString(4), rs.getString(5),
-//                        rs.getString(6), rs.getInt(7), rs.getString(8),
-//                        rs.getString(9), rs.getString(10), rs.getString(11),
-//                        rs.getString(12), rs.getDate(13), rs.getDate(14),
-//                        rs.getBoolean(15), rs.getString(16));
-//                adressListe.add(adresse);
-//                con.close();
-//            }
-//            //Fehler werfen wenn Rückgabeobjekt leer ist
-//            if (adressListe.isEmpty()) {
-//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                alert.initStyle(StageStyle.UTILITY);
-//                alert.setTitle("Fehler");
-//                alert.setHeaderText("Keine Adresse gefunden");
-//                alert.showAndWait();
-//            }
         
         //Mögliche SQL Fehler abfangen
 //        } catch (SQLException sqlex) {
