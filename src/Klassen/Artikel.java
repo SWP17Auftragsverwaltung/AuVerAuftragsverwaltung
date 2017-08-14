@@ -6,7 +6,7 @@
 *-------------------------------------------------------------------------------
 * Historie:
 * 26.07.2017    HEN     Erstellt.
-* 26.07.2017    BER     Erweitert.
+* 26.07.2017    BER     Angepasst an neue DB.
 *-------------------------------------------------------------------------------
 */
 package Klassen;
@@ -23,7 +23,7 @@ public class Artikel {
     /**
      * ArtikelID des Artikelobjektes.
     */
-    private int artikelID;
+    private String artikelID;
     
     /**
      * Artikeltext des Artikelobjektes.
@@ -38,42 +38,42 @@ public class Artikel {
     /**
      * Einzelwert des Artikelobjektes.
     */
-    private double einzelwert;
+    private String einzelwert;
     
     /**
      * Bestellwert des Artikelobjektes.
     */
-    private double bestellwert;
+    private String bestellwert;
     
     /**
      * Steuersatz des Artikelobjektes.
     */
-    private int steuer;
+    private String steuer;
     
     /**
      * BestandsmengeFrei des Artikelobjektes.
     */
-    private int bestandsmengeFrei;
+    private String bestandsmengeFrei;
     
     /**
      * BestandsmengeReserviert des Artikelobjektes.
     */
-    private int bestandsmengeReserviert;
+    private String bestandsmengeReserviert;
     
     /**
      * BestandsmengeZulauf des Artikelobjektes.
     */
-    private int bestandsmengeZulauf;
+    private String bestandsmengeZulauf;
     
     /**
      * BestandsmengeVerkauft des Artikelobjektes.
     */
-    private int bestandsmengeVerkauft;
+    private String bestandsmengeVerkauft;
     
     /**
      * LKZ des Artikelobjektes.
     */
-    private boolean lkz;   
+    private String lkz;   
 
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
@@ -96,11 +96,11 @@ public class Artikel {
      * @param bestandsmengeVerkauft BestandsmengeVerkauft
      * @param lkz Löschkennzeichen
      */
-    public Artikel(int artikelID, String artikeltext, String bestelltext,
-            double einzelwert, double bestellwert, int steuer, 
-            int bestandsmengeFrei, int bestandsmengeReserviert,
-            int bestandsmengeZulauf, int bestandsmengeVerkauft,
-            boolean lkz) {
+    public Artikel(String artikelID, String artikeltext, String bestelltext,
+            String einzelwert, String bestellwert, String steuer, 
+            String bestandsmengeFrei, String bestandsmengeReserviert,
+            String bestandsmengeZulauf, String bestandsmengeVerkauft,
+            String lkz) {
         
         this.artikelID = artikelID;
         this.artikeltext = artikeltext;
@@ -128,7 +128,7 @@ public class Artikel {
      */
     @Override
     public int hashCode() {
-        return getArtikelID();
+        return artikelID.hashCode();
     }
 
     /*--------------------------------------------------------------------------
@@ -146,7 +146,7 @@ public class Artikel {
     public boolean equals(Object obj) {
         Artikel a = (Artikel) obj;
         return (obj instanceof Artikel)
-                && this.getArtikelID() == a.getArtikelID();
+                && this.artikelID.equals(a.artikelID);
     }
 
     /*--------------------------------------------------------------------------
@@ -172,14 +172,14 @@ public class Artikel {
      /**
      * @return the ArtikelID
      */
-    public int getArtikelID() {
+    public String getArtikelID() {
         return artikelID;
     }
 
     /**
      * @param artikelID the ArtikelID to set
      */
-    public void setArtikelID(int artikelID) {
+    public void setArtikelID(String artikelID) {
         this.artikelID = artikelID;
     }
 
@@ -214,112 +214,112 @@ public class Artikel {
     /**
      * @return the Einzelwert
      */
-    public double getEinzelwert() {
+    public String getEinzelwert() {
         return einzelwert;
     }
 
     /**
      * @param einzelwert the Einzelwert to set
      */
-    public void setEinzelwert(double einzelwert) {
+    public void setEinzelwert(String einzelwert) {
         this.einzelwert = einzelwert;
     }
 
     /**
      * @return the Bestellwert
      */
-    public double getBestellwert() {
+    public String getBestellwert() {
         return bestellwert;
     }
 
     /**
      * @param bestellwert the bestellwert to set
      */
-    public void setBestellwert(double bestellwert) {
+    public void setBestellwert(String bestellwert) {
         this.bestellwert = bestellwert;
     }
 
     /**
      * @return the Steuer
      */
-    public int getSteuer() {
+    public String getSteuer() {
         return steuer;
     }
 
     /**
      * @param steuer the Steuer to set
      */
-    public void setSteuer(int steuer) {
+    public void setSteuer(String steuer) {
         this.steuer = steuer;
     }    
     
     /**
      * @return the bestandsmengeFrei
      */
-    public int getBestandsmengeFrei() {
+    public String getBestandsmengeFrei() {
         return bestandsmengeFrei;
     }
 
     /**
      * @param bestandsmengeFrei the bestandsmengeFrei to set
      */
-    public void setBestandsmengeFrei(int bestandsmengeFrei) {
+    public void setBestandsmengeFrei(String bestandsmengeFrei) {
         this.bestandsmengeFrei = bestandsmengeFrei;
     }
 
     /**
      * @return the BestandsmengeReserviert
      */
-    public int getBestandsmengeReserviert() {
+    public String getBestandsmengeReserviert() {
         return bestandsmengeReserviert;
     }
 
     /**
      * @param bestandsmengeReserviert the BestandsmengeReserviert to set
      */
-    public void setBestandsmengeReserviert(int bestandsmengeReserviert) {
+    public void setBestandsmengeReserviert(String bestandsmengeReserviert) {
         this.bestandsmengeReserviert = bestandsmengeReserviert;
     }
 
     /**
      * @return the BestandsmengeZulauf
      */
-    public int getBestandsmengeZulauf() {
+    public String getBestandsmengeZulauf() {
         return bestandsmengeZulauf;
     }
 
     /**
      * @param bestandsmengeZulauf the BestandsmengeZulauf to set
      */
-    public void setBestandsmengeZulauf(int bestandsmengeZulauf) {
+    public void setBestandsmengeZulauf(String bestandsmengeZulauf) {
         this.bestandsmengeZulauf = bestandsmengeZulauf;
     }
 
     /**
      * @return the BestandsmengeVerkauft
      */
-    public int getBestandsmengeVerkauft() {
+    public String getBestandsmengeVerkauft() {
         return bestandsmengeVerkauft;
     }
 
     /**
      * @param bestandsmengeVerkauft the BestandsmengeVerkauft to set
      */
-    public void setBestandsmengeVerkauft(int bestandsmengeVerkauft) {
+    public void setBestandsmengeVerkauft(String bestandsmengeVerkauft) {
         this.bestandsmengeVerkauft = bestandsmengeVerkauft;
     }
 
     /**
      * @return the LKZ
      */
-    public boolean getLKZ() {
+    public String getLKZ() {
         return lkz;
     }
 
     /**
      * @param lkz the LKZ to set
      */
-    public void setLKZ(boolean lkz) {
+    public void setLKZ(String lkz) {
         this.lkz = lkz;
     }
 
