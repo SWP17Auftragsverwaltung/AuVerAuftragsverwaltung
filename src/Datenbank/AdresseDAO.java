@@ -76,4 +76,58 @@ public class AdresseDAO extends DataAccess {
         }
         return adressListe;
     } 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 07.08.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Gibt alle Adressen ohne Löschkennzeichen wieder.
+     * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
+     */
+    public ArrayList<Adresse> gibAlleAdressenOhneLKZ() {
+        
+        //Variablendeklaration
+        Statement stmt = null;
+        ResultSet rs = null;
+        Adresse adresse = null;  
+        ArrayList<Adresse> adressListe = new ArrayList<>();
+        
+        String query = "SELECT * FROM ROOT.ADRESSE WHERE LKZ = N";
+
+        try {
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+
+            con.commit();
+            while (rs.next()) {
+                adresse = new Adresse(rs.getString(1), rs.getString(2),
+                        rs.getString(3), rs.getString(4), rs.getString(5),
+                        rs.getString(6), rs.getString(7), rs.getString(8),
+                        rs.getString(9), rs.getString(10), rs.getString(11),
+                        rs.getString(12), rs.getString(13));
+                
+                adressListe.add(adresse);
+            }
+            //Fehler werfen wenn Rückgabeobjekt leer ist
+            if (adressListe.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setTitle("Fehler");
+                alert.setHeaderText("Keine Adressen gefunden!");
+                alert.showAndWait();
+            }
+            //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+        } 
+        return adressListe;
+    }    
+    
 }
