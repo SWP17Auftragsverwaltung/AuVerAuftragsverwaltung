@@ -5,9 +5,10 @@
 * - FXML Controller-Klasse.
 *-------------------------------------------------------------------------------
 * Historie:
-* 2017-06-14 SAM Angelegt.
-* 2017-06-26 GET Checkstyleprüfung.
-* 2017-07-27 BER Kommentarlayout angepasst.
+* 14.06.2017    SAM     Angelegt.
+* 26.06.2017    GET     Checkstyleprüfung.
+* 27.07.2017    BER     Kommentarlayout angepasst.
+* 12.08.2017    HEN     setTable() content erstellt, initialize() angepasst. 
 *-------------------------------------------------------------------------------
  */
 package auverauftragsverwaltung;
@@ -229,6 +230,12 @@ public class AdressverwaltungController implements Initializable {
         }));
         
     }
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 11.08.17    HEN     Methode erstellt.
+    /* 12.08.17    HEN     ObservableArrayList hinzugefügt
+    /*------------------------------------------------------------------------*/
     
     /**
      * Erstellt ein AdressDAO Objekt und gibt eine Adress ArrayList an eine

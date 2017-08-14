@@ -77,10 +77,5 @@ public class AdresseDAO extends DataAccess {
             alert.showAndWait();
         }
         return adressListe;
-    }
-    
-    public static void main(String[] args) {
-        
-    }
-    
+    } 
 }

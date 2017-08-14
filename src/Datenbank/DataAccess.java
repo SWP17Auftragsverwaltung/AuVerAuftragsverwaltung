@@ -8,6 +8,7 @@
 * Historie:
 * 26.07.2017    HEN     Erstellt.
 * 28.07.2017    CEL     Erweitert.
+* 12.08.2017    HEN     Methode datenbankVerbindung() angepasst.
 *-------------------------------------------------------------------------------
 */
 package Datenbank;
@@ -63,6 +64,7 @@ public class DataAccess {
     /* Datum       Name    Was
     /* 23.06.17    Hen     Methode datenbankVerbindung erstellt.
     /* 24.06.17    CEL     'try-catch'-Block erweitert.
+    /* 12.08.17    HEN     Alert mit SQLException erstellt. 
     */
     /*------------------------------------------------------------------------*/
     
@@ -72,7 +74,6 @@ public class DataAccess {
      * @throws SQLException SQL Exception
      */
     private Connection datenbankVerbindung() throws SQLException {
-        /*Treiber laden und überprüfen inkl. Fehlerabfangen*/
         try {
             con = DriverManager.getConnection(datenbankURL, 
                     benutzername, passwort);
