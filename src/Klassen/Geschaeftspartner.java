@@ -116,7 +116,7 @@ public class Geschaeftspartner {
     public boolean equals(Object obj) {
         Geschaeftspartner b = (Geschaeftspartner) obj;
         return (obj instanceof Geschaeftspartner)
-                && this.geschaeftspartnerID == b.geschaeftspartnerID;
+                && this.geschaeftspartnerID.equals(b.geschaeftspartnerID);
     }
 
     /*--------------------------------------------------------------------------

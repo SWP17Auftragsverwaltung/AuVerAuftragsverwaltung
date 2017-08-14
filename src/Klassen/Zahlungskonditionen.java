@@ -141,7 +141,7 @@ public class Zahlungskonditionen {
      */
     @Override
     public int hashCode() {
-        return getZahlungskondiID().hashCode();
+        return zahlungskonditionsID.hashCode();
     }
 
     /*--------------------------------------------------------------------------
@@ -159,7 +159,7 @@ public class Zahlungskonditionen {
     public boolean equals(Object obj) {
         Zahlungskonditionen b = (Zahlungskonditionen) obj;
         return (obj instanceof Zahlungskonditionen)
-                && this.getZahlungskondiID() == b.getZahlungskondiID();
+                && this.zahlungskonditionsID.equals(b.zahlungskonditionsID);
     }
 
     /*--------------------------------------------------------------------------
