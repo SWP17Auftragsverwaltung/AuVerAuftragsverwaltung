@@ -6,7 +6,7 @@
 *-------------------------------------------------------------------------------
 * Historie:
 * 26.07.2017    HEN     Erstellt.
-* 28.08.2017    CEL     Erweiterung/Anpassung.
+* 01.08.2017    CEL     Erweiterung/Anpassung.
 *-------------------------------------------------------------------------------
 */
 package Klassen;
@@ -25,12 +25,12 @@ public class Geschaeftspartner {
     /**
      * Primärschlüssel des Geschaeftspartners.
     */
-    private int geschaeftspartnerID;
+    private String geschaeftspartnerID;
 
     /**
      * Fremdschlüssel Rechnungsadresse für Adressobjekt .
     */
-    private int adresseID;
+    private String adresseID;
 
     /**
      * Lieferanten ID.
@@ -45,12 +45,12 @@ public class Geschaeftspartner {
     /**
      * Kreditlimit des Geschaeftspartners.
     */
-    private int kreditlimit;   
+    private String kreditlimit;   
    
     /**
      * Löschkennzeichen.
     */
-    private boolean lkz;
+    private String lkz;
     
     /**
      * Liste mit allen Aufträgen des Geschäftspartners.
@@ -75,8 +75,8 @@ public class Geschaeftspartner {
      * @param kreditlimit Kreditlimit
      * @param lkz Löschkennzeichen
     */
-    public Geschaeftspartner(int geschaeftspartnerID, int adresseID, 
-            String lieferID, String typ, int kreditlimit, boolean lkz) {
+    public Geschaeftspartner(String geschaeftspartnerID, String adresseID, 
+            String lieferID, String typ, String kreditlimit, String lkz) {
         
         this.geschaeftspartnerID = geschaeftspartnerID;
         this.adresseID = adresseID;
@@ -98,7 +98,7 @@ public class Geschaeftspartner {
     */
     @Override
     public int hashCode() {
-        return geschaeftspartnerID;
+        return geschaeftspartnerID.hashCode();
     }
 
     /*--------------------------------------------------------------------------
@@ -142,14 +142,14 @@ public class Geschaeftspartner {
     /**
      * @return the geschaeftspartnerID
     */
-    public int getGeschaeftspartnerID() {
+    public String getGeschaeftspartnerID() {
         return geschaeftspartnerID;
     }
 
     /**
      * @param geschaeftspartnerID the geschaeftspartnerID to set
     */
-    public void setGeschaeftspartnerID(int geschaeftspartnerID) {
+    public void setGeschaeftspartnerID(String geschaeftspartnerID) {
         this.geschaeftspartnerID = geschaeftspartnerID;
     }
 
@@ -157,14 +157,14 @@ public class Geschaeftspartner {
      * @return the adresseID
      * 
     */
-    public int getAdresseID() {
+    public String getAdresseID() {
         return adresseID;
     }
 
     /**
      * @param adresseID the adresseID to set
     */
-    public void setAdresseID(int adresseID) {
+    public void setAdresseID(String adresseID) {
         this.adresseID = adresseID;
     }    
 
@@ -199,28 +199,28 @@ public class Geschaeftspartner {
     /**
      * @return the kreditlimit
     */
-    public int getKreditlimit() {
+    public String getKreditlimit() {
         return kreditlimit;
     }
 
     /**
      * @param kreditlimit the kreditlimit to set
     */
-    public void setKreditlimit(int kreditlimit) {
+    public void setKreditlimit(String kreditlimit) {
         this.kreditlimit = kreditlimit;
     }
 
     /**
      * @return the lkz
     */
-    public boolean getLKZ() {
+    public String getLKZ() {
         return lkz;
     }
 
     /**
      * @param lkz the lkz to set
     */
-    public void setLKZ(boolean lkz) {
+    public void setLKZ(String lkz) {
         this.lkz = lkz;
     }
 
