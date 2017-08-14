@@ -7,60 +7,33 @@
 *-------------------------------------------------------------------------------
 * Datum         Name    Was
 * 07.08.2017    HEN     Erstellt.
+* 12.08.2017    HEN     DB Verbindung ausgelagert.
 *-------------------------------------------------------------------------------
 */
 package Datenbank;
 
 import Klassen.Adresse;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
+import javafx.stage.StageStyle;
 
 /**
  * @author Andre
  */
-public class AdresseDAO {
-    
-    /**
-     * Variablendefinition
-    */
-
+public class AdresseDAO extends DataAccess {
 
     /**
-     * Verbindungsobjekt auf null setzen.
+     * Konstruktor.
+     * @throws SQLException SQLException 
      */
-    private Connection con = null;
+    public AdresseDAO() throws SQLException {
+        
+    }
     
-    /**
-     * Statementobjekt auf null setzen.
-     */
-    private Statement stmt = null;
     
-    /**
-     * ResultSet auf null setzen.
-     */
-    private ResultSet rs = null;
-
-    
-    private static String benutzername = "root";
-    /**
-     *Variable für das Benutzerpasswort.
-     */
-    private static String passwort = "KauVer";
-
-    /**
-     *Variable für den Datenbankpfad.
-     */
-    private static String datenbankPfad 
-            = "jdbc:derby://localhost:1527/SWPWI2017";    
-    
-
-    
-
-
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 07.08.17    Hen     Erstellt.
@@ -74,13 +47,14 @@ public class AdresseDAO {
     public ArrayList<Adresse> gibAlleAdressen() {
         
         //Variablendeklaration
+        Statement stmt = null;
+        ResultSet rs = null;
+        Adresse adresse = null;  
         ArrayList<Adresse> adressListe = new ArrayList<>();
-        Adresse adresse = null;
+        
         String query = "SELECT * FROM ROOT.Adresse";    
         
         try {
-            con = DriverManager.getConnection(datenbankPfad, 
-                    benutzername, passwort);
             stmt = con.createStatement();
             rs = stmt.executeQuery(query);
 
@@ -95,30 +69,18 @@ public class AdresseDAO {
             }
             con.close();
                  
-        } catch (SQLException except) {
-            System.out.println(except);
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
         }
         return adressListe;
-    }  
+    }
+    
+    public static void main(String[] args) {
         
-        
-        //Mögliche SQL Fehler abfangen
-//        } catch (SQLException sqlex) {
-////            errorCatcher(con, sqlex);
-//            
-//        //Statement & Resultset schließen
-//        } finally {
-//            try {
-//                if (stmt != null) {
-//                    stmt.close();
-//                }
-//                if (rs != null) {
-//                    rs.close();
-//                }
-//            } catch (SQLException sqlex) {
-////                errorCatcher(con, sqlex);
-//            }
-//        }
-//        return adressListe;
-//    }
+    }
+    
 }

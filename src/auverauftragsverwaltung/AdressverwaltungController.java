@@ -15,6 +15,7 @@ package auverauftragsverwaltung;
 import Datenbank.AdresseDAO;
 import Klassen.Adresse;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -75,28 +76,75 @@ public class AdressverwaltungController implements Initializable {
     private TextField tf_anschriftID;
     @FXML
     private SplitMenuButton cb_anrede;
+    /**
+     * Tabellenspalte "AnschriftID".
+     */
     @FXML
     private TableColumn<Adresse, String> AnschriftID;
+    
+    /**
+     * Tabellenspalte "Anrede".
+     */
     @FXML
     private TableColumn<Adresse, String> Anrede;
+    
+    /**
+     * Tabellenspalte "Name".
+     */
     @FXML
     private TableColumn<Adresse, String> Name;
+    
+    /**
+     * Tabellenspalte "Vorname".
+     */
     @FXML
     private TableColumn<Adresse, String> Vorname;
+    
+    /**
+     * Tabellenspalte "Straße".
+     */
     @FXML
     private TableColumn<Adresse, String> Straße;
+    
+    /**
+     * Tabellenspalte "HausNr".
+     */
     @FXML
     private TableColumn<Adresse, String> HausNr;
+    
+    /**
+     * Tabellenspalte "PLZ".
+     */
     @FXML
     private TableColumn<Adresse, String> PLZ;
+    
+    /**
+     * Tabellenspalte "Ort".
+     */
     @FXML
     private TableColumn<Adresse, String> Ort;
+    
+    /**
+     * Tabellenspalte "Staat".
+     */
     @FXML
     private TableColumn<Adresse, String> Staat;
+    
+    /**
+     * Tabellenspalte "Tel".
+     */
     @FXML
     private TableColumn<Adresse, String> Tel;
+    
+    /**
+     * Tabellenspalte "Email".
+     */
     @FXML
-    private TableColumn<Adresse, String> EMail;
+    private TableColumn<Adresse, String> EMail;  
+
+    /**
+     * Tabellenspalte "erfDatum".
+     */
     @FXML
     private TableColumn<Adresse, String> ErfDatum;
  
@@ -151,7 +199,8 @@ public class AdressverwaltungController implements Initializable {
         // Datum auf 10 Zeichen begrenzt
         begrenzeTextFeldEingabe(tf_datum, 10);
           
-        AnschriftID.setCellValueFactory(new PropertyValueFactory<>("adresseID"));            
+        AnschriftID.setCellValueFactory(
+                new PropertyValueFactory<>("adresseID"));            
         Anrede.setCellValueFactory(new PropertyValueFactory<>("anrede"));     
         Name.setCellValueFactory(new PropertyValueFactory<>("name"));   
         Vorname.setCellValueFactory(new PropertyValueFactory<>("vorname"));     
@@ -162,7 +211,8 @@ public class AdressverwaltungController implements Initializable {
         Staat.setCellValueFactory(new PropertyValueFactory<>("staat"));            
         Tel.setCellValueFactory(new PropertyValueFactory<>("telefon"));             
         EMail.setCellValueFactory(new PropertyValueFactory<>("eMail"));       
-        ErfDatum.setCellValueFactory(new PropertyValueFactory<>("erfassungsdatum"));
+        ErfDatum.setCellValueFactory(
+                new PropertyValueFactory<>("erfassungsdatum"));
         
     }
     
@@ -183,9 +233,10 @@ public class AdressverwaltungController implements Initializable {
     /**
      * Erstellt ein AdressDAO Objekt und gibt eine Adress ArrayList an eine
      * OberservableList, die dann an die TableView übergeben wird.
+     * @throws java.sql.SQLException SQL Exception
      */
     @FXML
-    public void setTableContent() {    
+    public void setTableContent() throws SQLException {    
         AdresseDAO ad = new AdresseDAO();     
         ObservableList<Adresse> adressen 
                 = FXCollections.observableArrayList(ad.gibAlleAdressen());

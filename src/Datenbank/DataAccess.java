@@ -12,13 +12,9 @@
 */
 package Datenbank;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import javafx.stage.StageStyle;
 
@@ -31,27 +27,23 @@ public class DataAccess {
     /**
      *Variable für die Verbindung zur Datenbank.
      */
-    private Connection con = null;
-    /**
-     *Variable für den Derby Treiber.
-     */
-    private String driver = "org.apache.derby.jdbc.EmbeddedDriver";
+    public Connection con = null;
+
     /**
      *Variable für den Benutzernamen.
      */
-    private String benutzername = "Benutzer";
+    private String benutzername = "root";
+    
     /**
      *Variable für das Benutzerpasswort.
      */
-    private String passwort = "555nase";
+    private String passwort = "KauVer";
+    
     /**
      *Variable für die Datenbank URL. Wird in einer Methode dynamisch erzeugt.
      */
-    private String datenbankURL = erzeugeDatenbankPfad();
-    /**
-     *Variable für den Datenbankpfad.
-     */
-    private String datenbankPfad;
+    private String datenbankURL = "jdbc:derby://localhost:1527/SWPWI2017";
+
 
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -60,8 +52,9 @@ public class DataAccess {
     
     /**
      * Konstruktor der DateAccess Klasse.
+     * @throws java.sql.SQLException SQL Exception
      */
-    public DataAccess() {
+    public DataAccess() throws SQLException {
         datenbankVerbindung();
     }
 
@@ -75,35 +68,23 @@ public class DataAccess {
     
     /**
      * Baut Verbindung zur Datenbank auf.
+     * @return Connection
+     * @throws SQLException SQL Exception
      */
-    private void datenbankVerbindung() {
+    private Connection datenbankVerbindung() throws SQLException {
         /*Treiber laden und überprüfen inkl. Fehlerabfangen*/
         try {
-            Class.forName(driver);
-        } catch (ClassNotFoundException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.initStyle(StageStyle.UTILITY);
-            alert.setTitle("Fehler");
-            alert.setHeaderText("Kein gültiger Treiber!");
-            alert.showAndWait();
-            e.printStackTrace();
-        }
-        /*Versuchen, eine Verbindung zur Datenbank aufzubauen. Bei Fehler eine
-         * Exception werfen.
-         */
-        try {
-            con = DriverManager.getConnection(datenbankURL, benutzername,
-                    passwort);
+            con = DriverManager.getConnection(datenbankURL, 
+                    benutzername, passwort);
+            
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
-            alert.setTitle("Information");
-            alert.setHeaderText("Es ist ein Fehler aufgetreten");
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
             alert.showAndWait();
-
-            System.err.println("Datenbankverbidungsfehler");
-            e.printStackTrace();
         }
+        return con;
     }
 
     
@@ -127,34 +108,12 @@ public class DataAccess {
 
                 /*Fehler beim Verbindungsabbau wird hier gefangen */
             } catch (SQLException e) {
-                System.err.println("SQLException: " + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setTitle("Fehler");
+                alert.setHeaderText(e.getMessage());
+                alert.showAndWait();
             }
         }
-    }
-
-    
-    /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 23.06.17    Hen     Methode erzeugeDatenbankPfad erstellt.
-    /*------------------------------------------------------------------------*/
-    
-    /**
-     * Gibt den Pfad an, wo das Programm ausgeführt wird. Dieser Pfad ist auch
-     * für die Datenbank zu verwenden.
-     *
-     * @return Datenbankpfad der Datenbank
-     */
-    public String erzeugeDatenbankPfad() {
-        //Datenbankpfad wird zur Laufzeit erzeugt
-        //DD muss sich im gleichen Ordner wie die ausführbare Datei befinden
-        try {
-            this.datenbankPfad = new File(".").getCanonicalPath();
-            //Fehler wird gefangen.
-        } catch (IOException ex) {
-            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE,
-                    null, ex);
-        }
-        datenbankURL = "jdbc:derby:" + datenbankPfad + "/Auftragsverwaltung";
-        return datenbankURL;
     }
 }
