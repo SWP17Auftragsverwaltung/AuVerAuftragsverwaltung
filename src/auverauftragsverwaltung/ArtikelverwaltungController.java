@@ -5,11 +5,12 @@
 * - FXML Controller-Klasse.
 *-------------------------------------------------------------------------------
 * Historie:
-* 2017-06-14 SAM Angelegt.
-* 2017-06-26 GET Checkstyleprüfung.
-*                Fehler bei Start der GUI behoben.
-* 2017-07-27 BER Javadoc angepasst.
-* 2017-08-14 BER Angepasst an neue DB.
+* 14.06.2017    SAM     Angelegt.
+* 26.06.2017    GET     Checkstyleprüfung.
+*                       Fehler bei Start der GUI behoben.
+* 27.07.2017    BER     Javadoc angepasst.
+* 14.08.2017    BER     Angepasst an neue DB.
+* 14.08.2017    HEN     initialize() ergänzt, FXML TableColumns erstellt.
 *-------------------------------------------------------------------------------
  */
 package auverauftragsverwaltung;
@@ -18,6 +19,7 @@ package auverauftragsverwaltung;
 import Datenbank.ArtikelDAO;
 import Klassen.Artikel;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,37 +51,42 @@ public class ArtikelverwaltungController implements Initializable {
     @FXML
     private TextField bestellwert;
     @FXML
-    private TableView artikelTV = new TableView<Artikel>();
+    private TableView tv_artikel = new TableView<Artikel>();
 
         
-        
-    @FXML
-    private TableColumn<Artikel, String> ArtikelID;
-    @FXML
-    private TableColumn<Artikel, String> Artikeltext;
-    @FXML
-    private TableColumn<Artikel, String> Bestelltext;
-    @FXML
-    private TableColumn<Artikel, String> AnschriftID;
-    @FXML
-    private TableColumn<Artikel, String> Einzelwert;
-    @FXML
-    private TableColumn<Artikel, String> Bestellwert;
-    @FXML
-    private TableColumn<Artikel, String> Steuer;
-    @FXML
-    private TableColumn<Artikel, String> BestandsmengeFrei;
-    @FXML
-    private TableColumn<Artikel, String> BestandsmengeReserviert;
-    @FXML
-    private TableColumn<Artikel, String> BestandsmengeZulauf;
-    @FXML
-    private TableColumn<Artikel, String> BestandsmengeVerkauft;
     /**
      * Abbrechen-Button der Artikelverwaltung.
      */
     @FXML
     private Button closeArW;
+    @FXML
+    private ComboBox<?> cb_feldwahl;
+    @FXML
+    private TableColumn<Artikel, String> tc_materialNr;
+    @FXML
+    private TableColumn<Artikel, String> tc_artikelbeschreibung;
+    @FXML
+    private TableColumn<Artikel, String> tc_einzelwert;
+    @FXML
+    private TableColumn<Artikel, String> tc_bestellbeschreibung;
+    @FXML
+    private TableColumn<Artikel, String> tc_BestandFrei;
+    @FXML
+    private TableColumn<Artikel, String> tc_BestandReserviert;
+    @FXML
+    private TableColumn<Artikel, String> tc_BestandZulauf;
+    @FXML
+    private TableColumn<Artikel, String> tc_BestandVerkauft;
+    @FXML
+    private TextField materialNr;
+    @FXML
+    private TextField bestandFREI;
+    @FXML
+    private TextField bestandRESERVIERT;
+    @FXML
+    private TextField bestandZULAUF;
+    @FXML
+    private TextField bestandVERKAUFT;
 
     /**
      * Methode zum Abbrechen der Artikelverwaltung.
@@ -115,43 +122,61 @@ public class ArtikelverwaltungController implements Initializable {
         begrenzeTextFeldEingabe(bestellwert, 6);
        
         
-//        ArtikelID.setCellValueFactory(new PropertyValueFactory<>("artikelID"));
-//        Artikeltext.setCellValueFactory(new PropertyValueFactory<>("artikeltext"));
-//        Bestelltext.setCellValueFactory(new PropertyValueFactory<>("bestelltext"));
-//        Einzelwert.setCellValueFactory(new PropertyValueFactory<>("einzelwert"));
-//        Bestellwert.setCellValueFactory(new PropertyValueFactory<>("bestellwert"));
-//        Steuer.setCellValueFactory(new PropertyValueFactory<>("steuer"));
-//        BestandsmengeFrei.setCellValueFactory(new PropertyValueFactory<>("bestandsmengeFrei"));
-//        BestandsmengeReserviert.setCellValueFactory(new PropertyValueFactory<>("bestandsmengeReserviert"));
-//        BestandsmengeZulauf.setCellValueFactory(new PropertyValueFactory<>("bestandsmengeZulauf"));
-//        BestandsmengeVerkauft.setCellValueFactory(new PropertyValueFactory<>("bestandsmengeVerkauft"));
-        
-        
+        tc_materialNr.setCellValueFactory(
+                new PropertyValueFactory<>("artikelID"));
+        tc_artikelbeschreibung.setCellValueFactory(
+                new PropertyValueFactory<>("artikeltext"));
+        tc_bestellbeschreibung.setCellValueFactory(
+                new PropertyValueFactory<>("bestelltext"));
+        tc_einzelwert.setCellValueFactory(
+                new PropertyValueFactory<>("einzelwert"));
+        tc_BestandFrei.setCellValueFactory(
+                new PropertyValueFactory<>("bestandsmengeFrei"));
+        tc_BestandReserviert.setCellValueFactory(
+                new PropertyValueFactory<>("bestandsmengeReserviert"));
+        tc_BestandZulauf.setCellValueFactory(
+                new PropertyValueFactory<>("bestandsmengeZulauf"));
+        tc_BestandVerkauft.setCellValueFactory(
+                new PropertyValueFactory<>("bestandsmengeVerkauft"));     
     }
 
+    /**
+     * 
+     * @param tf Textfeld
+     * @param zahl Länge des Feldes
+     */
     private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
-
         tf.setTextFormatter(new TextFormatter<>(change
-                -> change.getControlNewText().length() <= zahl ? change : null));
+            -> change.getControlNewText().length() <= zahl ? change : null));
     }
 
+    /**
+     * 
+     * @param ta Textarea.
+     * @param zahl Länge der Textarea
+     */
     private void begrenzeTextAreaEingabe(TextArea ta, int zahl) {
         // Zeilenumbruch im TextArea Feld
         ta.setWrapText(true);
         ta.setTextFormatter(new TextFormatter<>(change
-                -> change.getControlNewText().length() <= zahl ? change : null));
+            -> change.getControlNewText().length() <= zahl ? change : null));
     }
 
+ 
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 14.08.17    HEN     ObservableArrayList hinzugefügt
+    /*------------------------------------------------------------------------*/
     
-        /**
+    /**
      * Erstellt ein ArtikelDAO Objekt und gibt eine Artikel ArrayList an eine
      * OberservableList, die dann an die TableView übergeben wird.
+     * @throws java.sql.SQLException SQL Exception
      */
-    @FXML
-    public void setTableContent() {    
+    public void setTableContent() throws SQLException {    
         ArtikelDAO ar = new ArtikelDAO();     
         ObservableList<Artikel> artikel 
                 = FXCollections.observableArrayList(ar.gibAlleArtikel());
-        artikelTV.setItems(artikel);
+        tv_artikel.setItems(artikel);
     } 
 }

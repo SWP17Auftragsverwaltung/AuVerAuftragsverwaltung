@@ -3,7 +3,7 @@
 *-------------------------------------------------------------------------------
 * Zweck:
 * - Diese Klasse dient zum Verbindungsaufbau zur Datenbank. Weiterhin schließt
-*   sie die Verbindung und erzeugt einen Pfad zur Datenbank.
+*   sie die Verbindung.
 *-------------------------------------------------------------------------------
 * Historie:
 * 26.07.2017    HEN     Erstellt.

@@ -2,8 +2,7 @@
 * Klasse: AdresseDAO.
 *-------------------------------------------------------------------------------
 * Zweck:
-* - Diese Klasse stellt eine Verbindung zur Datenbank her und bearbeitet alles
-*   bezüglich Adressen.
+* - Diese Klasse bearbeitet Queries bezüglich Adressen.
 *-------------------------------------------------------------------------------
 * Datum         Name    Was
 * 07.08.2017    HEN     Erstellt.
@@ -41,7 +40,6 @@ public class AdresseDAO extends DataAccess {
   
     /**
      * Gibt alle Adressen wieder die sich in der Datenbank befinden.
-     *
      * @return Gibt Arraylist aller Adressen wieder
     */
     public ArrayList<Adresse> gibAlleAdressen() {
