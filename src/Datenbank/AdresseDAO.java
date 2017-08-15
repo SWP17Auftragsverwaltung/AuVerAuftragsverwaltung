@@ -12,6 +12,7 @@
 package Datenbank;
 
 import Klassen.Adresse;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -90,16 +91,17 @@ public class AdresseDAO extends DataAccess {
     public ArrayList<Adresse> gibAlleAdressenOhneLKZ() {
         
         //Variablendeklaration
-        Statement stmt = null;
+        PreparedStatement  stmt = null;
         ResultSet rs = null;
         Adresse adresse = null;  
         ArrayList<Adresse> adressListe = new ArrayList<>();
         
-        String query = "SELECT * FROM ROOT.ADRESSE WHERE LKZ = N";
+        String query = "SELECT * FROM ROOT.ADRESSE WHERE LKZ = ?";
 
         try {
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(query);
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "N");
+            rs = stmt.executeQuery();
 
             con.commit();
             while (rs.next()) {
@@ -119,7 +121,8 @@ public class AdresseDAO extends DataAccess {
                 alert.setHeaderText("Keine Adressen gefunden!");
                 alert.showAndWait();
             }
-            //Mögliche SQL fehler fangen
+        
+        //Mögliche SQL fehler fangen
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -128,6 +131,126 @@ public class AdresseDAO extends DataAccess {
             alert.showAndWait();
         } 
         return adressListe;
+    }
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Gibt alle Adressen mit Löschkennzeichen wieder.
+     * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
+     */
+    public ArrayList<Adresse> gibAlleAdressenMitLKZ() {
+        
+        //Variablendeklaration
+        PreparedStatement  stmt = null;
+        ResultSet rs = null;
+        Adresse adresse = null;  
+        ArrayList<Adresse> adressListe = new ArrayList<>();
+        
+        String query = "SELECT * FROM ROOT.ADRESSE WHERE LKZ = ?";
+
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "J");
+            rs = stmt.executeQuery();
+
+            con.commit();
+            while (rs.next()) {
+                adresse = new Adresse(rs.getString(1), rs.getString(2),
+                        rs.getString(3), rs.getString(4), rs.getString(5),
+                        rs.getString(6), rs.getString(7), rs.getString(8),
+                        rs.getString(9), rs.getString(10), rs.getString(11),
+                        rs.getString(12), rs.getString(13));
+                
+                adressListe.add(adresse);
+            }
+            //Fehler werfen wenn Rückgabeobjekt leer ist
+            if (adressListe.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setTitle("Fehler");
+                alert.setHeaderText("Keine Adressen gefunden!");
+                alert.showAndWait();
+            }
+        
+        //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+        } 
+        return adressListe;
+    }
+    
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Fügt Adresse der Datenbank hinzu
+     * @param a Adressobjekt
+    */
+    public void fuegeAdresseHinzu(Adresse a) {
+        
+        //Variablendeklaration
+        PreparedStatement  stmt = null;
+        String anschriftID = a.getAdresseID();
+        String anrede = a.getAnrede();
+        String name = a.getName();
+        String vorname = a.getVorname();
+        String strasse = a.getStrasse();
+        String hausnr = a.getHausnummer();
+        String plz = a.getPLZ();
+        String ort = a.getOrt();
+        String staat = a.getStaat();
+        String tel = a.getTelefon();
+        String email = a.geteMail();
+        String erfdatum = a.getErfassungsdatum();
+        String lkz = a.getLKZ();
+        
+        
+        try {
+            con.setAutoCommit(false);
+
+            String query = "INSERT INTO ROOT.ADRESSE (Anschrift_ID, Anrede, "
+                + "Name, Vorname, Strasse, Hausnummer, PLZ, Ort, Staat, "
+                + "Telefon, E_Mail, Erfassungsdatum, LKZ)"
+                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, anschriftID);
+            stmt.setString(2, anrede);
+            stmt.setString(3, name);
+            stmt.setString(4, vorname);
+            stmt.setString(5, strasse);
+            stmt.setString(6, hausnr);
+            stmt.setString(7, plz);
+            stmt.setString(8, ort);
+            stmt.setString(9, staat);
+            stmt.setString(10, tel);
+            stmt.setString(11, email);
+            stmt.setString(12, erfdatum);
+            stmt.setString(13, lkz);
+            
+            stmt.executeUpdate();
+            con.commit();
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();        
+        }
     }    
+    
+    
     
 }

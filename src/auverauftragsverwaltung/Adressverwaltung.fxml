@@ -12,21 +12,21 @@
          <children>
             <TableView fx:id="adresseTV" layoutY="95.0" prefHeight="359.0" prefWidth="1013.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="95.0">
                <columns>
-                  <TableColumn fx:id="AnschriftID" prefWidth="75.0" text="AnschriftID" />
+                  <TableColumn fx:id="Anschrift_ID" prefWidth="75.0" text="Anschrift_ID" />
                   <TableColumn fx:id="Anrede" prefWidth="50.0" text="Anrede" />
                   <TableColumn fx:id="Name" text="Name" />
                   <TableColumn fx:id="Vorname" text="Vorname" />
-                  <TableColumn fx:id="Straße" text="Straße" />
+                  <TableColumn fx:id="Straße" text="Strasse" />
                   <TableColumn fx:id="HausNr" prefWidth="50.0" text="HausNr." />
                   <TableColumn fx:id="PLZ" prefWidth="50.0" text="PLZ" />
                   <TableColumn fx:id="Ort" prefWidth="130.0" text="Ort" />
                   <TableColumn fx:id="Staat" prefWidth="130.0" text="Staat" />
-                  <TableColumn fx:id="Tel" prefWidth="100.0" text="Tel." />
-                  <TableColumn fx:id="EMail" prefWidth="100.0" text="E-Mail" />
-                  <TableColumn fx:id="ErfDatum" prefWidth="100.0" text="Erf.Datum" />
+                  <TableColumn fx:id="Tel" prefWidth="100.0" text="Telefon" />
+                  <TableColumn fx:id="EMail" prefWidth="100.0" text="E_Mail" />
+                  <TableColumn fx:id="ErfDatum" prefWidth="100.0" text="Erfassungsdatum" />
                </columns>
             </TableView>
-            <ComboBox fx:id="cb_suchfeld" layoutX="25.0" layoutY="41.0" prefHeight="25.0" prefWidth="150.0" />
+            <ComboBox fx:id="cb_suchfeld" layoutX="25.0" layoutY="41.0" prefHeight="25.0" prefWidth="150.0" promptText="Suchkriterium" />  
             <Label layoutX="25.0" layoutY="24.0" prefHeight="17.0" prefWidth="72.0" text="Feld" />
             <TextField fx:id="tf_suchbegriff" layoutX="246.0" layoutY="41.0" prefHeight="25.0" prefWidth="199.0" />
             <Label layoutX="246.0" layoutY="24.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
@@ -37,19 +37,13 @@
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button layoutX="132.0" layoutY="172.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
-                  <Button layoutX="24.0" layoutY="172.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
-                  <Button layoutX="242.0" layoutY="172.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
+                  <Button layoutX="132.0" layoutY="172.0" mnemonicParsing="false" onAction="#alleMitLKZ" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
+                  <Button layoutX="24.0" layoutY="172.0" mnemonicParsing="false" onAction="#adresseHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
+                  <Button layoutX="242.0" layoutY="172.0" mnemonicParsing="false" onAction="#alleOhneLKZ" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
                   <Button fx:id="closeAW" layoutX="353.0" layoutY="172.0" mnemonicParsing="false" onAction="#closeAdressverwaltung" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
-                  <Label layoutX="24.0" layoutY="20.0" text="Aschrift-ID" />
-                  <TextField fx:id="tf_anschriftID" editable="false" layoutX="24.0" layoutY="38.0" prefHeight="25.0" prefWidth="100.0" />
+                  <Label layoutX="24.0" layoutY="20.0" text="Anschrift-ID" />
+                  <TextField fx:id="tf_anschriftID" layoutX="24.0" layoutY="38.0" prefHeight="25.0" prefWidth="100.0" />
                   <Label layoutX="136.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" text="Anrede" />
-                  <SplitMenuButton fx:id="cb_anrede" layoutX="132.0" layoutY="38.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0">
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="Frau" />
-                        <MenuItem mnemonicParsing="false" text="Herr" />
-                     </items>
-                  </SplitMenuButton>
                   <Label layoutX="292.0" layoutY="20.0" text="Name" />
                   <NameTextField fx:id="tf_name" layoutX="292.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
                   <Label layoutX="454.0" layoutY="20.0" text="Vorname" />
@@ -70,6 +64,7 @@
                   <NameTextField fx:id="tf_staat" layoutX="569.0" layoutY="88.0" prefHeight="25.0" prefWidth="150.0" />
                   <Label layoutX="771.0" layoutY="75.0" text="Erfassungsdatum" />
                   <TextField fx:id="tf_datum" layoutX="771.0" layoutY="93.0" prefHeight="25.0" prefWidth="220.0" />
+                  <ComboBox fx:id="cb_anrede" layoutX="132.0" layoutY="38.0" prefWidth="100.0" />
                   
                </children>
             </AnchorPane>

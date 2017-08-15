@@ -25,7 +25,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -70,18 +69,18 @@ public class AdressverwaltungController implements Initializable {
 
 
     @FXML
-    private ComboBox<?> cb_suchfeld;
+    private ComboBox<String> cb_suchfeld = new ComboBox();
     @FXML
     private TextField tf_suchbegriff;
     @FXML
-    private TextField tf_anschriftID;
+    private TextField tf_anschriftID;  
     @FXML
-    private SplitMenuButton cb_anrede;
+    private ComboBox<String> cb_anrede = new ComboBox();
     /**
      * Tabellenspalte "AnschriftID".
      */
     @FXML
-    private TableColumn<Adresse, String> AnschriftID;
+    private TableColumn<Adresse, String> Anschrift_ID;
     
     /**
      * Tabellenspalte "Anrede".
@@ -199,23 +198,55 @@ public class AdressverwaltungController implements Initializable {
         
         // Datum auf 10 Zeichen begrenzt
         begrenzeTextFeldEingabe(tf_datum, 10);
+        
+        // Datum auf 10 Zeichen begrenzt
+        begrenzeTextFeldEingabe(tf_anschriftID, 6);
           
-        AnschriftID.setCellValueFactory(
+        Anschrift_ID.setCellValueFactory(
                 new PropertyValueFactory<>("adresseID"));            
+        
         Anrede.setCellValueFactory(new PropertyValueFactory<>("anrede"));     
+        
         Name.setCellValueFactory(new PropertyValueFactory<>("name"));   
+        
         Vorname.setCellValueFactory(new PropertyValueFactory<>("vorname"));     
+        
         Straße.setCellValueFactory(new PropertyValueFactory<>("strasse"));      
-        HausNr.setCellValueFactory(new PropertyValueFactory<>("hausnummer"));            
+        
+        HausNr.setCellValueFactory(
+                new PropertyValueFactory<>("hausnummer"));            
+        
         PLZ.setCellValueFactory(new PropertyValueFactory<>("plz"));     
+        
         Ort.setCellValueFactory(new PropertyValueFactory<>("ort"));       
-        Staat.setCellValueFactory(new PropertyValueFactory<>("staat"));            
-        Tel.setCellValueFactory(new PropertyValueFactory<>("telefon"));             
+        
+        Staat.setCellValueFactory(
+                new PropertyValueFactory<>("staat"));            
+        
+        Tel.setCellValueFactory(
+                new PropertyValueFactory<>("telefon"));             
+        
         EMail.setCellValueFactory(new PropertyValueFactory<>("eMail"));       
+        
         ErfDatum.setCellValueFactory(
                 new PropertyValueFactory<>("erfassungsdatum"));
         
+        cb_suchfeld.getItems().addAll(
+                "AnschriftID", 
+                "Name",
+                "Vorname",
+                "Straße",
+                "HausNr",
+                "PLZ",
+                "Ort",
+                "Staat",
+                "Tel",
+                "Email",
+                "ErfDatum");
+        
+        cb_anrede.getItems().addAll("Herr", "Frau");
     }
+    
     
     /**
      * Begrenzte Feldeingabe.
@@ -231,6 +262,7 @@ public class AdressverwaltungController implements Initializable {
         
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 11.08.17    HEN     Methode erstellt.
@@ -248,5 +280,78 @@ public class AdressverwaltungController implements Initializable {
         ObservableList<Adresse> adressen 
                 = FXCollections.observableArrayList(ad.gibAlleAdressen());
         adresseTV.setItems(adressen);
-    } 
+    }
+    
+
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Sucht nach allen Adressen mit aktivem LKZ und stellt sie in der Tabelle
+     * dar.
+     * @throws java.sql.SQLException SQL Exception
+     */    
+    @FXML
+    public void alleMitLKZ() throws SQLException {    
+        AdresseDAO ad = new AdresseDAO();     
+        ObservableList<Adresse> adressen 
+                = FXCollections.observableArrayList(ad.gibAlleAdressenMitLKZ());
+        adresseTV.setItems(adressen);
+    }    
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Sucht nach allen Adressen ohne LKZ und stellt sie in der Tabelle dar.
+     * @throws java.sql.SQLException SQL Exception
+     */       
+    @FXML
+    public void alleOhneLKZ() throws SQLException {    
+        AdresseDAO ad = new AdresseDAO();     
+        ObservableList<Adresse> adressen 
+                = FXCollections.observableArrayList(ad.gibAlleAdressenOhneLKZ());
+        adresseTV.setItems(adressen);
+    }    
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues
+     * Adress Objekt, welches dann über die DAO in die DB geschrieben wird.
+     * @throws java.sql.SQLException SQL Exception
+     */
+    @FXML
+    public void adresseHinzufuegen() throws SQLException {    
+        String anschriftID = tf_anschriftID.getText();
+        String anrede = cb_anrede.getValue();
+        String name = tf_name.getText();
+        String vorname = tf_vorname.getText();
+        String strasse = tf_strasse.getText();
+        String hausnr = tf_hausNr.getText();
+        String plz = tf_plz.getText();
+        String ort = tf_ort.getText();
+        String staat = tf_staat.getText();
+        String tel = tf_telefon.getText();
+        String email = tf_email.getText();
+        String erfdatum = tf_datum.getText();
+        String lkz = "N";
+        Adresse adresse = new Adresse(anschriftID, anrede, name, vorname, 
+                strasse, hausnr, plz, ort, staat, tel, email, erfdatum, lkz);
+        
+        AdresseDAO ad = new AdresseDAO();     
+        ad.fuegeAdresseHinzu(adresse);
+    }     
 }
