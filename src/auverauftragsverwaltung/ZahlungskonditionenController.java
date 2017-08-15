@@ -12,14 +12,22 @@
  */
 package auverauftragsverwaltung;
 
+import Datenbank.ZahlungskonditionenDAO;
+import Klassen.Zahlungskonditionen;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
@@ -78,6 +86,32 @@ public class ZahlungskonditionenController implements Initializable {
      */
     @FXML
     private TextField tf_skonto2;
+    
+    @FXML
+    private TableView tv_zahlungskonditionen = new TableView<Zahlungskonditionen>();
+    
+    @FXML
+    private TableColumn<Zahlungskonditionen, String> tc_zahlungskonditionsID;
+    @FXML
+    private TableColumn<Zahlungskonditionen, String> tc_auftragsart;
+    @FXML
+    private TableColumn<Zahlungskonditionen, String> tc_lieferzeit;
+    @FXML
+    private TableColumn<Zahlungskonditionen, String> tc_sperrzeit;
+    @FXML
+    private TableColumn<Zahlungskonditionen, String> tc_skontozeit1;
+    @FXML
+    private TableColumn<Zahlungskonditionen, String> tc_skonto1;
+    @FXML
+    private TableColumn<Zahlungskonditionen, String> tc_skontozeit2;
+    @FXML
+    private TableColumn<Zahlungskonditionen, String> tc_skonto2;
+    @FXML
+    private TableColumn<Zahlungskonditionen, String> tc_mahnzeit1;
+    @FXML
+    private TableColumn<Zahlungskonditionen, String> tc_mahnzeit2;
+    @FXML
+    private TableColumn<Zahlungskonditionen, String> tc_mahnzeit3;
 
     /**
      * Methode zum Abbrechen der Zahlungskonditionverwaltung.
@@ -110,6 +144,30 @@ public class ZahlungskonditionenController implements Initializable {
         begrenzeTextFeldEingabe(tf_skontozeit2, 4);
         begrenzeTextFeldEingabe(tf_skonto2, 3);
 
+        tc_zahlungskonditionsID.setCellValueFactory(
+                new PropertyValueFactory<>("zahlungskonditionsID"));
+        tc_auftragsart.setCellValueFactory(
+                new PropertyValueFactory<>("auftragsart"));
+        tc_lieferzeit.setCellValueFactory(
+                new PropertyValueFactory<>("lieferzeit"));
+        tc_sperrzeit.setCellValueFactory(
+                new PropertyValueFactory<>("sperrzeit"));
+        tc_skontozeit1.setCellValueFactory(
+                new PropertyValueFactory<>("skontozeit1"));
+        tc_skonto1.setCellValueFactory(
+                new PropertyValueFactory<>("skonto1"));
+        tc_skontozeit2.setCellValueFactory(
+                new PropertyValueFactory<>("skontozeit2"));
+        tc_skonto2.setCellValueFactory(
+                new PropertyValueFactory<>("skonto2"));
+        tc_mahnzeit1.setCellValueFactory(
+                new PropertyValueFactory<>("mahnzeit1"));
+        tc_mahnzeit2.setCellValueFactory(
+                new PropertyValueFactory<>("mahnzeit2"));
+        tc_mahnzeit3.setCellValueFactory(
+                new PropertyValueFactory<>("mahnzeit3"));
+        
+        
     }
 
     private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
@@ -118,4 +176,22 @@ public class ZahlungskonditionenController implements Initializable {
                 -> change.getControlNewText().length() <= zahl ? change : null));
     }
 
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    BER     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+        /**
+     * Erstellt ein ZahlungskonditionenDAO Objekt und gibt eine 
+     * Zahlungskonditions ArrayList an eine OberservableList, die dann an 
+     * die TableView übergeben wird.
+     * @throws java.sql.SQLException SQL Exception
+     */
+    public void setTableContent() throws SQLException {    
+        ZahlungskonditionenDAO zk = new ZahlungskonditionenDAO();     
+        ObservableList<Zahlungskonditionen> zahlungskonditionen 
+                = FXCollections.observableArrayList(
+                        zk.gibAlleZahlungskonditionen());
+        tv_zahlungskonditionen.setItems(zahlungskonditionen);
+    } 
 }
