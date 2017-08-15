@@ -313,32 +313,5 @@ public class AdresseDAO extends DataAccess {
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();        
         }
-    } 
-     public void setzeLKZ(Adresse a) {
-
-        PreparedStatement stmt = null;
-        String anschriftID = a.getAdresseID();
-
-
-        try {
-            con.setAutoCommit(false);
-
-            String query = "UPDATE ADRESSE SET LKZ = 'J' WHERE ANSCHRIFT_ID = " 
-                    + "'" + anschriftID + "'";
-            
-            ResultSet executeQuery = stmt.executeQuery(query);
-            
-            stmt.executeUpdate();
-            con.commit();
-
-        } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.initStyle(StageStyle.UTILITY);
-            alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
-            alert.showAndWait();
-        }
-
-    }
-
+    }       
 }
