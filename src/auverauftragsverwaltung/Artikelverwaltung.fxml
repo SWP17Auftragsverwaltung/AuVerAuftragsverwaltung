@@ -13,12 +13,13 @@
       <Label layoutX="246.0" layoutY="20.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
       <TextField layoutX="246.0" layoutY="37.0" prefHeight="25.0" prefWidth="199.0" />
       <Button layoutX="468.0" layoutY="20.0" mnemonicParsing="false" onAction="#setTableContent" prefHeight="40.0" prefWidth="160.0" text="Artikel suchen " AnchorPane.leftAnchor="468.0" />
-      <TableView fx:id="tv_artikel" layoutX="38.0" layoutY="72.0" prefHeight="335.0" prefWidth="692.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0">
+      <TableView fx:id="tv_artikel" layoutX="25.0" layoutY="70.0" prefHeight="335.0" prefWidth="692.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0">
         <columns>
           <TableColumn fx:id="tc_materialNr" prefWidth="97.0" text="MaterialNr" />
           <TableColumn fx:id="tc_artikelbeschreibung" prefWidth="136.0" text="Artikelbeschreibung" />
             <TableColumn fx:id="tc_einzelwert" prefWidth="83.0" text="Einzelwert" />
             <TableColumn fx:id="tc_bestellbeschreibung" prefWidth="124.0" text="Bestellbeschreibung" />
+            <TableColumn fx:id="tc_mwstsatz" prefWidth="75.0" text="MwSt. Satz" />
             <TableColumn fx:id="tc_BestandFrei" prefWidth="70.0" text="FREI" />
             <TableColumn fx:id="tc_BestandReserviert" prefWidth="103.0" text="RESERVIERT" />
             <TableColumn fx:id="tc_BestandZulauf" prefWidth="92.0" text="ZULAUF" />
