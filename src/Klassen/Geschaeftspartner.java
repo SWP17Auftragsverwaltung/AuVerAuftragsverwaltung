@@ -75,13 +75,13 @@ public class Geschaeftspartner {
      * @param kreditlimit Kreditlimit
      * @param lkz Löschkennzeichen
     */
-    public Geschaeftspartner(String geschaeftspartnerID, String adresseID, 
-            String lieferID, String typ, String kreditlimit, String lkz) {
+    public Geschaeftspartner(String geschaeftspartnerID,  String typ, 
+            String adresseID, String lieferID, String kreditlimit, String lkz) {
         
         this.geschaeftspartnerID = geschaeftspartnerID;
+        this.typ = typ;
         this.adresseID = adresseID;
         this.lieferID = lieferID;
-        this.typ = typ;
         this.kreditlimit = kreditlimit;
         this.lkz = lkz;
     }
@@ -155,7 +155,6 @@ public class Geschaeftspartner {
 
     /**
      * @return the adresseID
-     * 
     */
     public String getAdresseID() {
         return adresseID;

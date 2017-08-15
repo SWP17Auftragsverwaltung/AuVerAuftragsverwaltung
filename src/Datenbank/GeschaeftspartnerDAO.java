@@ -12,87 +12,66 @@
 package Datenbank;
 
 import Klassen.Geschaeftspartner;
-import Klassen.Zahlungskonditionen;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
+import javafx.stage.StageStyle;
 
 /**
  *
  * @author Chakir
  */
-public class GeschaeftspartnerDAO {
-           /**
-     * Variablendefinition
-    */
-
+public class GeschaeftspartnerDAO extends DataAccess {
 
     /**
-     * Verbindungsobjekt auf null setzen.
-     */  
-    private Connection con = null;
-    
-    /**
-     * Statementobjekt auf null setzen.
+     * Konstruktor.
+     * @throws SQLException SQLException 
      */
-    private Statement stmt = null;
-    
-    /**
-     * ResultSet auf null setzen.
-     */
-    private ResultSet rs = null;
+    public GeschaeftspartnerDAO() throws SQLException {
+        
+    }
 
     
-    private static String benutzername = "root";
-    /**
-     *Variable für das Benutzerpasswort.
-     */
-    private static String passwort = "KauVer";
-
-    /**
-     *Variable für den Datenbankpfad.
-     */
-    private static String datenbankPfad 
-            = "jdbc:derby://localhost:1527/SWPWI2017";  
-    
-    
-        /*------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 14.08.17    CEL     Erstellt.
     /*------------------------------------------------------------------------*/
   
     /**
      * Gibt alle Zahlungskonditionen wieder, die sich in der Datenbank befinden.
-     *
      * @return Gibt Arraylist aller Zahlungskonditionen wieder
     */
     public ArrayList<Geschaeftspartner> gibAlleGeschaeftspartner() {
         
         //Variablendeklaration
-        ArrayList<Geschaeftspartner> geschaeftspartnerListe = new ArrayList<>();
+        Statement stmt = null;
+        ResultSet rs = null;
         Geschaeftspartner geschaeftspartner = null;
+        ArrayList<Geschaeftspartner> geschaeftspartnerListe = new ArrayList<>();
+        
         String query = "SELECT * FROM ROOT.Geschaeftspartner";    
-        //test
+
         try {
-            con = DriverManager.getConnection(datenbankPfad, 
-                    benutzername, passwort);
             stmt = con.createStatement();
             rs = stmt.executeQuery(query);
 
             while (rs.next()) {
-                geschaeftspartner = new Geschaeftspartner(rs.getString(1), rs.getString(2),
-                        rs.getString(3), rs.getString(4), rs.getString(5),
-                        rs.getString(6));
+                geschaeftspartner = new Geschaeftspartner(rs.getString(1), 
+                        rs.getString(2), rs.getString(3), rs.getString(4), 
+                        rs.getString(5), rs.getString(6));
             
                 geschaeftspartnerListe.add(geschaeftspartner);
             }
             con.close();
                  
-        } catch (SQLException except) {
-            System.out.println(except);
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
         }
         return geschaeftspartnerListe;
     } 

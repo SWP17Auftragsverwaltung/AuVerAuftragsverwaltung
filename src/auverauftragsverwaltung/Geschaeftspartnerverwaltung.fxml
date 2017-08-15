@@ -8,14 +8,14 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.GeschaeftspartnerverwaltungController">
    <children>
-      <Button layoutX="380.0" layoutY="36.0" mnemonicParsing="false" prefHeight="40.0" text="Geschäftspartner suchen" AnchorPane.topAnchor="36.0" />
-      <TableView editable="true" layoutX="25.0" layoutY="100.0" prefHeight="248.0" prefWidth="751.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="100.0">
+      <Button layoutX="380.0" layoutY="36.0" mnemonicParsing="false" onAction="#setTableContent" prefHeight="40.0" text="Geschäftspartner suchen" AnchorPane.topAnchor="36.0" />
+      <TableView fx:id="gpTable" editable="true" layoutX="25.0" layoutY="100.0" prefHeight="248.0" prefWidth="751.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="100.0">
          <columns>
-            <TableColumn fx:id="age" prefWidth="112.0" text="Partner-ID" />
-            <TableColumn fx:id="id" prefWidth="124.0" text="Partner-Typ" />
-            <TableColumn fx:id="name" prefWidth="129.0" text="Anschrift-ID" />
-            <TableColumn fx:id="surname" prefWidth="139.0" text="Liefer-ID" />
-            <TableColumn fx:id="tableID" prefWidth="131.0" text="Kreditlimit" />
+            <TableColumn fx:id="gpID" prefWidth="112.0" text="Partner-ID" />
+            <TableColumn fx:id="typ" prefWidth="124.0" text="Partner-Typ" />
+            <TableColumn fx:id="adressID" prefWidth="129.0" text="Anschrift-ID" />
+            <TableColumn fx:id="liefID" prefWidth="139.0" text="Liefer-ID" />
+            <TableColumn fx:id="kredLimit" prefWidth="131.0" text="Kreditlimit" />
          </columns>
       </TableView>
       <TitledPane animated="false" collapsible="false" layoutX="25.0" layoutY="370.0" text="Geschäftspartnerdatensatz" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="370.0">
