@@ -51,7 +51,7 @@ public class ArtikelverwaltungController implements Initializable {
     @FXML
     private TextField tf_bestellwert;
     @FXML
-    private TableView tv_artikel = new TableView<Artikel>();
+    private TableView tv_artikel = new TableView<>();
 
         
     /**
