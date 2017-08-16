@@ -194,7 +194,7 @@ public class AdresseDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Fügt Adresse der Datenbank hinzu
+     * Fügt Adresse der Datenbank hinzu.
      * @param a Adressobjekt
     */
     public void fuegeAdresseHinzu(Adresse a) {
@@ -207,13 +207,13 @@ public class AdresseDAO extends DataAccess {
         String vorname = a.getVorname();
         String strasse = a.getStrasse();
         String hausnr = a.getHausnummer();
-        String plz = a.getPLZ();
+        String plz = a.getPlz();
         String ort = a.getOrt();
         String staat = a.getStaat();
         String tel = a.getTelefon();
-        String email = a.geteMail();
+        String email = a.getEmail();
         String erfdatum = a.getErfassungsdatum();
-        String lkz = a.getLKZ();
+        String lkz = a.getLkz();
         
         
         try {
@@ -250,7 +250,68 @@ public class AdresseDAO extends DataAccess {
             alert.showAndWait();        
         }
     }    
+
     
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
     
-    
+    /**
+     * Ändern die Adresse in der DB.
+     * @param a Adressobjekt
+    */
+    public void aendereAdresse(Adresse a) {
+        
+        //Variablendeklaration
+        PreparedStatement  stmt = null;
+        String anschriftID = a.getAdresseID();
+        String anrede = a.getAnrede();
+        String name = a.getName();
+        String vorname = a.getVorname();
+        String strasse = a.getStrasse();
+        String hausnr = a.getHausnummer();
+        String plz = a.getPlz();
+        String ort = a.getOrt();
+        String staat = a.getStaat();
+        String tel = a.getTelefon();
+        String email = a.getEmail();
+        String erfdatum = a.getErfassungsdatum();
+        String lkz = a.getLkz();
+        
+        
+        try {
+            con.setAutoCommit(false);
+
+            String query = "INSERT INTO ROOT.ADRESSE (Anschrift_ID, Anrede, "
+                + "Name, Vorname, Strasse, Hausnummer, PLZ, Ort, Staat, "
+                + "Telefon, E_Mail, Erfassungsdatum, LKZ)"
+                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, anschriftID);
+            stmt.setString(2, anrede);
+            stmt.setString(3, name);
+            stmt.setString(4, vorname);
+            stmt.setString(5, strasse);
+            stmt.setString(6, hausnr);
+            stmt.setString(7, plz);
+            stmt.setString(8, ort);
+            stmt.setString(9, staat);
+            stmt.setString(10, tel);
+            stmt.setString(11, email);
+            stmt.setString(12, erfdatum);
+            stmt.setString(13, lkz);
+            
+            stmt.executeUpdate();
+            con.commit();
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();        
+        }
+    }       
 }

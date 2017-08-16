@@ -64,11 +64,6 @@ public class AdressverwaltungController implements Initializable {
     @FXML
     private TextField tf_datum;
     @FXML
-    private TableView adresseTV = new TableView<Adresse>();
-    
-
-
-    @FXML
     private ComboBox<String> cb_suchfeld = new ComboBox();
     @FXML
     private TextField tf_suchbegriff;
@@ -76,6 +71,10 @@ public class AdressverwaltungController implements Initializable {
     private TextField tf_anschriftID;  
     @FXML
     private ComboBox<String> cb_anrede = new ComboBox();
+    
+    
+    @FXML
+    private TableView adresseTV = new TableView<Adresse>();
     /**
      * Tabellenspalte "AnschriftID".
      */
@@ -147,6 +146,12 @@ public class AdressverwaltungController implements Initializable {
      */
     @FXML
     private TableColumn<Adresse, String> ErfDatum;
+    
+    /**
+     * Tabellenspalte LKZ.
+     */
+    @FXML
+    private TableColumn<Adresse, String> LKZ;
  
 
     /**
@@ -178,8 +183,8 @@ public class AdressverwaltungController implements Initializable {
         // Telefon auf 20 Zeichen begrenzt
         begrenzeTextFeldEingabe(tf_telefon, 20);
         
-        // E-Mail auf 30 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_email, 50);
+        // E-Mail auf 100 Zeichen begrenzt
+        begrenzeTextFeldEingabe(tf_email, 100);
         
         // Strasse auf 30 Zeichen begrenzt
         begrenzeTextFeldEingabe(tf_strasse, 30);
@@ -226,10 +231,13 @@ public class AdressverwaltungController implements Initializable {
         Tel.setCellValueFactory(
                 new PropertyValueFactory<>("telefon"));             
         
-        EMail.setCellValueFactory(new PropertyValueFactory<>("eMail"));       
+        EMail.setCellValueFactory(new PropertyValueFactory<>("Email"));       
         
         ErfDatum.setCellValueFactory(
                 new PropertyValueFactory<>("erfassungsdatum"));
+        
+        LKZ.setCellValueFactory(
+                new PropertyValueFactory<>("lkz"));
         
         cb_suchfeld.getItems().addAll(
                 "AnschriftID", 
@@ -313,11 +321,11 @@ public class AdressverwaltungController implements Initializable {
      * Sucht nach allen Adressen ohne LKZ und stellt sie in der Tabelle dar.
      * @throws java.sql.SQLException SQL Exception
      */       
-    @FXML
     public void alleOhneLKZ() throws SQLException {    
         AdresseDAO ad = new AdresseDAO();     
         ObservableList<Adresse> adressen 
-                = FXCollections.observableArrayList(ad.gibAlleAdressenOhneLKZ());
+                = FXCollections.observableArrayList(
+                        ad.gibAlleAdressenOhneLKZ());
         adresseTV.setItems(adressen);
     }    
     
@@ -353,5 +361,23 @@ public class AdressverwaltungController implements Initializable {
         
         AdresseDAO ad = new AdresseDAO();     
         ad.fuegeAdresseHinzu(adresse);
-    }     
+    }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * "Löscht" eine markierte Adresse, in dem das LKZ auf J gesetzt wird.
+     * @throws java.sql.SQLException SQL Exception
+     */
+    @FXML
+    public void adresseLoeschen() throws SQLException {  
+        
+        Object o = adresseTV.getItems().get(13);
+        
+        System.out.println(o);
+
+    }         
 }

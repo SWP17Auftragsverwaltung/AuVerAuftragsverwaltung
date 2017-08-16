@@ -74,7 +74,7 @@ public class Adresse {
     /**
      * eMail-Adresse des Geschäftspartners.
     */
-    private String eMail;
+    private String Email;
     
     /**
      * Erfassungsdatum des Objektes.
@@ -84,7 +84,7 @@ public class Adresse {
     /**
      * LKZ des Adressobjektes.
      */
-    private String lkz;
+    private String Lkz;
 
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
@@ -106,14 +106,14 @@ public class Adresse {
      * @param ort Ort
      * @param staat Staat
      * @param telefon Telefon
-     * @param eMail Email
+     * @param Email Email
      * @param erfassungsdatum Erfassungsdatum
-     * @param lkz Löschkennzeichen
+     * @param Lkz Löschkennzeichen
      */
     public Adresse(String adresseID, String anrede, String name, 
             String vorname, String strasse, String hausnummer, String plz, 
-            String ort, String staat, String telefon, String eMail, 
-            String erfassungsdatum, String lkz) {
+            String ort, String staat, String telefon, String Email, 
+            String erfassungsdatum, String Lkz) {
 
         this.adresseID = adresseID;
         this.name = name;
@@ -125,9 +125,9 @@ public class Adresse {
         this.ort = ort;
         this.staat = staat;
         this.telefon = telefon;
-        this.eMail = eMail;
+        this.Email = Email;
         this.erfassungsdatum = erfassungsdatum;
-        this.lkz = lkz;
+        this.Lkz = Lkz;
     }
 
     /*--------------------------------------------------------------------------
@@ -274,7 +274,7 @@ public class Adresse {
     /**
      * @return the PLZ
      */
-    public String getPLZ() {
+    public String getPlz() {
         return plz;
     }
 
@@ -328,17 +328,17 @@ public class Adresse {
     }
 
     /**
-     * @return the eMail
+     * @return the Email
      */
-    public String geteMail() {
-        return eMail;
+    public String getEmail() {
+        return Email;
     }
 
     /**
-     * @param eMail the eMail to set
+     * @param Email the Email to set
      */
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
+    public void setEmail(String Email) {
+        this.Email = Email;
     }
 
     /**
@@ -358,15 +358,15 @@ public class Adresse {
     /**
      * @return the LKZ
      */
-    public String getLKZ() {
-        return lkz;
+    public String getLkz() {
+        return Lkz;
     }
 
     /**
-     * @param lkz the LKZ to set
+     * @param Lkz the Lkz to set
      */
-    public void setLKZ(String lkz) {
-        this.lkz = lkz;
+    public void setLkz(String Lkz) {
+        this.Lkz = Lkz;
     }    
 
     /*------------------------------------------------

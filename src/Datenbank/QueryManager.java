@@ -56,15 +56,15 @@ public class QueryManager {
                         + a.getStrasse() + "',";
                 query += "" + hm.get("Hausnummer") + " = '" 
                         + a.getHausnummer() + "',";
-                query += "" + hm.get("PLZ") + " = '" + a.getPLZ() + "',";
+                query += "" + hm.get("PLZ") + " = '" + a.getPlz() + "',";
                 query += "" + hm.get("Ort") + " = '" + a.getOrt() + "',";
                 query += "" + hm.get("Staat") + " = '" + a.getStaat() + "',";
                 query += "" + hm.get("Telefon") + " = '" 
                         + a.getTelefon() + "',";
-                query += "" + hm.get("eMail") + " = '" + a.geteMail() + "',";
+                query += "" + hm.get("eMail") + " = '" + a.getEmail() + "',";
                 query += "" + hm.get("Erfassungsdatum") + " = '" 
                         + a.getErfassungsdatum() + "',";
-                query += "" + hm.get("LKZ") + " = '" + a.getLKZ() + "',";
+                query += "" + hm.get("LKZ") + " = '" + a.getLkz() + "',";
                 query += " WHERE ";
                 query += "" + hm.get("AdresseID") + " = '" 
                         + a.getAdresseID() + "',";
@@ -319,11 +319,11 @@ public class QueryManager {
                 insertQuery += "'" + a.getName() + "',";
                 insertQuery += "'" + a.getStrasse() + "',";
                 insertQuery += "'" + a.getHausnummer() + "',";
-                insertQuery += "" + a.getPLZ() + ",";
+                insertQuery += "" + a.getPlz() + ",";
                 insertQuery += "'" + a.getOrt() + "',";
                 insertQuery += "'" + a.getStaat() + "',";
                 insertQuery += "'" + a.getTelefon() + "',";
-                insertQuery += "'" + a.geteMail() + "',";
+                insertQuery += "'" + a.getEmail() + "',";
                 insertQuery += "'" + a.getErfassungsdatum() + "',";
                 insertQuery += "" + "" + false + ",";
 

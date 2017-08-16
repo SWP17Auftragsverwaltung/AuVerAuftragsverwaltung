@@ -24,6 +24,7 @@
                   <TableColumn fx:id="Tel" prefWidth="100.0" text="Telefon" />
                   <TableColumn fx:id="EMail" prefWidth="100.0" text="E_Mail" />
                   <TableColumn fx:id="ErfDatum" prefWidth="100.0" text="Erfassungsdatum" />
+                  <TableColumn fx:id="LKZ" prefWidth="75.0" text="LKZ" />
                </columns>
             </TableView>
             <ComboBox fx:id="cb_suchfeld" layoutX="25.0" layoutY="41.0" prefHeight="25.0" prefWidth="150.0" promptText="Suchkriterium" />  
@@ -39,7 +40,7 @@
                <children>
                   <Button layoutX="132.0" layoutY="172.0" mnemonicParsing="false" onAction="#alleMitLKZ" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
                   <Button layoutX="24.0" layoutY="172.0" mnemonicParsing="false" onAction="#adresseHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
-                  <Button layoutX="242.0" layoutY="172.0" mnemonicParsing="false" onAction="#alleOhneLKZ" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
+                  <Button layoutX="242.0" layoutY="172.0" mnemonicParsing="false" onAction="#adresseLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
                   <Button fx:id="closeAW" layoutX="353.0" layoutY="172.0" mnemonicParsing="false" onAction="#closeAdressverwaltung" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
                   <Label layoutX="24.0" layoutY="20.0" text="Anschrift-ID" />
                   <TextField fx:id="tf_anschriftID" layoutX="24.0" layoutY="38.0" prefHeight="25.0" prefWidth="100.0" />
