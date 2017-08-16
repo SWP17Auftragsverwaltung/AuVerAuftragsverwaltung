@@ -67,11 +67,15 @@ public class ArtikelverwaltungController implements Initializable {
     @FXML
     private TableView tv_artikel = new TableView<>();
 
-        
+   
     @FXML
     private ComboBox<String> cb_feldwahl = new ComboBox();
     @FXML
     private ComboBox<String> cb_mwstsatz = new ComboBox();
+    
+     /**
+     * Tabellenspalte "MaterialNr".
+     */
     @FXML
     private TableColumn<Artikel, String> tc_materialNr;
     @FXML
