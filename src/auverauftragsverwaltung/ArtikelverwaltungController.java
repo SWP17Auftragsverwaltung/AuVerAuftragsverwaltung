@@ -41,7 +41,13 @@ import javafx.stage.Stage;
  * @author Mudimbi
  */
 public class ArtikelverwaltungController implements Initializable {
-
+    /**
+     * Abbrechen-Button der Artikelverwaltung.
+     */
+    @FXML
+    private Button closeArW;
+    @FXML
+    private TextField tf_materialNr;
     @FXML
     private TextArea tf_artikelbeschreibung;
     @FXML
@@ -51,16 +57,21 @@ public class ArtikelverwaltungController implements Initializable {
     @FXML
     private TextField tf_bestellwert;
     @FXML
+    private TextField tf_bestandFREI;
+    @FXML
+    private TextField tf_bestandRESERVIERT;
+    @FXML
+    private TextField tf_bestandZULAUF;
+    @FXML
+    private TextField tf_bestandVERKAUFT;
+    @FXML
     private TableView tv_artikel = new TableView<>();
 
         
-    /**
-     * Abbrechen-Button der Artikelverwaltung.
-     */
     @FXML
-    private Button closeArW;
+    private ComboBox<String> cb_feldwahl = new ComboBox();
     @FXML
-    private ComboBox<?> cb_feldwahl;
+    private ComboBox<String> cb_mwstsatz = new ComboBox();
     @FXML
     private TableColumn<Artikel, String> tc_materialNr;
     @FXML
@@ -70,6 +81,10 @@ public class ArtikelverwaltungController implements Initializable {
     @FXML
     private TableColumn<Artikel, String> tc_bestellbeschreibung;
     @FXML
+    private TableColumn<Artikel, String> tc_bestellwert;
+    @FXML
+    private TableColumn<Artikel, String> tc_mwstsatz;
+    @FXML
     private TableColumn<Artikel, String> tc_BestandFrei;
     @FXML
     private TableColumn<Artikel, String> tc_BestandReserviert;
@@ -77,16 +92,7 @@ public class ArtikelverwaltungController implements Initializable {
     private TableColumn<Artikel, String> tc_BestandZulauf;
     @FXML
     private TableColumn<Artikel, String> tc_BestandVerkauft;
-    @FXML
-    private TextField tf_materialNr;
-    @FXML
-    private TextField tf_bestandFREI;
-    @FXML
-    private TextField tf_bestandRESERVIERT;
-    @FXML
-    private TextField tf_bestandZULAUF;
-    @FXML
-    private TextField tf_bestandVERKAUFT;
+
 
     /**
      * Methode zum Abbrechen der Artikelverwaltung.
@@ -108,6 +114,9 @@ public class ArtikelverwaltungController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+       
+        //  MaterialNr auf 6 Zeichen begrenzt
+        begrenzeTextFeldEingabe(tf_materialNr, 6);
         
         //  Artikelbeschreibung auf 250 Zeichen begrenzt
         begrenzeTextAreaEingabe(tf_artikelbeschreibung, 250);
@@ -120,16 +129,32 @@ public class ArtikelverwaltungController implements Initializable {
 
         // Bestellwert auf 6 Zeichen begrenzt
         begrenzeTextFeldEingabe(tf_bestellwert, 6);
+        
+        // Bestand Frei auf 6 Zeichen begrenzt
+        begrenzeTextFeldEingabe(tf_bestandFREI, 6);
+        
+        // Bestand Reserviert auf 6 Zeichen begrenzt
+        begrenzeTextFeldEingabe(tf_bestandRESERVIERT, 6);
+        
+        // Bestand Zulauf auf 6 Zeichen begrenzt
+        begrenzeTextFeldEingabe(tf_bestandZULAUF, 6);
+        
+        // Bestand Verkauft auf 12 Zeichen begrenzt
+        begrenzeTextFeldEingabe(tf_bestandVERKAUFT, 12);
        
         
         tc_materialNr.setCellValueFactory(
                 new PropertyValueFactory<>("artikelID"));
+        tc_einzelwert.setCellValueFactory(
+                new PropertyValueFactory<>("einzelwert"));
         tc_artikelbeschreibung.setCellValueFactory(
                 new PropertyValueFactory<>("artikeltext"));
         tc_bestellbeschreibung.setCellValueFactory(
                 new PropertyValueFactory<>("bestelltext"));
-        tc_einzelwert.setCellValueFactory(
-                new PropertyValueFactory<>("einzelwert"));
+        tc_bestellwert.setCellValueFactory(
+                new PropertyValueFactory<>("bestellwert"));
+        tc_mwstsatz.setCellValueFactory(
+                new PropertyValueFactory<>("steuer"));
         tc_BestandFrei.setCellValueFactory(
                 new PropertyValueFactory<>("bestandsmengeFrei"));
         tc_BestandReserviert.setCellValueFactory(
@@ -195,11 +220,12 @@ public class ArtikelverwaltungController implements Initializable {
     public void alleMitLKZ() throws SQLException {    
         ArtikelDAO ar = new ArtikelDAO();     
         ObservableList<Artikel> artikel 
-                = FXCollections.observableArrayList(ar.gibAlleArtikelMitLKZ());
+                = FXCollections.observableArrayList(
+                        ar.gibAlleArtikelMitLKZ());
         tv_artikel.setItems(artikel);
     }
     
-        /*------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 15.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
@@ -213,7 +239,8 @@ public class ArtikelverwaltungController implements Initializable {
     public void alleOhneLKZ() throws SQLException {    
         ArtikelDAO ar = new ArtikelDAO();     
         ObservableList<Artikel> artikel 
-                = FXCollections.observableArrayList(ar.gibAlleArtikelOhneLKZ());
+                = FXCollections.observableArrayList(
+                        ar.gibAlleArtikelOhneLKZ());
         tv_artikel.setItems(artikel);
     }
     

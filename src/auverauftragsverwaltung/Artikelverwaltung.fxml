@@ -11,7 +11,7 @@
       <Label layoutX="25.0" layoutY="20.0" prefHeight="17.0" prefWidth="72.0" text="Feld" />
       <ComboBox fx:id="cb_feldwahl" layoutX="25.0" layoutY="37.0" prefHeight="25.0" prefWidth="150.0" />
       <Label layoutX="246.0" layoutY="20.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
-      <TextField layoutX="246.0" layoutY="37.0" prefHeight="25.0" prefWidth="199.0" />
+      <TextField fx:id="tf_suchbegriff" layoutX="246.0" layoutY="37.0" prefHeight="25.0" prefWidth="199.0" />
       <Button layoutX="468.0" layoutY="20.0" mnemonicParsing="false" onAction="#setTableContent" prefHeight="40.0" prefWidth="160.0" text="Artikel suchen " AnchorPane.leftAnchor="468.0" />
       <TableView fx:id="tv_artikel" layoutX="25.0" layoutY="70.0" prefHeight="335.0" prefWidth="692.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0">
         <columns>
@@ -19,6 +19,7 @@
           <TableColumn fx:id="tc_artikelbeschreibung" prefWidth="136.0" text="Artikelbeschreibung" />
             <TableColumn fx:id="tc_einzelwert" prefWidth="83.0" text="Einzelwert" />
             <TableColumn fx:id="tc_bestellbeschreibung" prefWidth="124.0" text="Bestellbeschreibung" />
+            <TableColumn fx:id="tc_bestellwert" prefWidth="75.0" text="Bestellwert" />
             <TableColumn fx:id="tc_mwstsatz" prefWidth="75.0" text="MwSt. Satz" />
             <TableColumn fx:id="tc_BestandFrei" prefWidth="70.0" text="FREI" />
             <TableColumn fx:id="tc_BestandReserviert" prefWidth="103.0" text="RESERVIERT" />
@@ -58,6 +59,7 @@
                   <Button fx:id="closeArW" layoutX="544.0" layoutY="152.0" mnemonicParsing="false" onAction="#closeArtikelverwaltung" prefHeight="40.0" prefWidth="160.0" text="Abbrechen " />
                   <Label layoutX="381.0" layoutY="43.0" text="Euro" />
                   <Label layoutX="703.0" layoutY="43.0" text="Euro" />
+                  <ComboBox fx:id="cb_mwstsatz" layoutX="601.0" layoutY="113.0" prefWidth="150.0" />
                </children>
             </Pane>
          </content>
