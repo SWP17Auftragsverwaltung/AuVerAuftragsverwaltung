@@ -43,13 +43,13 @@ import javafx.stage.Stage;
 public class ArtikelverwaltungController implements Initializable {
 
     @FXML
-    private TextArea artikelbeschreibung;
+    private TextArea tf_artikelbeschreibung;
     @FXML
-    private TextField einzelwert;
+    private TextField tf_einzelwert;
     @FXML
-    private TextArea bestellbeschreibung;
+    private TextArea tf_bestellbeschreibung;
     @FXML
-    private TextField bestellwert;
+    private TextField tf_bestellwert;
     @FXML
     private TableView tv_artikel = new TableView<Artikel>();
 
@@ -78,15 +78,15 @@ public class ArtikelverwaltungController implements Initializable {
     @FXML
     private TableColumn<Artikel, String> tc_BestandVerkauft;
     @FXML
-    private TextField materialNr;
+    private TextField tf_materialNr;
     @FXML
-    private TextField bestandFREI;
+    private TextField tf_bestandFREI;
     @FXML
-    private TextField bestandRESERVIERT;
+    private TextField tf_bestandRESERVIERT;
     @FXML
-    private TextField bestandZULAUF;
+    private TextField tf_bestandZULAUF;
     @FXML
-    private TextField bestandVERKAUFT;
+    private TextField tf_bestandVERKAUFT;
 
     /**
      * Methode zum Abbrechen der Artikelverwaltung.
@@ -110,16 +110,16 @@ public class ArtikelverwaltungController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         //  Artikelbeschreibung auf 250 Zeichen begrenzt
-        begrenzeTextAreaEingabe(artikelbeschreibung, 250);
+        begrenzeTextAreaEingabe(tf_artikelbeschreibung, 250);
 
         // Bestellbeschreibung auf 250 Zeichen begrenzt
-        begrenzeTextAreaEingabe(bestellbeschreibung, 250);
+        begrenzeTextAreaEingabe(tf_bestellbeschreibung, 250);
 
         // Einzelwert auf 6 Zeichen begrenzt      
-        begrenzeTextFeldEingabe(einzelwert, 6);
+        begrenzeTextFeldEingabe(tf_einzelwert, 6);
 
         // Bestellwert auf 6 Zeichen begrenzt
-        begrenzeTextFeldEingabe(bestellwert, 6);
+        begrenzeTextFeldEingabe(tf_bestellwert, 6);
        
         
         tc_materialNr.setCellValueFactory(
@@ -173,10 +173,79 @@ public class ArtikelverwaltungController implements Initializable {
      * OberservableList, die dann an die TableView übergeben wird.
      * @throws java.sql.SQLException SQL Exception
      */
+    @FXML
     public void setTableContent() throws SQLException {    
         ArtikelDAO ar = new ArtikelDAO();     
         ObservableList<Artikel> artikel 
                 = FXCollections.observableArrayList(ar.gibAlleArtikel());
         tv_artikel.setItems(artikel);
     } 
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    BER     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+     /**
+     * Sucht nach allen Artikeln mit aktivem LKZ und stellt sie in der Tabelle
+     * dar.
+     * @throws java.sql.SQLException SQL Exception
+     */ 
+    @FXML
+    public void alleMitLKZ() throws SQLException {    
+        ArtikelDAO ar = new ArtikelDAO();     
+        ObservableList<Artikel> artikel 
+                = FXCollections.observableArrayList(ar.gibAlleArtikelMitLKZ());
+        tv_artikel.setItems(artikel);
+    }
+    
+        /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    BER     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+     /**
+     * Sucht nach allen Artikeln mit aktivem LKZ und stellt sie in der Tabelle
+     * dar.
+     * @throws java.sql.SQLException SQL Exception
+     */ 
+    @FXML
+    public void alleOhneLKZ() throws SQLException {    
+        ArtikelDAO ar = new ArtikelDAO();     
+        ObservableList<Artikel> artikel 
+                = FXCollections.observableArrayList(ar.gibAlleArtikelOhneLKZ());
+        tv_artikel.setItems(artikel);
+    }
+    
+    
+        /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    BER     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues
+     * Artikel Objekt, welches dann über die DAO in die DB geschrieben wird.
+     * @throws java.sql.SQLException SQL Exception
+     */
+//    @FXML
+//    public void artikelHinzufuegen() throws SQLException {
+//        String artikelID = tf_materialNr.getText();
+//        String artikeltext = tf_artikelbeschreibung.getText();
+//        String bestelltext = tf_bestellbeschreibung.getText();
+//        String einzelwert = tf_einzelwert.getText();
+//        String bestellwert = tf_bestellwert.getText();
+//        String bestandsmengeFrei = tf_bestandFREI.getText();
+//        String bestandsmengeReserviert = tf_bestandRESERVIERT.getText();
+//        String bestandsmengeZulauf = tf_bestandZULAUF.getText();
+//        String bestandsmengeVerkauft = tf_bestandVERKAUFT.getText();
+//        String lkz = "N";
+//        Artikel artikel = new Artikel(artikelID, artikeltext, bestelltext,
+//                einzelwert, bestellwert, steuer, bestandsmengeFrei,
+//                bestandsmengeReserviert, bestandsmengeZulauf, 
+//                bestandsmengeVerkauft);
+//        
+//        ArtikelDAO ar = new ArtikelDAO();
+//        ar.fuegeArtikelHinzu(artikel);
+//    }
 }

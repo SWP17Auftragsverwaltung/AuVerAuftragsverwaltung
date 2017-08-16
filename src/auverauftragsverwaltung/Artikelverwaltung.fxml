@@ -13,12 +13,13 @@
       <Label layoutX="246.0" layoutY="20.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
       <TextField layoutX="246.0" layoutY="37.0" prefHeight="25.0" prefWidth="199.0" />
       <Button layoutX="468.0" layoutY="20.0" mnemonicParsing="false" onAction="#setTableContent" prefHeight="40.0" prefWidth="160.0" text="Artikel suchen " AnchorPane.leftAnchor="468.0" />
-      <TableView fx:id="tv_artikel" layoutX="38.0" layoutY="72.0" prefHeight="335.0" prefWidth="692.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0">
+      <TableView fx:id="tv_artikel" layoutX="25.0" layoutY="70.0" prefHeight="335.0" prefWidth="692.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0">
         <columns>
           <TableColumn fx:id="tc_materialNr" prefWidth="97.0" text="MaterialNr" />
           <TableColumn fx:id="tc_artikelbeschreibung" prefWidth="136.0" text="Artikelbeschreibung" />
             <TableColumn fx:id="tc_einzelwert" prefWidth="83.0" text="Einzelwert" />
             <TableColumn fx:id="tc_bestellbeschreibung" prefWidth="124.0" text="Bestellbeschreibung" />
+            <TableColumn fx:id="tc_mwstsatz" prefWidth="75.0" text="MwSt. Satz" />
             <TableColumn fx:id="tc_BestandFrei" prefWidth="70.0" text="FREI" />
             <TableColumn fx:id="tc_BestandReserviert" prefWidth="103.0" text="RESERVIERT" />
             <TableColumn fx:id="tc_BestandZulauf" prefWidth="92.0" text="ZULAUF" />
@@ -29,28 +30,28 @@
          <content>
             <Pane prefHeight="193.0" prefWidth="1018.0">
                <children>
-                  <TextField fx:id="materialNr" editable="false" layoutX="14.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="tf_materialNr" editable="false" layoutX="14.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="14.0" layoutY="22.0" text="MaterialNr" />
                   <Label layoutX="111.0" layoutY="22.0" text="Artikelbschreibung" />
-                  <TextArea fx:id="artikelbeschreibung" layoutX="111.0" layoutY="39.0" prefHeight="65.0" prefWidth="173.0" />
+                  <TextArea fx:id="tf_artikelbeschreibung" layoutX="111.0" layoutY="39.0" prefHeight="65.0" prefWidth="173.0" />
                   <Label layoutX="295.0" layoutY="22.0" text="Einzelwert" />
                   <NumberTextField fx:id="einzelwert" layoutX="295.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
-                  <TextArea fx:id="bestellbeschreibung" layoutX="423.0" layoutY="39.0" prefHeight="65.0" prefWidth="173.0" />
+                  <TextArea fx:id="tf_bestellbeschreibung" layoutX="423.0" layoutY="39.0" prefHeight="65.0" prefWidth="173.0" />
                   <Label layoutX="423.0" layoutY="22.0" text="Bestellbeschreibung" />
                   <NumberTextField fx:id="bestellwert" layoutX="618.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="618.0" layoutY="22.0" text="Bestellwert" />
                   <Label layoutX="815.0" layoutY="22.0" prefHeight="17.0" prefWidth="61.0" text="Bestand" />
-                  <TextField fx:id="bestandFREI" editable="false" layoutX="846.0" layoutY="43.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="tf_bestandFREI" editable="false" layoutX="846.0" layoutY="43.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="781.0" layoutY="47.0" text="FREI" />
                   <Label layoutX="781.0" layoutY="75.0" text="RESERVIERT" />
-                  <TextField fx:id="bestandRESERVIERT" editable="false" layoutX="846.0" layoutY="71.0" prefHeight="25.0" prefWidth="85.0">
+                  <TextField fx:id="tf_bestandRESERVIERT" editable="false" layoutX="846.0" layoutY="71.0" prefHeight="25.0" prefWidth="85.0">
                      <padding>
                         <Insets left="5.0" />
                      </padding></TextField>
-                  <TextField fx:id="bestandZULAUF" editable="false" layoutX="846.0" layoutY="100.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="tf_bestandZULAUF" editable="false" layoutX="846.0" layoutY="100.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="781.0" layoutY="104.0" text="ZULAUF" />
                   <Label layoutX="781.0" layoutY="135.0" text="VERKAUFT" />
-                  <TextField fx:id="bestandVERKAUFT" editable="false" layoutX="846.0" layoutY="131.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="tf_bestandVERKAUFT" editable="false" layoutX="846.0" layoutY="131.0" prefHeight="25.0" prefWidth="85.0" />
                   <Button layoutX="35.0" layoutY="152.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Artikel löschen" />
                   <Button layoutX="204.0" layoutY="152.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Artikel anlegen " />
                   <Button layoutX="373.0" layoutY="152.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Artikel speichern" />
