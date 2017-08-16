@@ -51,11 +51,7 @@ public class ArtikelverwaltungController implements Initializable {
     @FXML
     private TextArea tf_artikelbeschreibung;
     @FXML
-    private TextField tf_einzelwert;
-    @FXML
     private TextArea tf_bestellbeschreibung;
-    @FXML
-    private TextField tf_bestellwert;
     @FXML
     private TextField tf_bestandFREI;
     @FXML
@@ -64,6 +60,12 @@ public class ArtikelverwaltungController implements Initializable {
     private TextField tf_bestandZULAUF;
     @FXML
     private TextField tf_bestandVERKAUFT;
+    @FXML
+    private TextField tf_suchbegriff;
+    @FXML
+    private TextField einzelwert;
+    @FXML
+    private TextField bestellwert;
     @FXML
     private TableView tv_artikel = new TableView<>();
 
@@ -129,10 +131,10 @@ public class ArtikelverwaltungController implements Initializable {
         begrenzeTextAreaEingabe(tf_bestellbeschreibung, 250);
 
         // Einzelwert auf 6 Zeichen begrenzt      
-        begrenzeTextFeldEingabe(tf_einzelwert, 6);
+        begrenzeTextFeldEingabe(einzelwert, 6);
 
         // Bestellwert auf 6 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_bestellwert, 6);
+        begrenzeTextFeldEingabe(bestellwert, 6);
         
         // Bestand Frei auf 6 Zeichen begrenzt
         begrenzeTextFeldEingabe(tf_bestandFREI, 6);
@@ -220,7 +222,6 @@ public class ArtikelverwaltungController implements Initializable {
      * dar.
      * @throws java.sql.SQLException SQL Exception
      */ 
-    @FXML
     public void alleMitLKZ() throws SQLException {    
         ArtikelDAO ar = new ArtikelDAO();     
         ObservableList<Artikel> artikel 
@@ -239,7 +240,6 @@ public class ArtikelverwaltungController implements Initializable {
      * dar.
      * @throws java.sql.SQLException SQL Exception
      */ 
-    @FXML
     public void alleOhneLKZ() throws SQLException {    
         ArtikelDAO ar = new ArtikelDAO();     
         ObservableList<Artikel> artikel 
@@ -259,13 +259,12 @@ public class ArtikelverwaltungController implements Initializable {
      * Artikel Objekt, welches dann über die DAO in die DB geschrieben wird.
      * @throws java.sql.SQLException SQL Exception
      */
-//    @FXML
 //    public void artikelHinzufuegen() throws SQLException {
 //        String artikelID = tf_materialNr.getText();
 //        String artikeltext = tf_artikelbeschreibung.getText();
 //        String bestelltext = tf_bestellbeschreibung.getText();
-//        String einzelwert = tf_einzelwert.getText();
-//        String bestellwert = tf_bestellwert.getText();
+//        String einzelwert = einzelwert.getText();
+//        String bestellwert = bestellwert.getText();
 //        String bestandsmengeFrei = tf_bestandFREI.getText();
 //        String bestandsmengeReserviert = tf_bestandRESERVIERT.getText();
 //        String bestandsmengeZulauf = tf_bestandZULAUF.getText();

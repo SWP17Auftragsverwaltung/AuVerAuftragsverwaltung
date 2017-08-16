@@ -36,10 +36,10 @@
                   <Label layoutX="111.0" layoutY="22.0" text="Artikelbschreibung" />
                   <TextArea fx:id="tf_artikelbeschreibung" layoutX="111.0" layoutY="39.0" prefHeight="65.0" prefWidth="173.0" />
                   <Label layoutX="295.0" layoutY="22.0" text="Einzelwert" />
-                  <NumberTextField fx:id="einzelwert" layoutX="295.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="einzelwert" layoutX="295.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
                   <TextArea fx:id="tf_bestellbeschreibung" layoutX="423.0" layoutY="39.0" prefHeight="65.0" prefWidth="173.0" />
                   <Label layoutX="423.0" layoutY="22.0" text="Bestellbeschreibung" />
-                  <NumberTextField fx:id="bestellwert" layoutX="618.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="bestellwert" layoutX="618.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="618.0" layoutY="22.0" text="Bestellwert" />
                   <Label layoutX="815.0" layoutY="22.0" prefHeight="17.0" prefWidth="61.0" text="Bestand" />
                   <TextField fx:id="tf_bestandFREI" editable="false" layoutX="846.0" layoutY="43.0" prefHeight="25.0" prefWidth="85.0" />

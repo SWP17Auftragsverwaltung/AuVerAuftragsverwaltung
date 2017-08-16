@@ -313,8 +313,19 @@ public class AdresseDAO extends DataAccess {
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();        
         }
-    } 
-     public void setzeLKZ(Adresse a) {
+    }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 15.08.17     GET     Erstellt.
+    /* 15.08.17     HEN     preparedStmt ergänzt, positiv getestet.     
+    /*------------------------------------------------------------------------*/
+        
+    /**
+     * Setzt Löschkennzeichen bei einer ausgewählten Adresse.
+     * @param a Adresse
+     */
+    public void setzeLKZ(Adresse a) {
 
         PreparedStatement stmt = null;
         String anschriftID = a.getAdresseID();
@@ -323,11 +334,13 @@ public class AdresseDAO extends DataAccess {
         try {
             con.setAutoCommit(false);
 
-            String query = "UPDATE ADRESSE SET LKZ = 'J' WHERE ANSCHRIFT_ID = " 
-                    + "'" + anschriftID + "'";
+            String query 
+                    = "UPDATE ROOT.ADRESSE SET LKZ = ? WHERE ANSCHRIFT_ID = ?";
             
-            ResultSet executeQuery = stmt.executeQuery(query);
-            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "J");
+            stmt.setString(2, anschriftID);
+
             stmt.executeUpdate();
             con.commit();
 

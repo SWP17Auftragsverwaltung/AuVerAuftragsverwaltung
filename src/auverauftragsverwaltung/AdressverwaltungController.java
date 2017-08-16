@@ -10,7 +10,7 @@
 * 27.07.2017    BER     Kommentarlayout angepasst.
 * 12.08.2017    HEN     setTable() content erstellt, initialize() angepasst. 
 *-------------------------------------------------------------------------------
- */
+*/
 package auverauftragsverwaltung;
 
 import Datenbank.AdresseDAO;
@@ -262,26 +262,30 @@ public class AdressverwaltungController implements Initializable {
         cb_anrede.getItems().addAll("Herr", "Frau");
     }
 
+    
+    
     /**
      * Begrenzte Feldeingabe.
-     *
      * @param tf Teftfekd
      * @param zahl Zahl
      */
     private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
 
         tf.setTextFormatter(new TextFormatter<>(change
-                -> {
+            -> {
             return change.getControlNewText().length() <= zahl ? change : null;
         }));
 
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 11.08.17    HEN     Methode erstellt.
     /* 12.08.17    HEN     ObservableArrayList hinzugefügt
     /*------------------------------------------------------------------------*/
+    
     /**
      * Erstellt ein AdressDAO Objekt und gibt eine Adress ArrayList an eine
      * OberservableList, die dann an die TableView übergeben wird.
@@ -296,10 +300,13 @@ public class AdressverwaltungController implements Initializable {
         adresseTV.setItems(adressen);
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Sucht nach allen Adressen mit aktivem LKZ und stellt sie in der Tabelle
      * dar.
@@ -314,10 +321,13 @@ public class AdressverwaltungController implements Initializable {
         adresseTV.setItems(adressen);
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Sucht nach allen Adressen ohne LKZ und stellt sie in der Tabelle dar.
      *
@@ -331,10 +341,13 @@ public class AdressverwaltungController implements Initializable {
         adresseTV.setItems(adressen);
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues Adress
      * Objekt, welches dann über die DAO in die DB geschrieben wird.
@@ -363,13 +376,15 @@ public class AdressverwaltungController implements Initializable {
         ad.fuegeAdresseHinzu(adresse);
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * "Löscht" eine markierte Adresse, in dem das LKZ auf J gesetzt wird.
-     *
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
@@ -380,6 +395,8 @@ public class AdressverwaltungController implements Initializable {
 
         AdresseDAO ad = new AdresseDAO();
         ad.setzeLKZ(b);
-
     }
+    
+    
+    
 }
