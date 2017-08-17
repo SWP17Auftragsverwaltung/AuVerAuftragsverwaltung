@@ -8,7 +8,10 @@
 * 14.06.2017    SAM     Angelegt.
 * 26.06.2017    GET     Checkstyleprüfung.
 * 27.07.2017    BER     Kommentarlayout angepasst.
-* 12.08.2017    HEN     setTable() content erstellt, initialize() angepasst. 
+* 12.08.2017    HEN     setTable() content erstellt, clearTextFields()
+* 15.08.2017    HEN     refreshTable(), adresseLoeschen() erstellt.
+* 17.08.2017    GET     adresseAnlegen(), bearbeiteAdresse(), speichere
+                        Aenderung(), zeigeWerte() erstellt.     
 *-------------------------------------------------------------------------------
 */
 package auverauftragsverwaltung;
@@ -18,8 +21,6 @@ import Klassen.Adresse;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,7 +35,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -52,37 +52,97 @@ public class AdressverwaltungController implements Initializable {
      */
     @FXML
     private Button closeAW;
+    
+    /**
+     * Textfeld für die Eingabe des Namens.
+     */
     @FXML
     private TextField tf_name;
+    
+    /**
+     * Textfeld für die Eingabe des Vornamens.
+     */
     @FXML
     private TextField tf_vorname;
+    
+    /**
+     * Textfeld für die Eingabe der Telefonnummer.
+     */
     @FXML
     private TextField tf_telefon;
+    
+    /**
+     * Textfeld für die Eingabe der Emailadresse.
+     */
     @FXML
     private TextField tf_email;
+    
+    /**
+     * Textfeld für die Eingabe der Strasse.
+     */
     @FXML
     private TextField tf_strasse;
+    
+    /**
+     * Textfeld für die Eingabe der Hausnummer.
+     */
     @FXML
     private TextField tf_hausNr;
+    
+    /**
+     * Textfeld für die Eingabe der Postleitzahl.
+     */
     @FXML
     private TextField tf_plz;
+    
+    /**
+     * Textfeld für die Eingabe des Wohnortes.
+     */
     @FXML
     private TextField tf_ort;
+    
+    /**
+     * Textfeld für die Eingabe des Staates.
+     */
     @FXML
     private TextField tf_staat;
+    
+    /**
+     * Textfeld für die Eingabe des Erfassungsdatums.
+     */
     @FXML
     private TextField tf_datum;
+    
+    /**
+     * ComboBox für die Auswahl des Suchkriteriums.
+     */
     @FXML
     private ComboBox<String> cb_suchfeld = new ComboBox();
+    
+    /**
+     * Textfeld für die Eingabe des Suchbegriffs.
+     */
     @FXML
     private TextField tf_suchbegriff;
+    
+    /**
+     * Textfeld für die Eingabe der AnschriftID.
+     */
     @FXML
     private TextField tf_anschriftID;
+    
+    /**
+     * ComboBox für die Auswahl der Anrede.
+     */
     @FXML
     private ComboBox<String> cb_anrede = new ComboBox();
 
+    /**
+     * TableView für die Anzeige der Adressen.
+     */
     @FXML
     private TableView adresseTV = new TableView<Adresse>();
+    
     /**
      * Tabellenspalte "AnschriftID".
      */
@@ -161,19 +221,45 @@ public class AdressverwaltungController implements Initializable {
     @FXML
     private TableColumn<Adresse, String> LKZ;
     
+    /**
+     * Unsichtbares Pane, um die Eingabe zu verhindern.
+     */
     @FXML
     private Pane pane;
     
+    /**
+     * Anlegen Button.
+     */
     @FXML
     private Button anlegenBT;
+    
+    /**
+     * Speichern Button.
+     */
     @FXML
     private Button speichernBT;
+    
+    /**
+     * Bearbeiten Button.
+     */
     @FXML
     private Button bearbeitenBT;
+    
+    /**
+     * LöschenButton.
+     */
     @FXML
     private Button loeschenBT;
+    
+    /**
+     * ÜberschriftPane für den Eingabebereich.
+     */
     @FXML
     private TitledPane adressdatensatzPane;
+    
+    /**
+     * Hinzufügen Button.
+     */
     @FXML
     private Button hinzufuegenAdresseBT;
     
@@ -181,7 +267,6 @@ public class AdressverwaltungController implements Initializable {
 
     /**
      * Methode zum Abbrechen der Adressverwaltung.
-     *
      * @param event ActionEvent welches das Klicken des Buttons "Abbrechen"
      * abfängt.
      */
@@ -193,15 +278,12 @@ public class AdressverwaltungController implements Initializable {
 
     /**
      * Initialisiert die Controller-Klasse.
-     *
      * @param url URL zur initialisierung.
      * @param rb Resourcen die geladen werden sollen.
-     */
+    */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
-         try {
-             
+    public void initialize(URL url, ResourceBundle rb) {       
+        try {   
             setTableContent();
             
         } catch (SQLException ex) {
@@ -290,10 +372,7 @@ public class AdressverwaltungController implements Initializable {
                 "Email",
                 "ErfDatum");
 
-        cb_anrede.getItems().addAll("Herr", "Frau");
-        
-       
-     
+        cb_anrede.getItems().addAll("Herr", "Frau");  
     }
 
     
@@ -302,9 +381,8 @@ public class AdressverwaltungController implements Initializable {
      * Begrenzte Feldeingabe.
      * @param tf Teftfekd
      * @param zahl Zahl
-     */
+    */
     private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
-
         tf.setTextFormatter(new TextFormatter<>(change
             -> {
             return change.getControlNewText().length() <= zahl ? change : null;
@@ -324,7 +402,7 @@ public class AdressverwaltungController implements Initializable {
      * OberservableList, die dann an die TableView übergeben wird.
      *
      * @throws java.sql.SQLException SQL Exception
-     */
+    */
     @FXML
     public void setTableContent() throws SQLException {
         AdresseDAO ad = new AdresseDAO();
@@ -343,7 +421,7 @@ public class AdressverwaltungController implements Initializable {
     /**
      * Aktualisiert die TableView mit aktuellem Inhalt.
      * @throws java.sql.SQLException SQL Exception
-     */
+    */
     @FXML
     public void refreshTable() throws SQLException {
         adresseTV.getItems().clear();
@@ -360,7 +438,7 @@ public class AdressverwaltungController implements Initializable {
     /**
      * Löscht alle Eingaben in den Textfeldern.
      * @throws java.sql.SQLException SQL Exception
-     */
+    */
     @FXML
     public void clearTextFields() throws SQLException {
         tf_anschriftID.clear();
@@ -389,7 +467,7 @@ public class AdressverwaltungController implements Initializable {
      * dar.
      *
      * @throws java.sql.SQLException SQL Exception
-     */
+    */
     @FXML
     public void alleMitLKZ() throws SQLException {
         AdresseDAO ad = new AdresseDAO();
@@ -409,7 +487,7 @@ public class AdressverwaltungController implements Initializable {
      * Sucht nach allen Adressen ohne LKZ und stellt sie in der Tabelle dar.
      *
      * @throws java.sql.SQLException SQL Exception
-     */
+    */
     public void alleOhneLKZ() throws SQLException {
         AdresseDAO ad = new AdresseDAO();
         ObservableList<Adresse> adressen
@@ -418,6 +496,15 @@ public class AdressverwaltungController implements Initializable {
         adresseTV.setItems(adressen);
     }
     
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.08.17    GET     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Gibt die unteren Eingabefelder für das Anlegen einer neuer Adresse frei.
+    */    
     @FXML
     public void adresseAnlegen() {
         
@@ -448,9 +535,10 @@ public class AdressverwaltungController implements Initializable {
         tf_staat.setText("");
         tf_telefon.setText("");
         tf_email.setText("");
-        tf_datum.setText("");
-        
+        tf_datum.setText("");  
     }
+    
+    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -460,14 +548,10 @@ public class AdressverwaltungController implements Initializable {
     /**
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues Adress
      * Objekt, welches dann über die DAO in die DB geschrieben wird.
-     *
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
     public void adresseHinzufuegen() throws SQLException {
-        
-        
-        
         String anschriftID = tf_anschriftID.getText();
         String anrede = cb_anrede.getValue();
         String name = tf_name.getText();
@@ -489,25 +573,19 @@ public class AdressverwaltungController implements Initializable {
         
         clearTextFields();
         refreshTable();
-        
-        
+          
         // Textfeldbereich wird aktiviert
         this.pane.setDisable(false);
         // Bearbeiten-Button wird ausgeblendet
         this.anlegenBT.setVisible(true);
         // Speichern-Button wird eingeblendet
-        this.hinzufuegenAdresseBT.setVisible(false);
-        
+        this.hinzufuegenAdresseBT.setVisible(false);   
         // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-        this.adressdatensatzPane.setText("Adressdatensatz");
-        
+        this.adressdatensatzPane.setText("Adressdatensatz");    
         // Anlegen-Button wird deaktiviert
-        this.bearbeitenBT.setDisable(false);
-        
+        this.bearbeitenBT.setDisable(false);     
         // Löschen-Button wird deaktiviert
-        this.loeschenBT.setDisable(false);
-        
-        
+        this.loeschenBT.setDisable(false);      
     }
 
     
@@ -532,32 +610,47 @@ public class AdressverwaltungController implements Initializable {
         
         refreshTable();
     }
+    
+    
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.08.17    GET     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Lässt das Bearbeiten einer ausgewählten Adresse zu.
+    */      
     @FXML
     public void bearbeiteAdresse() {
-        
         // Textfeldbereich wird aktiviert
         this.pane.setDisable(true);
         // Bearbeiten-Button wird ausgeblendet
         this.bearbeitenBT.setVisible(false);
         // Speichern-Button wird eingeblendet
         this.speichernBT.setVisible(true);
-        
         // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
         this.adressdatensatzPane.setText("Adressdatensatz (Bearbeitungsmodus)");
-        
         // Anlegen-Button wird deaktiviert
         this.anlegenBT.setDisable(true);
-        
         // Löschen-Button wird deaktiviert
         this.loeschenBT.setDisable(true);
-        
-        
-
     }
     
+    
+ 
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.08.17    GET     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Speichert die gemachten Änderungen in die Datenbank und aktualisiert
+     * die View mit den neuen Werten.
+     * @throws java.sql.SQLException SQLException.
+    */      
     @FXML
-    public void speichereAenderung() throws SQLException{
-        
+    public void speichereAenderung() throws SQLException {    
         String anschriftID = tf_anschriftID.getText();
         String anrede = cb_anrede.getValue();
         String name = tf_name.getText();
@@ -591,20 +684,24 @@ public class AdressverwaltungController implements Initializable {
         this.anlegenBT.setDisable(false);       
         // Löschen-Button wird deaktiviert
         this.loeschenBT.setDisable(false);
-        
-        
     }
     
     
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.08.17    GET     Methode erstellt.
+    /*------------------------------------------------------------------------*/
     
+    /**
+     * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+    */      
     @FXML
     public void zeigeWerteAn() {
-        
         Object adresse = adresseTV.getSelectionModel().getSelectedItem();
         Adresse b = (Adresse) adresse;
         
-        if (b != null){
-            
+        if (b != null) {
             this.tf_anschriftID.setText(b.getAdresseID());
             this.cb_anrede.setValue(b.getAnrede());
             this.tf_name.setText(b.getName());
@@ -617,9 +714,7 @@ public class AdressverwaltungController implements Initializable {
             this.tf_ort.setText(b.getOrt());
             this.tf_staat.setText(b.getStaat());
             this.tf_datum.setText(b.getErfassungsdatum());
-
-        }
-        
+        }  
     }
     
     
