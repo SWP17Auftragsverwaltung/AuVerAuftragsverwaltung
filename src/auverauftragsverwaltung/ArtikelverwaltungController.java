@@ -301,6 +301,17 @@ public class ArtikelverwaltungController implements Initializable {
         
         ArtikelDAO ar = new ArtikelDAO();
         ar.fuegeArtikelHinzu(artikel);
+        
+        tf_materialNr.clear();
+        tf_einzelwert.clear();
+        tf_artikelbeschreibung.clear();
+        tf_bestellwert.clear();
+        tf_bestellbeschreibung.clear();
+        tf_bestandFrei.clear();
+        tf_bestandReserviert.clear();
+        tf_bestandZulauf.clear();
+        tf_bestandVerkauft.clear();
+        cb_mwstsatz.valueProperty().set(null);
     }
     
         /*------------------------------------------------------------------------*/

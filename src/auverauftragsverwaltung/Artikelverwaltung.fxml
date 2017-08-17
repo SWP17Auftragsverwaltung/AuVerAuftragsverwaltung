@@ -9,7 +9,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="1095.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.ArtikelverwaltungController">
    <children>
       <Label layoutX="25.0" layoutY="20.0" prefHeight="17.0" prefWidth="72.0" text="Feld" />
-      <ComboBox fx:id="cb_suchfeld" layoutX="25.0" layoutY="37.0" prefHeight="25.0" prefWidth="150.0" />
+      <ComboBox fx:id="cb_suchfeld" layoutX="25.0" layoutY="37.0" prefHeight="25.0" prefWidth="150.0" promptText="Suchkriterium" />
       <Label layoutX="246.0" layoutY="20.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
       <TextField fx:id="tf_suchbegriff" layoutX="246.0" layoutY="37.0" prefHeight="25.0" prefWidth="199.0" />
       <Button layoutX="468.0" layoutY="20.0" mnemonicParsing="false" onAction="#setTableContent" prefHeight="40.0" prefWidth="160.0" text="Artikel suchen " AnchorPane.leftAnchor="468.0" />
@@ -59,7 +59,7 @@
                   <Button fx:id="closeArW" layoutX="544.0" layoutY="152.0" mnemonicParsing="false" onAction="#closeArtikelverwaltung" prefHeight="40.0" prefWidth="160.0" text="Abbrechen " />
                   <Label layoutX="381.0" layoutY="43.0" text="Euro" />
                   <Label layoutX="703.0" layoutY="43.0" text="Euro" />
-                  <ComboBox fx:id="cb_mwstsatz" layoutX="601.0" layoutY="113.0" prefWidth="150.0" />
+                  <ComboBox fx:id="cb_mwstsatz" layoutX="601.0" layoutY="113.0" prefWidth="150.0" promptText="MwSt. Satz" />
                </children>
             </Pane>
          </content>
