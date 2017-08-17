@@ -46,7 +46,7 @@ public class GeschaeftspartnerDAO extends DataAccess {
     */
     public ArrayList<Geschaeftspartner> gibAlleGeschaeftspartner() {
         
-        //Variablendeklaration
+        //Variablendeklaration.
         Statement stmt = null;
         ResultSet rs = null;
         Geschaeftspartner geschaeftspartner = null;
