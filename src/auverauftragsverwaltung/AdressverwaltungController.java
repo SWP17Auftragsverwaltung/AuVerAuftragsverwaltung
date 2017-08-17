@@ -525,6 +525,21 @@ public class AdressverwaltungController implements Initializable {
         aDAO.aendereAdresse(adresse);
         
         refreshTable();
+        
+        // Textfeldbereich wird deaktivieren
+        this.pane.setDisable(false);
+        // Bearbeiten-Button wird ausgeblendet
+        this.bearbeitenBT.setVisible(true);
+        // Speichern-Button wird eingeblendet
+        this.speichernBT.setVisible(false);       
+        // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
+        this.adressdatensatzPane.setText("Adressdatensatz");       
+        // Anlegen-Button wird deaktiviert
+        this.anlegenBT.setDisable(false);       
+        // Löschen-Button wird deaktiviert
+        this.loeschenBT.setDisable(false);
+        
+        
     }
     
     
