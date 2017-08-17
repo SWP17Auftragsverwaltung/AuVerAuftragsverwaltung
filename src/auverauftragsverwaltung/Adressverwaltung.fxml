@@ -10,7 +10,7 @@
       <Label layoutX="25.0" />
       <AnchorPane layoutX="25.0" minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="1013.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <children>
-            <TableView fx:id="adresseTV" layoutY="95.0" prefHeight="359.0" prefWidth="1013.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="95.0">
+            <TableView fx:id="adresseTV" layoutY="95.0" onMouseClicked="#zeigeWerteAn" prefHeight="359.0" prefWidth="1013.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="95.0">
                <columns>
                   <TableColumn fx:id="Anschrift_ID" prefWidth="75.0" text="Anschrift_ID" />
                   <TableColumn fx:id="Anrede" prefWidth="50.0" text="Anrede" />
@@ -34,13 +34,13 @@
             <Button layoutX="468.0" layoutY="24.0" mnemonicParsing="false" onAction="#setTableContent" prefHeight="40.0" prefWidth="160.0" text="Adresse suchen " />
          </children>
       </AnchorPane>
-      <TitledPane animated="false" collapsible="false" layoutX="25.0" layoutY="502.0" prefHeight="256.0" prefWidth="1013.0" text="Adressdatensatz" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+      <TitledPane fx:id="adressdatensatzPane" animated="false" collapsible="false" layoutX="25.0" layoutY="502.0" prefHeight="256.0" prefWidth="1013.0" text="Adressdatensatz" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button layoutX="132.0" layoutY="172.0" mnemonicParsing="false" onAction="#alleMitLKZ" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
-                  <Button layoutX="24.0" layoutY="172.0" mnemonicParsing="false" onAction="#adresseHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
-                  <Button layoutX="242.0" layoutY="172.0" mnemonicParsing="false" onAction="#adresseLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
+                  <Button fx:id="bearbeitenBT" layoutX="132.0" layoutY="172.0" mnemonicParsing="false" onAction="#bearbeiteAdresse" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
+                  <Button fx:id="anlegenBT" layoutX="24.0" layoutY="172.0" mnemonicParsing="false" onAction="#adresseHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
+                  <Button fx:id="loeschenBT" layoutX="242.0" layoutY="172.0" mnemonicParsing="false" onAction="#adresseLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
                   <Button fx:id="closeAW" layoutX="353.0" layoutY="172.0" mnemonicParsing="false" onAction="#closeAdressverwaltung" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
                   <Label layoutX="24.0" layoutY="20.0" text="Anschrift-ID" />
                   <TextField fx:id="tf_anschriftID" layoutX="24.0" layoutY="38.0" prefHeight="25.0" prefWidth="100.0" />
@@ -66,6 +66,8 @@
                   <Label layoutX="771.0" layoutY="75.0" text="Erfassungsdatum" />
                   <TextField fx:id="tf_datum" layoutX="771.0" layoutY="93.0" prefHeight="25.0" prefWidth="220.0" />
                   <ComboBox fx:id="cb_anrede" layoutX="132.0" layoutY="38.0" prefWidth="100.0" />
+                  <Pane fx:id="pane" layoutX="14.0" layoutY="8.0" prefHeight="130.0" prefWidth="982.0" />
+                  <Button fx:id="speichernBT" layoutX="132.0" layoutY="172.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
                   
                </children>
             </AnchorPane>

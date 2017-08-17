@@ -32,7 +32,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -42,6 +45,8 @@ import javafx.stage.StageStyle;
  */
 public class AdressverwaltungController implements Initializable {
 
+    
+    
     /**
      * Der Abbrechen-Button in der Adressverwaltung.
      */
@@ -155,6 +160,20 @@ public class AdressverwaltungController implements Initializable {
      */
     @FXML
     private TableColumn<Adresse, String> LKZ;
+    
+    @FXML
+    private Pane pane;
+    
+    @FXML
+    private Button anlegenBT;
+    @FXML
+    private Button speichernBT;
+    @FXML
+    private Button bearbeitenBT;
+    @FXML
+    private Button loeschenBT;
+    @FXML
+    private TitledPane adressdatensatzPane;
 
     /**
      * Methode zum Abbrechen der Adressverwaltung.
@@ -176,6 +195,18 @@ public class AdressverwaltungController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+         try {
+             
+            setTableContent();
+            
+        } catch (SQLException ex) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText("Keine Adressen gefunden!");
+            alert.showAndWait();
+        }
         
         // Name auf 20 Zeichen begrenzt
         begrenzeTextFeldEingabe(tf_name, 20);
@@ -257,15 +288,7 @@ public class AdressverwaltungController implements Initializable {
 
         cb_anrede.getItems().addAll("Herr", "Frau");
         
-        try {
-            setTableContent();
-        } catch (SQLException ex) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.initStyle(StageStyle.UTILITY);
-            alert.setTitle("Fehler");
-            alert.setHeaderText("Keine Adressen gefunden!");
-            alert.showAndWait();
-        }
+       
      
     }
 
@@ -406,6 +429,9 @@ public class AdressverwaltungController implements Initializable {
      */
     @FXML
     public void adresseHinzufuegen() throws SQLException {
+        
+        
+        
         String anschriftID = tf_anschriftID.getText();
         String anrede = cb_anrede.getValue();
         String name = tf_name.getText();
@@ -450,6 +476,54 @@ public class AdressverwaltungController implements Initializable {
         ad.setzeLKZ(b);
         
         refreshTable();
+    }
+    @FXML
+    public void bearbeiteAdresse() {
+        
+        // Textfeldbereich wird aktiviert
+        this.pane.setDisable(true);
+        // Bearbeiten-Button wird ausgeblendet
+        this.bearbeitenBT.setVisible(false);
+        // Speichern-Button wird eingeblendet
+        this.speichernBT.setVisible(true);
+        
+        // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
+        this.adressdatensatzPane.setText("Adressdatensatz (Bearbeitungsmodus)");
+        
+        // Anlegen-Button wird deaktiviert
+        this.anlegenBT.setDisable(true);
+        // Löschen-Button wird deaktiviert
+        this.loeschenBT.setDisable(true);
+        
+        
+        
+        
+
+    }
+    
+    @FXML
+    public void zeigeWerteAn() {
+        
+        Object adresse = adresseTV.getSelectionModel().getSelectedItem();
+        Adresse b = (Adresse) adresse;
+        
+        if (b != null){
+            
+            this.tf_anschriftID.setText(b.getAdresseID());
+            this.cb_anrede.setValue(b.getAnrede());
+            this.tf_name.setText(b.getName());
+            this.tf_vorname.setText(b.getVorname());
+            this.tf_telefon.setText(b.getTelefon());
+            this.tf_email.setText(b.getEmail());
+            this.tf_strasse.setText(b.getStrasse());
+            this.tf_hausNr.setText(b.getHausnummer());
+            this.tf_plz.setText(b.getPlz());
+            this.tf_ort.setText(b.getOrt());
+            this.tf_staat.setText(b.getStaat());
+            this.tf_datum.setText(b.getErfassungsdatum());
+
+        }
+        
     }
     
     
