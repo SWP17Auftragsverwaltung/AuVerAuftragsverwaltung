@@ -1,0 +1,63 @@
+Thu Aug 17 20:20:01 CEST 2017 : Apache Derby Network Server 10.11.1.2 - (1629631) wurde gestartet und ist bereit, Verbindungen auf Port 1527 zu akzeptieren.
+----------------------------------------------------------------
+Thu Aug 17 20:20:01 CEST 2017:
+Booten von Derby-Version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): Instanz a816c00e-015d-f16c-6c66-0000570af900
+für Datenbankverzeichnis C:\Users\Chakir\Documents\NetBeansProjects\AuVerAuftragsverwaltung-master\AuverAuftragsverwaltung\Datenbank\SWPWI2017 mit Class Loader sun.misc.Launcher$AppClassLoader@1d44bcfa
+Geladen aus file:/C:/Program%20Files/Java/jdk1.8.0_91/db/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_141-b15
+user.dir=C:\Program Files\Java\jdk1.8.0_91\db
+os.name=Windows 7
+os.arch=amd64
+os.version=6.1
+derby.system.home=C:\Users\Chakir\Documents\NetBeansProjects\AuVerAuftragsverwaltung-master\AuverAuftragsverwaltung\Datenbank
+Datenbank-Class Loader wurde gestartet - derby.database.classpath=''
+Thu Aug 17 20:20:02 CEST 2017 Thread[DRDAConnThread_2,5,main] (XID = 1004), (SESSIONID = 0), (DATABASE = SWPWI2017), (DRDAID = {1}), Cleanup action starting
+java.sql.SQLNonTransientConnectionException: Verbindung konnte nicht authentifiziert werden. Grund: Ungültige Authentifizierung..
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.newSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.checkUserCredentials(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(Unknown Source)
+	at org.apache.derby.jdbc.InternalDriver.getNewEmbedConnection(Unknown Source)
+	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
+	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
+	at org.apache.derby.jdbc.EmbeddedDriver.connect(Unknown Source)
+	at org.apache.derby.impl.drda.Database.makeConnection(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.getConnFromDatabaseName(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.verifyUserIdPassword(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.parseSECCHK(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.parseDRDAConnection(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.processCommands(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.run(Unknown Source)
+Caused by: ERROR 08004: Verbindung konnte nicht authentifiziert werden. Grund: Ungültige Authentifizierung..
+	at org.apache.derby.iapi.error.StandardException.newException(Unknown Source)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.wrapArgsForTransportAcrossDRDA(Unknown Source)
+	... 18 more
+============= begin nested exception, level (1) ===========
+ERROR 08004: Verbindung konnte nicht authentifiziert werden. Grund: Ungültige Authentifizierung..
+	at org.apache.derby.iapi.error.StandardException.newException(Unknown Source)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.wrapArgsForTransportAcrossDRDA(Unknown Source)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.newSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.checkUserCredentials(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(Unknown Source)
+	at org.apache.derby.jdbc.InternalDriver.getNewEmbedConnection(Unknown Source)
+	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
+	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
+	at org.apache.derby.jdbc.EmbeddedDriver.connect(Unknown Source)
+	at org.apache.derby.impl.drda.Database.makeConnection(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.getConnFromDatabaseName(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.verifyUserIdPassword(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.parseSECCHK(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.parseDRDAConnection(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.processCommands(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.run(Unknown Source)
+============= end nested exception, level (1) ===========
+Cleanup action completed
+Thu Aug 17 20:20:02 CEST 2017 Thread[DRDAConnThread_2,5,main] (DATABASE = SWPWI2017), (DRDAID = {1}), Verbindung konnte nicht authentifiziert werden. Grund: Ungültige Authentifizierung..
