@@ -193,5 +193,68 @@ public class ZahlungskonditionenController implements Initializable {
                 = FXCollections.observableArrayList(
                         zk.gibAlleZahlungskonditionen());
         tv_zahlungskonditionen.setItems(zahlungskonditionen);
+    }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Sucht nach allen Zahlungskonditionen mit aktivem LKZ 
+     * und stellt sie in der Tabelle dar.
+     * @throws java.sql.SQLException SQL Exception
+     */    
+    @FXML
+    public void alleMitLKZ() throws SQLException {    
+        ZahlungskonditionenDAO zk = new ZahlungskonditionenDAO();     
+        ObservableList<Zahlungskonditionen> zahlungskonditionen = FXCollections.observableArrayList(zk.gibAlleZahlungskonditionenMitLKZ());
+        tv_zahlungskonditionen.setItems(zahlungskonditionen);
+    }    
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Sucht nach allen Zahlungskonditionen ohne LKZ und stellt sie in der Tabelle dar.
+     * @throws java.sql.SQLException SQL Exception
+     */       
+    @FXML
+    public void alleOhneLKZ() throws SQLException {    
+        ZahlungskonditionenDAO ad = new ZahlungskonditionenDAO();     
+        ObservableList<Zahlungskonditionen> zahlungskonditionen 
+                = FXCollections.observableArrayList(ad.gibAlleZahlungskonditionenOhneLKZ());
+        tv_zahlungskonditionen.setItems(zahlungskonditionen);
     } 
+    
+    /**
+     * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues
+     * Adress Objekt, welches dann über die DAO in die DB geschrieben wird.
+     * @throws java.sql.SQLException SQL Exception
+     */
+    @FXML
+    public void adresseHinzufuegen() throws SQLException {    
+        String zahlungskonditionsID = tc_zahlungskonditionsID.getText();
+        String auftragsart = tc_auftragsart.getText();
+        String lieferzeit = tc_lieferzeit.getText();
+        String sperrzeit = tc_sperrzeit.getText();
+        String skontozeit1 = tf_skontozeit1.getText();
+        String skontozeit2 = tf_skontozeit2.getText();
+        String skonto1 = tf_skonto1.getText();
+        String skonto2 = tf_skonto2.getText();
+        String mahnzeit1 = tf_mahnzeit1.getText();
+        String mahnzeit2 = tf_mahnzeit2.getText();
+        String mahnzeit3 = tf_mahnzeit3.getText();
+        String lkz = "N";
+        Zahlungskonditionen zahlungskonditionen = new Zahlungskonditionen(zahlungskonditionsID, auftragsart, lieferzeit, 
+                sperrzeit, skontozeit1, skontozeit2, skonto1, skonto2, mahnzeit1, mahnzeit2, mahnzeit3, lkz);
+        
+        ZahlungskonditionenDAO ad = new ZahlungskonditionenDAO();     
+        ad.fuegeZahlungskonditionenHinzu(zahlungskonditionen);
+    }     
+    
 }
