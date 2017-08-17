@@ -48,32 +48,81 @@ public class ArtikelverwaltungController implements Initializable {
      */
     @FXML
     private Button closeArW;
+     /**
+     * Textfeld "MaterialNr".
+     */
     @FXML
     private TextField tf_materialNr;
+    
+    /**
+     * Textfeld "Artikelbeschreibung".
+     */
     @FXML
     private TextArea tf_artikelbeschreibung;
+    
+    /**
+     * Textfeld "Bestellbeschreibung".
+     */
     @FXML
     private TextArea tf_bestellbeschreibung;
+    
+    /**
+     * Textfeld "Bestand Frei".
+     */
     @FXML
     private TextField tf_bestandFrei;
+    
+    /**
+     * Textfeld "Bestand Reserviert".
+     */
     @FXML
     private TextField tf_bestandReserviert;
+    
+    /**
+     * Textfeld "Bestand Zulauf".
+     */
     @FXML
     private TextField tf_bestandZulauf;
+    
+    /**
+     * Textfeld "Bestand Verkauf".
+     */
     @FXML
     private TextField tf_bestandVerkauft;
+    
+    /**
+     * Textfeld "Suchbegriff".
+     */
     @FXML
     private TextField tf_suchbegriff;
+    
+    /**
+     * Textfeld "Einzelwert".
+     */
     @FXML
     private TextField tf_einzelwert;
+    
+    /**
+     * Textfeld "Bestellwert".
+     */
     @FXML
     private TextField tf_bestellwert;
+    
+    /**
+     * Artikeltabelle.
+     */
     @FXML
     private TableView tv_artikel = new TableView<>();
 
-   
+     /**
+     * ComboBox "Suchfeld".
+     */
     @FXML
     private ComboBox<String> cb_suchfeld = new ComboBox();
+    
+     /**
+     * ComboBox "MwSt. Satz".
+     */
     @FXML
     private ComboBox<String> cb_mwstsatz = new ComboBox();
     
@@ -82,22 +131,58 @@ public class ArtikelverwaltungController implements Initializable {
      */
     @FXML
     private TableColumn<Artikel, String> tc_materialNr;
+    
+     /**
+     * Tabellenspalte "Artikelbeschreibung".
+     */
     @FXML
     private TableColumn<Artikel, String> tc_artikelbeschreibung;
+    
+     /**
+     * Tabellenspalte "Einzelwert".
+     */
     @FXML
     private TableColumn<Artikel, String> tc_einzelwert;
+    
+     /**
+     * Tabellenspalte "Bestellbeschreibung".
+     */
     @FXML
     private TableColumn<Artikel, String> tc_bestellbeschreibung;
+    
+     /**
+     * Tabellenspalte "Bestellwert".
+     */
     @FXML
     private TableColumn<Artikel, String> tc_bestellwert;
+    
+     /**
+     * Tabellenspalte "MwSt. Satz".
+     */
     @FXML
     private TableColumn<Artikel, String> tc_mwstsatz;
+    
+     /**
+     * Tabellenspalte "Bestand Frei".
+     */
     @FXML
     private TableColumn<Artikel, String> tc_BestandFrei;
+    
+     /**
+     * Tabellenspalte "Bestand Reserviert".
+     */
     @FXML
     private TableColumn<Artikel, String> tc_BestandReserviert;
+    
+     /**
+     * Tabellenspalte "Bestand Zulauf".
+     */
     @FXML
     private TableColumn<Artikel, String> tc_BestandZulauf;
+    
+     /**
+     * Tabellenspalte "Bestand Verkauft".
+     */
     @FXML
     private TableColumn<Artikel, String> tc_BestandVerkauft;
 
@@ -123,7 +208,7 @@ public class ArtikelverwaltungController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-                try {
+        try {
             setTableContent();
         } catch (SQLException ex) {
             Logger.getLogger(AdressverwaltungController.class.getName()).log(
@@ -181,7 +266,7 @@ public class ArtikelverwaltungController implements Initializable {
         
         cb_mwstsatz.getItems().addAll("0", "7", "19");
         
-                cb_suchfeld.getItems().addAll(
+        cb_suchfeld.getItems().addAll(
                 "MaterialNr",
                 "Artikelbeschreibung",
                 "Einzelwert",
@@ -272,7 +357,7 @@ public class ArtikelverwaltungController implements Initializable {
     }
     
     
-        /*------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 15.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
@@ -314,7 +399,7 @@ public class ArtikelverwaltungController implements Initializable {
         cb_mwstsatz.valueProperty().set(null);
     }
     
-        /*------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
