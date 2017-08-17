@@ -307,8 +307,7 @@ public class AdressverwaltungController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * "Löscht" eine markierte Adresse, in dem das LKZ auf J gesetzt wird.
-     * Aktualisiert anschließend die TableView.
+     * Aktualisiert die TableView mit aktuellem Inhalt.
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
@@ -316,6 +315,33 @@ public class AdressverwaltungController implements Initializable {
         adresseTV.getItems().clear();
         setTableContent();
     }    
+    
+
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Löscht alle Eingaben in den Textfeldern.
+     * @throws java.sql.SQLException SQL Exception
+     */
+    @FXML
+    public void clearTextFields() throws SQLException {
+        tf_anschriftID.clear();
+        cb_anrede.valueProperty().set(null);
+        tf_name.clear();
+        tf_vorname.clear();
+        tf_strasse.clear();
+        tf_hausNr.clear();
+        tf_plz.clear();
+        tf_ort.clear();
+        tf_staat.clear();
+        tf_telefon.clear();
+        tf_email.clear();
+        tf_datum.clear();
+    }        
     
     
     
@@ -392,19 +418,7 @@ public class AdressverwaltungController implements Initializable {
         AdresseDAO ad = new AdresseDAO();
         ad.fuegeAdresseHinzu(adresse);
         
-        tf_anschriftID.clear();
-        cb_anrede.valueProperty().set(null);
-        tf_name.clear();
-        tf_vorname.clear();
-        tf_strasse.clear();
-        tf_hausNr.clear();
-        tf_plz.clear();
-        tf_ort.clear();
-        tf_staat.clear();
-        tf_telefon.clear();
-        tf_email.clear();
-        tf_datum.clear();
-        
+        clearTextFields();
         refreshTable();
     }
 
