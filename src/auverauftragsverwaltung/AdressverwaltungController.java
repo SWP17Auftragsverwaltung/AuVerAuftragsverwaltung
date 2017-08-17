@@ -174,6 +174,8 @@ public class AdressverwaltungController implements Initializable {
     private Button loeschenBT;
     @FXML
     private TitledPane adressdatensatzPane;
+    @FXML
+    private Button hinzufuegenAdresseBT;
     
     
 
@@ -415,8 +417,40 @@ public class AdressverwaltungController implements Initializable {
                         ad.gibAlleAdressenOhneLKZ());
         adresseTV.setItems(adressen);
     }
-
     
+    @FXML
+    public void adresseAnlegen() {
+        
+        // Textfeldbereich wird aktiviert
+        this.pane.setDisable(true);
+        // Bearbeiten-Button wird ausgeblendet
+        this.anlegenBT.setVisible(false);
+        // Speichern-Button wird eingeblendet
+        this.hinzufuegenAdresseBT.setVisible(true);
+        
+        // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
+        this.adressdatensatzPane.setText("Adressdatensatz (Anlegemodus)");
+        
+        // Anlegen-Button wird deaktiviert
+        this.bearbeitenBT.setDisable(true);
+        
+        // Löschen-Button wird deaktiviert
+        this.loeschenBT.setDisable(true);
+        
+        tf_anschriftID.setText("");
+        cb_anrede.setValue("");
+        tf_name.setText("");
+        tf_vorname.setText("");
+        tf_strasse.setText("");
+        tf_hausNr.setText("");
+        tf_plz.setText("");
+        tf_ort.setText("");
+        tf_staat.setText("");
+        tf_telefon.setText("");
+        tf_email.setText("");
+        tf_datum.setText("");
+        
+    }
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -455,6 +489,25 @@ public class AdressverwaltungController implements Initializable {
         
         clearTextFields();
         refreshTable();
+        
+        
+        // Textfeldbereich wird aktiviert
+        this.pane.setDisable(false);
+        // Bearbeiten-Button wird ausgeblendet
+        this.anlegenBT.setVisible(true);
+        // Speichern-Button wird eingeblendet
+        this.hinzufuegenAdresseBT.setVisible(false);
+        
+        // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
+        this.adressdatensatzPane.setText("Adressdatensatz");
+        
+        // Anlegen-Button wird deaktiviert
+        this.bearbeitenBT.setDisable(false);
+        
+        // Löschen-Button wird deaktiviert
+        this.loeschenBT.setDisable(false);
+        
+        
     }
 
     
