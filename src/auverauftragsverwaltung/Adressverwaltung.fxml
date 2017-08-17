@@ -22,8 +22,8 @@
                   <TableColumn fx:id="Ort" prefWidth="130.0" text="Ort" />
                   <TableColumn fx:id="Staat" prefWidth="130.0" text="Staat" />
                   <TableColumn fx:id="Tel" prefWidth="100.0" text="Telefon" />
-                  <TableColumn fx:id="EMail" prefWidth="100.0" text="E_Mail" />
-                  <TableColumn fx:id="ErfDatum" prefWidth="100.0" text="Erfassungsdatum" />
+                  <TableColumn fx:id="EMail" prefWidth="200.0" text="E_Mail" />
+                  <TableColumn fx:id="ErfDatum" prefWidth="200.0" text="Erfassungsdatum" />
                   <TableColumn fx:id="LKZ" prefWidth="75.0" text="LKZ" />
                </columns>
             </TableView>
