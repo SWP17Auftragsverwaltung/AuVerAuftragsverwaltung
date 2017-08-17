@@ -418,14 +418,14 @@ public class ArtikelverwaltungController implements Initializable {
         ar.setzeLKZ(b);
     }
     
-//    @FXML
-//    public void artikelAendern() throws SQLException {
-//        
-//        Object artikel = tv_artikel.getSelectionModel().getSelectedItem();
-//        Artikel b = (Artikel) artikel;
-//        
-//        ArtikelDAO ar = new ArtikelDAO();
-//        ar.aendernArtikel(b);
-//    }
+    @FXML
+    public void artikelAendern() throws SQLException {
+        
+        Object artikel = tv_artikel.getSelectionModel().getSelectedItem();
+        Artikel b = (Artikel) artikel;
+        
+        ArtikelDAO ar = new ArtikelDAO();
+        ar.aendernArtikel(b);
+    }
          
 }

@@ -275,7 +275,6 @@ public class AdressverwaltungController implements Initializable {
             -> {
             return change.getControlNewText().length() <= zahl ? change : null;
         }));
-
     }
 
     
@@ -296,10 +295,28 @@ public class AdressverwaltungController implements Initializable {
     public void setTableContent() throws SQLException {
         AdresseDAO ad = new AdresseDAO();
         ObservableList<Adresse> adressen
-                = FXCollections.observableArrayList(ad.gibAlleAdressen());
+                = FXCollections.observableArrayList(ad.gibAlleAdressenOhneLKZ());
         adresseTV.setItems(adressen);
     }
 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * "Löscht" eine markierte Adresse, in dem das LKZ auf J gesetzt wird.
+     * Aktualisiert anschließend die TableView.
+     * @throws java.sql.SQLException SQL Exception
+     */
+    @FXML
+    public void refreshTable() throws SQLException {
+        adresseTV.getItems().clear();
+        setTableContent();
+    }    
+    
     
     
     /*------------------------------------------------------------------------*/
@@ -374,6 +391,21 @@ public class AdressverwaltungController implements Initializable {
 
         AdresseDAO ad = new AdresseDAO();
         ad.fuegeAdresseHinzu(adresse);
+        
+        tf_anschriftID.clear();
+        cb_anrede.valueProperty().set(null);
+        tf_name.clear();
+        tf_vorname.clear();
+        tf_strasse.clear();
+        tf_hausNr.clear();
+        tf_plz.clear();
+        tf_ort.clear();
+        tf_staat.clear();
+        tf_telefon.clear();
+        tf_email.clear();
+        tf_datum.clear();
+        
+        refreshTable();
     }
 
     
@@ -385,16 +417,18 @@ public class AdressverwaltungController implements Initializable {
     
     /**
      * "Löscht" eine markierte Adresse, in dem das LKZ auf J gesetzt wird.
+     * Aktualisiert anschließend die TableView.
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
     public void adresseLoeschen() throws SQLException {
-
         Object adresse = adresseTV.getSelectionModel().getSelectedItem();
         Adresse b = (Adresse) adresse;
 
         AdresseDAO ad = new AdresseDAO();
         ad.setzeLKZ(b);
+        
+        refreshTable();
     }
     
     
