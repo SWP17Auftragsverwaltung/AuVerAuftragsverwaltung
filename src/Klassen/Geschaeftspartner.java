@@ -114,9 +114,9 @@ public class Geschaeftspartner {
     */
     @Override
     public boolean equals(Object obj) {
-        Geschaeftspartner b = (Geschaeftspartner) obj;
+        Geschaeftspartner gp = (Geschaeftspartner) obj;
         return (obj instanceof Geschaeftspartner)
-                && this.geschaeftspartnerID.equals(b.geschaeftspartnerID);
+                && this.geschaeftspartnerID.equals(gp.geschaeftspartnerID);
     }
 
     /*--------------------------------------------------------------------------

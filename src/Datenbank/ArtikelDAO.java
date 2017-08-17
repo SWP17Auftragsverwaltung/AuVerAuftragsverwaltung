@@ -190,53 +190,150 @@ public class ArtikelDAO extends DataAccess {
      * @param a Artikelobjekt
     */
     
-//    public void fuegeArtikelHinzu(Artikel a) {
-//        
-//        //Variablendeklaration
-//        PreparedStatement stmt = null;
-//        String artikelID  = a.getArtikelID();
-//        String artikeltext = a.getArtikeltext();
-//        String bestelltext = a.getBestelltext();
-//        String einzelwert = a.getEinzelwert();
-//        String bestellwert = a.getBestellwert();
-//        String steuer = a.getSteuer();
-//        String bestandsmengeFrei = a.getBestandsmengeFrei();
-//        String bestandsmengeReserviert = a.getBestandsmengeReserviert();
-//        String bestandsmengeZulauf = a.getBestandsmengeZulauf();
-//        String bestandsmengeVerkauft = a.getBestandsmengeVerkauft();
-//        String lkz = a.getLKZ();
-//        
-//        try{
-//            con.setAutoCommit(false);
-//            
-//            String query = "INSERT INTO ROOT.ARTIKEL (Artikel_ID, Artikeltext, "
-//                    + "Bestelltext, Einzelwert, Bestellwert, MWST_Satz, "
-//                    + "Bestandsmenge_FREI, Bestandsmenge_Reserviert, "
-//                    + "Bestandsmenge_Zulauf, Bestandsmenge_Verkauf)"
-//                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-//            
-//            stmt = con.prepareStatement(query);
-//            stmt.setString(1, artikelID);
-//            stmt.setString(2, artikeltext);
-//            stmt.setString(3, bestelltext);
-//            stmt.setString(4, einzelwert);
-//            stmt.setString(5, bestellwert);
-//            stmt.setString(6, steuer);
-//            stmt.setString(7, bestandsmengeFrei);
-//            stmt.setString(8, bestandsmengeReserviert);
-//            stmt.setString(9, bestandsmengeZulauf);
-//            stmt.setString(10, bestandsmengeVerkauft);
-//            stmt.setString(11, lkz);
-//            
-//            stmt.executeUpdate();
-//            con.commit();
-//            
-//        } catch (SQLException e) {
-//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//            alert.initStyle(StageStyle.UTILITY);
-//            alert.setTitle("Fehler");
-//            alert.setHeaderText(e.getMessage());
-//            alert.showAndWait();        
-//        }
-//    }
+    public void fuegeArtikelHinzu(Artikel a) {
+        
+        //Variablendeklaration
+        PreparedStatement stmt = null;
+        String artikelID  = a.getArtikelID();
+        String artikeltext = a.getArtikeltext();
+        String bestelltext = a.getBestelltext();
+        String einzelwert = a.getEinzelwert();
+        String bestellwert = a.getBestellwert();
+        String steuer = a.getSteuer();
+        String bestandsmengeFrei = a.getBestandsmengeFrei();
+        String bestandsmengeReserviert = a.getBestandsmengeReserviert();
+        String bestandsmengeZulauf = a.getBestandsmengeZulauf();
+        String bestandsmengeVerkauft = a.getBestandsmengeVerkauft();
+        String lkz = a.getLKZ();
+        
+        try{
+            con.setAutoCommit(false);
+            
+            String query = "INSERT INTO ROOT.ARTIKEL (Artikel_ID, Artikeltext, "
+                    + "Bestelltext, Einzelwert, Bestellwert, MWST_Satz, "
+                    + "Bestandsmenge_FREI, Bestandsmenge_Reserviert, "
+                    + "Bestandsmenge_Zulauf, Bestandsmenge_Verkauft, LKZ)"
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, artikelID);
+            stmt.setString(2, artikeltext);
+            stmt.setString(3, bestelltext);
+            stmt.setString(4, einzelwert);
+            stmt.setString(5, bestellwert);
+            stmt.setString(6, steuer);
+            stmt.setString(7, bestandsmengeFrei);
+            stmt.setString(8, bestandsmengeReserviert);
+            stmt.setString(9, bestandsmengeZulauf);
+            stmt.setString(10, bestandsmengeVerkauft);
+            stmt.setString(11, lkz);
+            
+            stmt.executeUpdate();
+            con.commit();
+            
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();        
+        }
+    }
+    
+       /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.08.17    BER     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Ändern der Artikel in der DB.
+     * @param a Artikelobjekt
+    */
+        public void aendernArtikel(Artikel a) {
+        
+        //Variablendeklaration
+        PreparedStatement stmt = null;
+        String artikelID  = a.getArtikelID();
+        String artikeltext = a.getArtikeltext();
+        String bestelltext = a.getBestelltext();
+        String einzelwert = a.getEinzelwert();
+        String bestellwert = a.getBestellwert();
+        String steuer = a.getSteuer();
+        String bestandsmengeFrei = a.getBestandsmengeFrei();
+        String bestandsmengeReserviert = a.getBestandsmengeReserviert();
+        String bestandsmengeZulauf = a.getBestandsmengeZulauf();
+        String bestandsmengeVerkauft = a.getBestandsmengeVerkauft();
+        String lkz = a.getLKZ();
+        
+        try{
+            con.setAutoCommit(false);
+            
+            String query = "INSERT INTO ROOT.ARTIKEL (Artikel_ID, Artikeltext, "
+                    + "Bestelltext, Einzelwert, Bestellwert, MWST_Satz, "
+                    + "Bestandsmenge_FREI, Bestandsmenge_Reserviert, "
+                    + "Bestandsmenge_Zulauf, Bestandsmenge_Verkauft, LKZ)"
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, artikelID);
+            stmt.setString(2, artikeltext);
+            stmt.setString(3, bestelltext);
+            stmt.setString(4, einzelwert);
+            stmt.setString(5, bestellwert);
+            stmt.setString(6, steuer);
+            stmt.setString(7, bestandsmengeFrei);
+            stmt.setString(8, bestandsmengeReserviert);
+            stmt.setString(9, bestandsmengeZulauf);
+            stmt.setString(10, bestandsmengeVerkauft);
+            stmt.setString(11, lkz);
+            
+            stmt.executeUpdate();
+            con.commit();
+            
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();        
+        }
+    }
+        
+            /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 17.08.17     BER     Erstellt.     
+    /*------------------------------------------------------------------------*/
+        
+    /**
+     * Setzt Löschkennzeichen bei einer ausgewählten Artikel.
+     * @param a Artikel
+     */
+    public void setzeLKZ(Artikel a) {
+
+        PreparedStatement stmt = null;
+        String artikelID = a.getArtikelID();
+
+
+        try {
+            con.setAutoCommit(false);
+
+            String query 
+                    = "UPDATE ROOT.ARTIKEL SET LKZ = ? WHERE ARTIKEL_ID = ?";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "J");
+            stmt.setString(2, artikelID);
+
+            stmt.executeUpdate();
+            con.commit();
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+        }
+
+    }
 }

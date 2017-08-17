@@ -21,6 +21,8 @@ import Klassen.Artikel;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -53,25 +55,25 @@ public class ArtikelverwaltungController implements Initializable {
     @FXML
     private TextArea tf_bestellbeschreibung;
     @FXML
-    private TextField tf_bestandFREI;
+    private TextField tf_bestandFrei;
     @FXML
-    private TextField tf_bestandRESERVIERT;
+    private TextField tf_bestandReserviert;
     @FXML
-    private TextField tf_bestandZULAUF;
+    private TextField tf_bestandZulauf;
     @FXML
-    private TextField tf_bestandVERKAUFT;
+    private TextField tf_bestandVerkauft;
     @FXML
     private TextField tf_suchbegriff;
     @FXML
-    private TextField einzelwert;
+    private TextField tf_einzelwert;
     @FXML
-    private TextField bestellwert;
+    private TextField tf_bestellwert;
     @FXML
     private TableView tv_artikel = new TableView<>();
 
    
     @FXML
-    private ComboBox<String> cb_feldwahl = new ComboBox();
+    private ComboBox<String> cb_suchfeld = new ComboBox();
     @FXML
     private ComboBox<String> cb_mwstsatz = new ComboBox();
     
@@ -120,6 +122,13 @@ public class ArtikelverwaltungController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+                try {
+            setTableContent();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdressverwaltungController.class.getName()).log(
+                    Level.SEVERE, null, ex);
+        }
        
         //  MaterialNr auf 6 Zeichen begrenzt
         begrenzeTextFeldEingabe(tf_materialNr, 6);
@@ -131,22 +140,22 @@ public class ArtikelverwaltungController implements Initializable {
         begrenzeTextAreaEingabe(tf_bestellbeschreibung, 250);
 
         // Einzelwert auf 6 Zeichen begrenzt      
-        begrenzeTextFeldEingabe(einzelwert, 6);
+        begrenzeTextFeldEingabe(tf_einzelwert, 6);
 
         // Bestellwert auf 6 Zeichen begrenzt
-        begrenzeTextFeldEingabe(bestellwert, 6);
+        begrenzeTextFeldEingabe(tf_bestellwert, 6);
         
         // Bestand Frei auf 6 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_bestandFREI, 6);
+        begrenzeTextFeldEingabe(tf_bestandFrei, 6);
         
         // Bestand Reserviert auf 6 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_bestandRESERVIERT, 6);
+        begrenzeTextFeldEingabe(tf_bestandReserviert, 6);
         
         // Bestand Zulauf auf 6 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_bestandZULAUF, 6);
+        begrenzeTextFeldEingabe(tf_bestandZulauf, 6);
         
         // Bestand Verkauft auf 12 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_bestandVERKAUFT, 12);
+        begrenzeTextFeldEingabe(tf_bestandVerkauft, 12);
        
         
         tc_materialNr.setCellValueFactory(
@@ -169,6 +178,20 @@ public class ArtikelverwaltungController implements Initializable {
                 new PropertyValueFactory<>("bestandsmengeZulauf"));
         tc_BestandVerkauft.setCellValueFactory(
                 new PropertyValueFactory<>("bestandsmengeVerkauft"));     
+        
+        cb_mwstsatz.getItems().addAll("0", "7", "19");
+        
+                cb_suchfeld.getItems().addAll(
+                "MaterialNr",
+                "Artikelbeschreibung",
+                "Einzelwert",
+                "Bestellbeschreibung",
+                "Bestellwert",
+                "MwSt. Satz",
+                "Bestand Frei",
+                "Bestand Reserviert",
+                "Bestand Zulauf",
+                "Bestand Verkauft");
     }
 
     /**
@@ -259,23 +282,43 @@ public class ArtikelverwaltungController implements Initializable {
      * Artikel Objekt, welches dann über die DAO in die DB geschrieben wird.
      * @throws java.sql.SQLException SQL Exception
      */
-//    public void artikelHinzufuegen() throws SQLException {
-//        String artikelID = tf_materialNr.getText();
-//        String artikeltext = tf_artikelbeschreibung.getText();
-//        String bestelltext = tf_bestellbeschreibung.getText();
-//        String einzelwert = einzelwert.getText();
-//        String bestellwert = bestellwert.getText();
-//        String bestandsmengeFrei = tf_bestandFREI.getText();
-//        String bestandsmengeReserviert = tf_bestandRESERVIERT.getText();
-//        String bestandsmengeZulauf = tf_bestandZULAUF.getText();
-//        String bestandsmengeVerkauft = tf_bestandVERKAUFT.getText();
-//        String lkz = "N";
-//        Artikel artikel = new Artikel(artikelID, artikeltext, bestelltext,
-//                einzelwert, bestellwert, steuer, bestandsmengeFrei,
-//                bestandsmengeReserviert, bestandsmengeZulauf, 
-//                bestandsmengeVerkauft);
-//        
-//        ArtikelDAO ar = new ArtikelDAO();
-//        ar.fuegeArtikelHinzu(artikel);
-//    }
+    public void artikelHinzufuegen() throws SQLException {
+        String artikelID = tf_materialNr.getText();
+        String einzelwert = tf_einzelwert.getText();
+        String artikeltext = tf_artikelbeschreibung.getText();
+        String bestellwert = tf_bestellwert.getText();
+        String bestelltext = tf_bestellbeschreibung.getText();
+        String steuer = cb_mwstsatz.getValue();
+        String bestandsmengeFrei = tf_bestandFrei.getText();
+        String bestandsmengeReserviert = tf_bestandReserviert.getText();
+        String bestandsmengeZulauf = tf_bestandZulauf.getText();
+        String bestandsmengeVerkauft = tf_bestandVerkauft.getText();
+        String lkz = "N";
+        Artikel artikel = new Artikel(artikelID, artikeltext, bestelltext,
+                einzelwert, bestellwert, steuer, bestandsmengeFrei,
+                bestandsmengeReserviert, bestandsmengeZulauf, 
+                bestandsmengeVerkauft, lkz);
+        
+        ArtikelDAO ar = new ArtikelDAO();
+        ar.fuegeArtikelHinzu(artikel);
+    }
+    
+        /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.08.17    BER     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * "Löscht" einen markierten Artikel, in dem das LKZ auf J gesetzt wird.
+     * @throws java.sql.SQLException SQL Exception
+     */
+    @FXML
+    public void adresseLoeschen() throws SQLException {
+
+        Object adresse = tv_artikel.getSelectionModel().getSelectedItem();
+        Artikel b = (Artikel) adresse;
+
+        ArtikelDAO ad = new ArtikelDAO();
+        ad.setzeLKZ(b);
+    }
 }

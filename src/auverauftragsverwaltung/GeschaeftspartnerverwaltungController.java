@@ -18,12 +18,15 @@ import Klassen.Geschaeftspartner;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -48,7 +51,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      * Liefer-ID des Lieferanten.
      */
     @FXML
-    private TextField lieferID;
+    private TextField tf_lieferID;
     /**
      * Anschrift-ID des Geschäftspartners.
      */
@@ -58,7 +61,11 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      * Kreditlimit des Geschäftspartners.
      */
     @FXML
-    private TextField kreditlimit;
+    private TextField tf_kreditlimit;
+    @FXML
+    private ComboBox<String> cb_partnerTyp = new ComboBox();
+    @FXML
+    private TextField tf_geschaeftspartnerID;
     @FXML
     private TableColumn<Geschaeftspartner, String> gpID;
     @FXML
@@ -96,9 +103,17 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+                try {
+            setTableContent();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdressverwaltungController.class.getName()).log(
+                    Level.SEVERE, null, ex);
+        }
+                
+        begrenzeTextFeldEingabe(tf_geschaeftspartnerID, 6);
         begrenzeTextFeldEingabe(anschriftID, 6);
-        begrenzeTextFeldEingabe(lieferID, 6);
-        begrenzeTextFeldEingabe(kreditlimit, 6);
+        begrenzeTextFeldEingabe(tf_lieferID, 6);
+        begrenzeTextFeldEingabe(tf_kreditlimit, 6);
         
         gpID.setCellValueFactory(
                 new PropertyValueFactory<>("geschaeftspartnerID"));
@@ -107,6 +122,8 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         liefID.setCellValueFactory(new PropertyValueFactory<>("lieferID"));
         kredLimit.setCellValueFactory(
                 new PropertyValueFactory<>("kreditlimit"));
+        
+        cb_partnerTyp.getItems().addAll("K", "L");
     }
 
     /**
@@ -134,11 +151,25 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      * @throws java.sql.SQLException SQL Exception
      */
     public void setTableContent() throws SQLException {    
-        GeschaeftspartnerDAO gd = new GeschaeftspartnerDAO();     
+        GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();     
         ObservableList<Geschaeftspartner> geschaeftspartner 
                 = FXCollections.observableArrayList(
-                        gd.gibAlleGeschaeftspartner());
+                        gp.gibAlleGeschaeftspartner());
         gpTable.setItems(geschaeftspartner);
-    }     
+    }    
+    
+    public void geschaeftspartnerHinzufuegen() throws SQLException {
+        String geschaeftspartnerID = tf_geschaeftspartnerID.getText();
+        String typ = cb_partnerTyp.getValue();
+        String adresseID = anschriftID.getText();
+        String lieferID = tf_lieferID.getText();
+        String kreditlimit = tf_kreditlimit.getText();
+        String lkz = "N";
+        Geschaeftspartner geschaeftspartner = new Geschaeftspartner(geschaeftspartnerID,
+        typ, adresseID, lieferID, kreditlimit, lkz);
+        
+        GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();
+        gp.fuegeGeschaeftspartnerHinzu(geschaeftspartner);
+    }
 
 }

@@ -12,6 +12,7 @@
 package Datenbank;
 
 import Klassen.Geschaeftspartner;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -76,4 +77,39 @@ public class GeschaeftspartnerDAO extends DataAccess {
         return geschaeftspartnerListe;
     } 
     
+    public void fuegeGeschaeftspartnerHinzu(Geschaeftspartner gp) {
+        PreparedStatement stmt = null;
+        String geschaeftspartnerID = gp.getGeschaeftspartnerID();
+        String typ = gp.getTyp();
+        String adresseID = gp.getAdresseID();
+        String lieferID = gp.getLieferID();
+        String kreditlimit = gp.getKreditlimit();
+        String lkz = gp.getLKZ();
+        
+        try {
+            con.setAutoCommit(false);
+            
+            String query = "INSERT INTO ROOT.GESCHAEFTSPARTNER (Geschaeftspartner_ID, "
+                    + "Typ, Anschrift_ID, Liefer_ID, Kreditlimit, LKZ)"
+                    + "VALUES (?,?,?,?,?,?)";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, geschaeftspartnerID);
+            stmt.setString(2, typ);
+            stmt.setString(3, adresseID);
+            stmt.setString(4, lieferID);
+            stmt.setString(5, kreditlimit);
+            stmt.setString(6, lkz);
+            
+            stmt.executeUpdate();
+            con.commit();
+            
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();        
+        }
+    }
 }
