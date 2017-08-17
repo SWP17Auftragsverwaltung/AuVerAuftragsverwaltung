@@ -263,48 +263,164 @@ public class AdresseDAO extends DataAccess {
     */
     public void aendereAdresse(Adresse a) {
         
-        //Variablendeklaration
-        PreparedStatement  stmt = null;
-        String anschriftID = a.getAdresseID();
-        String anrede = a.getAnrede();
-        String name = a.getName();
-        String vorname = a.getVorname();
-        String strasse = a.getStrasse();
-        String hausnr = a.getHausnummer();
-        String plz = a.getPlz();
-        String ort = a.getOrt();
-        String staat = a.getStaat();
-        String tel = a.getTelefon();
-        String email = a.getEmail();
-        String erfdatum = a.getErfassungsdatum();
-        String lkz = a.getLkz();
+        
+        PreparedStatement stmt = null;
         
         
-        try {
-            con.setAutoCommit(false);
+        try{
+        con.setAutoCommit(false);
 
-            String query = "INSERT INTO ROOT.ADRESSE (Anschrift_ID, Anrede, "
-                + "Name, Vorname, Strasse, Hausnummer, PLZ, Ort, Staat, "
-                + "Telefon, E_Mail, Erfassungsdatum, LKZ)"
-                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                
-            stmt = con.prepareStatement(query);
-            stmt.setString(1, anschriftID);
-            stmt.setString(2, anrede);
-            stmt.setString(3, name);
-            stmt.setString(4, vorname);
-            stmt.setString(5, strasse);
-            stmt.setString(6, hausnr);
-            stmt.setString(7, plz);
-            stmt.setString(8, ort);
-            stmt.setString(9, staat);
-            stmt.setString(10, tel);
-            stmt.setString(11, email);
-            stmt.setString(12, erfdatum);
-            stmt.setString(13, lkz);
+            String query 
+                    = "UPDATE ROOT.ADRESSE SET ANREDE = ? WHERE ANSCHRIFT_ID = ?";
             
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, a.getAnrede());
+            stmt.setString(2, a.getAdresseID());
+
             stmt.executeUpdate();
             con.commit();
+            
+            query = "UPDATE ROOT.ADRESSE SET ANREDE = ? WHERE ANSCHRIFT_ID = ?";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, a.getAnrede());
+            stmt.setString(2, a.getAdresseID());
+
+            stmt.executeUpdate();
+            con.commit();
+            
+            query = "UPDATE ROOT.ADRESSE SET NAME = ? WHERE ANSCHRIFT_ID = ?";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, a.getName());
+            stmt.setString(2, a.getAdresseID());
+
+            stmt.executeUpdate();
+            con.commit();
+            
+            query = "UPDATE ROOT.ADRESSE SET VORNAME = ? WHERE ANSCHRIFT_ID = ?";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, a.getVorname());
+            stmt.setString(2, a.getAdresseID());
+
+            stmt.executeUpdate();
+            con.commit();
+            
+            query = "UPDATE ROOT.ADRESSE SET STRASSE = ? WHERE ANSCHRIFT_ID = ?";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, a.getStrasse());
+            stmt.setString(2, a.getAdresseID());
+
+            stmt.executeUpdate();
+            con.commit();
+            
+            query = "UPDATE ROOT.ADRESSE SET HAUSNUMMER = ? WHERE ANSCHRIFT_ID = ?";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, a.getHausnummer());
+            stmt.setString(2, a.getAdresseID());
+
+            stmt.executeUpdate();
+            con.commit();
+            
+            query = "UPDATE ROOT.ADRESSE SET PLZ = ? WHERE ANSCHRIFT_ID = ?";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, a.getPlz());
+            stmt.setString(2, a.getAdresseID());
+
+            stmt.executeUpdate();
+            con.commit();
+            
+            query = "UPDATE ROOT.ADRESSE SET ORT = ? WHERE ANSCHRIFT_ID = ?";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, a.getOrt());
+            stmt.setString(2, a.getAdresseID());
+
+            stmt.executeUpdate();
+            con.commit();
+            
+            query = "UPDATE ROOT.ADRESSE SET STAAT = ? WHERE ANSCHRIFT_ID = ?";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, a.getStaat());
+            stmt.setString(2, a.getAdresseID());
+
+            stmt.executeUpdate();
+            con.commit();
+            
+            query = "UPDATE ROOT.ADRESSE SET TELEFON = ? WHERE ANSCHRIFT_ID = ?";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, a.getTelefon());
+            stmt.setString(2, a.getAdresseID());
+
+            stmt.executeUpdate();
+            con.commit();
+            
+            query = "UPDATE ROOT.ADRESSE SET E_MAIL = ? WHERE ANSCHRIFT_ID = ?";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, a.getEmail());
+            stmt.setString(2, a.getAdresseID());
+
+            stmt.executeUpdate();
+            con.commit();
+            
+            query = "UPDATE ROOT.ADRESSE SET ERFASSUNGSDATUM = ? WHERE ANSCHRIFT_ID = ?";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, a.getErfassungsdatum());
+            stmt.setString(2, a.getAdresseID());
+
+            stmt.executeUpdate();
+            con.commit();
+        
+        
+        //Variablendeklaration
+//        PreparedStatement  stmt = null;
+//        String anschriftID = a.getAdresseID();
+//        String anrede = a.getAnrede();
+//        String name = a.getName();
+//        String vorname = a.getVorname();
+//        String strasse = a.getStrasse();
+//        String hausnr = a.getHausnummer();
+//        String plz = a.getPlz();
+//        String ort = a.getOrt();
+//        String staat = a.getStaat();
+//        String tel = a.getTelefon();
+//        String email = a.getEmail();
+//        String erfdatum = a.getErfassungsdatum();
+//        String lkz = a.getLkz();
+        
+       
+//            con.setAutoCommit(false);
+//
+//            String query = "UPDATE ROOT.ADRESSE SET (Anschrift_ID, Anrede, "
+//                + "Name, Vorname, Strasse, Hausnummer, PLZ, Ort, Staat, "
+//                + "Telefon, E_Mail, Erfassungsdatum, LKZ)"
+//                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+//                
+//            stmt = con.prepareStatement(query);
+//            stmt.setString(1, anschriftID);
+//            stmt.setString(2, anrede);
+//            stmt.setString(3, name);
+//            stmt.setString(4, vorname);
+//            stmt.setString(5, strasse);
+//            stmt.setString(6, hausnr);
+//            stmt.setString(7, plz);
+//            stmt.setString(8, ort);
+//            stmt.setString(9, staat);
+//            stmt.setString(10, tel);
+//            stmt.setString(11, email);
+//            stmt.setString(12, erfdatum);
+//            stmt.setString(13, lkz);
+//            
+//            stmt.executeUpdate();
+//            con.commit();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

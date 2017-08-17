@@ -174,6 +174,8 @@ public class AdressverwaltungController implements Initializable {
     private Button loeschenBT;
     @FXML
     private TitledPane adressdatensatzPane;
+    
+    
 
     /**
      * Methode zum Abbrechen der Adressverwaltung.
@@ -492,14 +494,40 @@ public class AdressverwaltungController implements Initializable {
         
         // Anlegen-Button wird deaktiviert
         this.anlegenBT.setDisable(true);
+        
         // Löschen-Button wird deaktiviert
         this.loeschenBT.setDisable(true);
         
         
-        
-        
 
     }
+    
+    @FXML
+    public void speichereAenderung() throws SQLException{
+        
+        String anschriftID = tf_anschriftID.getText();
+        String anrede = cb_anrede.getValue();
+        String name = tf_name.getText();
+        String vorname = tf_vorname.getText();
+        String strasse = tf_strasse.getText();
+        String hausnr = tf_hausNr.getText();
+        String plz = tf_plz.getText();
+        String ort = tf_ort.getText();
+        String staat = tf_staat.getText();
+        String tel = tf_telefon.getText();
+        String email = tf_email.getText();
+        String erfdatum = tf_datum.getText();
+        String lkz = "N";
+        Adresse adresse = new Adresse(anschriftID, anrede, name, vorname,
+                strasse, hausnr, plz, ort, staat, tel, email, erfdatum, lkz);
+       
+        AdresseDAO aDAO = new AdresseDAO();
+        aDAO.aendereAdresse(adresse);
+        
+        refreshTable();
+    }
+    
+    
     
     @FXML
     public void zeigeWerteAn() {
