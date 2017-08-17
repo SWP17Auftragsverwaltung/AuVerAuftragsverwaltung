@@ -295,7 +295,7 @@ public class AdressverwaltungController implements Initializable {
     public void setTableContent() throws SQLException {
         AdresseDAO ad = new AdresseDAO();
         ObservableList<Adresse> adressen
-                = FXCollections.observableArrayList(ad.gibAlleAdressenOhneLKZ());
+            = FXCollections.observableArrayList(ad.gibAlleAdressenOhneLKZ());
         adresseTV.setItems(adressen);
     }
 
