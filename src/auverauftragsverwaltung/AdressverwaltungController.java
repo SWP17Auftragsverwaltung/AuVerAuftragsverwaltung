@@ -25,6 +25,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -33,6 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -174,13 +176,7 @@ public class AdressverwaltungController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        try {
-            setTableContent();
-        } catch (SQLException ex) {
-            Logger.getLogger(AdressverwaltungController.class.getName()).log(
-                    Level.SEVERE, null, ex);
-        }
+        
         // Name auf 20 Zeichen begrenzt
         begrenzeTextFeldEingabe(tf_name, 20);
 
@@ -260,6 +256,17 @@ public class AdressverwaltungController implements Initializable {
                 "ErfDatum");
 
         cb_anrede.getItems().addAll("Herr", "Frau");
+        
+        try {
+            setTableContent();
+        } catch (SQLException ex) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText("Keine Adressen gefunden!");
+            alert.showAndWait();
+        }
+     
     }
 
     
