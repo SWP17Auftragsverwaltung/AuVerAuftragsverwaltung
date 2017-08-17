@@ -53,9 +53,9 @@
                   <Label layoutX="781.0" layoutY="104.0" text="ZULAUF" />
                   <Label layoutX="781.0" layoutY="135.0" text="VERKAUFT" />
                   <TextField fx:id="tf_bestandVerkauft" layoutX="846.0" layoutY="131.0" prefHeight="25.0" prefWidth="85.0" />
-                  <Button layoutX="35.0" layoutY="152.0" mnemonicParsing="false" onAction="#adresseLoeschen" prefHeight="40.0" prefWidth="160.0" text="Artikel löschen" />
+                  <Button layoutX="35.0" layoutY="152.0" mnemonicParsing="false" onAction="#artikelLoeschen" prefHeight="40.0" prefWidth="160.0" text="Artikel löschen" />
                   <Button layoutX="204.0" layoutY="152.0" mnemonicParsing="false" onAction="#artikelHinzufuegen" prefHeight="40.0" prefWidth="160.0" text="Artikel anlegen " />
-                  <Button layoutX="373.0" layoutY="152.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Artikel speichern" />
+                  <Button layoutX="373.0" layoutY="152.0" mnemonicParsing="false" onAction="#artikelAendern" prefHeight="40.0" prefWidth="160.0" text="Artikel bearbeiten" />
                   <Button fx:id="closeArW" layoutX="544.0" layoutY="152.0" mnemonicParsing="false" onAction="#closeArtikelverwaltung" prefHeight="40.0" prefWidth="160.0" text="Abbrechen " />
                   <Label layoutX="381.0" layoutY="43.0" text="Euro" />
                   <Label layoutX="703.0" layoutY="43.0" text="Euro" />

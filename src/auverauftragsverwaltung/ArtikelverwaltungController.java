@@ -409,12 +409,23 @@ public class ArtikelverwaltungController implements Initializable {
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
-    public void adresseLoeschen() throws SQLException {
+    public void artikelLoeschen() throws SQLException {
 
-        Object adresse = tv_artikel.getSelectionModel().getSelectedItem();
-        Artikel b = (Artikel) adresse;
+        Object artikel = tv_artikel.getSelectionModel().getSelectedItem();
+        Artikel b = (Artikel) artikel;
 
-        ArtikelDAO ad = new ArtikelDAO();
-        ad.setzeLKZ(b);
+        ArtikelDAO ar = new ArtikelDAO();
+        ar.setzeLKZ(b);
     }
+    
+//    @FXML
+//    public void artikelAendern() throws SQLException {
+//        
+//        Object artikel = tv_artikel.getSelectionModel().getSelectedItem();
+//        Artikel b = (Artikel) artikel;
+//        
+//        ArtikelDAO ar = new ArtikelDAO();
+//        ar.aendernArtikel(b);
+//    }
+         
 }
