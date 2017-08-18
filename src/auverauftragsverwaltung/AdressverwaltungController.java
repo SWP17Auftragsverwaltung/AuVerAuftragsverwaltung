@@ -20,6 +20,7 @@ import Datenbank.AdresseDAO;
 import Klassen.Adresse;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -413,6 +414,22 @@ public class AdressverwaltungController implements Initializable {
 
     
     
+    /**
+     * Methode bekommt eine ArrayList mit den gefundenen Adressen übergeben und
+     * aktualisiert damit die TableView.
+     * @param adressen Übergebene Adresse.
+     * @throws java.sql.SQLException SQL Exception
+    */
+    @FXML
+    public void zeigeGefundeneAdressen(ArrayList adressen) throws SQLException {
+        refreshTable();
+        ObservableList<Adresse> adressenAusgabe
+            = FXCollections.observableArrayList(adressen);
+        adresseTV.setItems(adressenAusgabe);
+    }    
+    
+    
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
@@ -722,6 +739,31 @@ public class AdressverwaltungController implements Initializable {
         AdresseDAO a = new AdresseDAO();
         System.out.println(a.gibLetztID());
     }
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.08.17    HEN     Methode erstellt.
+    /* 18.08.17    BER     IF Fälle ergänzt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+     * @throws java.sql.SQLException SQLException
+    */        
+    @FXML
+    public void adresseSuchen() throws SQLException {
+        AdresseDAO ad = new AdresseDAO();
+        ArrayList gefundeneAdressen;
+        
+        String suchkriterium = cb_suchfeld.getValue();
+        String suchbegriff = tf_suchbegriff.getText();
+        
+        gefundeneAdressen = ad.adressSuche(suchkriterium, suchbegriff);
+        
+        zeigeGefundeneAdressen(gefundeneAdressen);
+    }    
     
     
 }
