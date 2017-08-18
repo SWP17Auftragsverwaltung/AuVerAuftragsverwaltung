@@ -253,16 +253,17 @@ public class AdresseDAO extends DataAccess {
     public String gibLetztID() {
 
         Statement stmt = null;
-        int id = 0;
         String value = "";
         ResultSet rs = null;
-
+        String query = "SELECT MAX(ANSCHRIFT_ID) FROM ROOT.ADRESSE";
+        
         try {
-
-            String query = "SELECT MAX(ANSCHRIFT_ID) FROM ROOT.ADRESSE";
-
+            stmt = con.createStatement();
             rs = stmt.executeQuery(query);
-            value = rs.getString("ANSCHRIFT_ID");
+            
+            while (rs.next()) {
+                value = rs.getString(1);
+            }
             con.commit();
         } catch (SQLException e) {
 

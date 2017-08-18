@@ -31,7 +31,7 @@
             <Label layoutX="25.0" layoutY="24.0" prefHeight="17.0" prefWidth="72.0" text="Feld" />
             <TextField fx:id="tf_suchbegriff" layoutX="246.0" layoutY="41.0" prefHeight="25.0" prefWidth="199.0" />
             <Label layoutX="246.0" layoutY="24.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
-            <Button layoutX="468.0" layoutY="24.0" mnemonicParsing="false" onAction="#setTableContent" prefHeight="40.0" prefWidth="160.0" text="Adresse suchen " />
+            <Button layoutX="468.0" layoutY="24.0" mnemonicParsing="false" onAction="#letzteID" prefHeight="40.0" prefWidth="160.0" text="Adresse suchen " />
          </children>
       </AnchorPane>
       <TitledPane fx:id="adressdatensatzPane" animated="false" collapsible="false" layoutX="25.0" layoutY="502.0" prefHeight="256.0" prefWidth="1013.0" text="Adressdatensatz" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
