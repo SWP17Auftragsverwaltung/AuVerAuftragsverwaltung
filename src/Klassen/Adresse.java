@@ -130,6 +130,7 @@ public class Adresse {
         this.Lkz = Lkz;
     }
 
+
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstellt.

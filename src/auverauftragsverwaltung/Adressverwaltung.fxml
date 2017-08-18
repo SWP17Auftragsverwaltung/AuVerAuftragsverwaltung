@@ -41,7 +41,7 @@
                   <Button fx:id="bearbeitenBT" layoutX="132.0" layoutY="172.0" mnemonicParsing="false" onAction="#bearbeiteAdresse" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
                   <Button fx:id="anlegenBT" layoutX="24.0" layoutY="172.0" mnemonicParsing="false" onAction="#adresseAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
                   <Button fx:id="loeschenBT" layoutX="242.0" layoutY="172.0" mnemonicParsing="false" onAction="#adresseLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
-                  <Button fx:id="closeAW" layoutX="353.0" layoutY="172.0" mnemonicParsing="false" onAction="#closeAdressverwaltung" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
+                  <Button fx:id="closeAW" layoutX="353.0" layoutY="172.0" mnemonicParsing="false" onAction="#letzteID" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
                   <Label layoutX="24.0" layoutY="20.0" text="Anschrift-ID" />
                   <TextField fx:id="tf_anschriftID" layoutX="24.0" layoutY="38.0" prefHeight="25.0" prefWidth="100.0" />
                   <Label layoutX="136.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" text="Anrede" />

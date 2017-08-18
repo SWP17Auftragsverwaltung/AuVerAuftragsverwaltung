@@ -717,6 +717,11 @@ public class AdressverwaltungController implements Initializable {
         }  
     }
     
+    @FXML
+    public void letzteID() throws SQLException{
+        AdresseDAO a = new AdresseDAO();
+        System.out.println(a.gibLetztID());
+    }
     
     
 }
