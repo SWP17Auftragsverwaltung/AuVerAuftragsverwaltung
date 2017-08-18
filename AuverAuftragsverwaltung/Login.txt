@@ -1,7 +1,0 @@
-Login:		Benutzer
-Passwort:	555nase
-
-
-NEU:
-Login:		root
-Passwort:	KauVer
