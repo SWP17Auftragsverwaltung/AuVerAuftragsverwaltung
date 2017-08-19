@@ -597,7 +597,7 @@ public class ZahlungskonditionenController implements Initializable {
         Zahlungskonditionen b = (Zahlungskonditionen) zahlungskonditionen;
 
         ZahlungskonditionenDAO zk = new ZahlungskonditionenDAO();
-        zk.setzeLKZ(b);//Siehe Klasse
+//        zk.setzeLKZ(b);//Siehe Klasse
         
         refreshTable();
     }
@@ -723,9 +723,9 @@ public class ZahlungskonditionenController implements Initializable {
         String suchkriterium = cb_suchfeld.getValue();
         String suchbegriff = tf_suchbegriff.getText();
         
-        gefundeneZahlungskonditionen = zk.zahlungskonditionSuche(suchkriterium, suchbegriff);//Siehe Klasse
+//        gefundeneZahlungskonditionen = zk.zahlungskonditionSuche(suchkriterium, suchbegriff);//Siehe Klasse
         
-        zeigeGefundeneZahlungskonditionen(gefundeneZahlungskonditionen);
+//        zeigeGefundeneZahlungskonditionen(gefundeneZahlungskonditionen);
     }    
     
 }
