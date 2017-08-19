@@ -185,14 +185,14 @@ public class Zahlungskonditionen {
     /**
      * @return the ZahlungskondiID
     */
-    public String getZahlungskondiID() {
+    public String getZahlungskonditionenID() {
         return zahlungskonditionsID;
     }
 
     /**
      * @param zahlungskonditionsID the zahlungskonditionsID to set
     */
-    public void setZahlungskondiID(String zahlungskonditionsID) {
+    public void setZahlungskonditionenID(String zahlungskonditionsID) {
         this.zahlungskonditionsID = zahlungskonditionsID;
     }
 
@@ -213,21 +213,21 @@ public class Zahlungskonditionen {
     /**
      * @return the Lieferzeit
     */
-    public String getLieferzeit() {
+    public String getLieferzeitSOFORT() {
         return lieferzeit;
     }
 
     /**
      * @param lieferzeit the Lieferzeit to set
     */
-    public void setLieferzeit(String lieferzeit) {
+    public void setLieferzeitSOFORT(String lieferzeit) {
         this.lieferzeit = lieferzeit;
     }
 
     /**
      * @return the sperrzeit
     */
-    public String getSperrzeit() {
+    public String getSperrzeitWUNSCH() {
         return sperrzeit;
     }
 

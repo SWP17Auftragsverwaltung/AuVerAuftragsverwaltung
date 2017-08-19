@@ -154,9 +154,9 @@ public class QueryManager {
                 query += "" + hm.get("Auftragsart") + " = '" 
                         + z.getAuftragsart() + "',";
                 query += "" + hm.get("Lieferzeit") + " = '" 
-                        + z.getLieferzeit() + "',";
+                        + z.getLieferzeitSOFORT() + "',";
                 query += "" + hm.get("Sperrzeit") + " = '" 
-                        + z.getSperrzeit() + "',";
+                        + z.getSperrzeitWUNSCH() + "',";
                 query += "" + hm.get("Skontozeit1") + " = '" 
                         + z.getSkontozeit1() + "',";
                 query += "" + hm.get("Skontozeit2") + " = '" 
@@ -174,7 +174,7 @@ public class QueryManager {
                 query += "" + hm.get("LKZ") + " = '" + z.getLKZ() + "',";
                 query += " WHERE ";
                 query += "" + hm.get("ZahlungskonditionsID") + " = '" 
-                        + z.getZahlungskondiID() + "',";
+                        + z.getZahlungskonditionenID() + "',";
 
             } else {
                 System.out.println("Kein passendes Objekt gefunden");
@@ -329,10 +329,10 @@ public class QueryManager {
 
             } else if (o instanceof Zahlungskonditionen) {
                 Zahlungskonditionen z = Zahlungskonditionen.class.cast(o);
-                insertQuery += "" + z.getZahlungskondiID() + " ,";
+                insertQuery += "" + z.getZahlungskonditionenID() + " ,";
                 insertQuery += "'" + z.getAuftragsart() + "', ";
-                insertQuery += "" + z.getLieferzeit() + " ,";
-                insertQuery += "" + z.getSperrzeit() + " ,";
+                insertQuery += "" + z.getLieferzeitSOFORT() + " ,";
+                insertQuery += "" + z.getSperrzeitWUNSCH() + " ,";
                 insertQuery += "" + false + " ,";
                 insertQuery += "" + z.getSkontozeit1() + " ,";
                 insertQuery += "" + z.getSkontozeit2() + " ,";
@@ -456,7 +456,7 @@ public class QueryManager {
             } else if (o instanceof Zahlungskonditionen) {
                 Zahlungskonditionen z = Zahlungskonditionen.class.cast(o);
                 query += "" + hmAttribute.get("ZAHLUNGSKONDIID") + " = " 
-                        + z.getZahlungskondiID() + "";
+                        + z.getZahlungskonditionenID() + "";
 
             } else if (o instanceof Geschaeftspartner) {
                 Geschaeftspartner gp = Geschaeftspartner.class.cast(o);

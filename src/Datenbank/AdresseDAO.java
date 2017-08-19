@@ -270,7 +270,7 @@ public class AdresseDAO extends DataAccess {
     public void aendereAdresse(Adresse a) {
         PreparedStatement stmt = null;
         String query
-                = "UPDATE ROOT.ADRESSE SET ANREDE = ? WHERE ANSCHRIFT_ID = ?";
+                = "";
 
         try {
             con.setAutoCommit(false);

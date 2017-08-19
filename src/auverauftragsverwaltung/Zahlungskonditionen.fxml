@@ -9,7 +9,7 @@
    <children>
       <AnchorPane layoutX="25.0" minHeight="0.0" minWidth="0.0" prefHeight="419.0" prefWidth="1024.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <children>
-            <TableView fx:id="tv_zahlungskonditionen" layoutY="60.0" prefHeight="355.0" prefWidth="1024.0" AnchorPane.bottomAnchor="-8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+            <TableView fx:id="zahlungskonditionenTV" layoutY="60.0" onMouseClicked="#zeigeWerteAn" prefHeight="355.0" prefWidth="1024.0" AnchorPane.bottomAnchor="-8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
                <columns>
                   <TableColumn fx:id="KonditionenID" prefWidth="96.0" text="Konditionen-ID" />
                   <TableColumn fx:id="Auftragsart" prefWidth="95.0" text="Auftragsart" />
@@ -24,29 +24,21 @@
                   <TableColumn fx:id="Mahnzeit3" prefWidth="87.0" text="Mahnzeit 3" />
                </columns>
             </TableView>
-            <ComboBox layoutX="14.0" layoutY="39.0" prefHeight="25.0" prefWidth="150.0" />
+            <ComboBox fx:id="cb_suchfeld" layoutX="14.0" layoutY="39.0" prefHeight="25.0" prefWidth="150.0" promptText="Bitte wählen..." />
             <Label layoutX="14.0" layoutY="22.0" prefHeight="17.0" prefWidth="72.0" text="Feld" />
-            <TextField layoutX="227.0" layoutY="38.0" prefHeight="25.0" prefWidth="199.0" />
+            <TextField fx:id="tf_suchbegriff" layoutX="227.0" layoutY="38.0" prefHeight="25.0" prefWidth="199.0" />
             <Label layoutX="235.0" layoutY="22.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
             <Button layoutX="457.0" layoutY="22.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="199.0" text="Zahlungskonditionen suchen " />
          </children>
       </AnchorPane>
-      <TitledPane animated="false" collapsible="false" layoutX="25.0" layoutY="451.0" prefHeight="243.0" prefWidth="1024.0" text="Zahlungskonditionendatensatz" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+      <TitledPane fx:id="zahlungskonditionendatensatzPane" animated="false" collapsible="false" layoutX="25.0" layoutY="451.0" prefHeight="243.0" prefWidth="1024.0" text="Zahlungskonditionendatensatz" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="188.0" prefWidth="1022.0">
                <children>
-                  <Pane layoutY="332.0" prefHeight="48.0" prefWidth="1022.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
-                     <children>
-                        <Button layoutX="14.0" layoutY="13.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
-                        <Button layoutX="120.0" layoutY="13.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
-                        <Button layoutX="226.0" layoutY="13.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
-                        <Button fx:id="closeZK" layoutX="332.0" layoutY="13.0" mnemonicParsing="false" onAction="#closeZahlungskondition" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
-                     </children>
-                  </Pane>
                   <Label layoutX="14.0" layoutY="23.0" text="Konditionen-ID" />
                   <TextField fx:id="tf_zahlungskonditionsID" editable="false" layoutX="14.0" layoutY="40.0" prefHeight="25.0" prefWidth="100.0" />
                   <Label layoutX="127.0" layoutY="23.0" prefHeight="17.0" prefWidth="78.0" text="Auftragsart" />
-                  <ComboBox fx:id="cb_auftragsart" layoutX="127.0" layoutY="40.0" prefWidth="150.0" />
+                  <ComboBox fx:id="cb_auftragsart" layoutX="127.0" layoutY="40.0" prefWidth="150.0" promptText="Bitte wählen..." />
                   <Label layoutX="290.0" layoutY="23.0" text="Lieferzeit SOFORT" />
                   <Label layoutX="481.0" layoutY="23.0" text="Sperrzeit WUNSCH" />
                   <Label layoutX="696.0" layoutY="23.0" text="Mahnzeit 1" />
@@ -55,25 +47,32 @@
                   <Label layoutX="14.0" layoutY="95.0" text="Skontozeit 1" />
                   <Label layoutX="152.0" layoutY="95.0" text="Skonto 1" />
                   <Label layoutX="274.0" layoutY="95.0" text="Skontozeit 2" />
-                  <Label layoutX="468.0" layoutY="95.0" text="Skonto 2" />
+                  <Label layoutX="413.0" layoutY="95.0" text="Skonto 2" />
                   <Label layoutX="252.0" layoutY="116.0" text="\%" />
-                  <Label layoutX="618.0" layoutY="116.0" text="\%" />
-                  <Label layoutX="442.0" layoutY="45.0" text="Tage" />
+                  <Label layoutX="506.0" layoutY="115.0" text="\%" />
+                  <Label layoutX="411.0" layoutY="44.0" text="Tage" />
                   <Label layoutX="757.0" layoutY="44.0" text="Tage" />
                   <Label layoutX="859.0" layoutY="44.0" text="Tage" />
                   <Label layoutX="966.0" layoutY="45.0" text="Tage" />
-                  <Label layoutX="631.0" layoutY="44.0" text="Tage" />
+                  <Label layoutX="615.0" layoutY="43.0" text="Tage" />
                   <Label layoutX="114.0" layoutY="116.0" text="Tage" />
-                  <Label layoutX="424.0" layoutY="116.0" text="Tage" />
+                  <Label layoutX="365.0" layoutY="115.0" text="Tage" />
                   <TextField fx:id="tf_lieferzeitSOFORT" layoutX="285.0" layoutY="39.0" prefHeight="27.0" prefWidth="126.0" />
-                  <TextField fx:id="tf_lieferzeitWUNSCH" layoutX="481.0" layoutY="40.0" prefHeight="27.0" prefWidth="133.0" />
+                  <TextField fx:id="tf_sperrzeitWUNSCH" layoutX="481.0" layoutY="40.0" prefHeight="27.0" prefWidth="133.0" />
                   <TextField fx:id="tf_mahnzeit1" layoutX="685.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
-                  <TextField fx:id="tf_mahnzeit3" layoutX="894.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
                   <TextField fx:id="tf_mahnzeit2" layoutX="788.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
-                  <TextField fx:id="tf_skontozeit1" editable="false" layoutX="11.0" layoutY="111.0" prefHeight="25.0" prefWidth="100.0" />
-                  <TextField fx:id="tf_skonto1" editable="false" layoutX="157.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
-                  <TextField fx:id="tf_skontozeit2" editable="false" layoutX="274.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
-                  <TextField fx:id="tf_skonto2" editable="false" layoutX="466.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
+                  <TextField fx:id="tf_mahnzeit3" layoutX="894.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
+                  <TextField fx:id="tf_skontozeit1" layoutX="11.0" layoutY="111.0" prefHeight="25.0" prefWidth="100.0" />
+                  <TextField fx:id="tf_skonto1" layoutX="157.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
+                  <TextField fx:id="tf_skontozeit2" layoutX="274.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
+                  <TextField fx:id="tf_skonto2" layoutX="411.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
+                  <Pane fx:id="pane" layoutX="11.0" layoutY="13.0" prefHeight="135.0" prefWidth="991.0" />
+                  <Button fx:id="anlegenBT" layoutX="37.0" layoutY="166.0" mnemonicParsing="false" onAction="#zahlungskonditionenAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
+                  <Button fx:id="bearbeitenBT" layoutX="150.0" layoutY="166.0" mnemonicParsing="false" onAction="#bearbeiteZahlungskonditionen" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
+                  <Button fx:id="loeschenBT" layoutX="262.0" layoutY="166.0" mnemonicParsing="false" onAction="#zahlungskonditionenLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
+                  <Button fx:id="closeZK" layoutX="378.0" layoutY="166.0" mnemonicParsing="false" onAction="#closeZahlungskondition" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
+                  <Button fx:id="hinzufuegenZahlungskonditionenBT" layoutX="37.0" layoutY="166.0" mnemonicParsing="false" onAction="#zahlungskonditionenHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
+                  <Button fx:id="speichernBT" layoutX="150.0" layoutY="166.0" mnemonicParsing="false" onAction="#speichereAenderung" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" wrapText="true" />
                </children>
             </AnchorPane>
          </content>
