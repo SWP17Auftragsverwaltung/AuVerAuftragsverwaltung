@@ -77,6 +77,109 @@ public class GeschaeftspartnerDAO extends DataAccess {
         return geschaeftspartnerListe;
     } 
     
+    
+        /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    CEL     Erstellt und getestet.
+    /*------------------------------------------------------------------------*/
+    
+     /**
+     * Gibt alle Geschäftspartner ohne Löschkennzeichen wieder.
+     * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
+     */
+    public ArrayList<Geschaeftspartner> gibAlleGeschaeftspartnerOhneLKZ() {
+        
+        //Variablendeklaration
+        PreparedStatement  stmt = null;
+        ResultSet rs = null;
+        Geschaeftspartner geschaeftspartner = null;  
+        ArrayList<Geschaeftspartner> geschaeftspartnerListe = new ArrayList<>();
+        
+        String query = "SELECT * FROM ROOT.GESCHAEFTSPARTNER WHERE LKZ = ?";
+
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "N");
+            rs = stmt.executeQuery();
+
+            con.commit();
+            while (rs.next()) {
+                geschaeftspartner = new Geschaeftspartner(rs.getString(1), rs.getString(2),
+                        rs.getString(3), rs.getString(4), rs.getString(5),
+                        rs.getString(6));
+                
+                geschaeftspartnerListe.add(geschaeftspartner);
+            }
+            //Fehler werfen wenn Rückgabeobjekt leer ist
+            if (geschaeftspartnerListe.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setTitle("Fehler");
+                alert.setHeaderText("Keine Geschaeftspartner gefunden!");
+                alert.showAndWait();
+            }
+            //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+        } 
+        return geschaeftspartnerListe;
+    }
+
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    CEL     Erstellt und getestet.
+    /*------------------------------------------------------------------------*/
+     /**
+     * Gibt alle Geschaeftspartner ohne Löschkennzeichen wieder.
+     * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
+     */
+    public ArrayList<Geschaeftspartner> gibAlleGeschaeftspartnerMitLKZ() {
+        
+        //Variablendeklaration
+        PreparedStatement  stmt = null;
+        ResultSet rs = null;
+        Geschaeftspartner geschaeftspartner = null;  
+        ArrayList<Geschaeftspartner> geschaeftspartnerListe = new ArrayList<>();
+        
+        String query = "SELECT * FROM ROOT.GESCHAEFTSPARTNER WHERE LKZ = ?";
+
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "J");
+            rs = stmt.executeQuery();
+
+            con.commit();
+            while (rs.next()) {
+                geschaeftspartner = new Geschaeftspartner(rs.getString(1), rs.getString(2),
+                        rs.getString(3), rs.getString(4), rs.getString(5),
+                        rs.getString(6));
+                
+                geschaeftspartnerListe.add(geschaeftspartner);
+            }
+            //Fehler werfen wenn Rückgabeobjekt leer ist
+            if (geschaeftspartnerListe.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setTitle("Fehler");
+                alert.setHeaderText("Keine Geschaeftspartner gefunden!");
+                alert.showAndWait();
+            }
+            //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+        } 
+        return geschaeftspartnerListe;
+    }
+    
     public void fuegeGeschaeftspartnerHinzu(Geschaeftspartner gp) {
         PreparedStatement stmt = null;
         String geschaeftspartnerID = gp.getGeschaeftspartnerID();
@@ -112,4 +215,93 @@ public class GeschaeftspartnerDAO extends DataAccess {
             alert.showAndWait();        
         }
     }
+    
+           /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.08.17    BER     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Ändern der Geschäftspartner in der DB.
+     * @param a Geschäftspartnerobjekt
+    */
+        public void aendernGeschaeftspartner(Geschaeftspartner a) {
+        
+        //Variablendeklaration
+        PreparedStatement stmt = null;
+        String geschaeftspartnerID  = a.getGeschaeftspartnerID();
+        String typ = a.getTyp();
+        String adresseID = a.getAdresseID();
+        String lieferID = a.getLieferID();
+        String kreditlimit = a.getKreditlimit();
+ 
+        String lkz = a.getLKZ();
+        
+        try{
+            con.setAutoCommit(false);
+            
+            String query = "INSERT INTO ROOT.GESCHAFTSPARTNER (Geschaeftspartner_ID, Typ, "
+                    + "Adresse_ID, Liefer_ID, Kreditlimit, LKZ)"
+                    + "VALUES (?,?,?,?,?,?)";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, geschaeftspartnerID);
+            stmt.setString(2, typ);
+            stmt.setString(3, adresseID);
+            stmt.setString(4, lieferID);
+            stmt.setString(5, kreditlimit);
+            stmt.setString(11, lkz);
+            
+            stmt.executeUpdate();
+            con.commit();
+            
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();        
+        }
+    }
+    
+                /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 17.08.17     BER     Erstellt.     
+    /*------------------------------------------------------------------------*/
+        
+    /**
+     * Setzt Löschkennzeichen bei einer ausgewählten .
+     * @param a Geschäftspartner
+     */
+    public void setzeLKZ(Geschaeftspartner g) {
+
+        PreparedStatement stmt = null;
+        String geschaeftspartnerID = g.getGeschaeftspartnerID();
+
+
+        try {
+            con.setAutoCommit(false);
+
+            String query 
+                    = "UPDATE ROOT.GESCHAEFTSPARTNER SET LKZ = ? WHERE GESCHAEFTSPARTNER_ID = ?";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "J");
+            stmt.setString(2, geschaeftspartnerID);
+
+            stmt.executeUpdate();
+            con.commit();
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+        }
+
+    }
 }
+        
+        
+

@@ -9,6 +9,7 @@
 * 26.06.2017    GET     Checkstyleprüfung sowie Fehlerkorrektur.
 * 27.07.2017    BER     Kommentarlayout angepasst.
 * 14.08.2017    HEN     setTabelContent() erstellt, TableColums erstellt.
+* 17.08.2017    CEL     
 *-------------------------------------------------------------------------------
  */
 package auverauftragsverwaltung;
@@ -56,28 +57,64 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      * Anschrift-ID des Geschäftspartners.
      */
     @FXML
-    private TextField anschriftID;
+    private TextField tf_anschriftID;  
+    /**
+     * ComboBox "Suchfeld".
+     */
+    @FXML
+    private ComboBox<String> cb_suchfeld = new ComboBox();    
     /**
      * Kreditlimit des Geschäftspartners.
      */
     @FXML
     private TextField tf_kreditlimit;
+    /**
+     * PartnerTyp des Geschäftspartners.
+     */   
     @FXML
     private ComboBox<String> cb_partnerTyp = new ComboBox();
+    /**
+     * ID des Geschäftspartners.
+     */
     @FXML
     private TextField tf_geschaeftspartnerID;
+    
+    
+    /**
+     * Tabellenspalte "GeschäftspartnerID".
+     */
     @FXML
     private TableColumn<Geschaeftspartner, String> gpID;
+     
+    /**
+     * Tabellenspalte "Typ".
+     */    
     @FXML
     private TableColumn<Geschaeftspartner, String> typ;
+    
+    /**
+     * Tabellenspalte "AdresseID".
+     */
     @FXML
     private TableColumn<Geschaeftspartner, String> adressID;
+    
+    /**
+     * Tabellenspalte "LieferID".
+     */
     @FXML
     private TableColumn<Geschaeftspartner, String> liefID;
+    
+    /**
+     * Tabellenspalte "Kreditlimit".
+     */
     @FXML
     private TableColumn<Geschaeftspartner, String> kredLimit;
     @FXML
     private AnchorPane tf_partnerID;
+    
+    /**
+     * Geschäftspartnertabelle.
+     */
     @FXML
     private TableView gpTable = new TableView<Geschaeftspartner>();
 
@@ -110,9 +147,13 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
                     Level.SEVERE, null, ex);
         }
                 
+        //Die Geschäftspartner-ID enthält max. 6 Zeichen.        
         begrenzeTextFeldEingabe(tf_geschaeftspartnerID, 6);
-        begrenzeTextFeldEingabe(anschriftID, 6);
+        //Die Anschrift-ID enthält max. 6 Zeichen.
+        begrenzeTextFeldEingabe(tf_anschriftID, 6);
+        //Die Liefer-Id enthält max. 6 Zeichen.
         begrenzeTextFeldEingabe(tf_lieferID, 6);
+        //Das Kreditlimit enthält max. 6 Zeichen.
         begrenzeTextFeldEingabe(tf_kreditlimit, 6);
         
         gpID.setCellValueFactory(
@@ -122,6 +163,12 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         liefID.setCellValueFactory(new PropertyValueFactory<>("lieferID"));
         kredLimit.setCellValueFactory(
                 new PropertyValueFactory<>("kreditlimit"));
+        
+//        cb_suchfeld.getItems().addAll(
+//                "GeschaeftspartnerID",
+//                "AdresseID",
+//                "LieferID",
+//                "Kreditlimit");
         
         cb_partnerTyp.getItems().addAll("K", "L");
     }
@@ -143,6 +190,8 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 14.08.17    HEN     Methode erstellt.
+    /* 17.08.17    CEL     Methoden "alleOhneLKZ" & "alleMitLKZ" hinzugefügt.
+    */
     /*------------------------------------------------------------------------*/
     
     /**
@@ -158,10 +207,60 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         gpTable.setItems(geschaeftspartner);
     }    
     
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.08.17    CEL     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Sucht nach allen Geschätspartnern mit aktivem LKZ und stellt sie in der Tabelle
+     * dar.
+     * @throws java.sql.SQLException SQL Exception
+     */ 
+    public void alleOhneLKZ() throws SQLException {    
+        GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();     
+        ObservableList<Geschaeftspartner> geschaeftspartner 
+                = FXCollections.observableArrayList(
+                        gp.gibAlleGeschaeftspartnerOhneLKZ());
+        gpTable.setItems(geschaeftspartner);
+    }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    BER     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+     /**
+     * Sucht nach allen Geschätspartnern mit aktivem LKZ und stellt sie in der Tabelle
+     * dar.
+     * @throws java.sql.SQLException SQL Exception
+     */ 
+    public void alleMitLKZ() throws SQLException {    
+        GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();     
+        ObservableList<Geschaeftspartner> geschaeftspartner 
+                = FXCollections.observableArrayList(
+                        gp.gibAlleGeschaeftspartnerMitLKZ());
+        gpTable.setItems(geschaeftspartner);
+    }
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.08.17    CEL     Methode erstellt.
+    /* 18.08.17    CEL     Clear-Elemente hinzugefügt.
+    */
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues
+     * Geschätspartner Objekt, welches dann über die DAO in die DB geschrieben wird.
+     * @throws java.sql.SQLException SQL Exception
+     */
     public void geschaeftspartnerHinzufuegen() throws SQLException {
         String geschaeftspartnerID = tf_geschaeftspartnerID.getText();
         String typ = cb_partnerTyp.getValue();
-        String adresseID = anschriftID.getText();
+        String adresseID = tf_anschriftID.getText();
         String lieferID = tf_lieferID.getText();
         String kreditlimit = tf_kreditlimit.getText();
         String lkz = "N";
@@ -170,6 +269,42 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         
         GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();
         gp.fuegeGeschaeftspartnerHinzu(geschaeftspartner);
+        
+           tf_lieferID.clear();
+           tf_anschriftID.clear();
+           tf_kreditlimit.clear();
+           tf_geschaeftspartnerID.clear();
+           cb_partnerTyp.valueProperty().set(null);
+        
+    }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 18.08.17    CEL     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * "Löscht" einen markierten Geschäftspartner, in dem das LKZ auf J gesetzt wird.
+     * @throws java.sql.SQLException SQL Exception
+     */
+    @FXML
+    public void geschaeftspartnerLoeschen() throws SQLException {
+
+        Object geschaeftspartner = gpTable.getSelectionModel().getSelectedItem();
+        Geschaeftspartner g = (Geschaeftspartner) geschaeftspartner;
+
+        GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();
+        gp.setzeLKZ(g);
+    }
+    
+    @FXML
+    public void geschaeftspartnerAendern() throws SQLException {
+        
+        Object geschaeftspartner = gpTable.getSelectionModel().getSelectedItem();
+        Geschaeftspartner g = (Geschaeftspartner) geschaeftspartner;
+
+        GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();
+        gp.aendernGeschaeftspartner(g);
     }
 
 }
