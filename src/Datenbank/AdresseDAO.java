@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import javafx.scene.control.Alert;
@@ -198,10 +199,9 @@ public class AdresseDAO extends DataAccess {
      * @param a Adressobjekt
      */
     public void fuegeAdresseHinzu(Adresse a) {
-
         //Variablendeklaration
         PreparedStatement stmt = null;
-        String anschriftID = a.getAdresseID();
+        String anschriftID = generiereID();
         String anrede = a.getAnrede();
         String name = a.getName();
         String vorname = a.getVorname();
@@ -250,29 +250,10 @@ public class AdresseDAO extends DataAccess {
         }
     }
 
-    public String gibLetztID() {
 
-        Statement stmt = null;
-        String value = "";
-        ResultSet rs = null;
-        String query = "SELECT MAX(ANSCHRIFT_ID) FROM ROOT.ADRESSE";
-        
-        try {
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(query);
-            
-            while (rs.next()) {
-                value = rs.getString(1);
-            }
-            con.commit();
-        } catch (SQLException e) {
-
-        }
-        return value;
-    }
-
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    Hen     Erstellt.
     /*------------------------------------------------------------------------*/
     /**
@@ -281,9 +262,7 @@ public class AdresseDAO extends DataAccess {
      * @param a Adressobjekt
      */
     public void aendereAdresse(Adresse a) {
-
         PreparedStatement stmt = null;
-
         String query
                 = "UPDATE ROOT.ADRESSE SET ANREDE = ? WHERE ANSCHRIFT_ID = ?";
 
@@ -447,59 +426,60 @@ public class AdresseDAO extends DataAccess {
     }
 
     
-    
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
-    /* 15.08.17     GET     Erstellt.
-    /* 15.08.17     HEN     preparedStmt ergänzt, positiv getestet.     
+    /* 17.08.17     GET     Erstellt.    
     /*------------------------------------------------------------------------*/
     
     /**
      * Setzt Löschkennzeichen bei einer ausgewählten Adresse.
-     * @param alteID
-     * @return 
+     * @return neue ID aufgezählt.
      */    
-    public String generiereID(String alteID) {
-
-        int zaehler;
-        int stellen;
-        String nullen = "";
-        String pattern = "xxxxxx";
-        String zaehlerString = "";
-        StringTokenizer st = new StringTokenizer(alteID, "1,2,3,4,5,6,7,8,9");
-        String neueID = "";
-
-        if (alteID.startsWith("0")) {
-            nullen = st.nextToken();
-            stellen = nullen.length();
-            zaehler = Integer.parseInt(alteID.substring(stellen));
-            zaehler++;
-            zaehlerString = nullen + zaehler;
-
-            if (zaehlerString.length() <= pattern.length()) {
-                neueID = zaehlerString;
-
-            } else {
-
-                // Eine Fehlermeldung soll geschmissen werden
-//                System.out.println("ID ist länger als 6 Zeichen!");
+    public String gibLetztID() {
+        Statement stmt = null;
+        String value = "";
+        ResultSet rs = null;
+        String query = "SELECT MAX(ANSCHRIFT_ID) FROM ROOT.ADRESSE";
+        
+        try {
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            
+            while (rs.next()) {
+                value = rs.getString(1);
             }
-
-        } else {
-            zaehler = Integer.parseInt(alteID);
-            zaehler++;
-            zaehlerString = "" + zaehler;
-
-            if (zaehlerString.length() <= pattern.length()) {
-                neueID = zaehlerString;
-
-            } else {
-
-                // Eine Fehlermeldung soll geschmissen werden
-//                System.out.println("ID ist länger als 6 Zeichen!");
-            }
+            con.commit();
+        } catch (SQLException e) {
 
         }
+        return value;
+    }
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 19.08.17     HEN     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Liest die letzte ID aus, erhöht sie um 1 und gibt sie wieder.
+     * @return neue ID aufgezählt.
+     */    
+    public String generiereID() {
+   
+        //Holt sich die aktuell maximale ID.
+        String alteIDString = gibLetztID();  
+        
+        //Parsed die ID von String nach Int.
+        int alteIDInt = Integer.parseInt(alteIDString);
+
+        //Zählt die ID um 1 hoch.
+        alteIDInt++;
+
+        //Fügt die neue ID in den String und füllt vordere Zahlen mit 0 auf,
+        //wenn neueID < 6 Zeichen.
+        String neueID = String.format("%06d", alteIDInt);
+        
         return neueID;
     }
     

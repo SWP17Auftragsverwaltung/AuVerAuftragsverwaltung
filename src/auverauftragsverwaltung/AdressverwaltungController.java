@@ -522,38 +522,29 @@ public class AdressverwaltungController implements Initializable {
     
     /**
      * Gibt die unteren Eingabefelder für das Anlegen einer neuer Adresse frei.
+     * @throws java.sql.SQLException SQLException
     */    
     @FXML
-    public void adresseAnlegen() {
-        
+    public void adresseAnlegen() throws SQLException {
+        adresseTV.setMouseTransparent(true);
+        clearTextFields();   
+
         // Textfeldbereich wird aktiviert
         this.pane.setDisable(true);
         // Bearbeiten-Button wird ausgeblendet
         this.anlegenBT.setVisible(false);
         // Speichern-Button wird eingeblendet
-        this.hinzufuegenAdresseBT.setVisible(true);
-        
-        // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-        this.adressdatensatzPane.setText("Adressdatensatz (Anlegemodus)");
-        
+        this.hinzufuegenAdresseBT.setVisible(true);       
+        // Der Anlegemodus des Adressdatensatzes wird aktiviert
+        this.adressdatensatzPane.setText(
+                "Adressdatensatz (Anlegemodus)");       
         // Anlegen-Button wird deaktiviert
-        this.bearbeitenBT.setDisable(true);
-        
+        this.bearbeitenBT.setDisable(true);     
         // Löschen-Button wird deaktiviert
         this.loeschenBT.setDisable(true);
-        
-        tf_anschriftID.setText("");
-        cb_anrede.setValue("");
-        tf_name.setText("");
-        tf_vorname.setText("");
-        tf_strasse.setText("");
-        tf_hausNr.setText("");
-        tf_plz.setText("");
-        tf_ort.setText("");
-        tf_staat.setText("");
-        tf_telefon.setText("");
-        tf_email.setText("");
-        tf_datum.setText("");  
+           
+        AdresseDAO ad = new AdresseDAO();
+        tf_anschriftID.setText(ad.generiereID());   
     }
     
     
@@ -569,7 +560,7 @@ public class AdressverwaltungController implements Initializable {
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
-    public void adresseHinzufuegen() throws SQLException {
+    public void adresseHinzufuegen() throws SQLException {   
         String anschriftID = tf_anschriftID.getText();
         String anrede = cb_anrede.getValue();
         String name = tf_name.getText();
@@ -603,7 +594,9 @@ public class AdressverwaltungController implements Initializable {
         // Anlegen-Button wird deaktiviert
         this.bearbeitenBT.setDisable(false);     
         // Löschen-Button wird deaktiviert
-        this.loeschenBT.setDisable(false);      
+        this.loeschenBT.setDisable(false);
+        adresseTV.setMouseTransparent(false);
+        
     }
 
     
