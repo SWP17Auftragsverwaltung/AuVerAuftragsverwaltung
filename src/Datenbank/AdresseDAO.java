@@ -34,13 +34,15 @@ public class AdresseDAO extends DataAccess {
 
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 07.08.17    Hen     Erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Gibt alle Adressen wieder die sich in der Datenbank befinden.
-     *
      * @return Gibt Arraylist aller Adressen wieder
      */
     public ArrayList<Adresse> gibAlleAdressen() {
@@ -78,10 +80,13 @@ public class AdresseDAO extends DataAccess {
         return adressListe;
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 07.08.17    Hen     Erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Gibt alle Adressen ohne Löschkennzeichen wieder.
      *
@@ -132,13 +137,15 @@ public class AdresseDAO extends DataAccess {
         return adressListe;
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    Hen     Erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Gibt alle Adressen mit Löschkennzeichen wieder.
-     *
      * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
      */
     public ArrayList<Adresse> gibAlleAdressenMitLKZ() {
@@ -186,14 +193,15 @@ public class AdresseDAO extends DataAccess {
         return adressListe;
     }
 
+    
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    Hen     Erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Fügt Adresse der Datenbank hinzu.
-     *
      * @param a Adressobjekt
      */
     public void fuegeAdresseHinzu(Adresse a) {
@@ -254,9 +262,9 @@ public class AdresseDAO extends DataAccess {
     /* Datum       Name    Was
     /* 15.08.17    Hen     Erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Ändern die Adresse in der DB.
-     *
      * @param a Adressobjekt
      */
     public void aendereAdresse(Adresse a) {
@@ -268,7 +276,7 @@ public class AdresseDAO extends DataAccess {
             con.setAutoCommit(false);
 
             query
-                    = "UPDATE ROOT.ADRESSE SET ANREDE = ? WHERE ANSCHRIFT_ID = ?";
+                = "UPDATE ROOT.ADRESSE SET ANREDE = ? WHERE ANSCHRIFT_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getAnrede());
@@ -295,7 +303,8 @@ public class AdresseDAO extends DataAccess {
             stmt.executeUpdate();
             con.commit();
 
-            query = "UPDATE ROOT.ADRESSE SET VORNAME = ? WHERE ANSCHRIFT_ID = ?";
+            query 
+                = "UPDATE ROOT.ADRESSE SET VORNAME = ? WHERE ANSCHRIFT_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getVorname());
@@ -304,7 +313,8 @@ public class AdresseDAO extends DataAccess {
             stmt.executeUpdate();
             con.commit();
 
-            query = "UPDATE ROOT.ADRESSE SET STRASSE = ? WHERE ANSCHRIFT_ID = ?";
+            query 
+                = "UPDATE ROOT.ADRESSE SET STRASSE = ? WHERE ANSCHRIFT_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getStrasse());
@@ -313,7 +323,8 @@ public class AdresseDAO extends DataAccess {
             stmt.executeUpdate();
             con.commit();
 
-            query = "UPDATE ROOT.ADRESSE SET HAUSNUMMER = ? WHERE ANSCHRIFT_ID = ?";
+            query 
+                = "UPDATE ROOT.ADRESSE SET HAUSNUMMER = ? WHERE ANSCHRIFT_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getHausnummer());
@@ -385,14 +396,16 @@ public class AdresseDAO extends DataAccess {
         }
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum        Name    Was
+    /* Datum        Name    Was
     /* 15.08.17     GET     Erstellt.
     /* 15.08.17     HEN     preparedStmt ergänzt, positiv getestet.     
     /*------------------------------------------------------------------------*/
+    
     /**
      * Setzt Löschkennzeichen bei einer ausgewählten Adresse.
-     *
      * @param a Adresse
      */
     public void setzeLKZ(Adresse a) {
@@ -424,6 +437,7 @@ public class AdresseDAO extends DataAccess {
     }
 
     
+    
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
     /* 17.08.17     GET     Erstellt.    
@@ -448,10 +462,15 @@ public class AdresseDAO extends DataAccess {
             }
             con.commit();
         } catch (SQLException e) {
-
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
         }
         return value;
     }
+    
     
     
     /*------------------------------------------------------------------------*/
@@ -723,18 +742,22 @@ public class AdresseDAO extends DataAccess {
                 stmt = con.createStatement();
                 rs = stmt.executeQuery(query);  
                 while (rs.next()) {
-                    Adresse adresse = new Adresse(rs.getString(1), rs.getString(2),
-                        rs.getString(3), rs.getString(4), rs.getString(5),
-                        rs.getString(6), rs.getString(7), rs.getString(8),
-                        rs.getString(9), rs.getString(10), rs.getString(11),
-                        rs.getString(12), rs.getString(13));
+                    Adresse adresse = new Adresse(rs.getString(1), 
+                        rs.getString(2), rs.getString(3), rs.getString(4), 
+                        rs.getString(5), rs.getString(6), rs.getString(7), 
+                        rs.getString(8), rs.getString(9), rs.getString(10), 
+                        rs.getString(11), rs.getString(12), rs.getString(13));
                     gefundeneAdressen.add(adresse);
                 }      
             }
 
             
         } catch (SQLException e) {
-
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
         }
         return gefundeneAdressen;
     }    
