@@ -33,6 +33,7 @@ public class ArtikelDAO extends DataAccess {
     }
         
     
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 14.08.17    BER     Erstellt.
@@ -75,6 +76,8 @@ public class ArtikelDAO extends DataAccess {
         }
         return artikelListe;
     }  
+    
+    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -128,6 +131,7 @@ public class ArtikelDAO extends DataAccess {
         return artikelListe;
     }
 
+
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -180,13 +184,15 @@ public class ArtikelDAO extends DataAccess {
         return artikelListe;
     }
     
+    
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 15.08.17    BER     Erstellt.
     /*------------------------------------------------------------------------*/
     
-        /**
-     * Fügt Artikel der Datenbank hinzu
+     /**
+     * Fügt Artikel der Datenbank hinzu.
      * @param a Artikelobjekt
     */
     
@@ -206,7 +212,7 @@ public class ArtikelDAO extends DataAccess {
         String bestandsmengeVerkauft = a.getBestandsmengeVerkauft();
         String lkz = a.getLKZ();
         
-        try{
+        try {
             con.setAutoCommit(false);
             
             String query = "INSERT INTO ROOT.ARTIKEL (Artikel_ID, Artikeltext, "
@@ -240,7 +246,9 @@ public class ArtikelDAO extends DataAccess {
         }
     }
     
-       /*------------------------------------------------------------------------*/
+    
+    
+    /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    BER     Erstellt.
     /*------------------------------------------------------------------------*/
@@ -249,7 +257,7 @@ public class ArtikelDAO extends DataAccess {
      * Ändern der Artikel in der DB.
      * @param a Artikelobjekt
     */
-        public void aendernArtikel(Artikel a) {
+    public void aendernArtikel(Artikel a) {
         
         //Variablendeklaration
         PreparedStatement stmt = null;
@@ -265,7 +273,7 @@ public class ArtikelDAO extends DataAccess {
         String bestandsmengeVerkauft = a.getBestandsmengeVerkauft();
         String lkz = a.getLKZ();
         
-        try{
+        try {
             con.setAutoCommit(false);
             
             String query = "INSERT INTO ROOT.ARTIKEL (Artikel_ID, Artikeltext, "
@@ -299,7 +307,9 @@ public class ArtikelDAO extends DataAccess {
         }
     }
         
-            /*------------------------------------------------------------------------*/
+    
+    
+    /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
     /* 17.08.17     BER     Erstellt.     
     /*------------------------------------------------------------------------*/

@@ -277,7 +277,9 @@ public class ArtikelverwaltungController implements Initializable {
                 "Bestand Reserviert",
                 "Bestand Zulauf",
                 "Bestand Verkauft");
-    }
+
+ 
+   }
 
     /**
      * 
