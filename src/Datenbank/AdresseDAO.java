@@ -446,6 +446,19 @@ public class AdresseDAO extends DataAccess {
 
     }
 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 15.08.17     GET     Erstellt.
+    /* 15.08.17     HEN     preparedStmt ergänzt, positiv getestet.     
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Setzt Löschkennzeichen bei einer ausgewählten Adresse.
+     * @param alteID
+     * @return 
+     */    
     public String generiereID(String alteID) {
 
         int zaehler;
@@ -457,18 +470,13 @@ public class AdresseDAO extends DataAccess {
         String neueID = "";
 
         if (alteID.startsWith("0")) {
-
             nullen = st.nextToken();
             stellen = nullen.length();
-
             zaehler = Integer.parseInt(alteID.substring(stellen));
-
             zaehler++;
-
             zaehlerString = nullen + zaehler;
 
             if (zaehlerString.length() <= pattern.length()) {
-
                 neueID = zaehlerString;
 
             } else {
@@ -478,13 +486,11 @@ public class AdresseDAO extends DataAccess {
             }
 
         } else {
-
             zaehler = Integer.parseInt(alteID);
             zaehler++;
             zaehlerString = "" + zaehler;
 
             if (zaehlerString.length() <= pattern.length()) {
-
                 neueID = zaehlerString;
 
             } else {

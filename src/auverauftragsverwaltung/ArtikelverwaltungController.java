@@ -277,7 +277,9 @@ public class ArtikelverwaltungController implements Initializable {
                 "Bestand Reserviert",
                 "Bestand Zulauf",
                 "Bestand Verkauft");
-    }
+
+ 
+   }
 
     /**
      * 
@@ -300,7 +302,23 @@ public class ArtikelverwaltungController implements Initializable {
         ta.setTextFormatter(new TextFormatter<>(change
             -> change.getControlNewText().length() <= zahl ? change : null));
     }
-
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.08.17    BER     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Aktualisiert die TableView mit aktuellem Inhalt.
+     * @throws java.sql.SQLException SQL Exception
+    */
+    @FXML
+    public void refreshTable() throws SQLException {
+        tv_artikel.getItems().clear();
+        setTableContent();
+    }
  
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -319,6 +337,31 @@ public class ArtikelverwaltungController implements Initializable {
                 = FXCollections.observableArrayList(ar.gibAlleArtikel());
         tv_artikel.setItems(artikel);
     } 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.08.17    BER     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Löscht alle Eingaben in den Textfeldern.
+     * @throws java.sql.SQLException SQL Exception
+    */
+    @FXML
+    public void clearTextFields() throws SQLException {
+        
+        tf_materialNr.clear();
+        tf_einzelwert.clear();
+        tf_artikelbeschreibung.clear();
+        tf_bestellwert.clear();
+        tf_bestellbeschreibung.clear();
+        tf_bestandFrei.clear();
+        tf_bestandReserviert.clear();
+        tf_bestandZulauf.clear();
+        tf_bestandVerkauft.clear();
+        cb_mwstsatz.valueProperty().set(null);
+    }
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -387,16 +430,8 @@ public class ArtikelverwaltungController implements Initializable {
         ArtikelDAO ar = new ArtikelDAO();
         ar.fuegeArtikelHinzu(artikel);
         
-        tf_materialNr.clear();
-        tf_einzelwert.clear();
-        tf_artikelbeschreibung.clear();
-        tf_bestellwert.clear();
-        tf_bestellbeschreibung.clear();
-        tf_bestandFrei.clear();
-        tf_bestandReserviert.clear();
-        tf_bestandZulauf.clear();
-        tf_bestandVerkauft.clear();
-        cb_mwstsatz.valueProperty().set(null);
+        clearTextFields();
+        refreshTable();
     }
     
     /*------------------------------------------------------------------------*/
