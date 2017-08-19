@@ -208,7 +208,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
         try {
             con.setAutoCommit(false);
 
-            String query = "INSERT INTO ROOT.Zahlungskonditionen (Zahlungskonditions_ID, Auftragsart, "
+            String query = "INSERT INTO ROOT.Zahlungskonditionen (Konditionen_ID, Auftragsart, "
                 + "Lieferzeit, Sperrzeit, Skontozeit1, Skontozeit2, Skonto1, Skonto2, Mahnzeit1, "
                 + "Mahnzeit2, Mahnzeit3, LKZ)"
                 + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -238,5 +238,152 @@ public class ZahlungskonditionenDAO extends DataAccess {
             alert.showAndWait();        
         }
     }    
+    
+    public String gibLetztID() {
+
+        Statement stmt = null;
+        String value = "";
+        ResultSet rs = null;
+        String query = "SELECT MAX(Konditionen_ID) FROM ROOT.Zahlungskonditionen";
+        
+        try {
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            
+            while (rs.next()) {
+                value = rs.getString(1);
+            }
+            con.commit();
+        } catch (SQLException e) {
+
+        }
+        return value;
+    }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 19.08.17    SAM     Erstellt.
+    /*------------------------------------------------------------------------*/
+    /**
+     * Ändern der Adresse in der DB.
+     *
+     * @param z Zahlungskonditionsobjekt
+     */
+    public void aendereZahlungskonditionen(Zahlungskonditionen z) {
+
+        PreparedStatement stmt = null;
+
+        String query = "UPDATE ROOT.Zahlungskonditionen SET Auftragsart = ? WHERE Konditionen_ID = ?";
+
+        try {
+            con.setAutoCommit(false);
+
+            query = "UPDATE ROOT.Zahlungskonditionen SET Auftragsart = ? WHERE Konditionen_ID = ?";
+
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, z.getAuftragsart());
+            stmt.setString(2, z.getZahlungskondiID());
+
+            stmt.executeUpdate();
+            con.commit();
+
+            query = "UPDATE ROOT.Zahlungskonditionen SET Auftragsart = ? WHERE Konditionen_ID = ?";
+
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, z.getAuftragsart());
+            stmt.setString(2, z.getZahlungskondiID());
+
+            stmt.executeUpdate();
+            con.commit();
+
+            query = "UPDATE ROOT.Zahlungskonditionen SET LieferzeitSOFORT = ? WHERE Konditionen_ID = ?";
+
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, z.getLieferzeit());
+            stmt.setString(2, z.getZahlungskondiID());
+
+            stmt.executeUpdate();
+            con.commit();
+
+            query = "UPDATE ROOT.Zahlungskonditionen SET SperrzeitWUNSCH = ? WHERE Konditionen_ID = ?";
+
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, z.getSperrzeit());
+            stmt.setString(2, z.getZahlungskondiID());
+
+            stmt.executeUpdate();
+            con.commit();
+
+            query = "UPDATE ROOT.Zahlungskonditionen SET Skontozeit1 = ? WHERE Konditionen_ID = ?";
+
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, z.getSkontozeit1());
+            stmt.setString(2, z.getZahlungskondiID());
+
+            stmt.executeUpdate();
+            con.commit();
+
+            query = "UPDATE ROOT.Zahlungskonditionen SET Skontozeit2 = ? WHERE Konditionen_ID = ?";
+
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, z.getSkontozeit2());
+            stmt.setString(2, z.getZahlungskondiID());
+
+            stmt.executeUpdate();
+            con.commit();
+
+            query = "UPDATE ROOT.Zahlungskonditionen SET Skonto1 = ? WHERE Konditionen_ID = ?";
+
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, z.getSkonto1());
+            stmt.setString(2, z.getZahlungskondiID());
+
+            stmt.executeUpdate();
+            con.commit();
+
+            query = "UPDATE ROOT.Zahlungskonditionen SET Skonto2 = ? WHERE Konditionen_ID = ?";
+
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, z.getSkonto2());
+            stmt.setString(2, z.getZahlungskondiID());
+
+            stmt.executeUpdate();
+            con.commit();
+
+            query = "UPDATE ROOT.Zahlungskonditionen SET Mahnzeit1 = ? WHERE Konditionen_ID = ?";
+
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, z.getMahnzeit1());
+            stmt.setString(2, z.getZahlungskondiID());
+
+            stmt.executeUpdate();
+            con.commit();
+
+            query = "UPDATE ROOT.Zahlungskonditionen SET Mahnzeit2 = ? WHERE Konditionen_ID = ?";
+
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, z.getMahnzeit2());
+            stmt.setString(2, z.getZahlungskondiID());
+
+            stmt.executeUpdate();
+            con.commit();
+
+            query = "UPDATE ROOT.Zahlungskonditionen SET Mahnzeit3 = ? WHERE Konditionen_ID = ?";
+
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, z.getMahnzeit3());
+            stmt.setString(2, z.getZahlungskondiID());
+
+            stmt.executeUpdate();
+            con.commit();
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+        }
+    }
     
 }
