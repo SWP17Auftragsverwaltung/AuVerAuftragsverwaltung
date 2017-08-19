@@ -362,6 +362,7 @@ public class AdressverwaltungController implements Initializable {
 
         cb_suchfeld.getItems().addAll(
                 "AnschriftID",
+                "Anrede",
                 "Name",
                 "Vorname",
                 "Straße",
