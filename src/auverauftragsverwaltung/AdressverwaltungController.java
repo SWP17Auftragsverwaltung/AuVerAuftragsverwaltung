@@ -264,6 +264,13 @@ public class AdressverwaltungController implements Initializable {
     @FXML
     private Button hinzufuegenAdresseBT;
     
+    /**
+     * Hinzufügen Button.
+     */
+    @FXML
+    private Button btZuruecksetzen;
+    @FXML
+    private Button btSuchen;
     
 
     /**
@@ -271,7 +278,6 @@ public class AdressverwaltungController implements Initializable {
      * @param event ActionEvent welches das Klicken des Buttons "Abbrechen"
      * abfängt.
      */
-    @FXML
     public void closeAdressverwaltung(ActionEvent event) {
         Stage stage = (Stage) closeAW.getScene().getWindow();
         stage.close();
@@ -405,7 +411,6 @@ public class AdressverwaltungController implements Initializable {
      *
      * @throws java.sql.SQLException SQL Exception
     */
-    @FXML
     public void setTableContent() throws SQLException {
         AdresseDAO ad = new AdresseDAO();
         ObservableList<Adresse> adressen
@@ -421,7 +426,6 @@ public class AdressverwaltungController implements Initializable {
      * @param adressen Übergebene Adresse.
      * @throws java.sql.SQLException SQL Exception
     */
-    @FXML
     public void zeigeGefundeneAdressen(ArrayList adressen) throws SQLException {
         refreshTable();
         ObservableList<Adresse> adressenAusgabe
@@ -440,7 +444,6 @@ public class AdressverwaltungController implements Initializable {
      * Aktualisiert die TableView mit aktuellem Inhalt.
      * @throws java.sql.SQLException SQL Exception
     */
-    @FXML
     public void refreshTable() throws SQLException {
         adresseTV.getItems().clear();
         setTableContent();
@@ -457,7 +460,6 @@ public class AdressverwaltungController implements Initializable {
      * Löscht alle Eingaben in den Textfeldern.
      * @throws java.sql.SQLException SQL Exception
     */
-    @FXML
     public void clearTextFields() throws SQLException {
         tf_anschriftID.clear();
         cb_anrede.valueProperty().set(null);
@@ -486,7 +488,6 @@ public class AdressverwaltungController implements Initializable {
      *
      * @throws java.sql.SQLException SQL Exception
     */
-    @FXML
     public void alleMitLKZ() throws SQLException {
         AdresseDAO ad = new AdresseDAO();
         ObservableList<Adresse> adressen
@@ -728,12 +729,6 @@ public class AdressverwaltungController implements Initializable {
         }  
     }
     
-    @FXML
-    public void letzteID() throws SQLException{
-        AdresseDAO a = new AdresseDAO();
-        System.out.println(a.gibLetztID());
-    }
-    
     
     
     /*------------------------------------------------------------------------*/
@@ -760,4 +755,20 @@ public class AdressverwaltungController implements Initializable {
     }    
     
     
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 19.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Setzt die Suche zurück.
+     * @throws java.sql.SQLException SQLException
+    */        
+    @FXML
+    public void setzeSucheZurueck() throws SQLException {
+        tf_suchbegriff.setText("");
+        setTableContent();
+    }       
+
 }

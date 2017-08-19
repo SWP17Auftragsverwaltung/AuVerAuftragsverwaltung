@@ -31,7 +31,8 @@
             <Label layoutX="25.0" layoutY="24.0" prefHeight="17.0" prefWidth="100.0" text="Suchkriterium" />
             <TextField fx:id="tf_suchbegriff" layoutX="246.0" layoutY="41.0" onAction="#adresseSuchen" prefHeight="25.0" prefWidth="199.0" />
             <Label layoutX="246.0" layoutY="24.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
-            <Button layoutX="468.0" layoutY="24.0" mnemonicParsing="false" onAction="#letzteID" onMouseClicked="#adresseSuchen" prefHeight="40.0" prefWidth="160.0" text="Adresse suchen " />
+            <Button fx:id="btSuchen" layoutX="468.0" layoutY="24.0" mnemonicParsing="false" onAction="#adresseSuchen" prefHeight="40.0" prefWidth="160.0" text="Adresse suchen " />
+            <Button fx:id="btZuruecksetzen" layoutX="637.0" layoutY="24.0" mnemonicParsing="false" onAction="#setzeSucheZurueck" prefHeight="40.0" prefWidth="160.0" text="Suche zurücksetzen" />
          </children>
       </AnchorPane>
       <TitledPane fx:id="adressdatensatzPane" animated="false" collapsible="false" layoutX="25.0" layoutY="502.0" prefHeight="256.0" prefWidth="1013.0" text="Adressdatensatz" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
@@ -41,7 +42,7 @@
                   <Button fx:id="bearbeitenBT" layoutX="132.0" layoutY="172.0" mnemonicParsing="false" onAction="#bearbeiteAdresse" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
                   <Button fx:id="anlegenBT" layoutX="24.0" layoutY="172.0" mnemonicParsing="false" onAction="#adresseAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
                   <Button fx:id="loeschenBT" layoutX="242.0" layoutY="172.0" mnemonicParsing="false" onAction="#adresseLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
-                  <Button fx:id="closeAW" layoutX="353.0" layoutY="172.0" mnemonicParsing="false" onAction="#letzteID" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
+                  <Button fx:id="closeAW" layoutX="353.0" layoutY="172.0" mnemonicParsing="false" onAction="#closeAdressverwaltung" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
                   <Label layoutX="24.0" layoutY="20.0" text="Anschrift-ID" />
                   <TextField fx:id="tf_anschriftID" editable="false" layoutX="24.0" layoutY="38.0" prefHeight="25.0" prefWidth="100.0" />
                   <Label layoutX="136.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" text="Anrede" />
