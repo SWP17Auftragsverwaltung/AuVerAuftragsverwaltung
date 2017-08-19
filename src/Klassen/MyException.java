@@ -1,8 +1,8 @@
 /*------------------------------------------------------------------------------
-* Klasse: Exceptions.
+* Klasse: MyException.
 *-------------------------------------------------------------------------------
 * Zweck:
-* - Diese Klasse dient zur Verwaltung von Exceptions.
+* - Diese Klasse dient zur Verwaltung von MyException.
 *-------------------------------------------------------------------------------
 * Historie:
 * 26.07.2017    HEN     Erstellt.
@@ -16,8 +16,28 @@ package Klassen;
  *
  * @author Andre
  */
-public class Exceptions extends Exception {
+public class MyException extends Exception {
+
+    /**
+     * 
+     */
+    public MyException() {
+    }
+
+    
+    
+    /**
+     * 
+     * @param message 
+     */
+    public MyException(String message) {
+        super(message);
+    }
+    
+    
+    
  
+    
     /**
      * Variable für den Fehlercode.
      */
