@@ -231,6 +231,18 @@ public class ZahlungskonditionenController implements Initializable {
      */
     @FXML
     private Button loeschenBT;
+    
+    /**
+     * Zahlungskonditionen-Suchen Button.
+     */
+    @FXML
+    private Button zkSuchenBT;
+    
+    /**
+     * Zahlungskonditionen-Suchen Button.
+     */
+    @FXML
+    private Button sucheZuruecksetzenBT;
 
     /**
      * ÜberschriftPane für den Eingabebereich.
@@ -261,12 +273,14 @@ public class ZahlungskonditionenController implements Initializable {
         stage.close();
     }
 
-    /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
-    /* 17.08.17    SAM     Methode erstellt.
-    /* 19.08.17    GET     Methode überarbeitet.
-    /*
-    /*------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------*
+     * Datum       Name    Was
+     * 17.08.17    SAM     Methode erstellt.
+     * 19.08.17    GET     Startinitialisierungen für Comboboxen und TableView
+     *                     eingefügt
+     *
+     *------------------------------------------------------------------------*/
+    
     /**
      * Initialisiert die Controller-Klasse.
      *
@@ -342,16 +356,17 @@ public class ZahlungskonditionenController implements Initializable {
                 new PropertyValueFactory<>("Mahnzeit3"));
 
         cb_suchfeld.getItems().addAll(
-                "Konditionen_ID",
+                "Konditionen-ID",
+                "Auftragsart",
                 "LieferzeitSOFORT",
                 "SperrzeitWUNSCH",
-                "Skontozeit1",
-                "Skonto1",
-                "Skontozeit2",
-                "Skonto2",
-                "Mahnzeit1",
-                "Mahnzeit2",
-                "Mahnzeit3");
+                "Skontozeit 1",
+                "Skonto 1",
+                "Skontozeit 2",
+                "Skonto 2",
+                "Mahnzeit 1",
+                "Mahnzeit 2",
+                "Mahnzeit 3");
 
         cb_auftragsart.getItems().addAll("Barauftrag",
                 "Sofortauftrag",
@@ -361,8 +376,9 @@ public class ZahlungskonditionenController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+     /* Datum       Name    Was
     /* 18.08.17    SAM     Methode erstellt.
+     *
     /*------------------------------------------------------------------------*/
     /**
      * Begrenzte Feldeingabe.
@@ -380,6 +396,8 @@ public class ZahlungskonditionenController implements Initializable {
     /*------------------------------------------------------------------------*/
  /* Datum       Name    Was
     /* 18.08.17    SAM     Methode erstellt.
+    /* 20.08.17    GET     Methode überarbeitet.
+    */
     /*------------------------------------------------------------------------*/
     /**
      * Erstellt ein ZahlungskonditionenDAO Objekt und gibt eine
@@ -396,27 +414,11 @@ public class ZahlungskonditionenController implements Initializable {
         zahlungskonditionenTV.setItems(zahlungskonditionen);
     }
 
+    
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
-    /* 18.08.17    SAM     Methode erstellt.
-    /*------------------------------------------------------------------------*/
-    /**
-     * Methode bekommt eine ArrayList mit den gefundenen Zahlungskonditionen
-     * übergeben und aktualisiert damit die TableView.
-     *
-     * @param zahlungskonditionen Übergebene Zahlungskondition.
-     * @throws java.sql.SQLException SQL Exception
-     */
-//    @FXML
-//    public void zeigeGefundeneZahlungskonditionen(ArrayList zahlungskonditionen) 
-//            throws SQLException {
-//        refreshTable();
-//        ObservableList<Zahlungskonditionen> zahlungskonditionsAusgabe
-//            = FXCollections.observableArrayList(zahlungskonditionen);
-//        tv_zahlungskonditionen.setItems(zahlungskonditionsAusgabe);
-//    } 
-    /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
@@ -455,7 +457,7 @@ public class ZahlungskonditionenController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
@@ -473,7 +475,7 @@ public class ZahlungskonditionenController implements Initializable {
         zahlungskonditionenTV.setItems(zahlungskonditionen);
     }    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
@@ -493,11 +495,14 @@ public class ZahlungskonditionenController implements Initializable {
     
     
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
+    /* 20.08.17    GET     Methode fertiggestellt.
+    */
     /*------------------------------------------------------------------------*/
     /**
      * Gibt die unteren Eingabefelder für das Anlegen einer neuer Adresse frei.
+     * @throws java.sql.SQLException
      */
     @FXML
     public void zahlungskonditionenAnlegen() throws SQLException {
@@ -522,8 +527,10 @@ public class ZahlungskonditionenController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
+    /* 20.08.17    GET     Methode fertiggestellt.
+    */
     /*------------------------------------------------------------------------*/
     /**
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues
@@ -574,8 +581,10 @@ public class ZahlungskonditionenController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
+    /* 20.08.17    GET     Methode fertiggestellt.
+    */
     /*------------------------------------------------------------------------*/
     /**
      * "Löscht" eine markierte Adresse, in dem das LKZ auf J gesetzt wird.
@@ -622,8 +631,10 @@ public class ZahlungskonditionenController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
+    /* 20.08.17    GET     Methode fertiggestellt.
+    */
     /*------------------------------------------------------------------------*/
     /**
      * Speichert die gemachten Änderungen in die Datenbank und aktualisiert die
@@ -674,9 +685,10 @@ public class ZahlungskonditionenController implements Initializable {
     
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 19.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Zeigt die Werte einer ausgewählten Zahlungskondition im unteren Bereich
      * an.
@@ -701,33 +713,67 @@ public class ZahlungskonditionenController implements Initializable {
             this.tf_mahnzeit3.setText(b.getMahnzeit3());
         }  
     }
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 18.08.17    SAM     Methode erstellt.
+    /* 20.08.17    GET     Methode fertiggestellt.
+    */
+    /*------------------------------------------------------------------------*/
     
-    
+    /**
+     * Methode bekommt eine ArrayList mit den gefundenen Zahlungskonditionen
+     * übergeben und aktualisiert damit die TableView.
+     *
+     * @param zahlungskonditionen Übergebene Zahlungskondition.
+     * @throws java.sql.SQLException SQL Exception
+     */
     @FXML
-    public void letzteID() throws SQLException{
-        ZahlungskonditionenDAO a = new ZahlungskonditionenDAO();
-        System.out.println(a.gibLetztID());//Siehe Klasse
-    }
+    public void zeigeGefundeneZahlungskonditionen(ArrayList zahlungskonditionen) 
+            throws SQLException {
+        refreshTable();
+        ObservableList<Zahlungskonditionen> zahlungskonditionsAusgabe
+            = FXCollections.observableArrayList(zahlungskonditionen);
+        zahlungskonditionenTV.setItems(zahlungskonditionsAusgabe);
+    } 
     
-        /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
+    /* 20.08.17    GET     Methode fertiggestellt.
+    */
     /*------------------------------------------------------------------------*/
         /**
          * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
          *
          * @throws java.sql.SQLException SQLException
          */
-//    @FXML
-//    public void zahlungskonditionenSuchen() throws SQLException {
-//        ZahlungskonditionenDAO zk = new ZahlungskonditionenDAO();
-//        ArrayList gefundeneZahlungskonditionen;
-//        
-//        String suchkriterium = cb_suchfeld.getValue();
-//        String suchbegriff = tf_suchbegriff.getText();
-//        
-//        gefundeneZahlungskonditionen = zk.zahlungskonditionSuche(suchkriterium, suchbegriff);//Siehe Klasse
-//        zeigeGefundeneZahlungskonditionen(gefundeneZahlungskonditionen);
-//    }
+    @FXML
+    public void zahlungskonditionenSuchen() throws SQLException {
+        ZahlungskonditionenDAO zk = new ZahlungskonditionenDAO();
+        ArrayList gefundeneZahlungskonditionen;
+        
+        String suchkriterium = cb_suchfeld.getValue();
+        String suchbegriff = tf_suchbegriff.getText();
+        
+        gefundeneZahlungskonditionen = zk.zahlungskonditionSuche(suchkriterium, suchbegriff);//Siehe Klasse
+        zeigeGefundeneZahlungskonditionen(gefundeneZahlungskonditionen);
+    }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 20.08.17    GET     Methode erstellt.
+    */
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Setzt die Suche zurück.
+     * @throws java.sql.SQLException SQLException
+    */        
+    @FXML
+    public void setzeSucheZurueck() throws SQLException {
+        tf_suchbegriff.setText("");
+        setTableContent();
+    } 
     
 }

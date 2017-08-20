@@ -485,18 +485,23 @@ public class AdresseDAO extends DataAccess {
     public String generiereID() {
    
         //Holt sich die aktuell maximale ID.
-        String alteIDString = gibLetztID();  
-        
-        //Parsed die ID von String nach Int.
-        int alteIDInt = Integer.parseInt(alteIDString);
+        String alteIDString = gibLetztID();
+        String neueID;
 
-        //Zählt die ID um 1 hoch.
-        alteIDInt++;
+        if (alteIDString != null) {
+            //Parsed die ID von String nach Int.
+            int alteIDInt = Integer.parseInt(alteIDString);
 
-        //Fügt die neue ID in den String und füllt vordere Zahlen mit 0 auf,
-        //wenn neueID < 6 Zeichen.
-        String neueID = String.format("%06d", alteIDInt);
-        
+            //Zählt die ID um 1 hoch.
+            alteIDInt++;
+
+            //Fügt die neue ID in den String und füllt vordere Zahlen mit 0 auf,
+            //wenn neueID < 6 Zeichen.
+            neueID = String.format("%06d", alteIDInt);
+        } else {
+            neueID = "000001";
+        }
+
         return neueID;
     }
     
