@@ -18,6 +18,7 @@ import Datenbank.GeschaeftspartnerDAO;
 import Klassen.Geschaeftspartner;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,8 +33,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -62,7 +65,10 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      * ComboBox "Suchfeld".
      */
     @FXML
-    private ComboBox<String> cb_suchfeld = new ComboBox();    
+    private ComboBox<String> cb_suchfeld = new ComboBox();  
+    
+    @FXML
+    private TextField tf_suchbegriff;
     /**
      * Kreditlimit des Geschäftspartners.
      */
@@ -90,7 +96,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      * Tabellenspalte "Typ".
      */    
     @FXML
-    private TableColumn<Geschaeftspartner, String> typ;
+    private TableColumn<Geschaeftspartner, String> gpTyp;
     
     /**
      * Tabellenspalte "AdresseID".
@@ -109,8 +115,32 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      */
     @FXML
     private TableColumn<Geschaeftspartner, String> kredLimit;
+    
+//    @FXML
+//    private AnchorPane tf_partnerID;
+//    
     @FXML
-    private AnchorPane tf_partnerID;
+    private Pane pane;
+    
+    @FXML
+    private Button hinzufuegenBT;
+    
+    @FXML
+    private Button anlegenBT;
+    
+    @FXML
+    private Button bearbeitenBT;
+    
+    @FXML
+    private Button speichernBT;
+    
+    @FXML
+    private Button loeschenBT;
+    
+    @FXML
+    private TitledPane datensatzTP;
+    
+    
     
     /**
      * Geschäftspartnertabelle.
@@ -140,7 +170,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-                try {
+        try {
             setTableContent();
         } catch (SQLException ex) {
             Logger.getLogger(AdressverwaltungController.class.getName()).log(
@@ -158,17 +188,18 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         
         gpID.setCellValueFactory(
                 new PropertyValueFactory<>("geschaeftspartnerID"));
-        typ.setCellValueFactory(new PropertyValueFactory<>("typ"));
+        gpTyp.setCellValueFactory(new PropertyValueFactory<>("typ"));
         adressID.setCellValueFactory(new PropertyValueFactory<>("adresseID"));
         liefID.setCellValueFactory(new PropertyValueFactory<>("lieferID"));
         kredLimit.setCellValueFactory(
                 new PropertyValueFactory<>("kreditlimit"));
         
-//        cb_suchfeld.getItems().addAll(
-//                "GeschaeftspartnerID",
-//                "AdresseID",
-//                "LieferID",
-//                "Kreditlimit");
+        cb_suchfeld.getItems().addAll(
+                "Geschaeftspartner-ID",
+                "Geschäftspartner-Typ",
+                "Anschrift-ID",
+                "Liefer-ID",
+                "Kreditlimit");
         
         cb_partnerTyp.getItems().addAll("K", "L");
     }
@@ -203,7 +234,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();     
         ObservableList<Geschaeftspartner> geschaeftspartner 
                 = FXCollections.observableArrayList(
-                        gp.gibAlleGeschaeftspartner());
+                        gp.gibAlleGeschaeftspartnerOhneLKZ());
         gpTable.setItems(geschaeftspartner);
     }    
     
@@ -244,13 +275,33 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     }
     
     
+    /**
+     * Ermöglicht das Eingeben des Datensatzes für das Hinzufügen eines 
+     * Geschäftspartners.
+     * @throws SQLException 
+     */
+    public void geschaeftspartnerAnlegen() throws SQLException{
+        
+        gpTable.setMouseTransparent(true);
+        clearTextFields();
+        
+        this.pane.setDisable(true);
+        
+        this.anlegenBT.setVisible(false);
+        
+        this.hinzufuegenBT.setVisible(true);
+        
+        this.datensatzTP.setText("Geschäftspartnerdatensatz (Anlegemodus)");
+        
+        this.bearbeitenBT.setDisable(true);
+        
+        this.loeschenBT.setDisable(true);
+        
+        GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
+        this.tf_geschaeftspartnerID.setText(gpDAO.generiereID());
+
+    }
     
-    /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 17.08.17    CEL     Methode erstellt.
-    /* 18.08.17    CEL     Clear-Elemente hinzugefügt.
-    */
-    /*------------------------------------------------------------------------*/
     
     /**
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues
@@ -258,25 +309,63 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      * @throws java.sql.SQLException SQL Exception
      */
     public void geschaeftspartnerHinzufuegen() throws SQLException {
+        
         String geschaeftspartnerID = tf_geschaeftspartnerID.getText();
         String typ = cb_partnerTyp.getValue();
         String adresseID = tf_anschriftID.getText();
         String lieferID = tf_lieferID.getText();
         String kreditlimit = tf_kreditlimit.getText();
         String lkz = "N";
-        Geschaeftspartner geschaeftspartner = new Geschaeftspartner(geschaeftspartnerID,
-        typ, adresseID, lieferID, kreditlimit, lkz);
+        Geschaeftspartner geschaeftspartner = new Geschaeftspartner(
+                geschaeftspartnerID, typ, adresseID, lieferID,
+                kreditlimit, lkz);
         
-        GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();
-        gp.fuegeGeschaeftspartnerHinzu(geschaeftspartner);
+        GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
+        gpDAO.fuegeGeschaeftspartnerHinzu(geschaeftspartner);
         
-           tf_lieferID.clear();
-           tf_anschriftID.clear();
-           tf_kreditlimit.clear();
-           tf_geschaeftspartnerID.clear();
-           cb_partnerTyp.valueProperty().set(null);
+        clearTextFields();
+        refreshTable();
+        
+        // Textfeldbereich wird aktiviert
+        this.pane.setDisable(false);
+        // Bearbeiten-Button wird ausgeblendet
+        this.anlegenBT.setVisible(true);
+        // Speichern-Button wird eingeblendet
+        this.hinzufuegenBT.setVisible(false);   
+        // Der Anlegemodus wird dektiviert
+        this.datensatzTP.setText("Geschäftspartnerdatensatz");    
+        // Anlegen-Button wird deaktiviert
+        this.bearbeitenBT.setDisable(false);     
+        // Löschen-Button wird deaktiviert
+        this.loeschenBT.setDisable(false);
+        gpTable.setMouseTransparent(false);
+        
         
     }
+    
+    /**
+     * Löscht alle Eingaben in den Textfeldern.
+     * @throws java.sql.SQLException SQL Exception
+    */
+    public void clearTextFields() throws SQLException {
+        
+        this.tf_geschaeftspartnerID.clear();
+        this.cb_partnerTyp.setValue("Bitte wählen...");
+        this.tf_anschriftID.clear();
+        this.tf_lieferID.clear();
+        this.tf_kreditlimit.clear();
+        
+    }
+    
+     /**
+     * Aktualisiert die TableView mit aktuellem Inhalt.
+     * @throws java.sql.SQLException SQL Exception
+    */
+    public void refreshTable() throws SQLException {
+        this.gpTable.getItems().clear();
+        setTableContent();
+    }
+    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -295,16 +384,110 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
 
         GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();
         gp.setzeLKZ(g);
+        
+        refreshTable();
     }
     
     @FXML
-    public void geschaeftspartnerAendern() throws SQLException {
+    public void bearbeiteGeschaeftspartner() throws SQLException {
         
-        Object geschaeftspartner = gpTable.getSelectionModel().getSelectedItem();
-        Geschaeftspartner g = (Geschaeftspartner) geschaeftspartner;
-
-        GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();
-        gp.aendernGeschaeftspartner(g);
+        // Textfeldbereich wird aktiviert
+        this.pane.setDisable(true);
+        // Bearbeiten-Button wird ausgeblendet
+        this.bearbeitenBT.setVisible(false);
+        // Speichern-Button wird eingeblendet
+        this.speichernBT.setVisible(true);
+        // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
+        this.datensatzTP.setText("Geschäftspartnerdatensatz"
+                + " (Bearbeitungsmodus)");
+        // Anlegen-Button wird deaktiviert
+        this.anlegenBT.setDisable(true);
+        // Löschen-Button wird deaktiviert
+        this.loeschenBT.setDisable(true);
     }
+    
+    @FXML
+    public void speichereAenderung() throws SQLException {
+        
+        String geschaeftspartnerID = this.tf_geschaeftspartnerID.getText();
+        String typ = this.cb_partnerTyp.getValue();
+        String anschriftID = this.tf_anschriftID.getText();
+        String lieferID = this.tf_lieferID.getText();
+        String kreditlimit = this.tf_kreditlimit.getText();
+        String lkz = "N";
+        
+        Geschaeftspartner gp = new Geschaeftspartner(geschaeftspartnerID, typ
+                        , anschriftID, lieferID, kreditlimit, lkz);
+        
+        GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
+        gpDAO.aendernGeschaeftspartner(gp);
+        
+        refreshTable();
+        
+        // Textfeldbereich wird deaktivieren
+        this.pane.setDisable(false);
+        // Bearbeiten-Button wird ausgeblendet
+        this.bearbeitenBT.setVisible(true);
+        // Speichern-Button wird eingeblendet
+        this.speichernBT.setVisible(false);       
+        // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
+        this.datensatzTP.setText("Adressdatensatz");       
+        // Anlegen-Button wird deaktiviert
+        this.anlegenBT.setDisable(false);       
+        // Löschen-Button wird deaktiviert
+        this.loeschenBT.setDisable(false);
 
+    }
+    
+     /**
+     * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+    */      
+    @FXML
+    public void zeigeWerteAn() {
+        Object geschaeftspartner = gpTable.getSelectionModel().getSelectedItem();
+        Geschaeftspartner b = (Geschaeftspartner) geschaeftspartner;
+        
+        if (b != null) {
+            this.tf_geschaeftspartnerID.setText(b.getGeschaeftspartnerID());
+            this.cb_partnerTyp.setValue(b.getTyp());
+            this.tf_anschriftID.setText(b.getAdresseID());
+            this.tf_lieferID.setText(b.getLieferID());
+            this.tf_kreditlimit.setText(b.getKreditlimit());
+        }  
+    }
+    @FXML
+    public void geschaeftspartnerSuchen() throws SQLException {
+        
+        GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
+        ArrayList gefundeneGeschaeftspartner;
+        
+        String suchkriterium = this.cb_suchfeld.getValue();
+        String suchbegriff = this.tf_suchbegriff.getText();
+        
+        gefundeneGeschaeftspartner = gpDAO.geschaeftspartnerSuche(
+                suchkriterium, suchbegriff);
+        
+        zeigeGefundeneAdressen(gefundeneGeschaeftspartner);
+        
+    }
+   
+    /**
+     * 
+     * @param adressen
+     * @throws SQLException 
+     */
+    public void zeigeGefundeneAdressen(ArrayList adressen) throws SQLException {
+        refreshTable();
+        ObservableList<Geschaeftspartner> adressenAusgabe
+            = FXCollections.observableArrayList(adressen);
+        gpTable.setItems(adressenAusgabe);
+    }
+    
+    @FXML
+    public void setzeSucheZurueck() throws SQLException {
+        this.tf_suchbegriff.setText("");
+        this.cb_suchfeld.setValue("Bitte wählen...");
+        setTableContent();
+    }  
+    
 }

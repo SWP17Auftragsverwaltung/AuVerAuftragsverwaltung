@@ -662,7 +662,8 @@ public class AdressverwaltungController implements Initializable {
      * @throws java.sql.SQLException SQLException.
     */      
     @FXML
-    public void speichereAenderung() throws SQLException {    
+    public void speichereAenderung() throws SQLException {  
+        
         String anschriftID = tf_anschriftID.getText();
         String anrede = cb_anrede.getValue();
         String name = tf_name.getText();
@@ -767,7 +768,8 @@ public class AdressverwaltungController implements Initializable {
     */        
     @FXML
     public void setzeSucheZurueck() throws SQLException {
-        tf_suchbegriff.setText("");
+        this.tf_suchbegriff.setText("");
+        this.cb_suchfeld.setValue("Bitte wählen...");
         setTableContent();
     }       
 
