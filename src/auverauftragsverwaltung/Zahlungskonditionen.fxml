@@ -11,22 +11,22 @@
          <children>
             <TableView fx:id="zahlungskonditionenTV" layoutY="88.0" onMouseClicked="#zeigeWerteAn" prefHeight="355.0" prefWidth="1024.0" AnchorPane.bottomAnchor="-24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="88.0">
                <columns>
-                  <TableColumn fx:id="KonditionenID" prefWidth="96.0" text="Konditionen-ID" />
-                  <TableColumn fx:id="Auftragsart" prefWidth="95.0" text="Auftragsart" />
-                  <TableColumn fx:id="LieferzeitSOFORT" minWidth="9.0" prefWidth="115.0" text="Lieferzeit SOFORT" />
-                  <TableColumn fx:id="SperrzeitWUNSCH" minWidth="0.0" prefWidth="129.0" text="Sperrzeit WUNSCH" />
-                  <TableColumn fx:id="Skontozeit1" prefWidth="86.0" text="Skontozeit 1" />
-                  <TableColumn fx:id="Skonto1" prefWidth="69.0" text="Skonto 1" />
-                  <TableColumn fx:id="Skontozeit2" prefWidth="91.0" text="Skontozeit 2" />
-                  <TableColumn fx:id="Skonto2" prefWidth="104.0" text="Skonto 2" />
-                  <TableColumn fx:id="Mahnzeit1" prefWidth="77.0" text="Mahnzeit 1" />
-                  <TableColumn fx:id="Mahnzeit2" prefWidth="72.0" text="Mahnzeit 2" />
-                  <TableColumn fx:id="Mahnzeit3" prefWidth="87.0" text="Mahnzeit 3" />
+                  <TableColumn fx:id="tcKonditionenID" prefWidth="96.0" text="Konditionen-ID" />
+                  <TableColumn fx:id="tcAuftragsart" prefWidth="95.0" text="Auftragsart" />
+                  <TableColumn fx:id="tcLieferzeitSOFORT" minWidth="9.0" prefWidth="115.0" text="Lieferzeit SOFORT" />
+                  <TableColumn fx:id="tcSperrzeitWUNSCH" minWidth="0.0" prefWidth="129.0" text="Sperrzeit WUNSCH" />
+                  <TableColumn fx:id="tcSkontozeit1" prefWidth="86.0" text="Skontozeit 1" />
+                  <TableColumn fx:id="tcSkonto1" prefWidth="69.0" text="Skonto 1" />
+                  <TableColumn fx:id="tcSkontozeit2" prefWidth="91.0" text="Skontozeit 2" />
+                  <TableColumn fx:id="tcSkonto2" prefWidth="104.0" text="Skonto 2" />
+                  <TableColumn fx:id="tcMahnzeit1" prefWidth="77.0" text="Mahnzeit 1" />
+                  <TableColumn fx:id="tcMahnzeit2" prefWidth="72.0" text="Mahnzeit 2" />
+                  <TableColumn fx:id="tcMahnzeit3" prefWidth="87.0" text="Mahnzeit 3" />
                </columns>
             </TableView>
-            <ComboBox fx:id="cb_suchfeld" layoutX="14.0" layoutY="39.0" prefHeight="25.0" prefWidth="150.0" promptText="Bitte wählen..." />
+            <ComboBox fx:id="cbSuchfeld" layoutX="14.0" layoutY="39.0" prefHeight="25.0" prefWidth="150.0" promptText="Bitte wählen..." />
             <Label layoutX="14.0" layoutY="22.0" prefHeight="17.0" prefWidth="106.0" text="Suchkriterium" />
-            <TextField fx:id="tf_suchbegriff" layoutX="227.0" layoutY="38.0" onAction="#zahlungskonditionenSuchen" prefHeight="25.0" prefWidth="199.0" />
+            <TextField fx:id="tfSuchbegriff" layoutX="227.0" layoutY="38.0" onAction="#zahlungskonditionenSuchen" prefHeight="25.0" prefWidth="199.0" />
             <Label layoutX="235.0" layoutY="22.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
             <Button fx:id="zkSuchenBT" layoutX="457.0" layoutY="22.0" mnemonicParsing="false" onAction="#zahlungskonditionenSuchen" prefHeight="40.0" prefWidth="199.0" text="Zahlungskonditionen suchen " />
             <Button fx:id="sucheZuruecksetzenBT" layoutX="671.0" layoutY="22.0" mnemonicParsing="false" onAction="#setzeSucheZurueck" prefHeight="40.0" prefWidth="199.0" text="Suche zurücksetzen" />
@@ -37,9 +37,9 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="188.0" prefWidth="1022.0">
                <children>
                   <Label layoutX="14.0" layoutY="23.0" text="Konditionen-ID" />
-                  <TextField fx:id="tf_zahlungskonditionsID" editable="false" layoutX="14.0" layoutY="40.0" prefHeight="25.0" prefWidth="100.0" />
+                  <TextField fx:id="tfZahlungskonditionsID" editable="false" layoutX="14.0" layoutY="40.0" prefHeight="25.0" prefWidth="100.0" />
                   <Label layoutX="127.0" layoutY="23.0" prefHeight="17.0" prefWidth="78.0" text="Auftragsart" />
-                  <ComboBox fx:id="cb_auftragsart" layoutX="127.0" layoutY="40.0" prefWidth="150.0" promptText="Bitte wählen..." />
+                  <ComboBox fx:id="cbAuftragsart" layoutX="127.0" layoutY="40.0" prefWidth="150.0" promptText="Bitte wählen..." />
                   <Label layoutX="290.0" layoutY="23.0" text="Lieferzeit SOFORT" />
                   <Label layoutX="481.0" layoutY="23.0" text="Sperrzeit WUNSCH" />
                   <Label layoutX="696.0" layoutY="23.0" text="Mahnzeit 1" />
@@ -58,15 +58,15 @@
                   <Label layoutX="615.0" layoutY="43.0" text="Tage" />
                   <Label layoutX="114.0" layoutY="116.0" text="Tage" />
                   <Label layoutX="365.0" layoutY="115.0" text="Tage" />
-                  <TextField fx:id="tf_lieferzeitSOFORT" layoutX="285.0" layoutY="39.0" prefHeight="27.0" prefWidth="126.0" />
-                  <TextField fx:id="tf_sperrzeitWUNSCH" layoutX="481.0" layoutY="40.0" prefHeight="27.0" prefWidth="133.0" />
-                  <TextField fx:id="tf_mahnzeit1" layoutX="685.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
-                  <TextField fx:id="tf_mahnzeit2" layoutX="788.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
-                  <TextField fx:id="tf_mahnzeit3" layoutX="894.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
-                  <TextField fx:id="tf_skontozeit1" layoutX="11.0" layoutY="111.0" prefHeight="25.0" prefWidth="100.0" />
-                  <TextField fx:id="tf_skonto1" layoutX="157.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
-                  <TextField fx:id="tf_skontozeit2" layoutX="274.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
-                  <TextField fx:id="tf_skonto2" layoutX="411.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
+                  <TextField fx:id="tfLieferzeitSOFORT" layoutX="285.0" layoutY="39.0" prefHeight="27.0" prefWidth="126.0" />
+                  <TextField fx:id="tfSperrzeitWUNSCH" layoutX="481.0" layoutY="40.0" prefHeight="27.0" prefWidth="133.0" />
+                  <TextField fx:id="tfMahnzeit1" layoutX="685.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
+                  <TextField fx:id="tfMahnzeit2" layoutX="788.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
+                  <TextField fx:id="tfMahnzeit3" layoutX="894.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
+                  <TextField fx:id="tfSkontozeit1" layoutX="11.0" layoutY="111.0" prefHeight="25.0" prefWidth="100.0" />
+                  <TextField fx:id="tfSkonto1" layoutX="157.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
+                  <TextField fx:id="tfSkontozeit2" layoutX="274.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
+                  <TextField fx:id="tfSkonto2" layoutX="411.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
                   <Pane fx:id="pane" layoutX="11.0" layoutY="13.0" prefHeight="135.0" prefWidth="991.0" />
                   <Button fx:id="anlegenBT" layoutX="37.0" layoutY="166.0" mnemonicParsing="false" onAction="#zahlungskonditionenAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
                   <Button fx:id="bearbeitenBT" layoutX="150.0" layoutY="166.0" mnemonicParsing="false" onAction="#bearbeiteZahlungskonditionen" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />

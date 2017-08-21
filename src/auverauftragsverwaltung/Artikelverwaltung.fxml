@@ -9,57 +9,57 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="1095.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.ArtikelverwaltungController">
    <children>
       <Label layoutX="25.0" layoutY="20.0" prefHeight="17.0" prefWidth="100.0" text="Suchkriterium" />
-      <ComboBox fx:id="cb_suchfeld" layoutX="25.0" layoutY="37.0" prefHeight="25.0" prefWidth="150.0" promptText="Bitte wählen..." />
+      <ComboBox fx:id="cbSuchfeld" layoutX="25.0" layoutY="37.0" prefHeight="25.0" prefWidth="150.0" promptText="Bitte wählen..." />
       <Label layoutX="246.0" layoutY="20.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
-      <TextField fx:id="tf_suchbegriff" layoutX="246.0" layoutY="37.0" onAction="#ArtikelSuchen" prefHeight="25.0" prefWidth="199.0" />
-      <Button layoutX="468.0" layoutY="20.0" mnemonicParsing="false" onAction="#ArtikelSuchen" prefHeight="40.0" prefWidth="160.0" text="Artikel suchen " AnchorPane.leftAnchor="468.0" />
-      <TableView fx:id="tv_artikel" layoutX="25.0" layoutY="70.0" onMouseClicked="#zeigeWerteAn" prefHeight="335.0" prefWidth="692.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0">
+      <TextField fx:id="tfSuchbegriff" layoutX="246.0" layoutY="37.0" onAction="#artikelSuchen" prefHeight="25.0" prefWidth="199.0" />
+      <Button layoutX="468.0" layoutY="20.0" mnemonicParsing="false" onAction="#artikelSuchen" prefHeight="40.0" prefWidth="160.0" text="Artikel suchen " AnchorPane.leftAnchor="468.0" />
+      <TableView fx:id="tvArtikel" layoutX="25.0" layoutY="70.0" onMouseClicked="#zeigeWerteAn" prefHeight="335.0" prefWidth="692.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0">
         <columns>
-          <TableColumn fx:id="tc_materialNr" prefWidth="97.0" text="MaterialNr" />
-          <TableColumn fx:id="tc_artikelbeschreibung" prefWidth="136.0" text="Artikelbeschreibung" />
-            <TableColumn fx:id="tc_einzelwert" prefWidth="83.0" text="Einzelwert" />
-            <TableColumn fx:id="tc_bestellbeschreibung" prefWidth="124.0" text="Bestellbeschreibung" />
-            <TableColumn fx:id="tc_bestellwert" prefWidth="75.0" text="Bestellwert" />
-            <TableColumn fx:id="tc_mwstsatz" prefWidth="75.0" text="MwSt. Satz" />
-            <TableColumn fx:id="tc_BestandFrei" prefWidth="70.0" text="FREI" />
-            <TableColumn fx:id="tc_BestandReserviert" prefWidth="103.0" text="RESERVIERT" />
-            <TableColumn fx:id="tc_BestandZulauf" prefWidth="92.0" text="ZULAUF" />
-            <TableColumn fx:id="tc_BestandVerkauft" prefWidth="139.0" text="VERKAUFT" />
+          <TableColumn fx:id="tcMaterialNr" prefWidth="97.0" text="MaterialNr" />
+          <TableColumn fx:id="tcArtikelbeschreibung" prefWidth="136.0" text="Artikelbeschreibung" />
+            <TableColumn fx:id="tcEinzelwert" prefWidth="83.0" text="Einzelwert" />
+            <TableColumn fx:id="tcBestellbeschreibung" prefWidth="124.0" text="Bestellbeschreibung" />
+            <TableColumn fx:id="tcBestellwert" prefWidth="75.0" text="Bestellwert" />
+            <TableColumn fx:id="tcMwstsatz" prefWidth="75.0" text="MwSt. Satz" />
+            <TableColumn fx:id="tcBestandFrei" prefWidth="70.0" text="FREI" />
+            <TableColumn fx:id="tcBestandReserviert" prefWidth="103.0" text="RESERVIERT" />
+            <TableColumn fx:id="tcBestandZulauf" prefWidth="92.0" text="ZULAUF" />
+            <TableColumn fx:id="tcBestandVerkauft" prefWidth="139.0" text="VERKAUFT" />
         </columns>
       </TableView>
       <TitledPane fx:id="artikeldatensatzPane" collapsible="false" layoutX="38.0" layoutY="287.0" prefHeight="232.0" prefWidth="1020.0" text="Artikeldatensatz" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0">
          <content>
             <Pane prefHeight="193.0" prefWidth="1018.0">
                <children>
-                  <TextField fx:id="tf_materialNr" layoutX="14.0" layoutY="38.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="tfMaterialNr" layoutX="14.0" layoutY="38.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="14.0" layoutY="22.0" text="MaterialNr" />
                   <Label layoutX="111.0" layoutY="22.0" text="Artikelbschreibung" />
-                  <TextArea fx:id="tf_artikelbeschreibung" layoutX="111.0" layoutY="39.0" prefHeight="65.0" prefWidth="173.0" />
+                  <TextArea fx:id="tfArtikelbeschreibung" layoutX="111.0" layoutY="39.0" prefHeight="65.0" prefWidth="173.0" />
                   <Label layoutX="295.0" layoutY="22.0" text="Einzelwert" />
-                  <TextField fx:id="tf_einzelwert" layoutX="295.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
-                  <TextArea fx:id="tf_bestellbeschreibung" layoutX="423.0" layoutY="39.0" prefHeight="65.0" prefWidth="173.0" />
+                  <TextField fx:id="tfEinzelwert" layoutX="295.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextArea fx:id="tfBestellbeschreibung" layoutX="423.0" layoutY="39.0" prefHeight="65.0" prefWidth="173.0" />
                   <Label layoutX="423.0" layoutY="22.0" text="Bestellbeschreibung" />
-                  <TextField fx:id="tf_bestellwert" layoutX="618.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="tfBestellwert" layoutX="618.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="618.0" layoutY="22.0" text="Bestellwert" />
                   <Label layoutX="812.0" layoutY="22.0" prefHeight="17.0" prefWidth="61.0" text="Bestand" />
-                  <TextField fx:id="tf_bestandFrei" layoutX="843.0" layoutY="43.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="tfBestandFrei" layoutX="843.0" layoutY="43.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="778.0" layoutY="47.0" text="FREI" />
                   <Label layoutX="778.0" layoutY="75.0" text="RESERVIERT" />
-                  <TextField fx:id="tf_bestandReserviert" layoutX="843.0" layoutY="71.0" prefHeight="25.0" prefWidth="85.0">
+                  <TextField fx:id="tfBestandReserviert" layoutX="843.0" layoutY="71.0" prefHeight="25.0" prefWidth="85.0">
                      <padding>
                         <Insets left="5.0" />
                      </padding></TextField>
-                  <TextField fx:id="tf_bestandZulauf" layoutX="843.0" layoutY="100.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="tfBestandZulauf" layoutX="843.0" layoutY="100.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="778.0" layoutY="104.0" text="ZULAUF" />
                   <Label layoutX="778.0" layoutY="135.0" text="VERKAUFT" />
-                  <TextField fx:id="tf_bestandVerkauft" layoutX="843.0" layoutY="131.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="tfBestandVerkauft" layoutX="843.0" layoutY="131.0" prefHeight="25.0" prefWidth="85.0" />
                   <Button fx:id="btLoeschen" layoutX="256.0" layoutY="156.0" mnemonicParsing="false" onAction="#artikelLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
                   <Button fx:id="btAnlegen" layoutX="20.0" layoutY="156.0" mnemonicParsing="false" onAction="#artikelAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen " />
                   <Button fx:id="btBearbeiten" layoutX="140.0" layoutY="156.0" mnemonicParsing="false" onAction="#bearbeiteArtikel" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
                   <Button fx:id="closeArW" layoutX="380.0" layoutY="156.0" mnemonicParsing="false" onAction="#closeArtikelverwaltung" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " />
                   <Label layoutX="381.0" layoutY="43.0" text="Euro" />
                   <Label layoutX="703.0" layoutY="43.0" text="Euro" />
-                  <ComboBox fx:id="cb_mwstsatz" layoutX="618.0" layoutY="80.0" prefHeight="25.0" prefWidth="100.0" promptText="MwSt. Satz" />
+                  <ComboBox fx:id="cbMwstsatz" layoutX="618.0" layoutY="80.0" prefHeight="25.0" prefWidth="100.0" promptText="MwSt. Satz" />
                   <Button fx:id="btSpeichern" layoutX="140.0" layoutY="152.0" mnemonicParsing="false" onAction="#speichereAenderung" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
                   <Button fx:id="btHinzufuegen" layoutX="20.0" layoutY="152.0" mnemonicParsing="false" onAction="#artikelHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
                   <Pane fx:id="pane" layoutX="-1.0" layoutY="4.0" prefHeight="151.0" prefWidth="1009.0" />

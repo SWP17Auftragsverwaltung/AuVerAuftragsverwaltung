@@ -56,153 +56,154 @@ public class ZahlungskonditionenController implements Initializable {
      * ComboBox für die Auswahl des Suchkriteriums.
      */
     @FXML
-    private ComboBox<String> cb_suchfeld = new ComboBox();
+    private ComboBox<String> cbSuchfeld = new ComboBox();
 
     /**
      * Textfeld für die Eingabe des Suchbegriffs.
      */
     @FXML
-    private TextField tf_suchbegriff;
+    private TextField tfSuchbegriff;
 
     /**
      * Dieses Textfeld dient zur Eingabe der Zahlungskonditions-ID.
      */
     @FXML
-    private TextField tf_zahlungskonditionsID;
+    private TextField tfZahlungskonditionsID;
 
     /**
      * Diese ComboBox dient zur Auswahl der Auftragsarten.
      */
     @FXML
-    private ComboBox<String> cb_auftragsart = new ComboBox();
+    private ComboBox<String> cbAuftragsart = new ComboBox();
 
     /**
      * Dieses Textfeld dient zur Eingabe des Zeitraums fuer den Liefertermin bei
      * Sofortauftraegen.
      */
     @FXML
-    private TextField tf_lieferzeitSOFORT;
+    private TextField tfLieferzeitSOFORT;
 
     /**
      * Dieses Textfeld dient zur Eingabe des Zeitraums nachdem ein
      * Wunschlieferdatum angelegt werden kann.
      */
     @FXML
-    private TextField tf_sperrzeitWUNSCH;
+    private TextField tfSperrzeitWUNSCH;
 
     /**
      * Dieses Textfeld dient zur Eingabe der Tage fuer die Mahnstufe 1.
      */
     @FXML
-    private TextField tf_mahnzeit1;
+    private TextField tfMahnzeit1;
 
     /**
      * Dieses Textfeld dient zur Eingabe der Tage fuer die Mahnstufe 2.
      */
     @FXML
-    private TextField tf_mahnzeit2;
+    private TextField tfMahnzeit2;
 
     /**
      * Dieses Textfeld dient zur Eingabe der Tage fuer die Mahnstufe 3.
      */
     @FXML
-    private TextField tf_mahnzeit3;
+    private TextField tfMahnzeit3;
 
     /**
      * Dieses Textfeld dient zur Eingabe des Zeitraums für Skontoabzug1.
      */
     @FXML
-    private TextField tf_skontozeit1;
+    private TextField tfSkontozeit1;
 
     /**
      * Dieses Textfeld dient zur Eingabe des Prozentsatzes für Skontozeitraum 1.
      */
     @FXML
-    private TextField tf_skonto1;
+    private TextField tfSkonto1;
 
     /**
      * Dieses Textfeld dient zur Eingabe des Zeitraums für Skontoabzug2.
      */
     @FXML
-    private TextField tf_skontozeit2;
+    private TextField tfSkontozeit2;
 
     /**
      * Dieses Textfeld dient zur Eingabe des Prozentsatzes für Skontozeitraum 2.
      */
     @FXML
-    private TextField tf_skonto2;
+    private TextField tfSkonto2;
 
     /**
      * Diese TableView dient der Anzeige der Zahlungskonditionen.
      */
     @FXML
-    private TableView zahlungskonditionenTV = new TableView<Zahlungskonditionen>();
+    private TableView zahlungskonditionenTV = 
+            new TableView<Zahlungskonditionen>();
 
     /**
      * Das ist die Tabellenspalte fuer die KonditionenID.
      */
     @FXML
-    private TableColumn<Zahlungskonditionen, String> KonditionenID;
+    private TableColumn<Zahlungskonditionen, String> tcKonditionenID;
 
     /**
      * Das ist die Tabellenspalte fuer die Auftragsart.
      */
     @FXML
-    private TableColumn<Zahlungskonditionen, String> Auftragsart;
+    private TableColumn<Zahlungskonditionen, String> tcAuftragsart;
 
     /**
      * Das ist die Tabellenspalte fuer die Lieferzeit.
      */
     @FXML
-    private TableColumn<Zahlungskonditionen, String> LieferzeitSOFORT;
+    private TableColumn<Zahlungskonditionen, String> tcLieferzeitSOFORT;
 
     /**
      * Das ist die Tabellenspalte fuer die Sperrzeit.
      */
     @FXML
-    private TableColumn<Zahlungskonditionen, String> SperrzeitWUNSCH;
+    private TableColumn<Zahlungskonditionen, String> tcSperrzeitWUNSCH;
 
     /**
      * Das ist die Tabellenspalte fuer die Skontozeit1.
      */
     @FXML
-    private TableColumn<Zahlungskonditionen, String> Skontozeit1;
+    private TableColumn<Zahlungskonditionen, String> tcSkontozeit1;
 
     /**
      * Das ist die Tabellenspalte fuer das Skonto1.
      */
     @FXML
-    private TableColumn<Zahlungskonditionen, String> Skonto1;
+    private TableColumn<Zahlungskonditionen, String> tcSkonto1;
 
     /**
      * Das ist die Tabellenspalte fuer die Skontozeit2.
      */
     @FXML
-    private TableColumn<Zahlungskonditionen, String> Skontozeit2;
+    private TableColumn<Zahlungskonditionen, String> tcSkontozeit2;
 
     /**
      * Das ist die Tabellenspalte fuer das Skonto2.
      */
     @FXML
-    private TableColumn<Zahlungskonditionen, String> Skonto2;
+    private TableColumn<Zahlungskonditionen, String> tcSkonto2;
 
     /**
      * Das ist die Tabellenspalte fuer die Mahnzeit1.
      */
     @FXML
-    private TableColumn<Zahlungskonditionen, String> Mahnzeit1;
+    private TableColumn<Zahlungskonditionen, String> tcMahnzeit1;
 
     /**
      * Das ist die Tabellenspalte fuer die Mahnzeit2.
      */
     @FXML
-    private TableColumn<Zahlungskonditionen, String> Mahnzeit2;
+    private TableColumn<Zahlungskonditionen, String> tcMahnzeit2;
 
     /**
      * Das ist die Tabellenspalte fuer die Mahnzeit3.
      */
     @FXML
-    private TableColumn<Zahlungskonditionen, String> Mahnzeit3;
+    private TableColumn<Zahlungskonditionen, String> tcMahnzeit3;
 
     /**
      * Unsichtbares Pane, um die Eingabe zu verhindern.
@@ -304,59 +305,59 @@ public class ZahlungskonditionenController implements Initializable {
         }
 
         //Die Eingabe im Textfeld wird auf 6 Zeichen begrenzt 
-        begrenzeTextFeldEingabe(tf_zahlungskonditionsID, 6);
+        begrenzeTextFeldEingabe(tfZahlungskonditionsID, 6);
 
         //Die Eingabe im Textfeld wird auf 4 Zeichen begrenzt 
-        begrenzeTextFeldEingabe(tf_lieferzeitSOFORT, 4);
+        begrenzeTextFeldEingabe(tfLieferzeitSOFORT, 4);
 
         //Die Eingabe im Textfeld wird auf 4 Zeichen begrenzt 
-        begrenzeTextFeldEingabe(tf_sperrzeitWUNSCH, 4);
+        begrenzeTextFeldEingabe(tfSperrzeitWUNSCH, 4);
 
         //Die Eingabe im Textfeld wird auf 4 Zeichen begrenzt 
-        begrenzeTextFeldEingabe(tf_mahnzeit1, 4);
+        begrenzeTextFeldEingabe(tfMahnzeit1, 4);
 
         ///Die Eingabe im Textfeld wird auf 4 Zeichen begrenzt 
-        begrenzeTextFeldEingabe(tf_mahnzeit2, 4);
+        begrenzeTextFeldEingabe(tfMahnzeit2, 4);
 
         //Die Eingabe im Textfeld wird auf 4 Zeichen begrenzt 
-        begrenzeTextFeldEingabe(tf_mahnzeit3, 4);
+        begrenzeTextFeldEingabe(tfMahnzeit3, 4);
 
         //Die Eingabe im Textfeld wird auf 4 Zeichen begrenzt 
-        begrenzeTextFeldEingabe(tf_skontozeit1, 4);
+        begrenzeTextFeldEingabe(tfSkontozeit1, 4);
 
         //Die Eingabe im Textfeld wird auf 3 Zeichen begrenzt 
-        begrenzeTextFeldEingabe(tf_skonto1, 3);
+        begrenzeTextFeldEingabe(tfSkonto1, 3);
 
         //Die Eingabe im Textfeld wird auf 4 Zeichen begrenzt 
-        begrenzeTextFeldEingabe(tf_skontozeit2, 4);
+        begrenzeTextFeldEingabe(tfSkontozeit2, 4);
 
         //Die Eingabe im Textfeld wird auf 3 Zeichen begrenzt 
-        begrenzeTextFeldEingabe(tf_skonto2, 3);
+        begrenzeTextFeldEingabe(tfSkonto2, 3);
 
-        KonditionenID.setCellValueFactory(
+        tcKonditionenID.setCellValueFactory(
                 new PropertyValueFactory<>("ZahlungskonditionenID"));
-        Auftragsart.setCellValueFactory(
+        tcAuftragsart.setCellValueFactory(
                 new PropertyValueFactory<>("Auftragsart"));
-        LieferzeitSOFORT.setCellValueFactory(
+        tcLieferzeitSOFORT.setCellValueFactory(
                 new PropertyValueFactory<>("LieferzeitSOFORT"));
-        SperrzeitWUNSCH.setCellValueFactory(
+        tcSperrzeitWUNSCH.setCellValueFactory(
                 new PropertyValueFactory<>("SperrzeitWUNSCH"));
-        Skontozeit1.setCellValueFactory(
+        tcSkontozeit1.setCellValueFactory(
                 new PropertyValueFactory<>("Skontozeit1"));
-        Skonto1.setCellValueFactory(
+        tcSkonto1.setCellValueFactory(
                 new PropertyValueFactory<>("Skonto1"));
-        Skontozeit2.setCellValueFactory(
+        tcSkontozeit2.setCellValueFactory(
                 new PropertyValueFactory<>("Skontozeit2"));
-        Skonto2.setCellValueFactory(
+        tcSkonto2.setCellValueFactory(
                 new PropertyValueFactory<>("Skonto2"));
-        Mahnzeit1.setCellValueFactory(
+        tcMahnzeit1.setCellValueFactory(
                 new PropertyValueFactory<>("Mahnzeit1"));
-        Mahnzeit2.setCellValueFactory(
+        tcMahnzeit2.setCellValueFactory(
                 new PropertyValueFactory<>("Mahnzeit2"));
-        Mahnzeit3.setCellValueFactory(
+        tcMahnzeit3.setCellValueFactory(
                 new PropertyValueFactory<>("Mahnzeit3"));
 
-        cb_suchfeld.getItems().addAll(
+        cbSuchfeld.getItems().addAll(
                 "Konditionen-ID",
                 "Auftragsart",
                 "LieferzeitSOFORT",
@@ -369,7 +370,7 @@ public class ZahlungskonditionenController implements Initializable {
                 "Mahnzeit 2",
                 "Mahnzeit 3");
 
-        cb_auftragsart.getItems().addAll("Barauftrag",
+        cbAuftragsart.getItems().addAll("Barauftrag",
                 "Sofortauftrag",
                 "Terminauftrag",
                 "Bestellauftrag");
@@ -389,7 +390,7 @@ public class ZahlungskonditionenController implements Initializable {
      */
     private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
         tf.setTextFormatter(new TextFormatter<>(change
-                -> {
+            -> {
             return change.getControlNewText().length() <= zahl ? change : null;
         }));
     }
@@ -444,17 +445,17 @@ public class ZahlungskonditionenController implements Initializable {
      */
     @FXML
     public void clearTextFields() throws SQLException {
-        tf_zahlungskonditionsID.clear();
-        cb_auftragsart.valueProperty().set(null);
-        tf_lieferzeitSOFORT.clear();
-        tf_sperrzeitWUNSCH.clear();
-        tf_mahnzeit1.clear();
-        tf_mahnzeit2.clear();
-        tf_mahnzeit3.clear();
-        tf_skontozeit1.clear();
-        tf_skonto1.clear();
-        tf_skontozeit2.clear();
-        tf_skonto2.clear();
+        tfZahlungskonditionsID.clear();
+        cbAuftragsart.valueProperty().set(null);
+        tfLieferzeitSOFORT.clear();
+        tfSperrzeitWUNSCH.clear();
+        tfMahnzeit1.clear();
+        tfMahnzeit2.clear();
+        tfMahnzeit3.clear();
+        tfSkontozeit1.clear();
+        tfSkonto1.clear();
+        tfSkontozeit2.clear();
+        tfSkonto2.clear();
     }
 
     /*------------------------------------------------------------------------*/
@@ -471,8 +472,8 @@ public class ZahlungskonditionenController implements Initializable {
     public void alleMitLKZ() throws SQLException {    
         ZahlungskonditionenDAO zk = new ZahlungskonditionenDAO();     
         ObservableList<Zahlungskonditionen> 
-                zahlungskonditionen = FXCollections.observableArrayList
-        (zk.gibAlleZahlungskonditionenMitLKZ());
+                zahlungskonditionen = FXCollections.observableArrayList(
+                        zk.gibAlleZahlungskonditionenMitLKZ());
         zahlungskonditionenTV.setItems(zahlungskonditionen);
     }    
     /*------------------------------------------------------------------------*/
@@ -489,8 +490,8 @@ public class ZahlungskonditionenController implements Initializable {
     public void alleOhneLKZ() throws SQLException {    
         ZahlungskonditionenDAO ad = new ZahlungskonditionenDAO();     
         ObservableList<Zahlungskonditionen> zahlungskonditionen 
-                = FXCollections.observableArrayList
-        (ad.gibAlleZahlungskonditionenOhneLKZ());
+                = FXCollections.observableArrayList(
+                        ad.gibAlleZahlungskonditionenOhneLKZ());
         zahlungskonditionenTV.setItems(zahlungskonditionen);
     } 
     
@@ -503,7 +504,7 @@ public class ZahlungskonditionenController implements Initializable {
     /*------------------------------------------------------------------------*/
     /**
      * Gibt die unteren Eingabefelder für das Anlegen einer neuer Adresse frei.
-     * @throws java.sql.SQLException
+     * @throws java.sql.SQLException SQL Exception
      */
     @FXML
     public void zahlungskonditionenAnlegen() throws SQLException {
@@ -521,7 +522,7 @@ public class ZahlungskonditionenController implements Initializable {
         this.loeschenBT.setDisable(true);
 
         ZahlungskonditionenDAO zk = new ZahlungskonditionenDAO();
-        this.tf_zahlungskonditionsID.setText(zk.generiereID());
+        this.tfZahlungskonditionsID.setText(zk.generiereID());
         
         
         
@@ -543,20 +544,22 @@ public class ZahlungskonditionenController implements Initializable {
     @FXML
     public void zahlungskonditionenHinzufuegen() throws SQLException {
 
-        String zahlungskonditionsID = tf_zahlungskonditionsID.getText();
-        String auftragsart = cb_auftragsart.getValue();
-        String lieferzeit = tf_lieferzeitSOFORT.getText();
-        String sperrzeit = tf_sperrzeitWUNSCH.getText();
-        String skontozeit1 = tf_skontozeit1.getText();
-        String skontozeit2 = tf_skontozeit2.getText();
-        String skonto1 = tf_skonto1.getText();
-        String skonto2 = tf_skonto2.getText();
-        String mahnzeit1 = tf_mahnzeit1.getText();
-        String mahnzeit2 = tf_mahnzeit2.getText();
-        String mahnzeit3 = tf_mahnzeit3.getText();
+        String zahlungskonditionsID = tfZahlungskonditionsID.getText();
+        String auftragsart = cbAuftragsart.getValue();
+        String lieferzeit = tfLieferzeitSOFORT.getText();
+        String sperrzeit = tfSperrzeitWUNSCH.getText();
+        String skontozeit1 = tfSkontozeit1.getText();
+        String skontozeit2 = tfSkontozeit2.getText();
+        String skonto1 = tfSkonto1.getText();
+        String skonto2 = tfSkonto2.getText();
+        String mahnzeit1 = tfMahnzeit1.getText();
+        String mahnzeit2 = tfMahnzeit2.getText();
+        String mahnzeit3 = tfMahnzeit3.getText();
         String lkz = "N";
-        Zahlungskonditionen zahlungskonditionen = new Zahlungskonditionen(zahlungskonditionsID, auftragsart, lieferzeit,
-                sperrzeit, skontozeit1, skontozeit2, skonto1, skonto2, mahnzeit1, mahnzeit2, mahnzeit3, lkz);
+        Zahlungskonditionen zahlungskonditionen = new Zahlungskonditionen(
+                zahlungskonditionsID, auftragsart, lieferzeit,
+                sperrzeit, skontozeit1, skontozeit2, skonto1, skonto2, 
+                mahnzeit1, mahnzeit2, mahnzeit3, lkz);
 
         ZahlungskonditionenDAO ad = new ZahlungskonditionenDAO();
         ad.fuegeZahlungskonditionenHinzu(zahlungskonditionen);
@@ -570,8 +573,10 @@ public class ZahlungskonditionenController implements Initializable {
         this.anlegenBT.setVisible(true);
         // Speichern-Button wird eingeblendet
         this.hinzufuegenZahlungskonditionenBT.setVisible(false);
-        // Der Bearbeitungsmodus des Zahlungskonditionendatensatzes wird aktiviert
-        this.zahlungskonditionendatensatzPane.setText("Zahlungskonditionendatensatz");
+        // Der Bearbeitungsmodus des Zahlungskonditionendatensatzes 
+        //wird aktiviert
+        this.zahlungskonditionendatensatzPane.setText(
+                "Zahlungskonditionendatensatz");
         // Anlegen-Button wird deaktiviert
         this.bearbeitenBT.setDisable(false);
         // Löschen-Button wird deaktiviert
@@ -646,17 +651,17 @@ public class ZahlungskonditionenController implements Initializable {
     @FXML
     public void speichereAenderung() throws SQLException {
         
-        String zahlungskonditionsID = tf_zahlungskonditionsID.getText();
-        String auftragsart = cb_auftragsart.getValue();
-        String lieferzeit = tf_lieferzeitSOFORT.getText();
-        String sperrzeit = tf_sperrzeitWUNSCH.getText();
-        String skontozeit1 = tf_skontozeit1.getText();
-        String skontozeit2 = tf_skontozeit2.getText();
-        String skonto1 = tf_skonto1.getText();
-        String skonto2 = tf_skonto2.getText();
-        String mahnzeit1 = tf_mahnzeit1.getText();
-        String mahnzeit2 = tf_mahnzeit2.getText();
-        String mahnzeit3 = tf_mahnzeit3.getText();
+        String zahlungskonditionsID = tfZahlungskonditionsID.getText();
+        String auftragsart = cbAuftragsart.getValue();
+        String lieferzeit = tfLieferzeitSOFORT.getText();
+        String sperrzeit = tfSperrzeitWUNSCH.getText();
+        String skontozeit1 = tfSkontozeit1.getText();
+        String skontozeit2 = tfSkontozeit2.getText();
+        String skonto1 = tfSkonto1.getText();
+        String skonto2 = tfSkonto2.getText();
+        String mahnzeit1 = tfMahnzeit1.getText();
+        String mahnzeit2 = tfMahnzeit2.getText();
+        String mahnzeit3 = tfMahnzeit3.getText();
         
         String lkz = "N";
         
@@ -701,17 +706,17 @@ public class ZahlungskonditionenController implements Initializable {
         Zahlungskonditionen b = (Zahlungskonditionen) zahlungskonditionen;
 
         if (b != null) {
-            this.tf_zahlungskonditionsID.setText(b.getZahlungskonditionenID());
-            this.cb_auftragsart.setValue(b.getAuftragsart());
-            this.tf_lieferzeitSOFORT.setText(b.getLieferzeitSOFORT());
-            this.tf_sperrzeitWUNSCH.setText(b.getSperrzeitWUNSCH());
-            this.tf_skontozeit1.setText(b.getSkontozeit1());
-            this.tf_skontozeit2.setText(b.getSkontozeit2());
-            this.tf_skonto1.setText(b.getSkonto1());
-            this.tf_skonto2.setText(b.getSkonto2());
-            this.tf_mahnzeit1.setText(b.getMahnzeit1());
-            this.tf_mahnzeit2.setText(b.getMahnzeit2());
-            this.tf_mahnzeit3.setText(b.getMahnzeit3());
+            this.tfZahlungskonditionsID.setText(b.getZahlungskonditionenID());
+            this.cbAuftragsart.setValue(b.getAuftragsart());
+            this.tfLieferzeitSOFORT.setText(b.getLieferzeitSOFORT());
+            this.tfSperrzeitWUNSCH.setText(b.getSperrzeitWUNSCH());
+            this.tfSkontozeit1.setText(b.getSkontozeit1());
+            this.tfSkontozeit2.setText(b.getSkontozeit2());
+            this.tfSkonto1.setText(b.getSkonto1());
+            this.tfSkonto2.setText(b.getSkonto2());
+            this.tfMahnzeit1.setText(b.getMahnzeit1());
+            this.tfMahnzeit2.setText(b.getMahnzeit2());
+            this.tfMahnzeit3.setText(b.getMahnzeit3());
         }  
     }
 
@@ -730,8 +735,8 @@ public class ZahlungskonditionenController implements Initializable {
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
-    public void zeigeGefundeneZahlungskonditionen(ArrayList zahlungskonditionen) 
-            throws SQLException {
+    public void zeigeGefundeneZahlungskonditionen(
+            ArrayList zahlungskonditionen) throws SQLException {
         refreshTable();
         ObservableList<Zahlungskonditionen> zahlungskonditionsAusgabe
             = FXCollections.observableArrayList(zahlungskonditionen);
@@ -754,10 +759,11 @@ public class ZahlungskonditionenController implements Initializable {
         SucheDAO zk = new SucheDAO();
         ArrayList gefundeneZahlungskonditionen;
         
-        String suchkriterium = cb_suchfeld.getValue();
-        String suchbegriff = tf_suchbegriff.getText();
+        String suchkriterium = cbSuchfeld.getValue();
+        String suchbegriff = tfSuchbegriff.getText();
         
-        gefundeneZahlungskonditionen = zk.zahlungskonditionSuche(suchkriterium, suchbegriff);//Siehe Klasse
+        gefundeneZahlungskonditionen = zk.zahlungskonditionSuche(
+                suchkriterium, suchbegriff);
         zeigeGefundeneZahlungskonditionen(gefundeneZahlungskonditionen);
     }
     
@@ -773,7 +779,7 @@ public class ZahlungskonditionenController implements Initializable {
     */        
     @FXML
     public void setzeSucheZurueck() throws SQLException {
-        tf_suchbegriff.setText("");
+        tfSuchbegriff.setText("");
         setTableContent();
     } 
     

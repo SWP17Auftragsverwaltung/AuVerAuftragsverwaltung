@@ -23,8 +23,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -58,159 +56,180 @@ public class ArtikelverwaltungController implements Initializable {
      * Textfeld "MaterialNr".
      */
     @FXML
-    private TextField tf_materialNr;
+    private TextField tfMaterialNr;
     
     /**
      * Textfeld "Artikelbeschreibung".
      */
     @FXML
-    private TextArea tf_artikelbeschreibung;
+    private TextArea tfArtikelbeschreibung;
     
     /**
      * Textfeld "Bestellbeschreibung".
      */
     @FXML
-    private TextArea tf_bestellbeschreibung;
+    private TextArea tfBestellbeschreibung;
     
     /**
      * Textfeld "Bestand Frei".
      */
     @FXML
-    private TextField tf_bestandFrei;
+    private TextField tfBestandFrei;
     
     /**
      * Textfeld "Bestand Reserviert".
      */
     @FXML
-    private TextField tf_bestandReserviert;
+    private TextField tfBestandReserviert;
     
     /**
      * Textfeld "Bestand Zulauf".
      */
     @FXML
-    private TextField tf_bestandZulauf;
+    private TextField tfBestandZulauf;
     
     /**
      * Textfeld "Bestand Verkauf".
      */
     @FXML
-    private TextField tf_bestandVerkauft;
+    private TextField tfBestandVerkauft;
     
     /**
      * Textfeld "Suchbegriff".
      */
     @FXML
-    private TextField tf_suchbegriff;
+    private TextField tfSuchbegriff;
     
     /**
      * Textfeld "Einzelwert".
      */
     @FXML
-    private TextField tf_einzelwert;
+    private TextField tfEinzelwert;
     
     /**
      * Textfeld "Bestellwert".
      */
     @FXML
-    private TextField tf_bestellwert;
+    private TextField tfBestellwert;
     
     /**
      * Artikeltabelle.
      */
     @FXML
-    private TableView tv_artikel = new TableView<>();
+    private TableView tvArtikel = new TableView<>();
 
      /**
      * ComboBox "Suchfeld".
      */
     @FXML
-    private ComboBox<String> cb_suchfeld = new ComboBox();
+    private ComboBox<String> cbSuchfeld = new ComboBox();
     
      /**
      * ComboBox "MwSt. Satz".
      */
     @FXML
-    private ComboBox<String> cb_mwstsatz = new ComboBox();
+    private ComboBox<String> cbMwstsatz = new ComboBox();
     
      /**
      * Tabellenspalte "MaterialNr".
      */
     @FXML
-    private TableColumn<Artikel, String> tc_materialNr;
+    private TableColumn<Artikel, String> tcMaterialNr;
     
      /**
      * Tabellenspalte "Artikelbeschreibung".
      */
     @FXML
-    private TableColumn<Artikel, String> tc_artikelbeschreibung;
+    private TableColumn<Artikel, String> tcArtikelbeschreibung;
     
      /**
      * Tabellenspalte "Einzelwert".
      */
     @FXML
-    private TableColumn<Artikel, String> tc_einzelwert;
+    private TableColumn<Artikel, String> tcEinzelwert;
     
      /**
      * Tabellenspalte "Bestellbeschreibung".
      */
     @FXML
-    private TableColumn<Artikel, String> tc_bestellbeschreibung;
+    private TableColumn<Artikel, String> tcBestellbeschreibung;
     
      /**
      * Tabellenspalte "Bestellwert".
      */
     @FXML
-    private TableColumn<Artikel, String> tc_bestellwert;
+    private TableColumn<Artikel, String> tcBestellwert;
     
      /**
      * Tabellenspalte "MwSt. Satz".
      */
     @FXML
-    private TableColumn<Artikel, String> tc_mwstsatz;
+    private TableColumn<Artikel, String> tcMwstsatz;
     
      /**
      * Tabellenspalte "Bestand Frei".
      */
     @FXML
-    private TableColumn<Artikel, String> tc_BestandFrei;
+    private TableColumn<Artikel, String> tcBestandFrei;
     
      /**
      * Tabellenspalte "Bestand Reserviert".
      */
     @FXML
-    private TableColumn<Artikel, String> tc_BestandReserviert;
+    private TableColumn<Artikel, String> tcBestandReserviert;
     
      /**
      * Tabellenspalte "Bestand Zulauf".
      */
     @FXML
-    private TableColumn<Artikel, String> tc_BestandZulauf;
+    private TableColumn<Artikel, String> tcBestandZulauf;
     
      /**
      * Tabellenspalte "Bestand Verkauft".
      */
     @FXML
-    private TableColumn<Artikel, String> tc_BestandVerkauft;
+    private TableColumn<Artikel, String> tcBestandVerkauft;
     
+    /**
+     * Tabellenspalte "Bestand Verkauft".
+     */
     @FXML
     private Pane pane;
     
+    /**
+     * Button "Anlegen".
+     */
     @FXML
     private Button btAnlegen;
     
+    /**
+     * Button "Speichern".
+     */
     @FXML
     private Button btSpeichern;
 
-        @FXML
+    /**
+     * Button "Hinzufügen".
+     */
+    @FXML
     private Button btHinzufuegen;
 
-            @FXML
+    /**
+     * Button "Bearbeitent".
+     */
+    @FXML
     private Button btBearbeiten;
-            
-                @FXML
+         
+    /**
+     * Button "Löschen".
+     */
+    @FXML
     private Button btLoeschen;
-                
-                    @FXML
+       
+    /**
+     * Tabellenspalte "Bestand Verkauft".
+     */
+    @FXML
     private TitledPane artikeldatensatzPane;
     /**
      * Methode zum Abbrechen der Artikelverwaltung.
@@ -245,57 +264,57 @@ public class ArtikelverwaltungController implements Initializable {
         }
        
         //  MaterialNr auf 6 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_materialNr, 6);
+        begrenzeTextFeldEingabe(tfMaterialNr, 6);
         
         //  Artikelbeschreibung auf 250 Zeichen begrenzt
-        begrenzeTextAreaEingabe(tf_artikelbeschreibung, 250);
+        begrenzeTextAreaEingabe(tfArtikelbeschreibung, 250);
 
         // Bestellbeschreibung auf 250 Zeichen begrenzt
-        begrenzeTextAreaEingabe(tf_bestellbeschreibung, 250);
+        begrenzeTextAreaEingabe(tfBestellbeschreibung, 250);
 
         // Einzelwert auf 6 Zeichen begrenzt      
-        begrenzeTextFeldEingabe(tf_einzelwert, 6);
+        begrenzeTextFeldEingabe(tfEinzelwert, 6);
 
         // Bestellwert auf 6 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_bestellwert, 6);
+        begrenzeTextFeldEingabe(tfBestellwert, 6);
         
         // Bestand Frei auf 6 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_bestandFrei, 6);
+        begrenzeTextFeldEingabe(tfBestandFrei, 6);
         
         // Bestand Reserviert auf 6 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_bestandReserviert, 6);
+        begrenzeTextFeldEingabe(tfBestandReserviert, 6);
         
         // Bestand Zulauf auf 6 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_bestandZulauf, 6);
+        begrenzeTextFeldEingabe(tfBestandZulauf, 6);
         
         // Bestand Verkauft auf 12 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_bestandVerkauft, 12);
+        begrenzeTextFeldEingabe(tfBestandVerkauft, 12);
        
         
-        tc_materialNr.setCellValueFactory(
+        tcMaterialNr.setCellValueFactory(
                 new PropertyValueFactory<>("artikelID"));
-        tc_einzelwert.setCellValueFactory(
+        tcEinzelwert.setCellValueFactory(
                 new PropertyValueFactory<>("einzelwert"));
-        tc_artikelbeschreibung.setCellValueFactory(
+        tcArtikelbeschreibung.setCellValueFactory(
                 new PropertyValueFactory<>("artikeltext"));
-        tc_bestellbeschreibung.setCellValueFactory(
+        tcBestellbeschreibung.setCellValueFactory(
                 new PropertyValueFactory<>("bestelltext"));
-        tc_bestellwert.setCellValueFactory(
+        tcBestellwert.setCellValueFactory(
                 new PropertyValueFactory<>("bestellwert"));
-        tc_mwstsatz.setCellValueFactory(
+        tcMwstsatz.setCellValueFactory(
                 new PropertyValueFactory<>("steuer"));
-        tc_BestandFrei.setCellValueFactory(
+        tcBestandFrei.setCellValueFactory(
                 new PropertyValueFactory<>("bestandsmengeFrei"));
-        tc_BestandReserviert.setCellValueFactory(
+        tcBestandReserviert.setCellValueFactory(
                 new PropertyValueFactory<>("bestandsmengeReserviert"));
-        tc_BestandZulauf.setCellValueFactory(
+        tcBestandZulauf.setCellValueFactory(
                 new PropertyValueFactory<>("bestandsmengeZulauf"));
-        tc_BestandVerkauft.setCellValueFactory(
+        tcBestandVerkauft.setCellValueFactory(
                 new PropertyValueFactory<>("bestandsmengeVerkauft"));     
         
-        cb_mwstsatz.getItems().addAll("0", "7", "19");
+        cbMwstsatz.getItems().addAll("0", "7", "19");
         
-        cb_suchfeld.getItems().addAll(
+        cbSuchfeld.getItems().addAll(
                 "MaterialNr",
                 "Artikelbeschreibung",
                 "Einzelwert",
@@ -308,7 +327,7 @@ public class ArtikelverwaltungController implements Initializable {
                 "Bestand Verkauft");
 
  
-   }
+    }
 
     /**
      * 
@@ -334,7 +353,7 @@ public class ArtikelverwaltungController implements Initializable {
     
     
     
-        /*------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 14.08.17    HEN     ObservableArrayList hinzugefügt
     /*------------------------------------------------------------------------*/
@@ -349,7 +368,7 @@ public class ArtikelverwaltungController implements Initializable {
         ArtikelDAO ar = new ArtikelDAO();     
         ObservableList<Artikel> artikel 
                 = FXCollections.observableArrayList(ar.gibAlleArtikel());
-        tv_artikel.setItems(artikel);
+        tvArtikel.setItems(artikel);
     } 
     
     
@@ -363,8 +382,11 @@ public class ArtikelverwaltungController implements Initializable {
         refreshTable();
         ObservableList<Artikel> artikelAusgabe
             = FXCollections.observableArrayList(artikel);
-        tv_artikel.setItems(artikelAusgabe);
+        tvArtikel.setItems(artikelAusgabe);
     } 
+    
+    
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
@@ -376,7 +398,7 @@ public class ArtikelverwaltungController implements Initializable {
     */
     @FXML
     public void refreshTable() throws SQLException {
-        tv_artikel.getItems().clear();
+        tvArtikel.getItems().clear();
         setTableContent();
     }
     
@@ -393,17 +415,19 @@ public class ArtikelverwaltungController implements Initializable {
     @FXML
     public void clearTextFields() throws SQLException {
         
-        tf_materialNr.clear();
-        tf_einzelwert.clear();
-        tf_artikelbeschreibung.clear();
-        tf_bestellwert.clear();
-        tf_bestellbeschreibung.clear();
-        tf_bestandFrei.clear();
-        tf_bestandReserviert.clear();
-        tf_bestandZulauf.clear();
-        tf_bestandVerkauft.clear();
-        cb_mwstsatz.valueProperty().set(null);
+        tfMaterialNr.clear();
+        tfEinzelwert.clear();
+        tfArtikelbeschreibung.clear();
+        tfBestellwert.clear();
+        tfBestellbeschreibung.clear();
+        tfBestandFrei.clear();
+        tfBestandReserviert.clear();
+        tfBestandZulauf.clear();
+        tfBestandVerkauft.clear();
+        cbMwstsatz.valueProperty().set(null);
     }
+    
+    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -420,7 +444,7 @@ public class ArtikelverwaltungController implements Initializable {
         ObservableList<Artikel> artikel 
                 = FXCollections.observableArrayList(
                         ar.gibAlleArtikelMitLKZ());
-        tv_artikel.setItems(artikel);
+        tvArtikel.setItems(artikel);
     }
     
     /*------------------------------------------------------------------------*/
@@ -438,11 +462,11 @@ public class ArtikelverwaltungController implements Initializable {
         ObservableList<Artikel> artikel 
                 = FXCollections.observableArrayList(
                         ar.gibAlleArtikelOhneLKZ());
-        tv_artikel.setItems(artikel);
+        tvArtikel.setItems(artikel);
     }
     
     
-        /*------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
@@ -453,7 +477,7 @@ public class ArtikelverwaltungController implements Initializable {
     */    
     @FXML
     public void artikelAnlegen() throws SQLException {
-        tv_artikel.setMouseTransparent(true);
+        tvArtikel.setMouseTransparent(true);
         clearTextFields();   
 
         // Textfeldbereich wird aktiviert
@@ -471,7 +495,7 @@ public class ArtikelverwaltungController implements Initializable {
         this.btLoeschen.setDisable(true);
            
         ArtikelDAO ar = new ArtikelDAO();
-        tf_materialNr.setText(ar.generiereID());   
+        tfMaterialNr.setText(ar.generiereID());   
     }
     
     /*------------------------------------------------------------------------*/
@@ -485,16 +509,16 @@ public class ArtikelverwaltungController implements Initializable {
      * @throws java.sql.SQLException SQL Exception
      */
     public void artikelHinzufuegen() throws SQLException {
-        String artikelID = tf_materialNr.getText();
-        String einzelwert = tf_einzelwert.getText();
-        String artikeltext = tf_artikelbeschreibung.getText();
-        String bestellwert = tf_bestellwert.getText();
-        String bestelltext = tf_bestellbeschreibung.getText();
-        String steuer = cb_mwstsatz.getValue();
-        String bestandsmengeFrei = tf_bestandFrei.getText();
-        String bestandsmengeReserviert = tf_bestandReserviert.getText();
-        String bestandsmengeZulauf = tf_bestandZulauf.getText();
-        String bestandsmengeVerkauft = tf_bestandVerkauft.getText();
+        String artikelID = tfMaterialNr.getText();
+        String einzelwert = tfEinzelwert.getText();
+        String artikeltext = tfArtikelbeschreibung.getText();
+        String bestellwert = tfBestellwert.getText();
+        String bestelltext = tfBestellbeschreibung.getText();
+        String steuer = cbMwstsatz.getValue();
+        String bestandsmengeFrei = tfBestandFrei.getText();
+        String bestandsmengeReserviert = tfBestandReserviert.getText();
+        String bestandsmengeZulauf = tfBestandZulauf.getText();
+        String bestandsmengeVerkauft = tfBestandVerkauft.getText();
         String lkz = "N";
         Artikel artikel = new Artikel(artikelID, artikeltext, bestelltext,
                 einzelwert, bestellwert, steuer, bestandsmengeFrei,
@@ -519,7 +543,7 @@ public class ArtikelverwaltungController implements Initializable {
         this.btBearbeiten.setDisable(false);     
         // Löschen-Button wird deaktiviert
         this.btLoeschen.setDisable(false);
-        tv_artikel.setMouseTransparent(false);
+        tvArtikel.setMouseTransparent(false);
     }
     
     
@@ -536,7 +560,7 @@ public class ArtikelverwaltungController implements Initializable {
     @FXML
     public void artikelLoeschen() throws SQLException {
 
-        Object artikel = tv_artikel.getSelectionModel().getSelectedItem();
+        Object artikel = tvArtikel.getSelectionModel().getSelectedItem();
         Artikel b = (Artikel) artikel;
 
         ArtikelDAO ar = new ArtikelDAO();
@@ -562,14 +586,17 @@ public class ArtikelverwaltungController implements Initializable {
         // Speichern-Button wird eingeblendet
         this.btSpeichern.setVisible(true);
         // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-        this.artikeldatensatzPane.setText("Artikeldatensatz (Bearbeitungsmodus)");
+        this.artikeldatensatzPane.setText(
+                "Artikeldatensatz (Bearbeitungsmodus)");
         // Anlegen-Button wird deaktiviert
         this.btAnlegen.setDisable(true);
         // Löschen-Button wird deaktiviert
         this.btLoeschen.setDisable(true);
     }
     
-        /*------------------------------------------------------------------------*/
+    
+    
+    /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
@@ -581,16 +608,16 @@ public class ArtikelverwaltungController implements Initializable {
     */      
     @FXML
     public void speichereAenderung() throws SQLException {  
-        String artikelID = tf_materialNr.getText();
-        String einzelwert = tf_einzelwert.getText();
-        String artikeltext = tf_artikelbeschreibung.getText();
-        String bestellwert = tf_bestellwert.getText();
-        String bestelltext = tf_bestellbeschreibung.getText();
-        String steuer = cb_mwstsatz.getValue();
-        String bestandsmengeFrei = tf_bestandFrei.getText();
-        String bestandsmengeReserviert = tf_bestandReserviert.getText();
-        String bestandsmengeZulauf = tf_bestandZulauf.getText();
-        String bestandsmengeVerkauft = tf_bestandVerkauft.getText();
+        String artikelID = tfMaterialNr.getText();
+        String einzelwert = tfEinzelwert.getText();
+        String artikeltext = tfArtikelbeschreibung.getText();
+        String bestellwert = tfBestellwert.getText();
+        String bestelltext = tfBestellbeschreibung.getText();
+        String steuer = cbMwstsatz.getValue();
+        String bestandsmengeFrei = tfBestandFrei.getText();
+        String bestandsmengeReserviert = tfBestandReserviert.getText();
+        String bestandsmengeZulauf = tfBestandZulauf.getText();
+        String bestandsmengeVerkauft = tfBestandVerkauft.getText();
         String lkz = "N";
         Artikel artikel = new Artikel(artikelID, artikeltext, bestelltext,
                 einzelwert, bestellwert, steuer, bestandsmengeFrei,
@@ -616,7 +643,9 @@ public class ArtikelverwaltungController implements Initializable {
         this.btLoeschen.setDisable(false);
     }
     
-        /*------------------------------------------------------------------------*/
+    
+    
+    /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
@@ -626,20 +655,20 @@ public class ArtikelverwaltungController implements Initializable {
     */      
     @FXML
     public void zeigeWerteAn() {
-        Object artikel = tv_artikel.getSelectionModel().getSelectedItem();
+        Object artikel = tvArtikel.getSelectionModel().getSelectedItem();
         Artikel b = (Artikel) artikel;
         
         if (b != null) {
-            this.tf_materialNr.setText(b.getArtikelID());
-            this.cb_mwstsatz.setValue(b.getSteuer());
-            this.tf_artikelbeschreibung.setText(b.getArtikeltext());
-            this.tf_einzelwert.setText(b.getEinzelwert());
-            this.tf_bestellbeschreibung.setText(b.getBestelltext());
-            this.tf_bestellwert.setText(b.getBestellwert());
-            this.tf_bestandFrei.setText(b.getBestandsmengeFrei());
-            this.tf_bestandReserviert.setText(b.getBestandsmengeReserviert());
-            this.tf_bestandZulauf.setText(b.getBestandsmengeZulauf());
-            this.tf_bestandVerkauft.setText(b.getBestandsmengeVerkauft());
+            this.tfMaterialNr.setText(b.getArtikelID());
+            this.cbMwstsatz.setValue(b.getSteuer());
+            this.tfArtikelbeschreibung.setText(b.getArtikeltext());
+            this.tfEinzelwert.setText(b.getEinzelwert());
+            this.tfBestellbeschreibung.setText(b.getBestelltext());
+            this.tfBestellwert.setText(b.getBestellwert());
+            this.tfBestandFrei.setText(b.getBestandsmengeFrei());
+            this.tfBestandReserviert.setText(b.getBestandsmengeReserviert());
+            this.tfBestandZulauf.setText(b.getBestandsmengeZulauf());
+            this.tfBestandVerkauft.setText(b.getBestandsmengeVerkauft());
         }
     }
     
@@ -654,12 +683,12 @@ public class ArtikelverwaltungController implements Initializable {
      * @throws java.sql.SQLException SQLException
     */        
     @FXML
-    public void ArtikelSuchen() throws SQLException {
+    public void artikelSuchen() throws SQLException {
         SucheDAO ar = new SucheDAO();
         ArrayList gefundenerArtikel;
         
-        String suchkriterium = cb_suchfeld.getValue();
-        String suchbegriff = tf_suchbegriff.getText();
+        String suchkriterium = cbSuchfeld.getValue();
+        String suchbegriff = tfSuchbegriff.getText();
         
         gefundenerArtikel = ar.artikelSuche(suchkriterium, suchbegriff);
         
@@ -679,8 +708,8 @@ public class ArtikelverwaltungController implements Initializable {
     */        
     @FXML
     public void setzeSucheZurueck() throws SQLException {
-        this.tf_suchbegriff.setText("");
-        this.cb_suchfeld.setValue("Bitte wählen...");
+        this.tfSuchbegriff.setText("");
+        this.cbSuchfeld.setValue("Bitte wählen...");
         setTableContent();
     } 
    

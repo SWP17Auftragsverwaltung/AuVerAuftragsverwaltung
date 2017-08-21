@@ -100,7 +100,8 @@ public class ZahlungskonditionenDAO extends DataAccess {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Zahlungskonditionen zahlungskonditionen = null;
-        ArrayList<Zahlungskonditionen> zahlungskonditionenListe = new ArrayList<>();
+        ArrayList<Zahlungskonditionen> 
+                zahlungskonditionenListe = new ArrayList<>();
 
         String query = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE LKZ = ?";
 
@@ -111,11 +112,11 @@ public class ZahlungskonditionenDAO extends DataAccess {
 
             con.commit();
             while (rs.next()) {
-                zahlungskonditionen = new Zahlungskonditionen(rs.getString(1), rs.getString(2),
-                        rs.getString(3), rs.getString(4), rs.getString(5),
-                        rs.getString(6), rs.getString(7), rs.getString(8),
-                        rs.getString(9), rs.getString(10), rs.getString(11),
-                        rs.getString(12));
+                zahlungskonditionen = new Zahlungskonditionen(rs.getString(1),
+                        rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getString(5), rs.getString(6), rs.getString(7), 
+                        rs.getString(8), rs.getString(9), rs.getString(10), 
+                        rs.getString(11), rs.getString(12));
 
                 zahlungskonditionenListe.add(zahlungskonditionen);
             }
@@ -269,7 +270,8 @@ public class ZahlungskonditionenDAO extends DataAccess {
         Statement stmt = null;
         String value = "";
         ResultSet rs = null;
-        String query = "SELECT MAX(ZAHLUNGSKONDITIONS_ID) FROM ROOT.ZAHLUNGSKONDITIONEN";
+        String query = "SELECT MAX(ZAHLUNGSKONDITIONS_ID) FROM "
+                + "ROOT.ZAHLUNGSKONDITIONEN";
 
         try {
             stmt = con.createStatement();

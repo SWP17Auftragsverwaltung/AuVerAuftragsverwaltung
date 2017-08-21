@@ -324,7 +324,8 @@ public class AdresseDAO extends DataAccess {
             con.commit();
 
             query 
-                = "UPDATE ROOT.ADRESSE SET HAUSNUMMER = ? WHERE ANSCHRIFT_ID = ?";
+                = "UPDATE ROOT.ADRESSE SET HAUSNUMMER = ? "
+                   + "WHERE ANSCHRIFT_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getHausnummer());
@@ -360,7 +361,8 @@ public class AdresseDAO extends DataAccess {
             stmt.executeUpdate();
             con.commit();
 
-            query = "UPDATE ROOT.ADRESSE SET TELEFON = ? WHERE ANSCHRIFT_ID = ?";
+            query = "UPDATE ROOT.ADRESSE SET TELEFON = ? "
+                    + "WHERE ANSCHRIFT_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getTelefon());
@@ -378,7 +380,8 @@ public class AdresseDAO extends DataAccess {
             stmt.executeUpdate();
             con.commit();
 
-            query = "UPDATE ROOT.ADRESSE SET ERFASSUNGSDATUM = ? WHERE ANSCHRIFT_ID = ?";
+            query = "UPDATE ROOT.ADRESSE SET ERFASSUNGSDATUM = ? "
+                    + "WHERE ANSCHRIFT_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getErfassungsdatum());
@@ -542,9 +545,9 @@ public class AdresseDAO extends DataAccess {
 //                    Adresse adresse = new Adresse(rs.getString(1), 
 //                            rs.getString(2), rs.getString(3), rs.getString(4), 
 //                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), rs.getString(10), 
-//                            rs.getString(11), rs.getString(12), 
-//                            rs.getString(13));
+//                            rs.getString(8), rs.getString(9), 
+//                            rs.getString(10), rs.getString(11), 
+//                            rs.getString(12), rs.getString(13));
 //                    gefundeneAdressen.add(adresse);
 //                }
 //                con.commit();
@@ -561,9 +564,9 @@ public class AdresseDAO extends DataAccess {
 //                    Adresse adresse = new Adresse(rs.getString(1), 
 //                            rs.getString(2), rs.getString(3), rs.getString(4), 
 //                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), rs.getString(10), 
-//                            rs.getString(11), rs.getString(12), 
-//                            rs.getString(13));
+//                            rs.getString(8), rs.getString(9), 
+//                            rs.getString(10), rs.getString(11), 
+//                            rs.getString(12), rs.getString(13));
 //                    gefundeneAdressen.add(adresse);
 //                }
 //                con.commit();
@@ -580,9 +583,9 @@ public class AdresseDAO extends DataAccess {
 //                    Adresse adresse = new Adresse(rs.getString(1), 
 //                            rs.getString(2), rs.getString(3), rs.getString(4), 
 //                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), rs.getString(10), 
-//                            rs.getString(11), rs.getString(12), 
-//                            rs.getString(13));
+//                            rs.getString(8), rs.getString(9), 
+//                            rs.getString(10), rs.getString(11), 
+//                            rs.getString(12), rs.getString(13));
 //                    gefundeneAdressen.add(adresse);
 //                }
 //                con.commit();
@@ -599,9 +602,9 @@ public class AdresseDAO extends DataAccess {
 //                    Adresse adresse = new Adresse(rs.getString(1), 
 //                            rs.getString(2), rs.getString(3), rs.getString(4), 
 //                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), rs.getString(10), 
-//                            rs.getString(11), rs.getString(12), 
-//                            rs.getString(13));
+//                            rs.getString(8), rs.getString(9), 
+//                            rs.getString(10), rs.getString(11), 
+//                            rs.getString(12), rs.getString(13));
 //                    gefundeneAdressen.add(adresse);
 //                }
 //                con.commit();
@@ -618,9 +621,9 @@ public class AdresseDAO extends DataAccess {
 //                    Adresse adresse = new Adresse(rs.getString(1), 
 //                            rs.getString(2), rs.getString(3), rs.getString(4), 
 //                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), rs.getString(10), 
-//                            rs.getString(11), rs.getString(12), 
-//                            rs.getString(13));
+//                            rs.getString(8), rs.getString(9), 
+//                            rs.getString(10), rs.getString(11), 
+//                            rs.getString(12), rs.getString(13));
 //                    gefundeneAdressen.add(adresse);
 //                }
 //                con.commit();
@@ -637,9 +640,9 @@ public class AdresseDAO extends DataAccess {
 //                    Adresse adresse = new Adresse(rs.getString(1), 
 //                            rs.getString(2), rs.getString(3), rs.getString(4), 
 //                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), rs.getString(10), 
-//                            rs.getString(11), rs.getString(12), 
-//                            rs.getString(13));
+//                            rs.getString(8), rs.getString(9), 
+//                            rs.getString(10), rs.getString(11), 
+//                            rs.getString(12), rs.getString(13));
 //                    gefundeneAdressen.add(adresse);
 //                }
 //                con.commit();
@@ -656,9 +659,9 @@ public class AdresseDAO extends DataAccess {
 //                    Adresse adresse = new Adresse(rs.getString(1), 
 //                            rs.getString(2), rs.getString(3), rs.getString(4), 
 //                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), rs.getString(10), 
-//                            rs.getString(11), rs.getString(12), 
-//                            rs.getString(13));
+//                            rs.getString(8), rs.getString(9), 
+//                            rs.getString(10), rs.getString(11), 
+//                            rs.getString(12), rs.getString(13));
 //                    gefundeneAdressen.add(adresse);
 //                }
 //                con.commit();
@@ -675,9 +678,9 @@ public class AdresseDAO extends DataAccess {
 //                    Adresse adresse = new Adresse(rs.getString(1), 
 //                            rs.getString(2), rs.getString(3), rs.getString(4), 
 //                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), rs.getString(10), 
-//                            rs.getString(11), rs.getString(12), 
-//                            rs.getString(13));
+//                            rs.getString(8), rs.getString(9), 
+//                            rs.getString(10), rs.getString(11), 
+//                            rs.getString(12), rs.getString(13));
 //                    gefundeneAdressen.add(adresse);
 //                }
 //                con.commit();
@@ -694,9 +697,9 @@ public class AdresseDAO extends DataAccess {
 //                    Adresse adresse = new Adresse(rs.getString(1), 
 //                            rs.getString(2), rs.getString(3), rs.getString(4), 
 //                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), rs.getString(10), 
-//                            rs.getString(11), rs.getString(12), 
-//                            rs.getString(13));
+//                            rs.getString(8), rs.getString(9), 
+//                            rs.getString(10), rs.getString(11), 
+//                            rs.getString(12), rs.getString(13));
 //                    gefundeneAdressen.add(adresse);
 //                }
 //                con.commit();
@@ -713,9 +716,9 @@ public class AdresseDAO extends DataAccess {
 //                    Adresse adresse = new Adresse(rs.getString(1), 
 //                            rs.getString(2), rs.getString(3), rs.getString(4), 
 //                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), rs.getString(10), 
-//                            rs.getString(11), rs.getString(12), 
-//                            rs.getString(13));
+//                            rs.getString(8), rs.getString(9), 
+//                            rs.getString(10), rs.getString(11), 
+//                            rs.getString(12), rs.getString(13));
 //                    gefundeneAdressen.add(adresse);
 //                }
 //                con.commit();
@@ -732,9 +735,9 @@ public class AdresseDAO extends DataAccess {
 //                    Adresse adresse = new Adresse(rs.getString(1), 
 //                            rs.getString(2), rs.getString(3), rs.getString(4), 
 //                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), rs.getString(10), 
-//                            rs.getString(11), rs.getString(12), 
-//                            rs.getString(13));
+//                            rs.getString(8), rs.getString(9), 
+//                            rs.getString(10), rs.getString(11), 
+//                            rs.getString(12), rs.getString(13));
 //                    gefundeneAdressen.add(adresse);
 //                }
 //                con.commit();
