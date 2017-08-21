@@ -13,7 +13,7 @@
       <Label layoutX="246.0" layoutY="20.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
       <TextField fx:id="tf_suchbegriff" layoutX="246.0" layoutY="37.0" onAction="#ArtikelSuchen" prefHeight="25.0" prefWidth="199.0" />
       <Button layoutX="468.0" layoutY="20.0" mnemonicParsing="false" onAction="#ArtikelSuchen" prefHeight="40.0" prefWidth="160.0" text="Artikel suchen " AnchorPane.leftAnchor="468.0" />
-      <TableView fx:id="tv_artikel" layoutX="25.0" layoutY="70.0" prefHeight="335.0" prefWidth="692.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0">
+      <TableView fx:id="tv_artikel" layoutX="25.0" layoutY="70.0" onMouseClicked="#zeigeWerteAn" prefHeight="335.0" prefWidth="692.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0">
         <columns>
           <TableColumn fx:id="tc_materialNr" prefWidth="97.0" text="MaterialNr" />
           <TableColumn fx:id="tc_artikelbeschreibung" prefWidth="136.0" text="Artikelbeschreibung" />
@@ -27,11 +27,11 @@
             <TableColumn fx:id="tc_BestandVerkauft" prefWidth="139.0" text="VERKAUFT" />
         </columns>
       </TableView>
-      <TitledPane collapsible="false" layoutX="38.0" layoutY="287.0" prefHeight="232.0" prefWidth="1020.0" text="Artikeldatensatz" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0">
+      <TitledPane fx:id="artikeldatensatzPane" collapsible="false" layoutX="38.0" layoutY="287.0" prefHeight="232.0" prefWidth="1020.0" text="Artikeldatensatz" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0">
          <content>
             <Pane prefHeight="193.0" prefWidth="1018.0">
                <children>
-                  <TextField fx:id="tf_materialNr" layoutX="14.0" layoutY="39.0" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="tf_materialNr" layoutX="14.0" layoutY="38.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="14.0" layoutY="22.0" text="MaterialNr" />
                   <Label layoutX="111.0" layoutY="22.0" text="Artikelbschreibung" />
                   <TextArea fx:id="tf_artikelbeschreibung" layoutX="111.0" layoutY="39.0" prefHeight="65.0" prefWidth="173.0" />
@@ -53,13 +53,16 @@
                   <Label layoutX="778.0" layoutY="104.0" text="ZULAUF" />
                   <Label layoutX="778.0" layoutY="135.0" text="VERKAUFT" />
                   <TextField fx:id="tf_bestandVerkauft" layoutX="843.0" layoutY="131.0" prefHeight="25.0" prefWidth="85.0" />
-                  <Button layoutX="35.0" layoutY="152.0" mnemonicParsing="false" onAction="#artikelLoeschen" prefHeight="40.0" prefWidth="160.0" text="Artikel löschen" />
-                  <Button layoutX="204.0" layoutY="152.0" mnemonicParsing="false" onAction="#artikelHinzufuegen" prefHeight="40.0" prefWidth="160.0" text="Artikel anlegen " />
-                  <Button layoutX="373.0" layoutY="152.0" mnemonicParsing="false" onAction="#artikelAendern" prefHeight="40.0" prefWidth="160.0" text="Artikel bearbeiten" />
-                  <Button fx:id="closeArW" layoutX="544.0" layoutY="152.0" mnemonicParsing="false" onAction="#closeArtikelverwaltung" prefHeight="40.0" prefWidth="160.0" text="Abbrechen " />
+                  <Button fx:id="btLoeschen" layoutX="256.0" layoutY="156.0" mnemonicParsing="false" onAction="#artikelLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
+                  <Button fx:id="btAnlegen" layoutX="20.0" layoutY="156.0" mnemonicParsing="false" onAction="#artikelAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen " />
+                  <Button fx:id="btBearbeiten" layoutX="140.0" layoutY="156.0" mnemonicParsing="false" onAction="#bearbeiteArtikel" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
+                  <Button fx:id="closeArW" layoutX="380.0" layoutY="156.0" mnemonicParsing="false" onAction="#closeArtikelverwaltung" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " />
                   <Label layoutX="381.0" layoutY="43.0" text="Euro" />
                   <Label layoutX="703.0" layoutY="43.0" text="Euro" />
                   <ComboBox fx:id="cb_mwstsatz" layoutX="618.0" layoutY="80.0" prefHeight="25.0" prefWidth="100.0" promptText="MwSt. Satz" />
+                  <Button fx:id="btSpeichern" layoutX="140.0" layoutY="152.0" mnemonicParsing="false" onAction="#speichereAenderung" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
+                  <Button fx:id="btHinzufuegen" layoutX="20.0" layoutY="152.0" mnemonicParsing="false" onAction="#artikelHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
+                  <Pane fx:id="pane" layoutX="-1.0" layoutY="4.0" prefHeight="151.0" prefWidth="1009.0" />
                </children>
             </Pane>
          </content>
