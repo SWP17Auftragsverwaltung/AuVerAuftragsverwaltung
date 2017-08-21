@@ -14,6 +14,7 @@
  */
 package auverauftragsverwaltung;
 
+import Datenbank.SucheDAO;
 import Datenbank.ZahlungskonditionenDAO;
 import Klassen.Zahlungskonditionen;
 import java.net.URL;
@@ -750,7 +751,7 @@ public class ZahlungskonditionenController implements Initializable {
          */
     @FXML
     public void zahlungskonditionenSuchen() throws SQLException {
-        ZahlungskonditionenDAO zk = new ZahlungskonditionenDAO();
+        SucheDAO zk = new SucheDAO();
         ArrayList gefundeneZahlungskonditionen;
         
         String suchkriterium = cb_suchfeld.getValue();

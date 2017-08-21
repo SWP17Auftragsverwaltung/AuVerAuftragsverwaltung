@@ -17,9 +17,11 @@ package auverauftragsverwaltung;
 
 
 import Datenbank.ArtikelDAO;
+import Datenbank.SucheDAO;
 import Klassen.Artikel;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -305,6 +307,18 @@ public class ArtikelverwaltungController implements Initializable {
     
     
     
+        /**
+     * Methode bekommt eine ArrayList mit den gefundenen Adressen übergeben und
+     * aktualisiert damit die TableView.
+     * @param adressen Übergebene Adresse.
+     * @throws java.sql.SQLException SQL Exception
+    */
+    public void zeigeGefundeneArtikel(ArrayList artikel) throws SQLException {
+        refreshTable();
+        ObservableList<Artikel> adressenAusgabe
+            = FXCollections.observableArrayList(artikel);
+        tv_artikel.setItems(adressenAusgabe);
+    } 
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
@@ -462,5 +476,47 @@ public class ArtikelverwaltungController implements Initializable {
         ArtikelDAO ar = new ArtikelDAO();
         ar.aendernArtikel(b);
     }
-         
+    
+    
+        /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.08.17    HEN     Methode erstellt.
+    /* 18.08.17    BER     IF Fälle ergänzt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+     * @throws java.sql.SQLException SQLException
+    */        
+    @FXML
+    public void ArtikelSuchen() throws SQLException {
+        SucheDAO ar = new SucheDAO();
+        ArrayList gefundenerArtikel;
+        
+        String suchkriterium = cb_suchfeld.getValue();
+        String suchbegriff = tf_suchbegriff.getText();
+        
+        gefundenerArtikel = ar.artikelSuche(suchkriterium, suchbegriff);
+        
+        zeigeGefundeneArtikel(gefundenerArtikel);
+    } 
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 19.08.17    BER     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Setzt die Suche zurück.
+     * @throws java.sql.SQLException SQLException
+    */        
+    @FXML
+    public void setzeSucheZurueck() throws SQLException {
+        this.tf_suchbegriff.setText("");
+        this.cb_suchfeld.setValue("Bitte wählen...");
+        setTableContent();
+    } 
+   
 }

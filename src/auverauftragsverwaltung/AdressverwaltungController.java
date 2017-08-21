@@ -17,6 +17,7 @@
 package auverauftragsverwaltung;
 
 import Datenbank.AdresseDAO;
+import Datenbank.SucheDAO;
 import Klassen.Adresse;
 import java.net.URL;
 import java.sql.SQLException;
@@ -744,7 +745,7 @@ public class AdressverwaltungController implements Initializable {
     */        
     @FXML
     public void adresseSuchen() throws SQLException {
-        AdresseDAO ad = new AdresseDAO();
+        SucheDAO ad = new SucheDAO();
         ArrayList gefundeneAdressen;
         
         String suchkriterium = cb_suchfeld.getValue();

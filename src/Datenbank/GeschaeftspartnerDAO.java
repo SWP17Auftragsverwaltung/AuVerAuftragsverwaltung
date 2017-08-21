@@ -378,133 +378,133 @@ public class GeschaeftspartnerDAO extends DataAccess {
 
         return neueID;
     }
-    /**
-     * 
-     * @param suchkriterium
-     * @param suchbegriff
-     * @return 
-     */
-    public ArrayList geschaeftspartnerSuche(String suchkriterium,
-            String suchbegriff) {
-
-        Statement stmt = null;
-        ResultSet rs = null;
-        ArrayList<Geschaeftspartner> gefundeneGP = new ArrayList<>();
-        StringBuilder neuerSuchbegriff = new StringBuilder(suchbegriff);
-
-        for (int i = 0; i < suchbegriff.length(); i++) {
-            if (suchbegriff.charAt(i) == '*') {
-                neuerSuchbegriff.setCharAt(i, '%');
-            } else if (suchbegriff.charAt(i) == '?') {
-                neuerSuchbegriff.setCharAt(i, '_');
-            }
-        }
-
-        try {
-
-            if (suchkriterium.equals("Geschaeftspartner-ID")) {
-                String query
-                        = "SELECT * FROM ROOT.GESCHAEFTSPARTNER "
-                        + "WHERE GESCHAEFTSPARTNER_ID LIKE '"
-                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-
-                while (rs.next()) {
-
-                    Geschaeftspartner gp = new Geschaeftspartner(
-                            rs.getString(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), rs.getString(5), rs.getString(6));
-
-                    gefundeneGP.add(gp);
-                }
-                con.commit();
-
-            } else if (suchkriterium.equals("Geschäftspartner-Typ")) {
-                String query
-                        = "SELECT * FROM ROOT.GESCHAEFTSPARTNER "
-                        + "WHERE TYP LIKE '"
-                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-
-                while (rs.next()) {
-
-                    Geschaeftspartner gp = new Geschaeftspartner(
-                            rs.getString(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), rs.getString(5), rs.getString(6));
-
-                    gefundeneGP.add(gp);
-                }
-                con.commit();
-            } else if (suchkriterium.equals("Anschrift-ID")) {
-                String query
-                        = "SELECT * FROM ROOT.GESCHAEFTSPARTNER "
-                        + "WHERE ANSCHRIFT_ID LIKE '"
-                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-
-                while (rs.next()) {
-
-                    Geschaeftspartner gp = new Geschaeftspartner(
-                            rs.getString(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), rs.getString(5), rs.getString(6));
-
-                    gefundeneGP.add(gp);
-                }
-                con.commit();
-            } else if (suchkriterium.equals("Liefer-ID")) {
-                String query
-                        = "SELECT * FROM ROOT.GESCHAEFTSPARTNER "
-                        + "WHERE LIEFER_ID LIKE '"
-                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-
-                while (rs.next()) {
-
-                    Geschaeftspartner gp = new Geschaeftspartner(
-                            rs.getString(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), rs.getString(5), rs.getString(6));
-
-                    gefundeneGP.add(gp);
-                }
-                con.commit();
-            } else if (suchkriterium.equals("Kreditlimit")) {
-                String query
-                        = "SELECT * FROM ROOT.GESCHAEFTSPARTNER "
-                        + "WHERE KREDITLIMIT LIKE '"
-                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-
-                while (rs.next()) {
-
-                    Geschaeftspartner gp = new Geschaeftspartner(
-                            rs.getString(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), rs.getString(5), rs.getString(6));
-
-                    gefundeneGP.add(gp);
-                }
-                con.commit();
-            }
-
-        } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.initStyle(StageStyle.UTILITY);
-            alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
-            alert.showAndWait();
-        }
-        
-        return gefundeneGP;
-        
-    }
+//    /**
+//     * 
+//     * @param suchkriterium
+//     * @param suchbegriff
+//     * @return 
+//     */
+//    public ArrayList geschaeftspartnerSuche(String suchkriterium,
+//            String suchbegriff) {
+//
+//        Statement stmt = null;
+//        ResultSet rs = null;
+//        ArrayList<Geschaeftspartner> gefundeneGP = new ArrayList<>();
+//        StringBuilder neuerSuchbegriff = new StringBuilder(suchbegriff);
+//
+//        for (int i = 0; i < suchbegriff.length(); i++) {
+//            if (suchbegriff.charAt(i) == '*') {
+//                neuerSuchbegriff.setCharAt(i, '%');
+//            } else if (suchbegriff.charAt(i) == '?') {
+//                neuerSuchbegriff.setCharAt(i, '_');
+//            }
+//        }
+//
+//        try {
+//
+//            if (suchkriterium.equals("Geschaeftspartner-ID")) {
+//                String query
+//                        = "SELECT * FROM ROOT.GESCHAEFTSPARTNER "
+//                        + "WHERE GESCHAEFTSPARTNER_ID LIKE '"
+//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
+//
+//                stmt = con.createStatement();
+//                rs = stmt.executeQuery(query);
+//
+//                while (rs.next()) {
+//
+//                    Geschaeftspartner gp = new Geschaeftspartner(
+//                            rs.getString(1), rs.getString(2), rs.getString(3),
+//                            rs.getString(4), rs.getString(5), rs.getString(6));
+//
+//                    gefundeneGP.add(gp);
+//                }
+//                con.commit();
+//
+//            } else if (suchkriterium.equals("Geschäftspartner-Typ")) {
+//                String query
+//                        = "SELECT * FROM ROOT.GESCHAEFTSPARTNER "
+//                        + "WHERE TYP LIKE '"
+//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
+//
+//                stmt = con.createStatement();
+//                rs = stmt.executeQuery(query);
+//
+//                while (rs.next()) {
+//
+//                    Geschaeftspartner gp = new Geschaeftspartner(
+//                            rs.getString(1), rs.getString(2), rs.getString(3),
+//                            rs.getString(4), rs.getString(5), rs.getString(6));
+//
+//                    gefundeneGP.add(gp);
+//                }
+//                con.commit();
+//            } else if (suchkriterium.equals("Anschrift-ID")) {
+//                String query
+//                        = "SELECT * FROM ROOT.GESCHAEFTSPARTNER "
+//                        + "WHERE ANSCHRIFT_ID LIKE '"
+//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
+//
+//                stmt = con.createStatement();
+//                rs = stmt.executeQuery(query);
+//
+//                while (rs.next()) {
+//
+//                    Geschaeftspartner gp = new Geschaeftspartner(
+//                            rs.getString(1), rs.getString(2), rs.getString(3),
+//                            rs.getString(4), rs.getString(5), rs.getString(6));
+//
+//                    gefundeneGP.add(gp);
+//                }
+//                con.commit();
+//            } else if (suchkriterium.equals("Liefer-ID")) {
+//                String query
+//                        = "SELECT * FROM ROOT.GESCHAEFTSPARTNER "
+//                        + "WHERE LIEFER_ID LIKE '"
+//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
+//
+//                stmt = con.createStatement();
+//                rs = stmt.executeQuery(query);
+//
+//                while (rs.next()) {
+//
+//                    Geschaeftspartner gp = new Geschaeftspartner(
+//                            rs.getString(1), rs.getString(2), rs.getString(3),
+//                            rs.getString(4), rs.getString(5), rs.getString(6));
+//
+//                    gefundeneGP.add(gp);
+//                }
+//                con.commit();
+//            } else if (suchkriterium.equals("Kreditlimit")) {
+//                String query
+//                        = "SELECT * FROM ROOT.GESCHAEFTSPARTNER "
+//                        + "WHERE KREDITLIMIT LIKE '"
+//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
+//
+//                stmt = con.createStatement();
+//                rs = stmt.executeQuery(query);
+//
+//                while (rs.next()) {
+//
+//                    Geschaeftspartner gp = new Geschaeftspartner(
+//                            rs.getString(1), rs.getString(2), rs.getString(3),
+//                            rs.getString(4), rs.getString(5), rs.getString(6));
+//
+//                    gefundeneGP.add(gp);
+//                }
+//                con.commit();
+//            }
+//
+//        } catch (SQLException e) {
+//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//            alert.initStyle(StageStyle.UTILITY);
+//            alert.setTitle("Fehler");
+//            alert.setHeaderText(e.getMessage());
+//            alert.showAndWait();
+//        }
+//        
+//        return gefundeneGP;
+//        
+//    }
 
 }

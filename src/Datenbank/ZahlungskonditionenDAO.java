@@ -495,284 +495,284 @@ public class ZahlungskonditionenDAO extends DataAccess {
     }
 
     
-    /*------------------------------------------------------------------------*
-    * Datum         Name    Was
-    * 14.08.2017    CEL     Erstellt.
-    * 20.08.2017    GET     Querys erstellt und Methode fertiggestellt.
-    *
-    /*------------------------------------------------------------------------*/
-    
-    /**
-     *
-     * Sucht mittels eines Suchbegriffs in der Datenbank nach den passenden
-     * Zahlungskonditionen und speichert diese in einer ArrayList ab.
-     *
-     * @param suchkriterium Suchtriterium welches die Suchspalte der DB angibt.
-     * @param suchbegriff ein String nach dem in der Suchspalte gesucht wird.
-     * @return Liefert eine ArrayList mit den zu dem Suchbegriff passenden
-     * Zahlungskonditionen.
-     */
-    public ArrayList<Zahlungskonditionen> zahlungskonditionSuche(
-            String suchkriterium, String suchbegriff) {
-
-        Statement stmt = null;
-        ResultSet rs = null;
-        ArrayList<Zahlungskonditionen> gefundeneZK = new ArrayList<>();
-        StringBuilder neuerSuchbegriff = new StringBuilder(suchbegriff);
-
-        for (int i = 0; i < suchbegriff.length(); i++) {
-            if (suchbegriff.charAt(i) == '*') {
-                neuerSuchbegriff.setCharAt(i, '%');
-            } else if (suchbegriff.charAt(i) == '?') {
-                neuerSuchbegriff.setCharAt(i, '_');
-            }
-        }
-
-        try {
-
-            if (suchkriterium.equals("Konditionen-ID")) {
-
-                String query
-                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-                        + "ZAHLUNGSKONDITIONS_ID LIKE '"
-                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-
-                while (rs.next()) {
-                    Zahlungskonditionen zk = new Zahlungskonditionen(
-                            rs.getString(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), rs.getString(5), rs.getString(6),
-                            rs.getString(7), rs.getString(8), rs.getString(9),
-                            rs.getString(10), rs.getString(11),
-                            rs.getString(12));
-                    gefundeneZK.add(zk);
-                }
-                con.commit();
-
-            } else if (suchkriterium.equals("Auftragsart")) {
-
-                String query
-                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-                        + "AUFTRAGSART LIKE '"
-                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-
-                while (rs.next()) {
-                    Zahlungskonditionen zk = new Zahlungskonditionen(
-                            rs.getString(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), rs.getString(5), rs.getString(6),
-                            rs.getString(7), rs.getString(8), rs.getString(9),
-                            rs.getString(10), rs.getString(11),
-                            rs.getString(12));
-                    gefundeneZK.add(zk);
-                }
-                con.commit();
-
-            } else if (suchkriterium.equals("LieferzeitSOFORT")) {
-
-                String query
-                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-                        + "LIEFERZEIT_SOFORT LIKE '"
-                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-
-                while (rs.next()) {
-                    Zahlungskonditionen zk = new Zahlungskonditionen(
-                            rs.getString(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), rs.getString(5), rs.getString(6),
-                            rs.getString(7), rs.getString(8), rs.getString(9),
-                            rs.getString(10), rs.getString(11),
-                            rs.getString(12));
-                    gefundeneZK.add(zk);
-                }
-                con.commit();
-
-            } else if (suchkriterium.equals("SperrzeitWUNSCH")) {
-
-                String query
-                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-                        + "SPERRZEIT_WUNSCH LIKE '"
-                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-
-                while (rs.next()) {
-                    Zahlungskonditionen zk = new Zahlungskonditionen(
-                            rs.getString(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), rs.getString(5), rs.getString(6),
-                            rs.getString(7), rs.getString(8), rs.getString(9),
-                            rs.getString(10), rs.getString(11),
-                            rs.getString(12));
-                    gefundeneZK.add(zk);
-                }
-                con.commit();
-
-            } else if (suchkriterium.equals("Skontozeit 1")) {
-
-                String query
-                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-                        + "SKONTOZEIT_1 LIKE '"
-                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-
-                while (rs.next()) {
-                    Zahlungskonditionen zk = new Zahlungskonditionen(
-                            rs.getString(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), rs.getString(5), rs.getString(6),
-                            rs.getString(7), rs.getString(8), rs.getString(9),
-                            rs.getString(10), rs.getString(11),
-                            rs.getString(12));
-                    gefundeneZK.add(zk);
-                }
-                con.commit();
-
-            } else if (suchkriterium.equals("Skonto 1")) {
-
-                String query
-                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-                        + "SKONTO_1 LIKE '"
-                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-
-                while (rs.next()) {
-                    Zahlungskonditionen zk = new Zahlungskonditionen(
-                            rs.getString(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), rs.getString(5), rs.getString(6),
-                            rs.getString(7), rs.getString(8), rs.getString(9),
-                            rs.getString(10), rs.getString(11),
-                            rs.getString(12));
-                    gefundeneZK.add(zk);
-                }
-                con.commit();
-
-            } else if (suchkriterium.equals("Skontozeit 2")) {
-
-                String query
-                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-                        + "SKONTOZEIT_2 LIKE '"
-                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-
-                while (rs.next()) {
-                    Zahlungskonditionen zk = new Zahlungskonditionen(
-                            rs.getString(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), rs.getString(5), rs.getString(6),
-                            rs.getString(7), rs.getString(8), rs.getString(9),
-                            rs.getString(10), rs.getString(11),
-                            rs.getString(12));
-                    gefundeneZK.add(zk);
-                }
-                con.commit();
-
-            } else if (suchkriterium.equals("Skonto 2")) {
-
-                String query
-                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-                        + "SKONTO_2 LIKE '"
-                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-
-                while (rs.next()) {
-                    Zahlungskonditionen zk = new Zahlungskonditionen(
-                            rs.getString(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), rs.getString(5), rs.getString(6),
-                            rs.getString(7), rs.getString(8), rs.getString(9),
-                            rs.getString(10), rs.getString(11),
-                            rs.getString(12));
-                    gefundeneZK.add(zk);
-                }
-                con.commit();
-            } else if (suchkriterium.equals("Mahnzeit 1")) {
-
-                String query
-                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-                        + "MAHNZEIT_1 LIKE '"
-                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-
-                while (rs.next()) {
-                    Zahlungskonditionen zk = new Zahlungskonditionen(
-                            rs.getString(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), rs.getString(5), rs.getString(6),
-                            rs.getString(7), rs.getString(8), rs.getString(9),
-                            rs.getString(10), rs.getString(11),
-                            rs.getString(12));
-                    gefundeneZK.add(zk);
-                }
-                con.commit();
-
-            } else if (suchkriterium.equals("Mahnzeit 2")) {
-
-                String query
-                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-                        + "MAHNZEIT_2 LIKE '"
-                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-
-                while (rs.next()) {
-                    Zahlungskonditionen zk = new Zahlungskonditionen(
-                            rs.getString(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), rs.getString(5), rs.getString(6),
-                            rs.getString(7), rs.getString(8), rs.getString(9),
-                            rs.getString(10), rs.getString(11),
-                            rs.getString(12));
-                    gefundeneZK.add(zk);
-                }
-                con.commit();
-
-            } else if (suchkriterium.equals("Mahnzeit 3")) {
-
-                String query
-                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-                        + "MAHNZEIT_3 LIKE '"
-                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(query);
-
-                while (rs.next()) {
-                    Zahlungskonditionen zk = new Zahlungskonditionen(
-                            rs.getString(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), rs.getString(5), rs.getString(6),
-                            rs.getString(7), rs.getString(8), rs.getString(9),
-                            rs.getString(10), rs.getString(11),
-                            rs.getString(12));
-                    gefundeneZK.add(zk);
-                }
-                con.commit();
-
-            }
-
-        } catch (SQLException e) {
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.initStyle(StageStyle.UTILITY);
-            alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
-            alert.showAndWait();
-
-        }
-
-        return gefundeneZK;
-    }
+//    /*------------------------------------------------------------------------*
+//    * Datum         Name    Was
+//    * 14.08.2017    CEL     Erstellt.
+//    * 20.08.2017    GET     Querys erstellt und Methode fertiggestellt.
+//    *
+//    /*------------------------------------------------------------------------*/
+//    
+//    /**
+//     *
+//     * Sucht mittels eines Suchbegriffs in der Datenbank nach den passenden
+//     * Zahlungskonditionen und speichert diese in einer ArrayList ab.
+//     *
+//     * @param suchkriterium Suchtriterium welches die Suchspalte der DB angibt.
+//     * @param suchbegriff ein String nach dem in der Suchspalte gesucht wird.
+//     * @return Liefert eine ArrayList mit den zu dem Suchbegriff passenden
+//     * Zahlungskonditionen.
+//     */
+//    public ArrayList<Zahlungskonditionen> zahlungskonditionSuche(
+//            String suchkriterium, String suchbegriff) {
+//
+//        Statement stmt = null;
+//        ResultSet rs = null;
+//        ArrayList<Zahlungskonditionen> gefundeneZK = new ArrayList<>();
+//        StringBuilder neuerSuchbegriff = new StringBuilder(suchbegriff);
+//
+//        for (int i = 0; i < suchbegriff.length(); i++) {
+//            if (suchbegriff.charAt(i) == '*') {
+//                neuerSuchbegriff.setCharAt(i, '%');
+//            } else if (suchbegriff.charAt(i) == '?') {
+//                neuerSuchbegriff.setCharAt(i, '_');
+//            }
+//        }
+//
+//        try {
+//
+//            if (suchkriterium.equals("Konditionen-ID")) {
+//
+//                String query
+//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
+//                        + "ZAHLUNGSKONDITIONS_ID LIKE '"
+//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
+//
+//                stmt = con.createStatement();
+//                rs = stmt.executeQuery(query);
+//
+//                while (rs.next()) {
+//                    Zahlungskonditionen zk = new Zahlungskonditionen(
+//                            rs.getString(1), rs.getString(2), rs.getString(3),
+//                            rs.getString(4), rs.getString(5), rs.getString(6),
+//                            rs.getString(7), rs.getString(8), rs.getString(9),
+//                            rs.getString(10), rs.getString(11),
+//                            rs.getString(12));
+//                    gefundeneZK.add(zk);
+//                }
+//                con.commit();
+//
+//            } else if (suchkriterium.equals("Auftragsart")) {
+//
+//                String query
+//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
+//                        + "AUFTRAGSART LIKE '"
+//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
+//
+//                stmt = con.createStatement();
+//                rs = stmt.executeQuery(query);
+//
+//                while (rs.next()) {
+//                    Zahlungskonditionen zk = new Zahlungskonditionen(
+//                            rs.getString(1), rs.getString(2), rs.getString(3),
+//                            rs.getString(4), rs.getString(5), rs.getString(6),
+//                            rs.getString(7), rs.getString(8), rs.getString(9),
+//                            rs.getString(10), rs.getString(11),
+//                            rs.getString(12));
+//                    gefundeneZK.add(zk);
+//                }
+//                con.commit();
+//
+//            } else if (suchkriterium.equals("LieferzeitSOFORT")) {
+//
+//                String query
+//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
+//                        + "LIEFERZEIT_SOFORT LIKE '"
+//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
+//
+//                stmt = con.createStatement();
+//                rs = stmt.executeQuery(query);
+//
+//                while (rs.next()) {
+//                    Zahlungskonditionen zk = new Zahlungskonditionen(
+//                            rs.getString(1), rs.getString(2), rs.getString(3),
+//                            rs.getString(4), rs.getString(5), rs.getString(6),
+//                            rs.getString(7), rs.getString(8), rs.getString(9),
+//                            rs.getString(10), rs.getString(11),
+//                            rs.getString(12));
+//                    gefundeneZK.add(zk);
+//                }
+//                con.commit();
+//
+//            } else if (suchkriterium.equals("SperrzeitWUNSCH")) {
+//
+//                String query
+//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
+//                        + "SPERRZEIT_WUNSCH LIKE '"
+//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
+//
+//                stmt = con.createStatement();
+//                rs = stmt.executeQuery(query);
+//
+//                while (rs.next()) {
+//                    Zahlungskonditionen zk = new Zahlungskonditionen(
+//                            rs.getString(1), rs.getString(2), rs.getString(3),
+//                            rs.getString(4), rs.getString(5), rs.getString(6),
+//                            rs.getString(7), rs.getString(8), rs.getString(9),
+//                            rs.getString(10), rs.getString(11),
+//                            rs.getString(12));
+//                    gefundeneZK.add(zk);
+//                }
+//                con.commit();
+//
+//            } else if (suchkriterium.equals("Skontozeit 1")) {
+//
+//                String query
+//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
+//                        + "SKONTOZEIT_1 LIKE '"
+//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
+//
+//                stmt = con.createStatement();
+//                rs = stmt.executeQuery(query);
+//
+//                while (rs.next()) {
+//                    Zahlungskonditionen zk = new Zahlungskonditionen(
+//                            rs.getString(1), rs.getString(2), rs.getString(3),
+//                            rs.getString(4), rs.getString(5), rs.getString(6),
+//                            rs.getString(7), rs.getString(8), rs.getString(9),
+//                            rs.getString(10), rs.getString(11),
+//                            rs.getString(12));
+//                    gefundeneZK.add(zk);
+//                }
+//                con.commit();
+//
+//            } else if (suchkriterium.equals("Skonto 1")) {
+//
+//                String query
+//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
+//                        + "SKONTO_1 LIKE '"
+//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
+//
+//                stmt = con.createStatement();
+//                rs = stmt.executeQuery(query);
+//
+//                while (rs.next()) {
+//                    Zahlungskonditionen zk = new Zahlungskonditionen(
+//                            rs.getString(1), rs.getString(2), rs.getString(3),
+//                            rs.getString(4), rs.getString(5), rs.getString(6),
+//                            rs.getString(7), rs.getString(8), rs.getString(9),
+//                            rs.getString(10), rs.getString(11),
+//                            rs.getString(12));
+//                    gefundeneZK.add(zk);
+//                }
+//                con.commit();
+//
+//            } else if (suchkriterium.equals("Skontozeit 2")) {
+//
+//                String query
+//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
+//                        + "SKONTOZEIT_2 LIKE '"
+//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
+//
+//                stmt = con.createStatement();
+//                rs = stmt.executeQuery(query);
+//
+//                while (rs.next()) {
+//                    Zahlungskonditionen zk = new Zahlungskonditionen(
+//                            rs.getString(1), rs.getString(2), rs.getString(3),
+//                            rs.getString(4), rs.getString(5), rs.getString(6),
+//                            rs.getString(7), rs.getString(8), rs.getString(9),
+//                            rs.getString(10), rs.getString(11),
+//                            rs.getString(12));
+//                    gefundeneZK.add(zk);
+//                }
+//                con.commit();
+//
+//            } else if (suchkriterium.equals("Skonto 2")) {
+//
+//                String query
+//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
+//                        + "SKONTO_2 LIKE '"
+//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
+//
+//                stmt = con.createStatement();
+//                rs = stmt.executeQuery(query);
+//
+//                while (rs.next()) {
+//                    Zahlungskonditionen zk = new Zahlungskonditionen(
+//                            rs.getString(1), rs.getString(2), rs.getString(3),
+//                            rs.getString(4), rs.getString(5), rs.getString(6),
+//                            rs.getString(7), rs.getString(8), rs.getString(9),
+//                            rs.getString(10), rs.getString(11),
+//                            rs.getString(12));
+//                    gefundeneZK.add(zk);
+//                }
+//                con.commit();
+//            } else if (suchkriterium.equals("Mahnzeit 1")) {
+//
+//                String query
+//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
+//                        + "MAHNZEIT_1 LIKE '"
+//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
+//
+//                stmt = con.createStatement();
+//                rs = stmt.executeQuery(query);
+//
+//                while (rs.next()) {
+//                    Zahlungskonditionen zk = new Zahlungskonditionen(
+//                            rs.getString(1), rs.getString(2), rs.getString(3),
+//                            rs.getString(4), rs.getString(5), rs.getString(6),
+//                            rs.getString(7), rs.getString(8), rs.getString(9),
+//                            rs.getString(10), rs.getString(11),
+//                            rs.getString(12));
+//                    gefundeneZK.add(zk);
+//                }
+//                con.commit();
+//
+//            } else if (suchkriterium.equals("Mahnzeit 2")) {
+//
+//                String query
+//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
+//                        + "MAHNZEIT_2 LIKE '"
+//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
+//
+//                stmt = con.createStatement();
+//                rs = stmt.executeQuery(query);
+//
+//                while (rs.next()) {
+//                    Zahlungskonditionen zk = new Zahlungskonditionen(
+//                            rs.getString(1), rs.getString(2), rs.getString(3),
+//                            rs.getString(4), rs.getString(5), rs.getString(6),
+//                            rs.getString(7), rs.getString(8), rs.getString(9),
+//                            rs.getString(10), rs.getString(11),
+//                            rs.getString(12));
+//                    gefundeneZK.add(zk);
+//                }
+//                con.commit();
+//
+//            } else if (suchkriterium.equals("Mahnzeit 3")) {
+//
+//                String query
+//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
+//                        + "MAHNZEIT_3 LIKE '"
+//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
+//
+//                stmt = con.createStatement();
+//                rs = stmt.executeQuery(query);
+//
+//                while (rs.next()) {
+//                    Zahlungskonditionen zk = new Zahlungskonditionen(
+//                            rs.getString(1), rs.getString(2), rs.getString(3),
+//                            rs.getString(4), rs.getString(5), rs.getString(6),
+//                            rs.getString(7), rs.getString(8), rs.getString(9),
+//                            rs.getString(10), rs.getString(11),
+//                            rs.getString(12));
+//                    gefundeneZK.add(zk);
+//                }
+//                con.commit();
+//
+//            }
+//
+//        } catch (SQLException e) {
+//
+//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//            alert.initStyle(StageStyle.UTILITY);
+//            alert.setTitle("Fehler");
+//            alert.setHeaderText(e.getMessage());
+//            alert.showAndWait();
+//
+//        }
+//
+//        return gefundeneZK;
+//    }
 
 }

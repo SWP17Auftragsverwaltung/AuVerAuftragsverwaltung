@@ -15,6 +15,7 @@
 package auverauftragsverwaltung;
 
 import Datenbank.GeschaeftspartnerDAO;
+import Datenbank.SucheDAO;
 import Klassen.Geschaeftspartner;
 import java.net.URL;
 import java.sql.SQLException;
@@ -458,7 +459,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     @FXML
     public void geschaeftspartnerSuchen() throws SQLException {
         
-        GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
+        SucheDAO gpDAO = new SucheDAO();
         ArrayList gefundeneGeschaeftspartner;
         
         String suchkriterium = this.cb_suchfeld.getValue();
