@@ -265,6 +265,17 @@ public class ZahlungskonditionenDAO extends DataAccess {
         }
     }
 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 17.08.17     GET     Erstellt.    
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Setzt Löschkennzeichen bei einer ausgewählten Adresse.
+     * @return neue ID aufgezählt.
+     */ 
     public String gibLetztID() {
 
         Statement stmt = null;
@@ -293,6 +304,17 @@ public class ZahlungskonditionenDAO extends DataAccess {
         return value;
     }
 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 19.08.17     HEN     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Liest die letzte ID aus, erhöht sie um 1 und gibt sie wieder.
+     * @return neue ID aufgezählt.
+     */ 
     public String generiereID() {
 
         //Holt sich die aktuell maximale ID.
@@ -359,8 +381,8 @@ public class ZahlungskonditionenDAO extends DataAccess {
             con.commit();
 
             query
-                    = "UPDATE ROOT.ZAHLUNGSKONDITIONEN SET SPERRZEIT_WUNSCH = ? "
-                    + "WHERE ZAHLUNGSKONDITIONS_ID = ?";
+                    = "UPDATE ROOT.ZAHLUNGSKONDITIONEN SET "
+                    + "SPERRZEIT_WUNSCH = ? "+ "WHERE ZAHLUNGSKONDITIONS_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, zk.getSperrzeitWUNSCH());

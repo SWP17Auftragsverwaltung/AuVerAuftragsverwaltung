@@ -272,7 +272,6 @@ public class QueryManager {
 
                 insertQuery += "" + ak.getAuftragskopfID() + ",";
                 insertQuery += "" + ak.getGeschaeftspartnerID() + ",";
-                insertQuery += "" + ak.getZahlungskonditionsID() + ",";
                 insertQuery += "'" + ak.getErfassungsdatum() + "',";
                 if (ak.getLieferdatum() == null) {insertQuery = 
                     insertQuery.replace("LIEFERDATUM,", "");

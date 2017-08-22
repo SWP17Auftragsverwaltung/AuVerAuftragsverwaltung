@@ -12,16 +12,26 @@
 */
 package auverauftragsverwaltung;
 
+import Datenbank.AuftragskopfDAO;
+import Klassen.Auftragskopf;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -33,6 +43,66 @@ public class AuftraegeAnzeigenController implements Initializable {
      */
     @FXML
     private Button closeAA;
+    
+        /**
+     * TableView für die Anzeige der Adressen.
+     */
+    @FXML
+    private TableView tvAuftragskopf = new TableView<Auftragskopf>();
+    
+     /**
+     * Tabellenspalte "Auftrags-ID".
+     */
+    @FXML
+    private TableColumn<Auftragskopf, String> tcAuftragsID;
+    
+    /**
+     * Tabellenspalte "Auftragstext".
+     */
+    @FXML
+    private TableColumn<Auftragskopf, String> tcAuftragsText;
+    
+    /**
+     * Tabellenspalte "Kunde/Lieferant-ID".
+     */
+    @FXML
+    private TableColumn<Auftragskopf, String> tcgeschaeftspartnerID;
+    
+    /**
+     * Tabellenspalte "Erfassungsdatum".
+     */
+    @FXML
+    private TableColumn<Auftragskopf, String> tcErfDatum;
+    
+    /**
+     * Tabellenspalte "Lieferdatum".
+     */
+    @FXML
+    private TableColumn<Auftragskopf, String> tcLieferDatum;
+    
+    /**
+     * Tabellenspalte "Auftragsart".
+     */
+    @FXML
+    private TableColumn<Auftragskopf, String> tcAuftragsart;
+    
+    /**
+     * Tabellenspalte "Auftragswert".
+     */
+    @FXML
+    private TableColumn<Auftragskopf, String> tcAuftragswert;
+    
+    /**
+     * Tabellenspalte "Auftragsstatus".
+     */
+    @FXML
+    private TableColumn<Auftragskopf, String> tcStatus;
+    
+    /**
+     * Tabellenspalte "Abschlussdatum".
+     */
+    @FXML
+    private TableColumn<Auftragskopf, String> tcAbschDatum;
 
     /**
      * 
@@ -76,7 +146,73 @@ public class AuftraegeAnzeigenController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        try {   
+            setTableContent();
+            
+        } catch (SQLException ex) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText("Keine Adressen gefunden!");
+            alert.showAndWait();
+        }
+        
+        tcAuftragsID.setCellValueFactory(
+                new PropertyValueFactory<>("auftragskopfID"));
+        tcAuftragsText.setCellValueFactory(
+                new PropertyValueFactory<>("auftragstext"));
+        tcgeschaeftspartnerID.setCellValueFactory(
+                new PropertyValueFactory<>("geschaeftspartnerID"));
+        tcErfDatum.setCellValueFactory(
+                new PropertyValueFactory<>("erfassungsdatum"));
+        tcLieferDatum.setCellValueFactory(
+                new PropertyValueFactory<>("lieferdatum"));
+        tcAuftragsart.setCellValueFactory(
+                new PropertyValueFactory<>("auftragsart"));
+        tcAuftragswert.setCellValueFactory(
+                new PropertyValueFactory<>("auftragswert"));
+        tcStatus.setCellValueFactory(
+                new PropertyValueFactory<>("status"));
+        tcAbschDatum.setCellValueFactory(
+                new PropertyValueFactory<>("abschlussDatum"));
+    }
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Aktualisiert die TableView mit aktuellem Inhalt.
+     * @throws java.sql.SQLException SQL Exception
+    */
+    public void refreshTable() throws SQLException {
+        tvAuftragskopf.getItems().clear();
+        setTableContent();
+    } 
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 11.08.17    HEN     Methode erstellt.
+    /* 12.08.17    HEN     ObservableArrayList hinzugefügt
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Erstellt ein AdressDAO Objekt und gibt eine Adress ArrayList an eine
+     * OberservableList, die dann an die TableView übergeben wird.
+     *
+     * @throws java.sql.SQLException SQL Exception
+    */
+    public void setTableContent() throws SQLException {
+        AuftragskopfDAO ak = new AuftragskopfDAO();
+        ObservableList<Auftragskopf> auftragskopf
+            = FXCollections.observableArrayList(
+                    ak.gibAlleAuftragskoepfeOhneLKZ());
+        tvAuftragskopf.setItems(auftragskopf);
     }
 
 }

@@ -27,17 +27,17 @@ public class Auftragskopf {
     /**
      *Primärschküssel des Auftragskopfes.
     */
-    private int auftragskopfID;
+    private String auftragskopfID;
     
     /**
      * Fremdschlüssel des Geschäftspartners im Auftragskopf.
     */
-    private int geschaeftspartnerID;
+    private String geschaeftspartnerID;
     
     /**
      * Erfassungsdatum des Auftragskopfes.
     */
-    private java.sql.Date erfassungsdatum;
+    private String erfassungsdatum;
     
     /**
      * Auftragsart des Auftragskopfes.
@@ -52,7 +52,7 @@ public class Auftragskopf {
     /**
      * Auftragswert des Auftragskopfes.
     */
-    private double auftragswert;
+    private String auftragswert;
     
     /**
      * Auftragstext des Auftragskopfes.
@@ -62,22 +62,22 @@ public class Auftragskopf {
     /**
      * Abschlussdatum des Auftragskopfes.
     */
-    private java.sql.Date abschlussDatum;
+    private String abschlussDatum;
     
      /**
      * Lieferdatum des Auftragskopfes.
      */
-    private java.sql.Date lieferdatum;
+    private String lieferdatum;
     
     /**
      * LKZ des Auftragskopfes.
     */
-    private boolean lkz;
+    private String lkz;
     
-    /**
-     * Fremdschlüssel der Zahlungskonditionen im Auftragskopf.
-    */
-    private int zahlungskonditionsID;
+//    /**
+//     * Fremdschlüssel der Zahlungskonditionen im Auftragskopf.
+//    */
+//    private int zahlungskonditionsID;
     
     /**
      * Liste mit allen Auftagspositionen des Auftragskopfes.
@@ -88,7 +88,7 @@ public class Auftragskopf {
      * 
      * @param auftragskopfID AuftragskopfID.
      */
-    public Auftragskopf(int auftragskopfID) {
+    public Auftragskopf(String auftragskopfID) {
         this.auftragskopfID = auftragskopfID;
     }
 
@@ -112,12 +112,11 @@ public class Auftragskopf {
      * @param auftragstext Text zum Auftrag
      * @param abschlussDatum vorrausichtliches Abschlussdatum
      * @param lkz Löschkennzeichen
-     * @param zahlungskonditionsID ID der Zahlungskonditionen
      */
-    public Auftragskopf(int auftragskopfID, int geschaeftspartnerID,
-            Date erfassungsdatum, Date lieferdatum, String auftragsart, 
-            String status, double auftragswert, String auftragstext, 
-            Date abschlussDatum, boolean lkz, int zahlungskonditionsID) {
+    public Auftragskopf(String auftragskopfID, String geschaeftspartnerID,
+            String erfassungsdatum, String lieferdatum, String auftragsart, 
+            String status, String auftragswert, String auftragstext, 
+            String abschlussDatum, String lkz) {
 
         this.auftragskopfID = auftragskopfID;    
         this.geschaeftspartnerID = geschaeftspartnerID;
@@ -129,7 +128,6 @@ public class Auftragskopf {
         this.auftragstext = auftragstext;  
         this.abschlussDatum = abschlussDatum;
         this.lkz = lkz;      
-        this.zahlungskonditionsID = zahlungskonditionsID;
     }
 
     
@@ -161,7 +159,7 @@ public class Auftragskopf {
     */
     @Override
     public int hashCode() {
-        return auftragskopfID;
+        return auftragskopfID.hashCode();
     }
     
     /*--------------------------------------------------------------------------
@@ -179,7 +177,7 @@ public class Auftragskopf {
     public boolean equals(Object obj) {
         Auftragskopf a = (Auftragskopf) obj;
         return (obj instanceof Auftragskopf)
-                && this.auftragskopfID == a.auftragskopfID;
+                && this.auftragskopfID.equals(a.auftragskopfID);
     }
 
     /*------------------------------------------------
@@ -190,14 +188,14 @@ public class Auftragskopf {
     /**
      * @return auftragskopfID AuftragskopfID. 
     */
-    public int getAuftragskopfID() {
+    public String getAuftragskopfID() {
         return auftragskopfID;
     }
 
     /**
      * @param auftragskopfID AUftragskopf ID
     */
-    public void setAuftragskopfID(int auftragskopfID) {
+    public void setAuftragskopfID(String auftragskopfID) {
         this.auftragskopfID = auftragskopfID;
     }
 
@@ -205,42 +203,42 @@ public class Auftragskopf {
     /**
      * @return the Geschaeftspartner
     */
-    public int getGeschaeftspartnerID() {
+    public String getGeschaeftspartnerID() {
         return geschaeftspartnerID;
     }
 
     /**
      * @param geschaeftspartnerID GeschäftsparterID
      */
-    public void setGeschaeftspartnerID(int geschaeftspartnerID) {
+    public void setGeschaeftspartnerID(String geschaeftspartnerID) {
         this.geschaeftspartnerID = geschaeftspartnerID;
     }
 
     /**
      * @return the Erfassungsdatum
     */
-    public Date getErfassungsdatum() {
+    public String getErfassungsdatum() {
         return erfassungsdatum;
     }
 
     /**
      * @param erfassungsdatum the Erfassungsdatum to set
     */
-    public void setErfassungsdatum(Date erfassungsdatum) {
+    public void setErfassungsdatum(String erfassungsdatum) {
         this.erfassungsdatum = erfassungsdatum;
     }
 
         /**
      * @return the Lieferdatum
      */
-    public Date getLieferdatum() {
+    public String getLieferdatum() {
         return lieferdatum;
     }
 
     /**
      * @param lieferdatum the Lieferdatum to set
      */
-    public void setLieferdatum(Date lieferdatum) {
+    public void setLieferdatum(String lieferdatum) {
         this.lieferdatum = lieferdatum;
     }
     
@@ -275,14 +273,14 @@ public class Auftragskopf {
     /**
      * @return the Auftragswert
     */
-    public double getAuftragswert() {
+    public String getAuftragswert() {
         return auftragswert;
     }
 
     /**
      * @param auftragswert the Auftragswert to set
     */
-    public void setAuftragswert(double auftragswert) {
+    public void setAuftragswert(String auftragswert) {
         this.auftragswert = auftragswert;
     }
 
@@ -303,44 +301,44 @@ public class Auftragskopf {
     /**
      * @return the AbschlussDatum
     */
-    public Date getAbschlussDatum() {
+    public String getAbschlussDatum() {
         return abschlussDatum;
     }
 
     /**
      * @param abschlussDatum the AbschlussDatum to set
     */
-    public void setAbschlussDatum(Date abschlussDatum) {
+    public void setAbschlussDatum(String abschlussDatum) {
         this.abschlussDatum = abschlussDatum;
     }
 
     /**
      * @return the LKZ
     */
-    public boolean getLKZ() {
+    public String getLKZ() {
         return lkz;
     }
 
     /**
      * @param lkz the LKZ to set
     */
-    public void setLKZ(boolean lkz) {
+    public void setLKZ(String lkz) {
         this.lkz = lkz;
     }
-
-    /**
-     * @return the ZahlungskonditionsID
-    */
-    public int getZahlungskonditionsID() {
-        return zahlungskonditionsID;
-    }
-
-    /**
-     * @param zahlungskonditionsID the ZahlungskondiID to set
-    */
-    public void setZahlungskonditionsID(int zahlungskonditionsID) {
-        this.zahlungskonditionsID = zahlungskonditionsID;
-    }
+//
+//    /**
+//     * @return the ZahlungskonditionsID
+//    */
+//    public int getZahlungskonditionsID() {
+//        return zahlungskonditionsID;
+//    }
+//
+//    /**
+//     * @param zahlungskonditionsID the ZahlungskondiID to set
+//    */
+//    public void setZahlungskonditionsID(int zahlungskonditionsID) {
+//        this.zahlungskonditionsID = zahlungskonditionsID;
+//    }
 
     /**
      * @return the positionen
