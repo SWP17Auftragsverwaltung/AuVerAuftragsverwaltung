@@ -12,6 +12,9 @@
  */
 package Klassen;
 
+import javafx.scene.control.Alert;
+import javafx.stage.StageStyle;
+
 /**
  *
  * @author Andre
@@ -19,24 +22,34 @@ package Klassen;
 public class MyException extends Exception {
 
     /**
-     * 
+     * Leerer Konstruktor.
      */
     public MyException() {
+    
+    }
+
+    
+    
+    public MyException(String fehlerMeldung) {
+        super(fehlerMeldung);
     }
 
     
     
     /**
-     * 
-     * @param message 
+     * Konstruktor mit Fehlercode.
+     * @param code Fehlercode.
      */
-    public MyException(String message) {
-        super(message);
+    public MyException(int code) {
+        this.fehlerCode = code;
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Fehler");
+        alert.setHeaderText(null);
+        alert.setContentText(getText());
+        alert.showAndWait();
     }
     
     
-    
- 
     
     /**
      * Variable für den Fehlercode.
@@ -131,6 +144,19 @@ public class MyException extends Exception {
     private final String errorCode112
             = "Geburtstag darf nicht in der Zukunft liegen!";
 
+    /**
+     * Fehler wird geworfen, keine Eingabe bei der Suche.
+     */
+    private final String errorCode113
+            = "Bitte einen Suchbegriff eingeben!";    
+
+    /**
+     * Fehler wird geworfen, keine Eingabe bei der Suche.
+     */
+    private final String errorCode114
+            = "Bitte ein Suchkriterium auswählen";       
+    
+    
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstelltung Fehlerexception bezüglich Aufträge.
@@ -230,7 +256,13 @@ public class MyException extends Exception {
             case 112:
                 fehlerMeldung = errorCode112;
                 break;
-
+            case 113:
+                fehlerMeldung = errorCode113;
+                break;
+            case 114:
+                fehlerMeldung = errorCode114;
+                break;
+                
             //Fehler bezüglich Aufträge         
             case 200:
                 fehlerMeldung = errorCode200;
