@@ -13,13 +13,12 @@
 package Klassen;
 
 import javafx.scene.control.Alert;
-import javafx.stage.StageStyle;
 
 /**
  *
  * @author Andre
  */
-public class MyException extends Exception {
+public class MyException extends RuntimeException {
 
     /**
      * Leerer Konstruktor.
