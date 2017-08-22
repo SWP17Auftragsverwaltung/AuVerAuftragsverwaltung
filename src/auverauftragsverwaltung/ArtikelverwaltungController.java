@@ -367,7 +367,7 @@ public class ArtikelverwaltungController implements Initializable {
     public void setTableContent() throws SQLException {    
         ArtikelDAO ar = new ArtikelDAO();     
         ObservableList<Artikel> artikel 
-                = FXCollections.observableArrayList(ar.gibAlleArtikel());
+                = FXCollections.observableArrayList(ar.gibAlleArtikelOhneLKZ());
         tvArtikel.setItems(artikel);
     } 
     

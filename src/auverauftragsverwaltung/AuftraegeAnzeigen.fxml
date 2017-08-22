@@ -32,6 +32,6 @@
       <Button layoutX="200.0" layoutY="546.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftrag anlegen " />
       <Button layoutX="376.0" layoutY="546.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftrag ändern" />
       <Button fx:id="closeAA" layoutX="885.0" layoutY="546.0" mnemonicParsing="false" onAction="#closeAuftraegeAnzeigen" prefHeight="40.0" prefWidth="160.0" text="Abbrechen " />
-      <Button layoutX="555.0" layoutY="546.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftrag löschen" />
+      <Button fx:id="btLoeschen" layoutX="555.0" layoutY="546.0" mnemonicParsing="false" onAction="#auftragskopfLoeschen" prefHeight="40.0" prefWidth="160.0" text="Auftrag löschen" />
    </children>
 </AnchorPane>

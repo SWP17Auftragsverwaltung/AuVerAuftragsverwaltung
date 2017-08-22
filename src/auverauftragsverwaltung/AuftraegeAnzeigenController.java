@@ -214,5 +214,50 @@ public class AuftraegeAnzeigenController implements Initializable {
                     ak.gibAlleAuftragskoepfeOhneLKZ());
         tvAuftragskopf.setItems(auftragskopf);
     }
+    
+    
+    
+        /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Sucht nach allen Adressen mit aktivem LKZ und stellt sie in der Tabelle
+     * dar.
+     *
+     * @throws java.sql.SQLException SQL Exception
+    */
+    public void alleMitLKZ() throws SQLException {
+        AuftragskopfDAO ak = new AuftragskopfDAO();
+        ObservableList<Auftragskopf> adressen
+                = FXCollections.observableArrayList(
+                        ak.gibAlleAuftragskoepfeMitLKZ());
+        tvAuftragskopf.setItems(adressen);
+    }
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * "Löscht" eine markierte Adresse, in dem das LKZ auf J gesetzt wird.
+     * Aktualisiert anschließend die TableView.
+     * @throws java.sql.SQLException SQL Exception
+     */
+    @FXML
+    public void auftragskopfLoeschen() throws SQLException {
+        Object auftragskopf = 
+                tvAuftragskopf.getSelectionModel().getSelectedItem();
+        Auftragskopf b = (Auftragskopf) auftragskopf;
+
+        AuftragskopfDAO ak = new AuftragskopfDAO();
+        ak.setzeLKZ(b);
+        
+        refreshTable();
+    }
 
 }
