@@ -206,7 +206,8 @@ public class AuftragskopfDAO extends DataAccess {
             con.setAutoCommit(false);
 
             String query
-                    = "UPDATE ROOT.AUFTRAGSKOPF SET LKZ = ? WHERE AUFTRAGSKOPF_ID = ?";
+                    = "UPDATE ROOT.AUFTRAGSKOPF SET LKZ = ? "
+                    + "WHERE AUFTRAGSKOPF_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, "J");

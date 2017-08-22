@@ -370,8 +370,8 @@ public class ZahlungskonditionenDAO extends DataAccess {
             con.commit();
 
             query
-                    = "UPDATE ROOT.ZAHLUNGSKONDITIONEN SET LIEFERZEIT_SOFORT = ? "
-                    + "WHERE ZAHLUNGSKONDITIONS_ID = ?";
+                    = "UPDATE ROOT.ZAHLUNGSKONDITIONEN SET "
+                    + "LIEFERZEIT_SOFORT = ? WHERE ZAHLUNGSKONDITIONS_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, zk.getLieferzeitSOFORT());
@@ -382,7 +382,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
 
             query
                     = "UPDATE ROOT.ZAHLUNGSKONDITIONEN SET "
-                    + "SPERRZEIT_WUNSCH = ? "+ "WHERE ZAHLUNGSKONDITIONS_ID = ?";
+                    + "SPERRZEIT_WUNSCH = ? WHERE ZAHLUNGSKONDITIONS_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, zk.getSperrzeitWUNSCH());

@@ -266,8 +266,8 @@ public class ArtikelDAO extends DataAccess {
         try {
             con.setAutoCommit(false);
 
-            query
-                = "UPDATE ROOT.ARTIKEL SET ARTIKELTEXT = ? WHERE ARTIKEL_ID = ?";
+            query = 
+                "UPDATE ROOT.ARTIKEL SET ARTIKELTEXT = ? WHERE ARTIKEL_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getArtikeltext());
@@ -276,7 +276,8 @@ public class ArtikelDAO extends DataAccess {
             stmt.executeUpdate();
             con.commit();
 
-            query = "UPDATE ROOT.ARTIKEL SET BESTELLTEXT = ? WHERE ARTIKEL_ID = ?";
+            query = 
+                "UPDATE ROOT.ARTIKEL SET BESTELLTEXT = ? WHERE ARTIKEL_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getBestelltext());
@@ -285,7 +286,8 @@ public class ArtikelDAO extends DataAccess {
             stmt.executeUpdate();
             con.commit();
 
-            query = "UPDATE ROOT.ARTIKEL SET EINZELWERT = ? WHERE ARTIKEL_ID = ?";
+            query = 
+                "UPDATE ROOT.ARTIKEL SET EINZELWERT = ? WHERE ARTIKEL_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getEinzelwert());
@@ -294,8 +296,8 @@ public class ArtikelDAO extends DataAccess {
             stmt.executeUpdate();
             con.commit();
 
-            query 
-                = "UPDATE ROOT.ARTIKEL SET BESTELLWERT = ? WHERE ARTIKEL_ID = ?";
+            query = 
+                "UPDATE ROOT.ARTIKEL SET BESTELLWERT = ? WHERE ARTIKEL_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getBestellwert());
@@ -314,8 +316,9 @@ public class ArtikelDAO extends DataAccess {
             stmt.executeUpdate();
             con.commit();
 
-            query 
-                = "UPDATE ROOT.ARTIKEL SET BESTANDSMENGE_FREI = ? WHERE ARTIKEL_ID = ?";
+            query = 
+                "UPDATE ROOT.ARTIKEL SET BESTANDSMENGE_FREI = ? "
+                + "WHERE ARTIKEL_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getBestandsmengeFrei());
@@ -324,7 +327,9 @@ public class ArtikelDAO extends DataAccess {
             stmt.executeUpdate();
             con.commit();
 
-            query = "UPDATE ROOT.ARTIKEL SET BESTANDSMENGE_RESERVIERT = ? WHERE ARTIKEL_ID = ?";
+            query = 
+                "UPDATE ROOT.ARTIKEL SET BESTANDSMENGE_RESERVIERT = ? "
+                + "WHERE ARTIKEL_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getBestandsmengeReserviert());
@@ -333,7 +338,9 @@ public class ArtikelDAO extends DataAccess {
             stmt.executeUpdate();
             con.commit();
 
-            query = "UPDATE ROOT.ARTIKEL SET BESTANDSMENGE_ZULAUF = ? WHERE ARTIKEL_ID = ?";
+            query = 
+                "UPDATE ROOT.ARTIKEL SET BESTANDSMENGE_ZULAUF = ? "
+                + "WHERE ARTIKEL_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getBestandsmengeZulauf());
@@ -342,7 +349,9 @@ public class ArtikelDAO extends DataAccess {
             stmt.executeUpdate();
             con.commit();
 
-            query = "UPDATE ROOT.ARTIKEL SET BESTANDSMENGE_VERKAUFT = ? WHERE ARTIKEL_ID = ?";
+            query = 
+                "UPDATE ROOT.ARTIKEL SET BESTANDSMENGE_VERKAUFT = ? "
+                + "WHERE ARTIKEL_ID = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getBestandsmengeVerkauft());
@@ -361,7 +370,7 @@ public class ArtikelDAO extends DataAccess {
     }
     
     
-        /*------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
     /* 17.08.17     BER     Erstellt.    
     /*------------------------------------------------------------------------*/
@@ -396,7 +405,7 @@ public class ArtikelDAO extends DataAccess {
     
     
     
-        /*------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
     /* 19.08.17     BER     Erstellt.
     /*------------------------------------------------------------------------*/

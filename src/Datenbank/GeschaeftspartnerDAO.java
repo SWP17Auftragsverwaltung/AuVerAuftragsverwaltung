@@ -103,9 +103,9 @@ public class GeschaeftspartnerDAO extends DataAccess {
 
             con.commit();
             while (rs.next()) {
-                geschaeftspartner = new Geschaeftspartner(rs.getString(1), rs.getString(2),
-                        rs.getString(3), rs.getString(4), rs.getString(5),
-                        rs.getString(6));
+                geschaeftspartner = new Geschaeftspartner(rs.getString(1), 
+                        rs.getString(2), rs.getString(3), rs.getString(4), 
+                        rs.getString(5), rs.getString(6));
 
                 geschaeftspartnerListe.add(geschaeftspartner);
             }
@@ -154,9 +154,9 @@ public class GeschaeftspartnerDAO extends DataAccess {
 
             con.commit();
             while (rs.next()) {
-                geschaeftspartner = new Geschaeftspartner(rs.getString(1), rs.getString(2),
-                        rs.getString(3), rs.getString(4), rs.getString(5),
-                        rs.getString(6));
+                geschaeftspartner = new Geschaeftspartner(rs.getString(1), 
+                        rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getString(5), rs.getString(6));
 
                 geschaeftspartnerListe.add(geschaeftspartner);
             }
@@ -179,6 +179,17 @@ public class GeschaeftspartnerDAO extends DataAccess {
         return geschaeftspartnerListe;
     }
 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Fügt einen Geschäftspartner der Datenbank hinzu.
+     * @param gp Geschäftspartnerobjekt
+     */
     public void fuegeGeschaeftspartnerHinzu(Geschaeftspartner gp) {
         PreparedStatement stmt = null;
         String geschaeftspartnerID = generiereID();
@@ -191,8 +202,9 @@ public class GeschaeftspartnerDAO extends DataAccess {
         try {
             con.setAutoCommit(false);
 
-            String query = "INSERT INTO ROOT.GESCHAEFTSPARTNER (GESCHAEFTSPARTNER_ID, "
-                    + "TYP, ANSCHRIFT_ID, LIEFER_ID, KREDITLIMIT, LKZ)"
+            String query = "INSERT INTO ROOT.GESCHAEFTSPARTNER "
+                    + "(GESCHAEFTSPARTNER_ID, TYP, ANSCHRIFT_ID, "
+                    + "LIEFER_ID, KREDITLIMIT, LKZ)"
                     + "VALUES (?,?,?,?,?,?)";
 
             stmt = con.prepareStatement(query);
@@ -284,13 +296,13 @@ public class GeschaeftspartnerDAO extends DataAccess {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum        Name    Was
+    /* Datum        Name    Was
     /* 17.08.17     BER     Erstellt.     
     /*------------------------------------------------------------------------*/
     /**
      * Setzt Löschkennzeichen bei einer ausgewählten .
      *
-     * @param a Geschäftspartner
+     * @param g Geschäftspartner
      */
     public void setzeLKZ(Geschaeftspartner g) {
 
