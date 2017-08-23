@@ -136,8 +136,8 @@ public class ZahlungskonditionenController implements Initializable {
      * Diese TableView dient der Anzeige der Zahlungskonditionen.
      */
     @FXML
-    private TableView zahlungskonditionenTV = 
-            new TableView<Zahlungskonditionen>();
+    private TableView zahlungskonditionenTV
+            = new TableView<Zahlungskonditionen>();
 
     /**
      * Das ist die Tabellenspalte fuer die KonditionenID.
@@ -233,13 +233,13 @@ public class ZahlungskonditionenController implements Initializable {
      */
     @FXML
     private Button loeschenBT;
-    
+
     /**
      * Zahlungskonditionen-Suchen Button.
      */
     @FXML
     private Button zkSuchenBT;
-    
+
     /**
      * Zahlungskonditionen-Suchen Button.
      */
@@ -282,7 +282,6 @@ public class ZahlungskonditionenController implements Initializable {
      *                     eingefügt
      *
      *------------------------------------------------------------------------*/
-    
     /**
      * Initialisiert die Controller-Klasse.
      *
@@ -293,7 +292,7 @@ public class ZahlungskonditionenController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         try {
-            
+
             setTableContent();
 
         } catch (SQLException ex) {
@@ -378,7 +377,7 @@ public class ZahlungskonditionenController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
-     /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 18.08.17    SAM     Methode erstellt.
      *
     /*------------------------------------------------------------------------*/
@@ -390,7 +389,7 @@ public class ZahlungskonditionenController implements Initializable {
      */
     private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
         tf.setTextFormatter(new TextFormatter<>(change
-            -> {
+                -> {
             return change.getControlNewText().length() <= zahl ? change : null;
         }));
     }
@@ -399,8 +398,8 @@ public class ZahlungskonditionenController implements Initializable {
  /* Datum       Name    Was
     /* 18.08.17    SAM     Methode erstellt.
     /* 20.08.17    GET     Methode überarbeitet.
-    */
-    /*------------------------------------------------------------------------*/
+     */
+ /*------------------------------------------------------------------------*/
     /**
      * Erstellt ein ZahlungskonditionenDAO Objekt und gibt eine
      * Zahlungskonditions ArrayList an eine OberservableList, die dann an die
@@ -416,11 +415,8 @@ public class ZahlungskonditionenController implements Initializable {
         zahlungskonditionenTV.setItems(zahlungskonditionen);
     }
 
-    
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
@@ -441,10 +437,10 @@ public class ZahlungskonditionenController implements Initializable {
     /**
      * Entfernt alle Eingaben in den Textfeldern.
      *
-     * @throws java.sql.SQLException SQL Exception
+     *
      */
     @FXML
-    public void clearTextFields() throws SQLException {
+    public void clearTextFields() {
         tfZahlungskonditionsID.clear();
         cbAuftragsart.valueProperty().set(null);
         tfLieferzeitSOFORT.clear();
@@ -459,7 +455,7 @@ public class ZahlungskonditionenController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
@@ -469,15 +465,15 @@ public class ZahlungskonditionenController implements Initializable {
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
-    public void alleMitLKZ() throws SQLException {    
-        ZahlungskonditionenDAO zk = new ZahlungskonditionenDAO();     
-        ObservableList<Zahlungskonditionen> 
-                zahlungskonditionen = FXCollections.observableArrayList(
-                        zk.gibAlleZahlungskonditionenMitLKZ());
+    public void alleMitLKZ() throws SQLException {
+        ZahlungskonditionenDAO zk = new ZahlungskonditionenDAO();
+        ObservableList<Zahlungskonditionen> zahlungskonditionen = FXCollections.observableArrayList(
+                zk.gibAlleZahlungskonditionenMitLKZ());
         zahlungskonditionenTV.setItems(zahlungskonditionen);
-    }    
+    }
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
@@ -487,30 +483,30 @@ public class ZahlungskonditionenController implements Initializable {
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
-    public void alleOhneLKZ() throws SQLException {    
-        ZahlungskonditionenDAO ad = new ZahlungskonditionenDAO();     
-        ObservableList<Zahlungskonditionen> zahlungskonditionen 
+    public void alleOhneLKZ() throws SQLException {
+        ZahlungskonditionenDAO ad = new ZahlungskonditionenDAO();
+        ObservableList<Zahlungskonditionen> zahlungskonditionen
                 = FXCollections.observableArrayList(
                         ad.gibAlleZahlungskonditionenOhneLKZ());
         zahlungskonditionenTV.setItems(zahlungskonditionen);
-    } 
-    
-    
+    }
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
     /* 20.08.17    GET     Methode fertiggestellt.
-    */
-    /*------------------------------------------------------------------------*/
+     */
+ /*------------------------------------------------------------------------*/
     /**
      * Gibt die unteren Eingabefelder für das Anlegen einer neuer Adresse frei.
+     *
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
     public void zahlungskonditionenAnlegen() throws SQLException {
-        
+
         zahlungskonditionenTV.setMouseTransparent(true);
-        clearTextFields();  
+        clearTextFields();
         this.pane.setDisable(true);
         // Bearbeiten-Button wird ausgeblendet
         this.anlegenBT.setVisible(false);
@@ -523,17 +519,15 @@ public class ZahlungskonditionenController implements Initializable {
 
         ZahlungskonditionenDAO zk = new ZahlungskonditionenDAO();
         this.tfZahlungskonditionsID.setText(zk.generiereID());
-        
-        
-        
+
     }
 
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
     /* 20.08.17    GET     Methode fertiggestellt.
-    */
-    /*------------------------------------------------------------------------*/
+     */
+ /*------------------------------------------------------------------------*/
     /**
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues
      * Zahlungskonditionen Objekt, welches dann über die DAO in die DB
@@ -558,7 +552,7 @@ public class ZahlungskonditionenController implements Initializable {
         String lkz = "N";
         Zahlungskonditionen zahlungskonditionen = new Zahlungskonditionen(
                 zahlungskonditionsID, auftragsart, lieferzeit,
-                sperrzeit, skontozeit1, skontozeit2, skonto1, skonto2, 
+                sperrzeit, skontozeit1, skontozeit2, skonto1, skonto2,
                 mahnzeit1, mahnzeit2, mahnzeit3, lkz);
 
         ZahlungskonditionenDAO ad = new ZahlungskonditionenDAO();
@@ -581,17 +575,17 @@ public class ZahlungskonditionenController implements Initializable {
         this.bearbeitenBT.setDisable(false);
         // Löschen-Button wird deaktiviert
         this.loeschenBT.setDisable(false);
-        
+
         zahlungskonditionenTV.setMouseTransparent(false);
 
     }
 
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
     /* 20.08.17    GET     Methode fertiggestellt.
-    */
-    /*------------------------------------------------------------------------*/
+     */
+ /*------------------------------------------------------------------------*/
     /**
      * "Löscht" eine markierte Adresse, in dem das LKZ auf J gesetzt wird.
      * Aktualisiert anschließend die TableView.
@@ -604,12 +598,22 @@ public class ZahlungskonditionenController implements Initializable {
                 .getSelectedItem();
         Zahlungskonditionen zk = (Zahlungskonditionen) zahlungskonditionen;
 
-        ZahlungskonditionenDAO zkDAO = new ZahlungskonditionenDAO();
-        zkDAO.setzeLKZ(zk);
-        
-        refreshTable();
+        if (!this.tfZahlungskonditionsID.getText().isEmpty()) {
+            Meldung meldung = new Meldung();
+            meldung.loeschenAbfragen();
+
+            if (meldung.antwort()) {
+                ZahlungskonditionenDAO zkDAO = new ZahlungskonditionenDAO();
+                zkDAO.setzeLKZ(zk);
+
+                refreshTable();
+            } else {
+                meldung.schießeFenster();
+                clearTextFields();
+            }
+        }
     }
-    
+
     /*------------------------------------------------------------------------*/
  /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
@@ -623,7 +627,7 @@ public class ZahlungskonditionenController implements Initializable {
         this.pane.setDisable(true);
         // Bearbeiten-Button wird ausgeblendet
         this.anlegenBT.setDisable(true);
-        
+
         // Der Speichern Button wird auf Sichtbar gesetzt.
         this.speichernBT.setVisible(true);
 
@@ -631,17 +635,16 @@ public class ZahlungskonditionenController implements Initializable {
         this.zahlungskonditionendatensatzPane.setText(
                 "Zahlungskonditionendatensatz (Bearbeitungsmodus)");
 
-        
         // Löschen-Button wird deaktiviert
         this.loeschenBT.setDisable(true);
     }
 
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
     /* 20.08.17    GET     Methode fertiggestellt.
-    */
-    /*------------------------------------------------------------------------*/
+     */
+ /*------------------------------------------------------------------------*/
     /**
      * Speichert die gemachten Änderungen in die Datenbank und aktualisiert die
      * View mit den neuen Werten.
@@ -650,7 +653,7 @@ public class ZahlungskonditionenController implements Initializable {
      */
     @FXML
     public void speichereAenderung() throws SQLException {
-        
+
         String zahlungskonditionsID = tfZahlungskonditionsID.getText();
         String auftragsart = cbAuftragsart.getValue();
         String lieferzeit = tfLieferzeitSOFORT.getText();
@@ -662,14 +665,14 @@ public class ZahlungskonditionenController implements Initializable {
         String mahnzeit1 = tfMahnzeit1.getText();
         String mahnzeit2 = tfMahnzeit2.getText();
         String mahnzeit3 = tfMahnzeit3.getText();
-        
+
         String lkz = "N";
-        
+
         Zahlungskonditionen zahlungskonditionen = new Zahlungskonditionen(
                 zahlungskonditionsID, auftragsart, lieferzeit,
-                sperrzeit, skontozeit1, skontozeit2, skonto1, skonto2, 
+                sperrzeit, skontozeit1, skontozeit2, skonto1, skonto2,
                 mahnzeit1, mahnzeit2, mahnzeit3, lkz);
-       
+
         ZahlungskonditionenDAO zkDAO = new ZahlungskonditionenDAO();
         zkDAO.aendereZahlungskonditionen(zahlungskonditionen);
         // Textfeldbereich wird aktiviert
@@ -681,20 +684,17 @@ public class ZahlungskonditionenController implements Initializable {
         //Bearbeitungsmodus des Zahlungskonditionendatensatzes wird aktiviert
         this.zahlungskonditionendatensatzPane.setText(
                 "Zahlungskonditionendatensatz");
-        
+
         this.anlegenBT.setDisable(false);
         this.loeschenBT.setDisable(false);
 
         refreshTable();
     }
-    
-    
 
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 19.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Zeigt die Werte einer ausgewählten Zahlungskondition im unteren Bereich
      * an.
@@ -717,16 +717,15 @@ public class ZahlungskonditionenController implements Initializable {
             this.tfMahnzeit1.setText(b.getMahnzeit1());
             this.tfMahnzeit2.setText(b.getMahnzeit2());
             this.tfMahnzeit3.setText(b.getMahnzeit3());
-        }  
+        }
     }
 
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 18.08.17    SAM     Methode erstellt.
     /* 20.08.17    GET     Methode fertiggestellt.
-    */
-    /*------------------------------------------------------------------------*/
-    
+     */
+ /*------------------------------------------------------------------------*/
     /**
      * Methode bekommt eine ArrayList mit den gefundenen Zahlungskonditionen
      * übergeben und aktualisiert damit die TableView.
@@ -739,48 +738,93 @@ public class ZahlungskonditionenController implements Initializable {
             ArrayList zahlungskonditionen) throws SQLException {
         refreshTable();
         ObservableList<Zahlungskonditionen> zahlungskonditionsAusgabe
-            = FXCollections.observableArrayList(zahlungskonditionen);
+                = FXCollections.observableArrayList(zahlungskonditionen);
         zahlungskonditionenTV.setItems(zahlungskonditionsAusgabe);
-    } 
-    
+    }
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
     /* 20.08.17    GET     Methode fertiggestellt.
-    */
-    /*------------------------------------------------------------------------*/
-        /**
-         * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
-         *
-         * @throws java.sql.SQLException SQLException
-         */
+     */
+ /*------------------------------------------------------------------------*/
+    /**
+     * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+     *
+     * @throws java.sql.SQLException SQLException
+     */
     @FXML
     public void zahlungskonditionenSuchen() throws SQLException {
         SucheDAO zk = new SucheDAO();
         ArrayList gefundeneZahlungskonditionen;
-        
+
         String suchkriterium = cbSuchfeld.getValue();
         String suchbegriff = tfSuchbegriff.getText();
-        
+
         gefundeneZahlungskonditionen = zk.zahlungskonditionSuche(
                 suchkriterium, suchbegriff);
         zeigeGefundeneZahlungskonditionen(gefundeneZahlungskonditionen);
     }
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 20.08.17    GET     Methode erstellt.
-    */
-    /*------------------------------------------------------------------------*/
-    
+     */
+ /*------------------------------------------------------------------------*/
     /**
      * Setzt die Suche zurück.
+     *
      * @throws java.sql.SQLException SQLException
-    */        
+     */
     @FXML
     public void setzeSucheZurueck() throws SQLException {
         tfSuchbegriff.setText("");
         setTableContent();
-    } 
-    
+    }
+
+    @FXML
+    public void aktionAbbrechen() {
+
+        if (!this.tfZahlungskonditionsID.getText().isEmpty()) {
+            Meldung meldung = new Meldung();
+            meldung.verwerfenFenster();
+            if (!(this.tfZahlungskonditionsID.getText().isEmpty())) {
+
+                if (meldung.antwort()) {
+
+                    // Textfeldbereich wird aktiviert
+                    this.pane.setDisable(false);
+                    // Bearbeiten-Button wird ausgeblendet
+                    this.anlegenBT.setVisible(true);
+                    // Speichern-Button wird eingeblendet
+
+                    // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
+                    this.zahlungskonditionendatensatzPane.setText("Adressdatensatz");
+
+                    // Anlegen-Button wird deaktiviert
+                    this.bearbeitenBT.setDisable(false);
+
+                    this.bearbeitenBT.setVisible(true);
+
+                    this.speichernBT.setVisible(false);
+
+                    this.anlegenBT.setDisable(false);
+                    // Löschen-Button wird deaktiviert
+                    this.loeschenBT.setDisable(false);
+
+                    this.hinzufuegenZahlungskonditionenBT.setVisible(false);
+
+                    this.zahlungskonditionenTV.setMouseTransparent(false);
+
+                    clearTextFields();
+
+                } else {
+
+                    meldung.schießeFenster();
+
+                }
+            }
+        }
+    }
+
 }

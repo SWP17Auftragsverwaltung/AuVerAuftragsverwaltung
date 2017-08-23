@@ -42,7 +42,7 @@
                   <Button fx:id="bearbeitenBT" layoutX="132.0" layoutY="172.0" mnemonicParsing="false" onAction="#bearbeiteAdresse" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
                   <Button fx:id="anlegenBT" layoutX="24.0" layoutY="172.0" mnemonicParsing="false" onAction="#adresseAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
                   <Button fx:id="loeschenBT" layoutX="242.0" layoutY="172.0" mnemonicParsing="false" onAction="#adresseLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
-                  <Button fx:id="closeAW" layoutX="353.0" layoutY="172.0" mnemonicParsing="false" onAction="#closeAdressverwaltung" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
+                  <Button fx:id="closeAW" layoutX="881.0" layoutY="172.0" mnemonicParsing="false" onAction="#closeAdressverwaltung" prefHeight="40.0" prefWidth="100.0" text="Zurück" AnchorPane.rightAnchor="35.0" />
                   <Label layoutX="24.0" layoutY="20.0" text="Anschrift-ID" />
                   <TextField fx:id="tf_anschriftID" editable="false" layoutX="24.0" layoutY="38.0" prefHeight="25.0" prefWidth="100.0" />
                   <Label layoutX="136.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" text="Anrede" />
@@ -70,6 +70,7 @@
                   <Pane fx:id="pane" layoutX="14.0" layoutY="15.0" prefHeight="123.0" prefWidth="982.0" />
                   <Button fx:id="speichernBT" layoutX="132.0" layoutY="172.0" mnemonicParsing="false" onAction="#speichereAenderung" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
                   <Button fx:id="hinzufuegenAdresseBT" layoutX="24.0" layoutY="172.0" mnemonicParsing="false" onAction="#adresseHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
+                  <Button fx:id="abbrechenBT" layoutX="354.0" layoutY="172.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
                   
                </children>
             </AnchorPane>

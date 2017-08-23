@@ -61,13 +61,13 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      * Anschrift-ID des Geschäftspartners.
      */
     @FXML
-    private TextField tf_anschriftID;  
+    private TextField tf_anschriftID;
     /**
      * ComboBox "Suchfeld".
      */
     @FXML
-    private ComboBox<String> cb_suchfeld = new ComboBox();  
-    
+    private ComboBox<String> cb_suchfeld = new ComboBox();
+
     @FXML
     private TextField tf_suchbegriff;
     /**
@@ -77,7 +77,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     private TextField tf_kreditlimit;
     /**
      * PartnerTyp des Geschäftspartners.
-     */   
+     */
     @FXML
     private ComboBox<String> cb_partnerTyp = new ComboBox();
     /**
@@ -85,64 +85,61 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      */
     @FXML
     private TextField tf_geschaeftspartnerID;
-    
-    
+
     /**
      * Tabellenspalte "GeschäftspartnerID".
      */
     @FXML
     private TableColumn<Geschaeftspartner, String> gpID;
-     
+
     /**
      * Tabellenspalte "Typ".
-     */    
+     */
     @FXML
     private TableColumn<Geschaeftspartner, String> gpTyp;
-    
+
     /**
      * Tabellenspalte "AdresseID".
      */
     @FXML
     private TableColumn<Geschaeftspartner, String> adressID;
-    
+
     /**
      * Tabellenspalte "LieferID".
      */
     @FXML
     private TableColumn<Geschaeftspartner, String> liefID;
-    
+
     /**
      * Tabellenspalte "Kreditlimit".
      */
     @FXML
     private TableColumn<Geschaeftspartner, String> kredLimit;
-    
+
 //    @FXML
 //    private AnchorPane tf_partnerID;
 //    
     @FXML
     private Pane pane;
-    
+
     @FXML
     private Button hinzufuegenBT;
-    
+
     @FXML
     private Button anlegenBT;
-    
+
     @FXML
     private Button bearbeitenBT;
-    
+
     @FXML
     private Button speichernBT;
-    
+
     @FXML
     private Button loeschenBT;
-    
+
     @FXML
     private TitledPane datensatzTP;
-    
-    
-    
+
     /**
      * Geschäftspartnertabelle.
      */
@@ -177,7 +174,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
             Logger.getLogger(AdressverwaltungController.class.getName()).log(
                     Level.SEVERE, null, ex);
         }
-                
+
         //Die Geschäftspartner-ID enthält max. 6 Zeichen.        
         begrenzeTextFeldEingabe(tf_geschaeftspartnerID, 6);
         //Die Anschrift-ID enthält max. 6 Zeichen.
@@ -186,7 +183,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         begrenzeTextFeldEingabe(tf_lieferID, 6);
         //Das Kreditlimit enthält max. 6 Zeichen.
         begrenzeTextFeldEingabe(tf_kreditlimit, 6);
-        
+
         gpID.setCellValueFactory(
                 new PropertyValueFactory<>("geschaeftspartnerID"));
         gpTyp.setCellValueFactory(new PropertyValueFactory<>("typ"));
@@ -194,14 +191,14 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         liefID.setCellValueFactory(new PropertyValueFactory<>("lieferID"));
         kredLimit.setCellValueFactory(
                 new PropertyValueFactory<>("kreditlimit"));
-        
+
         cb_suchfeld.getItems().addAll(
                 "Geschaeftspartner-ID",
                 "Geschäftspartner-Typ",
                 "Anschrift-ID",
                 "Liefer-ID",
                 "Kreditlimit");
-        
+
         cb_partnerTyp.getItems().addAll("K", "L");
     }
 
@@ -215,102 +212,103 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
 
         tf.setTextFormatter(new TextFormatter<>(change
-            -> change.getControlNewText().length() <= zahl
+                -> change.getControlNewText().length() <= zahl
                         ? change : null));
     }
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 14.08.17    HEN     Methode erstellt.
     /* 17.08.17    CEL     Methoden "alleOhneLKZ" & "alleMitLKZ" hinzugefügt.
-    */
-    /*------------------------------------------------------------------------*/
-    
+     */
+ /*------------------------------------------------------------------------*/
     /**
      * Erstellt ein GeschäftspartnerDAO Objekt, gibt eine GP ArrayList an eine
      * OberservableList, die dann an die TableView übergeben wird.
+     *
      * @throws java.sql.SQLException SQL Exception
      */
-    public void setTableContent() throws SQLException {    
-        GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();     
-        ObservableList<Geschaeftspartner> geschaeftspartner 
-                = FXCollections.observableArrayList(
-                        gp.gibAlleGeschaeftspartnerOhneLKZ());
-        gpTable.setItems(geschaeftspartner);
-    }    
-    
-    /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 17.08.17    CEL     Methode erstellt.
-    /*------------------------------------------------------------------------*/
-    
-    /**
-     * Sucht nach allen Geschätspartnern mit aktivem LKZ und stellt sie in der Tabelle
-     * dar.
-     * @throws java.sql.SQLException SQL Exception
-     */ 
-    public void alleOhneLKZ() throws SQLException {    
-        GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();     
-        ObservableList<Geschaeftspartner> geschaeftspartner 
+    public void setTableContent() throws SQLException {
+        GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();
+        ObservableList<Geschaeftspartner> geschaeftspartner
                 = FXCollections.observableArrayList(
                         gp.gibAlleGeschaeftspartnerOhneLKZ());
         gpTable.setItems(geschaeftspartner);
     }
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
+    /* 17.08.17    CEL     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    /**
+     * Sucht nach allen Geschätspartnern mit aktivem LKZ und stellt sie in der
+     * Tabelle dar.
+     *
+     * @throws java.sql.SQLException SQL Exception
+     */
+    public void alleOhneLKZ() throws SQLException {
+        GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();
+        ObservableList<Geschaeftspartner> geschaeftspartner
+                = FXCollections.observableArrayList(
+                        gp.gibAlleGeschaeftspartnerOhneLKZ());
+        gpTable.setItems(geschaeftspartner);
+    }
+
+    /*------------------------------------------------------------------------*/
+ /* Datum       Name    Was
     /* 15.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
-     /**
-     * Sucht nach allen Geschätspartnern mit aktivem LKZ und stellt sie in der Tabelle
-     * dar.
+    /**
+     * Sucht nach allen Geschätspartnern mit aktivem LKZ und stellt sie in der
+     * Tabelle dar.
+     *
      * @throws java.sql.SQLException SQL Exception
-     */ 
-    public void alleMitLKZ() throws SQLException {    
-        GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();     
-        ObservableList<Geschaeftspartner> geschaeftspartner 
+     */
+    public void alleMitLKZ() throws SQLException {
+        GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();
+        ObservableList<Geschaeftspartner> geschaeftspartner
                 = FXCollections.observableArrayList(
                         gp.gibAlleGeschaeftspartnerMitLKZ());
         gpTable.setItems(geschaeftspartner);
     }
-    
-    
+
     /**
-     * Ermöglicht das Eingeben des Datensatzes für das Hinzufügen eines 
+     * Ermöglicht das Eingeben des Datensatzes für das Hinzufügen eines
      * Geschäftspartners.
-     * @throws SQLException 
+     *
+     * @throws SQLException
      */
-    public void geschaeftspartnerAnlegen() throws SQLException{
-        
+    public void geschaeftspartnerAnlegen() throws SQLException {
+
         gpTable.setMouseTransparent(true);
         clearTextFields();
-        
+
         this.pane.setDisable(true);
-        
+
         this.anlegenBT.setVisible(false);
-        
+
         this.hinzufuegenBT.setVisible(true);
-        
+
         this.datensatzTP.setText("Geschäftspartnerdatensatz (Anlegemodus)");
-        
+
         this.bearbeitenBT.setDisable(true);
-        
+
         this.loeschenBT.setDisable(true);
-        
+
         GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
         this.tf_geschaeftspartnerID.setText(gpDAO.generiereID());
 
     }
-    
-    
+
     /**
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues
-     * Geschätspartner Objekt, welches dann über die DAO in die DB geschrieben wird.
+     * Geschätspartner Objekt, welches dann über die DAO in die DB geschrieben
+     * wird.
+     *
      * @throws java.sql.SQLException SQL Exception
      */
     public void geschaeftspartnerHinzufuegen() throws SQLException {
-        
+
         String geschaeftspartnerID = tf_geschaeftspartnerID.getText();
         String typ = cb_partnerTyp.getValue();
         String adresseID = tf_anschriftID.getText();
@@ -320,61 +318,60 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         Geschaeftspartner geschaeftspartner = new Geschaeftspartner(
                 geschaeftspartnerID, typ, adresseID, lieferID,
                 kreditlimit, lkz);
-        
+
         GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
         gpDAO.fuegeGeschaeftspartnerHinzu(geschaeftspartner);
-        
+
         clearTextFields();
         refreshTable();
-        
+
         // Textfeldbereich wird aktiviert
         this.pane.setDisable(false);
         // Bearbeiten-Button wird ausgeblendet
         this.anlegenBT.setVisible(true);
         // Speichern-Button wird eingeblendet
-        this.hinzufuegenBT.setVisible(false);   
+        this.hinzufuegenBT.setVisible(false);
         // Der Anlegemodus wird dektiviert
-        this.datensatzTP.setText("Geschäftspartnerdatensatz");    
+        this.datensatzTP.setText("Geschäftspartnerdatensatz");
         // Anlegen-Button wird deaktiviert
-        this.bearbeitenBT.setDisable(false);     
+        this.bearbeitenBT.setDisable(false);
         // Löschen-Button wird deaktiviert
         this.loeschenBT.setDisable(false);
         gpTable.setMouseTransparent(false);
-        
-        
+
     }
-    
+
     /**
      * Löscht alle Eingaben in den Textfeldern.
-     * @throws java.sql.SQLException SQL Exception
-    */
-    public void clearTextFields() throws SQLException {
-        
+     */
+    public void clearTextFields() {
+
         this.tf_geschaeftspartnerID.clear();
         this.cb_partnerTyp.setValue("Bitte wählen...");
         this.tf_anschriftID.clear();
         this.tf_lieferID.clear();
         this.tf_kreditlimit.clear();
-        
+
     }
-    
-     /**
+
+    /**
      * Aktualisiert die TableView mit aktuellem Inhalt.
+     *
      * @throws java.sql.SQLException SQL Exception
-    */
+     */
     public void refreshTable() throws SQLException {
         this.gpTable.getItems().clear();
         setTableContent();
     }
-    
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 18.08.17    CEL     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
-     * "Löscht" einen markierten Geschäftspartner, in dem das LKZ auf J gesetzt wird.
+     * "Löscht" einen markierten Geschäftspartner, in dem das LKZ auf J gesetzt
+     * wird.
+     *
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
@@ -383,112 +380,167 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         Object geschaeftspartner = gpTable.getSelectionModel().getSelectedItem();
         Geschaeftspartner g = (Geschaeftspartner) geschaeftspartner;
 
-        GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();
-        gp.setzeLKZ(g);
-        
-        refreshTable();
+        if (!this.tf_geschaeftspartnerID.getText().isEmpty()) {
+            Meldung meldung = new Meldung();
+            meldung.loeschenAbfragen();
+
+            if (meldung.antwort()) {
+                GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();
+                gp.setzeLKZ(g);
+
+                refreshTable();
+            } else {
+                meldung.schießeFenster();
+                clearTextFields();
+            }
+        }
     }
-    
+
     @FXML
     public void bearbeiteGeschaeftspartner() throws SQLException {
-        
-        // Textfeldbereich wird aktiviert
-        this.pane.setDisable(true);
-        // Bearbeiten-Button wird ausgeblendet
-        this.bearbeitenBT.setVisible(false);
-        // Speichern-Button wird eingeblendet
-        this.speichernBT.setVisible(true);
-        // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-        this.datensatzTP.setText("Geschäftspartnerdatensatz"
-                + " (Bearbeitungsmodus)");
-        // Anlegen-Button wird deaktiviert
-        this.anlegenBT.setDisable(true);
-        // Löschen-Button wird deaktiviert
-        this.loeschenBT.setDisable(true);
+
+        if (!this.tf_geschaeftspartnerID.getText().isEmpty()) {
+            // Textfeldbereich wird aktiviert
+            this.pane.setDisable(true);
+            // Bearbeiten-Button wird ausgeblendet
+            this.bearbeitenBT.setVisible(false);
+            // Speichern-Button wird eingeblendet
+            this.speichernBT.setVisible(true);
+            // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
+            this.datensatzTP.setText("Geschäftspartnerdatensatz"
+                    + " (Bearbeitungsmodus)");
+            // Anlegen-Button wird deaktiviert
+            this.anlegenBT.setDisable(true);
+            // Löschen-Button wird deaktiviert
+            this.loeschenBT.setDisable(true);
+
+        }
     }
-    
+
     @FXML
     public void speichereAenderung() throws SQLException {
-        
+
         String geschaeftspartnerID = this.tf_geschaeftspartnerID.getText();
         String typ = this.cb_partnerTyp.getValue();
         String anschriftID = this.tf_anschriftID.getText();
         String lieferID = this.tf_lieferID.getText();
         String kreditlimit = this.tf_kreditlimit.getText();
         String lkz = "N";
-        
-        Geschaeftspartner gp = new Geschaeftspartner(geschaeftspartnerID, typ
-                        , anschriftID, lieferID, kreditlimit, lkz);
-        
+
+        Geschaeftspartner gp = new Geschaeftspartner(geschaeftspartnerID, typ, anschriftID, lieferID, kreditlimit, lkz);
+
         GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
         gpDAO.aendernGeschaeftspartner(gp);
-        
+
         refreshTable();
-        
+
         // Textfeldbereich wird deaktivieren
         this.pane.setDisable(false);
         // Bearbeiten-Button wird ausgeblendet
         this.bearbeitenBT.setVisible(true);
         // Speichern-Button wird eingeblendet
-        this.speichernBT.setVisible(false);       
+        this.speichernBT.setVisible(false);
         // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-        this.datensatzTP.setText("Adressdatensatz");       
+        this.datensatzTP.setText("Adressdatensatz");
         // Anlegen-Button wird deaktiviert
-        this.anlegenBT.setDisable(false);       
+        this.anlegenBT.setDisable(false);
         // Löschen-Button wird deaktiviert
         this.loeschenBT.setDisable(false);
 
     }
-    
-     /**
+
+    /**
      * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
-    */      
+     */
     @FXML
     public void zeigeWerteAn() {
         Object geschaeftspartner = gpTable.getSelectionModel().getSelectedItem();
         Geschaeftspartner b = (Geschaeftspartner) geschaeftspartner;
-        
+
         if (b != null) {
             this.tf_geschaeftspartnerID.setText(b.getGeschaeftspartnerID());
             this.cb_partnerTyp.setValue(b.getTyp());
             this.tf_anschriftID.setText(b.getAdresseID());
             this.tf_lieferID.setText(b.getLieferID());
             this.tf_kreditlimit.setText(b.getKreditlimit());
-        }  
+        }
     }
+
     @FXML
     public void geschaeftspartnerSuchen() throws SQLException {
-        
+
         SucheDAO gpDAO = new SucheDAO();
         ArrayList gefundeneGeschaeftspartner;
-        
+
         String suchkriterium = this.cb_suchfeld.getValue();
         String suchbegriff = this.tf_suchbegriff.getText();
-        
+
         gefundeneGeschaeftspartner = gpDAO.geschaeftspartnerSuche(
                 suchkriterium, suchbegriff);
-        
+
         zeigeGefundeneAdressen(gefundeneGeschaeftspartner);
-        
+
     }
-   
+
     /**
-     * 
+     *
      * @param adressen
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void zeigeGefundeneAdressen(ArrayList adressen) throws SQLException {
         refreshTable();
         ObservableList<Geschaeftspartner> adressenAusgabe
-            = FXCollections.observableArrayList(adressen);
+                = FXCollections.observableArrayList(adressen);
         gpTable.setItems(adressenAusgabe);
     }
-    
+
     @FXML
     public void setzeSucheZurueck() throws SQLException {
         this.tf_suchbegriff.setText("");
         this.cb_suchfeld.setValue("Bitte wählen...");
         setTableContent();
-    }  
-    
+    }
+
+    @FXML
+    public void aktionAbbrechen() {
+
+        if (!this.tf_geschaeftspartnerID.getText().isEmpty()) {
+            Meldung meldung = new Meldung();
+            meldung.verwerfenFenster();
+
+            if (meldung.antwort()) {
+
+                // Textfeldbereich wird aktiviert
+                this.pane.setDisable(false);
+                // Bearbeiten-Button wird ausgeblendet
+                this.anlegenBT.setVisible(true);
+                // Speichern-Button wird eingeblendet
+
+                // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
+                this.datensatzTP.setText("Adressdatensatz");
+
+                // Anlegen-Button wird deaktiviert
+                this.bearbeitenBT.setDisable(false);
+
+                this.bearbeitenBT.setVisible(true);
+
+                this.speichernBT.setVisible(false);
+
+                this.anlegenBT.setDisable(false);
+                // Löschen-Button wird deaktiviert
+                this.loeschenBT.setDisable(false);
+
+                this.hinzufuegenBT.setVisible(false);
+                gpTable.setMouseTransparent(false);
+
+                clearTextFields();
+            } else {
+
+                meldung.schießeFenster();
+
+            }
+
+        }
+    }
+
 }

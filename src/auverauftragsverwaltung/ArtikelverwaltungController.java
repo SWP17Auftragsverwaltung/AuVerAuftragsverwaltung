@@ -15,7 +15,6 @@
  */
 package auverauftragsverwaltung;
 
-
 import Datenbank.ArtikelDAO;
 import Datenbank.SucheDAO;
 import Klassen.Artikel;
@@ -47,161 +46,162 @@ import javafx.stage.StageStyle;
  * @author Mudimbi
  */
 public class ArtikelverwaltungController implements Initializable {
+
     /**
      * Abbrechen-Button der Artikelverwaltung.
      */
     @FXML
     private Button closeArW;
-     /**
+    /**
      * Textfeld "MaterialNr".
      */
     @FXML
     private TextField tfMaterialNr;
-    
+
     /**
      * Textfeld "Artikelbeschreibung".
      */
     @FXML
     private TextArea tfArtikelbeschreibung;
-    
+
     /**
      * Textfeld "Bestellbeschreibung".
      */
     @FXML
     private TextArea tfBestellbeschreibung;
-    
+
     /**
      * Textfeld "Bestand Frei".
      */
     @FXML
     private TextField tfBestandFrei;
-    
+
     /**
      * Textfeld "Bestand Reserviert".
      */
     @FXML
     private TextField tfBestandReserviert;
-    
+
     /**
      * Textfeld "Bestand Zulauf".
      */
     @FXML
     private TextField tfBestandZulauf;
-    
+
     /**
      * Textfeld "Bestand Verkauf".
      */
     @FXML
     private TextField tfBestandVerkauft;
-    
+
     /**
      * Textfeld "Suchbegriff".
      */
     @FXML
     private TextField tfSuchbegriff;
-    
+
     /**
      * Textfeld "Einzelwert".
      */
     @FXML
     private TextField tfEinzelwert;
-    
+
     /**
      * Textfeld "Bestellwert".
      */
     @FXML
     private TextField tfBestellwert;
-    
+
     /**
      * Artikeltabelle.
      */
     @FXML
     private TableView tvArtikel = new TableView<>();
 
-     /**
+    /**
      * ComboBox "Suchfeld".
      */
     @FXML
     private ComboBox<String> cbSuchfeld = new ComboBox();
-    
-     /**
+
+    /**
      * ComboBox "MwSt. Satz".
      */
     @FXML
     private ComboBox<String> cbMwstsatz = new ComboBox();
-    
-     /**
+
+    /**
      * Tabellenspalte "MaterialNr".
      */
     @FXML
     private TableColumn<Artikel, String> tcMaterialNr;
-    
-     /**
+
+    /**
      * Tabellenspalte "Artikelbeschreibung".
      */
     @FXML
     private TableColumn<Artikel, String> tcArtikelbeschreibung;
-    
-     /**
+
+    /**
      * Tabellenspalte "Einzelwert".
      */
     @FXML
     private TableColumn<Artikel, String> tcEinzelwert;
-    
-     /**
+
+    /**
      * Tabellenspalte "Bestellbeschreibung".
      */
     @FXML
     private TableColumn<Artikel, String> tcBestellbeschreibung;
-    
-     /**
+
+    /**
      * Tabellenspalte "Bestellwert".
      */
     @FXML
     private TableColumn<Artikel, String> tcBestellwert;
-    
-     /**
+
+    /**
      * Tabellenspalte "MwSt. Satz".
      */
     @FXML
     private TableColumn<Artikel, String> tcMwstsatz;
-    
-     /**
+
+    /**
      * Tabellenspalte "Bestand Frei".
      */
     @FXML
     private TableColumn<Artikel, String> tcBestandFrei;
-    
-     /**
+
+    /**
      * Tabellenspalte "Bestand Reserviert".
      */
     @FXML
     private TableColumn<Artikel, String> tcBestandReserviert;
-    
-     /**
+
+    /**
      * Tabellenspalte "Bestand Zulauf".
      */
     @FXML
     private TableColumn<Artikel, String> tcBestandZulauf;
-    
-     /**
+
+    /**
      * Tabellenspalte "Bestand Verkauft".
      */
     @FXML
     private TableColumn<Artikel, String> tcBestandVerkauft;
-    
+
     /**
      * Tabellenspalte "Bestand Verkauft".
      */
     @FXML
     private Pane pane;
-    
+
     /**
      * Button "Anlegen".
      */
     @FXML
     private Button btAnlegen;
-    
+
     /**
      * Button "Speichern".
      */
@@ -219,18 +219,19 @@ public class ArtikelverwaltungController implements Initializable {
      */
     @FXML
     private Button btBearbeiten;
-         
+
     /**
      * Button "Löschen".
      */
     @FXML
     private Button btLoeschen;
-       
+
     /**
      * Tabellenspalte "Bestand Verkauft".
      */
     @FXML
     private TitledPane artikeldatensatzPane;
+
     /**
      * Methode zum Abbrechen der Artikelverwaltung.
      *
@@ -251,10 +252,10 @@ public class ArtikelverwaltungController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        try {   
+
+        try {
             setTableContent();
-            
+
         } catch (SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -262,10 +263,10 @@ public class ArtikelverwaltungController implements Initializable {
             alert.setHeaderText("Keine Adressen gefunden!");
             alert.showAndWait();
         }
-       
+
         //  MaterialNr auf 6 Zeichen begrenzt
         begrenzeTextFeldEingabe(tfMaterialNr, 6);
-        
+
         //  Artikelbeschreibung auf 250 Zeichen begrenzt
         begrenzeTextAreaEingabe(tfArtikelbeschreibung, 250);
 
@@ -277,20 +278,19 @@ public class ArtikelverwaltungController implements Initializable {
 
         // Bestellwert auf 6 Zeichen begrenzt
         begrenzeTextFeldEingabe(tfBestellwert, 6);
-        
+
         // Bestand Frei auf 6 Zeichen begrenzt
         begrenzeTextFeldEingabe(tfBestandFrei, 6);
-        
+
         // Bestand Reserviert auf 6 Zeichen begrenzt
         begrenzeTextFeldEingabe(tfBestandReserviert, 6);
-        
+
         // Bestand Zulauf auf 6 Zeichen begrenzt
         begrenzeTextFeldEingabe(tfBestandZulauf, 6);
-        
+
         // Bestand Verkauft auf 12 Zeichen begrenzt
         begrenzeTextFeldEingabe(tfBestandVerkauft, 12);
-       
-        
+
         tcMaterialNr.setCellValueFactory(
                 new PropertyValueFactory<>("artikelID"));
         tcEinzelwert.setCellValueFactory(
@@ -310,10 +310,10 @@ public class ArtikelverwaltungController implements Initializable {
         tcBestandZulauf.setCellValueFactory(
                 new PropertyValueFactory<>("bestandsmengeZulauf"));
         tcBestandVerkauft.setCellValueFactory(
-                new PropertyValueFactory<>("bestandsmengeVerkauft"));     
-        
+                new PropertyValueFactory<>("bestandsmengeVerkauft"));
+
         cbMwstsatz.getItems().addAll("0", "7", "19");
-        
+
         cbSuchfeld.getItems().addAll(
                 "MaterialNr",
                 "Artikelbeschreibung",
@@ -326,21 +326,20 @@ public class ArtikelverwaltungController implements Initializable {
                 "Bestand Zulauf",
                 "Bestand Verkauft");
 
- 
     }
 
     /**
-     * 
+     *
      * @param tf Textfeld
      * @param zahl Länge des Feldes
      */
     private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
         tf.setTextFormatter(new TextFormatter<>(change
-            -> change.getControlNewText().length() <= zahl ? change : null));
+                -> change.getControlNewText().length() <= zahl ? change : null));
     }
 
     /**
-     * 
+     *
      * @param ta Textarea.
      * @param zahl Länge der Textarea
      */
@@ -348,73 +347,68 @@ public class ArtikelverwaltungController implements Initializable {
         // Zeilenumbruch im TextArea Feld
         ta.setWrapText(true);
         ta.setTextFormatter(new TextFormatter<>(change
-            -> change.getControlNewText().length() <= zahl ? change : null));
+                -> change.getControlNewText().length() <= zahl ? change : null));
     }
-    
-    
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 14.08.17    HEN     ObservableArrayList hinzugefügt
     /*------------------------------------------------------------------------*/
-    
     /**
      * Erstellt ein ArtikelDAO Objekt und gibt eine Artikel ArrayList an eine
      * OberservableList, die dann an die TableView übergeben wird.
+     *
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
-    public void setTableContent() throws SQLException {    
-        ArtikelDAO ar = new ArtikelDAO();     
-        ObservableList<Artikel> artikel 
+    public void setTableContent() throws SQLException {
+        ArtikelDAO ar = new ArtikelDAO();
+        ObservableList<Artikel> artikel
                 = FXCollections.observableArrayList(ar.gibAlleArtikelOhneLKZ());
         tvArtikel.setItems(artikel);
-    } 
-    
-    
-        /**
+    }
+
+    /**
      * Methode bekommt eine ArrayList mit den gefundenen Adressen übergeben und
      * aktualisiert damit die TableView.
+     *
      * @param artikel Übergebene Adresse.
      * @throws java.sql.SQLException SQL Exception
-    */
+     */
     public void zeigeGefundeneArtikel(ArrayList artikel) throws SQLException {
         refreshTable();
         ObservableList<Artikel> artikelAusgabe
-            = FXCollections.observableArrayList(artikel);
+                = FXCollections.observableArrayList(artikel);
         tvArtikel.setItems(artikelAusgabe);
-    } 
-    
-    
-    
+    }
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Aktualisiert die TableView mit aktuellem Inhalt.
+     *
      * @throws java.sql.SQLException SQL Exception
-    */
+     */
     @FXML
     public void refreshTable() throws SQLException {
         tvArtikel.getItems().clear();
         setTableContent();
     }
-    
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Löscht alle Eingaben in den Textfeldern.
+     *
      * @throws java.sql.SQLException SQL Exception
-    */
+     */
     @FXML
-    public void clearTextFields() throws SQLException {
-        
+    public void clearTextFields() {
+
         tfMaterialNr.clear();
         tfEinzelwert.clear();
         tfArtikelbeschreibung.clear();
@@ -426,86 +420,83 @@ public class ArtikelverwaltungController implements Initializable {
         tfBestandVerkauft.clear();
         cbMwstsatz.valueProperty().set(null);
     }
-    
-    
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 15.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
-     /**
+    /**
      * Sucht nach allen Artikeln mit aktivem LKZ und stellt sie in der Tabelle
      * dar.
+     *
      * @throws java.sql.SQLException SQL Exception
-     */ 
-    public void alleMitLKZ() throws SQLException {    
-        ArtikelDAO ar = new ArtikelDAO();     
-        ObservableList<Artikel> artikel 
+     */
+    public void alleMitLKZ() throws SQLException {
+        ArtikelDAO ar = new ArtikelDAO();
+        ObservableList<Artikel> artikel
                 = FXCollections.observableArrayList(
                         ar.gibAlleArtikelMitLKZ());
         tvArtikel.setItems(artikel);
     }
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 15.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
-     /**
+    /**
      * Sucht nach allen Artikeln mit aktivem LKZ und stellt sie in der Tabelle
      * dar.
+     *
      * @throws java.sql.SQLException SQL Exception
-     */ 
-    public void alleOhneLKZ() throws SQLException {    
-        ArtikelDAO ar = new ArtikelDAO();     
-        ObservableList<Artikel> artikel 
+     */
+    public void alleOhneLKZ() throws SQLException {
+        ArtikelDAO ar = new ArtikelDAO();
+        ObservableList<Artikel> artikel
                 = FXCollections.observableArrayList(
                         ar.gibAlleArtikelOhneLKZ());
         tvArtikel.setItems(artikel);
     }
-    
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Gibt die unteren Eingabefelder für das Anlegen einer neuer Adresse frei.
+     *
      * @throws java.sql.SQLException SQLException
-    */    
+     */
     @FXML
     public void artikelAnlegen() throws SQLException {
         tvArtikel.setMouseTransparent(true);
-        clearTextFields();   
+        clearTextFields();
 
         // Textfeldbereich wird aktiviert
         this.pane.setDisable(true);
         // Bearbeiten-Button wird ausgeblendet
         this.btAnlegen.setVisible(false);
         // Speichern-Button wird eingeblendet
-        this.btHinzufuegen.setVisible(true);       
+        this.btHinzufuegen.setVisible(true);
         // Der Anlegemodus des Adressdatensatzes wird aktiviert
         this.artikeldatensatzPane.setText(
-                "Adressdatensatz (Anlegemodus)");       
+                "Adressdatensatz (Anlegemodus)");
         // Anlegen-Button wird deaktiviert
-        this.btBearbeiten.setDisable(true);     
+        this.btBearbeiten.setDisable(true);
         // Löschen-Button wird deaktiviert
         this.btLoeschen.setDisable(true);
-           
+
         ArtikelDAO ar = new ArtikelDAO();
-        tfMaterialNr.setText(ar.generiereID());   
+        tfMaterialNr.setText(ar.generiereID());
     }
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 15.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
-     * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues
-     * Artikel Objekt, welches dann über die DAO in die DB geschrieben wird.
+     * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues Artikel
+     * Objekt, welches dann über die DAO in die DB geschrieben wird.
+     *
      * @throws java.sql.SQLException SQL Exception
      */
     public void artikelHinzufuegen() throws SQLException {
@@ -522,39 +513,37 @@ public class ArtikelverwaltungController implements Initializable {
         String lkz = "N";
         Artikel artikel = new Artikel(artikelID, artikeltext, bestelltext,
                 einzelwert, bestellwert, steuer, bestandsmengeFrei,
-                bestandsmengeReserviert, bestandsmengeZulauf, 
+                bestandsmengeReserviert, bestandsmengeZulauf,
                 bestandsmengeVerkauft, lkz);
-        
+
         ArtikelDAO ar = new ArtikelDAO();
         ar.fuegeArtikelHinzu(artikel);
-        
+
         clearTextFields();
         refreshTable();
-        
-                // Textfeldbereich wird aktiviert
+
+        // Textfeldbereich wird aktiviert
         this.pane.setDisable(false);
         // Bearbeiten-Button wird ausgeblendet
         this.btAnlegen.setVisible(true);
         // Speichern-Button wird eingeblendet
-        this.btHinzufuegen.setVisible(false);   
+        this.btHinzufuegen.setVisible(false);
         // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-        this.artikeldatensatzPane.setText("Artikeldatensatz");    
+        this.artikeldatensatzPane.setText("Artikeldatensatz");
         // Anlegen-Button wird deaktiviert
-        this.btBearbeiten.setDisable(false);     
+        this.btBearbeiten.setDisable(false);
         // Löschen-Button wird deaktiviert
         this.btLoeschen.setDisable(false);
         tvArtikel.setMouseTransparent(false);
     }
-    
-    
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * "Löscht" einen markierten Artikel, in dem das LKZ auf J gesetzt wird.
+     *
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
@@ -563,20 +552,30 @@ public class ArtikelverwaltungController implements Initializable {
         Object artikel = tvArtikel.getSelectionModel().getSelectedItem();
         Artikel b = (Artikel) artikel;
 
-        ArtikelDAO ar = new ArtikelDAO();
-        ar.setzeLKZ(b);
         
-        refreshTable();
+       if (!this.tfMaterialNr.getText().isEmpty()) {  
+        Meldung meldung = new Meldung();
+        meldung.loeschenAbfragen();
+
+        if (meldung.antwort()) {
+            ArtikelDAO ar = new ArtikelDAO();
+            ar.setzeLKZ(b);
+
+            refreshTable();
+        } else {
+            meldung.schießeFenster();
+            clearTextFields();
+        }
+       }
     }
 
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Lässt das Bearbeiten einer ausgewählten Adresse zu.
-    */      
+     */
     @FXML
     public void bearbeiteArtikel() {
         // Textfeldbereich wird aktiviert
@@ -593,21 +592,19 @@ public class ArtikelverwaltungController implements Initializable {
         // Löschen-Button wird deaktiviert
         this.btLoeschen.setDisable(true);
     }
-    
-    
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
-     * Speichert die gemachten Änderungen in die Datenbank und aktualisiert
-     * die View mit den neuen Werten.
+     * Speichert die gemachten Änderungen in die Datenbank und aktualisiert die
+     * View mit den neuen Werten.
+     *
      * @throws java.sql.SQLException SQLException.
-    */      
+     */
     @FXML
-    public void speichereAenderung() throws SQLException {  
+    public void speichereAenderung() throws SQLException {
         String artikelID = tfMaterialNr.getText();
         String einzelwert = tfEinzelwert.getText();
         String artikeltext = tfArtikelbeschreibung.getText();
@@ -621,43 +618,40 @@ public class ArtikelverwaltungController implements Initializable {
         String lkz = "N";
         Artikel artikel = new Artikel(artikelID, artikeltext, bestelltext,
                 einzelwert, bestellwert, steuer, bestandsmengeFrei,
-                bestandsmengeReserviert, bestandsmengeZulauf, 
+                bestandsmengeReserviert, bestandsmengeZulauf,
                 bestandsmengeVerkauft, lkz);
-       
+
         ArtikelDAO aDAO = new ArtikelDAO();
         aDAO.aendereArtikel(artikel);
-        
+
         refreshTable();
-        
+
         // Textfeldbereich wird deaktivieren
         this.pane.setDisable(false);
         // Bearbeiten-Button wird ausgeblendet
         this.btBearbeiten.setVisible(true);
         // Speichern-Button wird eingeblendet
-        this.btSpeichern.setVisible(false);       
+        this.btSpeichern.setVisible(false);
         // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-        this.artikeldatensatzPane.setText("Artikeldatensatz");       
+        this.artikeldatensatzPane.setText("Artikeldatensatz");
         // Anlegen-Button wird deaktiviert
-        this.btAnlegen.setDisable(false);       
+        this.btAnlegen.setDisable(false);
         // Löschen-Button wird deaktiviert
         this.btLoeschen.setDisable(false);
     }
-    
-    
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
-    */      
+     */
     @FXML
     public void zeigeWerteAn() {
         Object artikel = tvArtikel.getSelectionModel().getSelectedItem();
         Artikel b = (Artikel) artikel;
-        
+
         if (b != null) {
             this.tfMaterialNr.setText(b.getArtikelID());
             this.cbMwstsatz.setValue(b.getSteuer());
@@ -671,46 +665,86 @@ public class ArtikelverwaltungController implements Initializable {
             this.tfBestandVerkauft.setText(b.getBestandsmengeVerkauft());
         }
     }
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 17.08.17    HEN     Methode erstellt.
     /* 18.08.17    BER     IF Fälle ergänzt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+     *
      * @throws java.sql.SQLException SQLException
-    */        
+     */
     @FXML
     public void artikelSuchen() throws SQLException {
         SucheDAO ar = new SucheDAO();
         ArrayList gefundenerArtikel;
-        
+
         String suchkriterium = cbSuchfeld.getValue();
         String suchbegriff = tfSuchbegriff.getText();
-        
+
         gefundenerArtikel = ar.artikelSuche(suchkriterium, suchbegriff);
-        
+
         zeigeGefundeneArtikel(gefundenerArtikel);
-    } 
-    
-    
-    
+    }
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 19.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Setzt die Suche zurück.
+     *
      * @throws java.sql.SQLException SQLException
-    */        
+     */
     @FXML
     public void setzeSucheZurueck() throws SQLException {
         this.tfSuchbegriff.setText("");
         this.cbSuchfeld.setValue("Bitte wählen...");
         setTableContent();
-    } 
-   
+    }
+
+    @FXML
+    public void aktionAbbrechen() {
+
+        if (!this.tfMaterialNr.getText().isEmpty()) {
+            
+            Meldung meldung = new Meldung();
+            meldung.verwerfenFenster();
+
+            if (meldung.antwort()) {
+
+                // Textfeldbereich wird aktiviert
+                this.pane.setDisable(false);
+                // Bearbeiten-Button wird ausgeblendet
+                this.btAnlegen.setVisible(true);
+                // Speichern-Button wird eingeblendet
+
+                // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
+                this.artikeldatensatzPane.setText("Adressdatensatz");
+
+                // Anlegen-Button wird deaktiviert
+                this.btBearbeiten.setDisable(false);
+
+                this.btBearbeiten.setVisible(true);
+
+                this.btSpeichern.setVisible(false);
+
+                this.btAnlegen.setDisable(false);
+                // Löschen-Button wird deaktiviert
+                this.btLoeschen.setDisable(false);
+
+                this.btHinzufuegen.setVisible(false);
+
+                this.tvArtikel.setMouseTransparent(false);
+
+                clearTextFields();
+            } else {
+
+                meldung.schießeFenster();
+
+            }
+        }
+    }
 }

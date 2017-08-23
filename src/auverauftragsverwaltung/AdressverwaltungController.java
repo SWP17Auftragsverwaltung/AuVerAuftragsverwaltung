@@ -13,7 +13,7 @@
 * 17.08.2017    GET     adresseAnlegen(), bearbeiteAdresse(), speichere
                         Aenderung(), zeigeWerte() erstellt.     
 *-------------------------------------------------------------------------------
-*/
+ */
 package auverauftragsverwaltung;
 
 import Datenbank.AdresseDAO;
@@ -29,7 +29,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -47,92 +49,90 @@ import javafx.stage.StageStyle;
  */
 public class AdressverwaltungController implements Initializable {
 
-    
-    
     /**
      * Der Abbrechen-Button in der Adressverwaltung.
      */
     @FXML
     private Button closeAW;
-    
+
     /**
      * Textfeld für die Eingabe des Namens.
      */
     @FXML
     private TextField tf_name;
-    
+
     /**
      * Textfeld für die Eingabe des Vornamens.
      */
     @FXML
     private TextField tf_vorname;
-    
+
     /**
      * Textfeld für die Eingabe der Telefonnummer.
      */
     @FXML
     private TextField tf_telefon;
-    
+
     /**
      * Textfeld für die Eingabe der Emailadresse.
      */
     @FXML
     private TextField tf_email;
-    
+
     /**
      * Textfeld für die Eingabe der Strasse.
      */
     @FXML
     private TextField tf_strasse;
-    
+
     /**
      * Textfeld für die Eingabe der Hausnummer.
      */
     @FXML
     private TextField tf_hausNr;
-    
+
     /**
      * Textfeld für die Eingabe der Postleitzahl.
      */
     @FXML
     private TextField tf_plz;
-    
+
     /**
      * Textfeld für die Eingabe des Wohnortes.
      */
     @FXML
     private TextField tf_ort;
-    
+
     /**
      * Textfeld für die Eingabe des Staates.
      */
     @FXML
     private TextField tf_staat;
-    
+
     /**
      * Textfeld für die Eingabe des Erfassungsdatums.
      */
     @FXML
     private TextField tf_datum;
-    
+
     /**
      * ComboBox für die Auswahl des Suchkriteriums.
      */
     @FXML
     private ComboBox<String> cb_suchfeld = new ComboBox();
-    
+
     /**
      * Textfeld für die Eingabe des Suchbegriffs.
      */
     @FXML
     private TextField tf_suchbegriff;
-    
+
     /**
      * Textfeld für die Eingabe der AnschriftID.
      */
     @FXML
     private TextField tf_anschriftID;
-    
+
     /**
      * ComboBox für die Auswahl der Anrede.
      */
@@ -144,7 +144,7 @@ public class AdressverwaltungController implements Initializable {
      */
     @FXML
     private TableView adresseTV = new TableView<Adresse>();
-    
+
     /**
      * Tabellenspalte "AnschriftID".
      */
@@ -222,49 +222,49 @@ public class AdressverwaltungController implements Initializable {
      */
     @FXML
     private TableColumn<Adresse, String> LKZ;
-    
+
     /**
      * Unsichtbares Pane, um die Eingabe zu verhindern.
      */
     @FXML
     private Pane pane;
-    
+
     /**
      * Anlegen Button.
      */
     @FXML
     private Button anlegenBT;
-    
+
     /**
      * Speichern Button.
      */
     @FXML
     private Button speichernBT;
-    
+
     /**
      * Bearbeiten Button.
      */
     @FXML
     private Button bearbeitenBT;
-    
+
     /**
      * LöschenButton.
      */
     @FXML
     private Button loeschenBT;
-    
+
     /**
      * ÜberschriftPane für den Eingabebereich.
      */
     @FXML
     private TitledPane adressdatensatzPane;
-    
+
     /**
      * Hinzufügen Button.
      */
     @FXML
     private Button hinzufuegenAdresseBT;
-    
+
     /**
      * Hinzufügen Button.
      */
@@ -272,10 +272,10 @@ public class AdressverwaltungController implements Initializable {
     private Button btZuruecksetzen;
     @FXML
     private Button btSuchen;
-    
 
     /**
      * Methode zum Abbrechen der Adressverwaltung.
+     *
      * @param event ActionEvent welches das Klicken des Buttons "Abbrechen"
      * abfängt.
      */
@@ -286,14 +286,15 @@ public class AdressverwaltungController implements Initializable {
 
     /**
      * Initialisiert die Controller-Klasse.
+     *
      * @param url URL zur initialisierung.
      * @param rb Resourcen die geladen werden sollen.
-    */
+     */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {       
-        try {   
+    public void initialize(URL url, ResourceBundle rb) {
+        try {
             setTableContent();
-            
+
         } catch (SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -301,7 +302,7 @@ public class AdressverwaltungController implements Initializable {
             alert.setHeaderText("Keine Adressen gefunden!");
             alert.showAndWait();
         }
-        
+
         // Name auf 20 Zeichen begrenzt
         begrenzeTextFeldEingabe(tf_name, 20);
 
@@ -381,87 +382,78 @@ public class AdressverwaltungController implements Initializable {
                 "Email",
                 "ErfDatum");
 
-        cb_anrede.getItems().addAll("Herr", "Frau");  
+        cb_anrede.getItems().addAll("Herr", "Frau");
     }
 
-    
-    
     /**
      * Begrenzte Feldeingabe.
+     *
      * @param tf Teftfekd
      * @param zahl Zahl
-    */
+     */
     private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
         tf.setTextFormatter(new TextFormatter<>(change
-            -> {
+                -> {
             return change.getControlNewText().length() <= zahl ? change : null;
         }));
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 11.08.17    HEN     Methode erstellt.
     /* 12.08.17    HEN     ObservableArrayList hinzugefügt
     /*------------------------------------------------------------------------*/
-    
     /**
      * Erstellt ein AdressDAO Objekt und gibt eine Adress ArrayList an eine
      * OberservableList, die dann an die TableView übergeben wird.
      *
      * @throws java.sql.SQLException SQL Exception
-    */
+     */
     public void setTableContent() throws SQLException {
         AdresseDAO ad = new AdresseDAO();
         ObservableList<Adresse> adressen
-            = FXCollections.observableArrayList(ad.gibAlleAdressenOhneLKZ());
+                = FXCollections.observableArrayList(ad.gibAlleAdressenOhneLKZ());
         adresseTV.setItems(adressen);
     }
 
-    
-    
     /**
      * Methode bekommt eine ArrayList mit den gefundenen Adressen übergeben und
      * aktualisiert damit die TableView.
+     *
      * @param adressen Übergebene Adresse.
      * @throws java.sql.SQLException SQL Exception
-    */
+     */
     public void zeigeGefundeneAdressen(ArrayList adressen) throws SQLException {
         refreshTable();
         ObservableList<Adresse> adressenAusgabe
-            = FXCollections.observableArrayList(adressen);
+                = FXCollections.observableArrayList(adressen);
         adresseTV.setItems(adressenAusgabe);
-    }    
-    
-    
-    
+    }
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Aktualisiert die TableView mit aktuellem Inhalt.
+     *
      * @throws java.sql.SQLException SQL Exception
-    */
+     */
     public void refreshTable() throws SQLException {
         adresseTV.getItems().clear();
         setTableContent();
-    }    
-    
-
+    }
 
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Löscht alle Eingaben in den Textfeldern.
+     *
      * @throws java.sql.SQLException SQL Exception
-    */
-    public void clearTextFields() throws SQLException {
+     */
+    public void clearTextFields() {
         tf_anschriftID.clear();
         cb_anrede.valueProperty().set(null);
         tf_name.clear();
@@ -474,21 +466,18 @@ public class AdressverwaltungController implements Initializable {
         tf_telefon.clear();
         tf_email.clear();
         tf_datum.clear();
-    }        
-    
-    
-    
+    }
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Sucht nach allen Adressen mit aktivem LKZ und stellt sie in der Tabelle
      * dar.
      *
      * @throws java.sql.SQLException SQL Exception
-    */
+     */
     public void alleMitLKZ() throws SQLException {
         AdresseDAO ad = new AdresseDAO();
         ObservableList<Adresse> adressen
@@ -496,18 +485,15 @@ public class AdressverwaltungController implements Initializable {
         adresseTV.setItems(adressen);
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Sucht nach allen Adressen ohne LKZ und stellt sie in der Tabelle dar.
      *
      * @throws java.sql.SQLException SQL Exception
-    */
+     */
     public void alleOhneLKZ() throws SQLException {
         AdresseDAO ad = new AdresseDAO();
         ObservableList<Adresse> adressen
@@ -515,54 +501,51 @@ public class AdressverwaltungController implements Initializable {
                         ad.gibAlleAdressenOhneLKZ());
         adresseTV.setItems(adressen);
     }
-    
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Gibt die unteren Eingabefelder für das Anlegen einer neuer Adresse frei.
+     *
      * @throws java.sql.SQLException SQLException
-    */    
+     */
     @FXML
     public void adresseAnlegen() throws SQLException {
         adresseTV.setMouseTransparent(true);
-        clearTextFields();   
+        clearTextFields();
 
         // Textfeldbereich wird aktiviert
         this.pane.setDisable(true);
         // Bearbeiten-Button wird ausgeblendet
         this.anlegenBT.setVisible(false);
         // Speichern-Button wird eingeblendet
-        this.hinzufuegenAdresseBT.setVisible(true);       
+        this.hinzufuegenAdresseBT.setVisible(true);
         // Der Anlegemodus des Adressdatensatzes wird aktiviert
         this.adressdatensatzPane.setText(
-                "Adressdatensatz (Anlegemodus)");       
+                "Adressdatensatz (Anlegemodus)");
         // Anlegen-Button wird deaktiviert
-        this.bearbeitenBT.setDisable(true);     
+        this.bearbeitenBT.setDisable(true);
         // Löschen-Button wird deaktiviert
         this.loeschenBT.setDisable(true);
-           
+
         AdresseDAO ad = new AdresseDAO();
-        tf_anschriftID.setText(ad.generiereID());   
+        tf_anschriftID.setText(ad.generiereID());
     }
-    
-    
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues Adress
      * Objekt, welches dann über die DAO in die DB geschrieben wird.
+     *
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
-    public void adresseHinzufuegen() throws SQLException {   
+    public void adresseHinzufuegen() throws SQLException {
         String anschriftID = tf_anschriftID.getText();
         String anrede = cb_anrede.getValue();
         String name = tf_name.getText();
@@ -581,59 +564,66 @@ public class AdressverwaltungController implements Initializable {
 
         AdresseDAO ad = new AdresseDAO();
         ad.fuegeAdresseHinzu(adresse);
-        
+
         clearTextFields();
         refreshTable();
-          
+
         // Textfeldbereich wird aktiviert
         this.pane.setDisable(false);
         // Bearbeiten-Button wird ausgeblendet
         this.anlegenBT.setVisible(true);
         // Speichern-Button wird eingeblendet
-        this.hinzufuegenAdresseBT.setVisible(false);   
+        this.hinzufuegenAdresseBT.setVisible(false);
         // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-        this.adressdatensatzPane.setText("Adressdatensatz");    
+        this.adressdatensatzPane.setText("Adressdatensatz");
         // Anlegen-Button wird deaktiviert
-        this.bearbeitenBT.setDisable(false);     
+        this.bearbeitenBT.setDisable(false);
         // Löschen-Button wird deaktiviert
         this.loeschenBT.setDisable(false);
         adresseTV.setMouseTransparent(false);
-        
+
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * "Löscht" eine markierte Adresse, in dem das LKZ auf J gesetzt wird.
      * Aktualisiert anschließend die TableView.
+     *
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
     public void adresseLoeschen() throws SQLException {
+        
         Object adresse = adresseTV.getSelectionModel().getSelectedItem();
         Adresse b = (Adresse) adresse;
-
-        AdresseDAO ad = new AdresseDAO();
-        ad.setzeLKZ(b);
         
-        refreshTable();
+        if (!this.tf_anschriftID.getText().isEmpty()) {
+
+            Meldung meldung = new Meldung();
+            meldung.loeschenAbfragen();
+
+            if (meldung.antwort()) {
+                AdresseDAO ad = new AdresseDAO();
+                ad.setzeLKZ(b);
+
+                refreshTable();
+            } else {
+                meldung.schießeFenster();
+                clearTextFields();
+            }
+        }
     }
-    
-    
 
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Lässt das Bearbeiten einer ausgewählten Adresse zu.
-    */      
+     */
     @FXML
     public void bearbeiteAdresse() {
         // Textfeldbereich wird aktiviert
@@ -649,22 +639,20 @@ public class AdressverwaltungController implements Initializable {
         // Löschen-Button wird deaktiviert
         this.loeschenBT.setDisable(true);
     }
-    
-    
- 
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
-     * Speichert die gemachten Änderungen in die Datenbank und aktualisiert
-     * die View mit den neuen Werten.
+     * Speichert die gemachten Änderungen in die Datenbank und aktualisiert die
+     * View mit den neuen Werten.
+     *
      * @throws java.sql.SQLException SQLException.
-    */      
+     */
     @FXML
-    public void speichereAenderung() throws SQLException {  
-        
+    public void speichereAenderung() throws SQLException {
+
         String anschriftID = tf_anschriftID.getText();
         String anrede = cb_anrede.getValue();
         String name = tf_name.getText();
@@ -680,41 +668,38 @@ public class AdressverwaltungController implements Initializable {
         String lkz = "N";
         Adresse adresse = new Adresse(anschriftID, anrede, name, vorname,
                 strasse, hausnr, plz, ort, staat, tel, email, erfdatum, lkz);
-       
+
         AdresseDAO aDAO = new AdresseDAO();
         aDAO.aendereAdresse(adresse);
-        
+
         refreshTable();
-        
+
         // Textfeldbereich wird deaktivieren
         this.pane.setDisable(false);
         // Bearbeiten-Button wird ausgeblendet
         this.bearbeitenBT.setVisible(true);
         // Speichern-Button wird eingeblendet
-        this.speichernBT.setVisible(false);       
+        this.speichernBT.setVisible(false);
         // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-        this.adressdatensatzPane.setText("Adressdatensatz");       
+        this.adressdatensatzPane.setText("Adressdatensatz");
         // Anlegen-Button wird deaktiviert
-        this.anlegenBT.setDisable(false);       
+        this.anlegenBT.setDisable(false);
         // Löschen-Button wird deaktiviert
         this.loeschenBT.setDisable(false);
     }
-    
-    
 
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
-    */      
+     */
     @FXML
     public void zeigeWerteAn() {
         Object adresse = adresseTV.getSelectionModel().getSelectedItem();
         Adresse b = (Adresse) adresse;
-        
+
         if (b != null) {
             this.tf_anschriftID.setText(b.getAdresseID());
             this.cb_anrede.setValue(b.getAnrede());
@@ -728,50 +713,87 @@ public class AdressverwaltungController implements Initializable {
             this.tf_ort.setText(b.getOrt());
             this.tf_staat.setText(b.getStaat());
             this.tf_datum.setText(b.getErfassungsdatum());
-        }  
+        }
     }
-    
-    
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 17.08.17    HEN     Methode erstellt.
     /* 18.08.17    BER     IF Fälle ergänzt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+     *
      * @throws java.sql.SQLException SQLException
-    */        
+     */
     @FXML
     public void adresseSuchen() throws SQLException {
         SucheDAO ad = new SucheDAO();
         ArrayList gefundeneAdressen;
-        
+
         String suchkriterium = cb_suchfeld.getValue();
         String suchbegriff = tf_suchbegriff.getText();
-        
+
         gefundeneAdressen = ad.adressSuche(suchkriterium, suchbegriff);
-        
+
         zeigeGefundeneAdressen(gefundeneAdressen);
-    }    
-    
-    
-    
+    }
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 19.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Setzt die Suche zurück.
+     *
      * @throws java.sql.SQLException SQLException
-    */        
+     */
     @FXML
     public void setzeSucheZurueck() throws SQLException {
         this.tf_suchbegriff.setText("");
         this.cb_suchfeld.setValue("Bitte wählen...");
         setTableContent();
-    }       
+    }
 
+    @FXML
+    public void aktionAbbrechen() {
+
+        if (!this.tf_anschriftID.getText().isEmpty()) {
+            Meldung meldung = new Meldung();
+            meldung.verwerfenFenster();
+
+            if (meldung.antwort()) {
+
+                // Textfeldbereich wird aktiviert
+                this.pane.setDisable(false);
+                // Bearbeiten-Button wird ausgeblendet
+                this.anlegenBT.setVisible(true);
+                // Speichern-Button wird eingeblendet
+
+                // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
+                this.adressdatensatzPane.setText("Adressdatensatz");
+
+                // Anlegen-Button wird deaktiviert
+                this.bearbeitenBT.setDisable(false);
+
+                this.bearbeitenBT.setVisible(true);
+
+                this.speichernBT.setVisible(false);
+
+                this.anlegenBT.setDisable(false);
+                // Löschen-Button wird deaktiviert
+                this.loeschenBT.setDisable(false);
+
+                this.hinzufuegenAdresseBT.setVisible(false);
+                adresseTV.setMouseTransparent(false);
+
+                clearTextFields();
+            } else {
+
+                meldung.schießeFenster();
+
+            }
+
+        }
+    }
 }
