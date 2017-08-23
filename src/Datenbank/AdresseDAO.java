@@ -8,11 +8,10 @@
 * 07.08.2017    HEN     Erstellt.
 * 12.08.2017    HEN     DB Verbindung ausgelagert.
 *-------------------------------------------------------------------------------
- */
+*/
 package Datenbank;
 
 import Klassen.Adresse;
-import Klassen.MyException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -276,9 +276,10 @@ public class AdressverwaltungController implements Initializable {
     @FXML
     private Button btSuchen;
 
+    
+    
     /**
      * Methode zum Abbrechen der Adressverwaltung.
-     *
      * @param event ActionEvent welches das Klicken des Buttons "Abbrechen"
      * abfängt.
      */
@@ -287,9 +288,10 @@ public class AdressverwaltungController implements Initializable {
         stage.close();
     }
 
+    
+    
     /**
      * Initialisiert die Controller-Klasse.
-     *
      * @param url URL zur initialisierung.
      * @param rb Resourcen die geladen werden sollen.
      */
@@ -388,49 +390,55 @@ public class AdressverwaltungController implements Initializable {
         cb_anrede.getItems().addAll("Herr", "Frau");
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Begrenzte Feldeingabe.
-     *
      * @param tf Teftfekd
      * @param zahl Zahl
      */
     private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
         tf.setTextFormatter(new TextFormatter<>(change
-                -> {
+            -> {
             return change.getControlNewText().length() <= zahl ? change : null;
         }));
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 11.08.17    HEN     Methode erstellt.
     /* 12.08.17    HEN     ObservableArrayList hinzugefügt
     /*------------------------------------------------------------------------*/
+    
     /**
      * Erstellt ein AdressDAO Objekt und gibt eine Adress ArrayList an eine
      * OberservableList, die dann an die TableView übergeben wird.
-     *
      * @throws java.sql.SQLException SQL Exception
      */
     public void setTableContent() throws SQLException {
         AdresseDAO ad = new AdresseDAO();
         ObservableList<Adresse> adressen
-                = FXCollections.observableArrayList(ad.gibAlleAdressenOhneLKZ());
+            = FXCollections.observableArrayList(ad.gibAlleAdressenOhneLKZ());
         adresseTV.setItems(adressen);
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Methode bekommt eine ArrayList mit den gefundenen Adressen übergeben und
      * aktualisiert damit die TableView.
-     *
      * @param adressen Übergebene Adresse.
      * @throws java.sql.SQLException SQL Exception
      */
@@ -441,10 +449,13 @@ public class AdressverwaltungController implements Initializable {
         adresseTV.setItems(adressenAusgabe);
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Aktualisiert die TableView mit aktuellem Inhalt.
      *
@@ -455,10 +466,13 @@ public class AdressverwaltungController implements Initializable {
         setTableContent();
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Löscht alle Eingaben in den Textfeldern.
      */
@@ -477,11 +491,14 @@ public class AdressverwaltungController implements Initializable {
         tf_datum.clear();
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /* 16.08.17    HEN     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Sucht nach allen Adressen mit aktivem LKZ und stellt sie in der Tabelle
      * dar.
@@ -495,11 +512,14 @@ public class AdressverwaltungController implements Initializable {
         adresseTV.setItems(adressen);
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /* 16.08.17    HEN     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Sucht nach allen Adressen ohne LKZ und stellt sie in der Tabelle dar.
      *
@@ -513,14 +533,16 @@ public class AdressverwaltungController implements Initializable {
         adresseTV.setItems(adressen);
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
     /* 22.08.17    BER     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Gibt die unteren Eingabefelder für das Anlegen einer neuer Adresse frei.
-     *
      * @throws java.sql.SQLException SQLException
      */
     @FXML
@@ -546,12 +568,15 @@ public class AdressverwaltungController implements Initializable {
         tf_anschriftID.setText(ad.generiereID());
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /* 21.08.17    GET     clearTextFields() & refresTable() ergänzt.
     /*                     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues Adress
      * Objekt, welches dann über die DAO in die DB geschrieben wird.
@@ -598,11 +623,14 @@ public class AdressverwaltungController implements Initializable {
 
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /* 22.08.17    BER     refreshTable() ergänzt. Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
+    
     /**
      * "Löscht" eine markierte Adresse, in dem das LKZ auf J gesetzt wird.
      * Aktualisiert anschließend die TableView.
@@ -629,14 +657,16 @@ public class AdressverwaltungController implements Initializable {
                 clearTextFields();
             }
         }
-
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
     /* 22.08.17    HEN     Adressdatenpane geändert. Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Lässt das Bearbeiten einer ausgewählten Adresse zu.
      */
@@ -656,21 +686,22 @@ public class AdressverwaltungController implements Initializable {
         this.loeschenBT.setDisable(true);
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
     /* 22.08.17    HEN     Exceptions eingefügt. Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Speichert die gemachten Änderungen in die Datenbank und aktualisiert die
      * View mit den neuen Werten.
-     *
      * @throws java.sql.SQLException SQLException.
      * @throws Klassen.MyException Eigene Exception.
      */
     @FXML
     public void speichereAenderung() throws SQLException, MyException {
-
         String anschriftID = tf_anschriftID.getText();
         String anrede = cb_anrede.getValue();
         String name = tf_name.getText();
@@ -716,11 +747,14 @@ public class AdressverwaltungController implements Initializable {
         }
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
     /* 22.08.17    BER     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
      */
@@ -745,14 +779,16 @@ public class AdressverwaltungController implements Initializable {
         }
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 17.08.17    HEN     Methode erstellt.
     /* 18.08.17    BER     IF Fälle ergänzt. Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
-     *
      * @throws java.sql.SQLException SQLException
      * @throws Klassen.MyException Eigene Exception.
      */
@@ -773,15 +809,17 @@ public class AdressverwaltungController implements Initializable {
         }
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 19.08.17    HEN     Methode erstellt.
     /* 22.08.17    HEN     Suchfeld aktualisiert, setTableContent() eingefügt.
     /*                     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Setzt die Suche zurück.
-     *
      * @throws java.sql.SQLException SQLException
      */
     @FXML
@@ -791,10 +829,20 @@ public class AdressverwaltungController implements Initializable {
         setTableContent();
     }
 
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 19.08.17    GET     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Gibt dem Benutzer die Möglichkeit, seine Aktionen abzubrechen oder zu
+     * bestätigen.
+     */    
     @FXML
     public void aktionAbbrechen() {
-
-        if (!this.adressdatensatzPane.getText().equalsIgnoreCase("Adressdatensatz")) {
+        if (!this.adressdatensatzPane.getText().equalsIgnoreCase(
+            "Adressdatensatz")) {
 
             Meldung meldung = new Meldung();
             meldung.verwerfenFenster();
@@ -826,12 +874,13 @@ public class AdressverwaltungController implements Initializable {
                 this.adresseTV.setMouseTransparent(false);
 
                 clearTextFields();
+            
             } else {
-
                 meldung.schießeFenster();
-
             }
         }
     }
 
+    
+    
 }

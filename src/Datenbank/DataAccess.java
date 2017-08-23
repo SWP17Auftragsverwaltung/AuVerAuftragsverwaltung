@@ -84,6 +84,7 @@ public class DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            throw new SQLException("NEIN");
         }
         return con;
     }

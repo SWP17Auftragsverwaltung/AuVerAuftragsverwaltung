@@ -9,7 +9,7 @@
 * 04.08.2017    CEL     Erweitert.
 * 07.08.2017    BER     Erweitert.
 *-------------------------------------------------------------------------------
- */
+*/
 package Klassen;
 
 import javafx.scene.control.Alert;
@@ -24,16 +24,10 @@ public class MyException extends Exception {
      * Leerer Konstruktor.
      */
     public MyException() {
-        super("Ich bin deine Exception");
+        
     }
 
 
-    
-    public MyException(String fehlerMeldung) {
-        super(fehlerMeldung);
-    }
-
-    
     
     /**
      * Konstruktor mit Fehlercode.
@@ -78,6 +72,12 @@ public class MyException extends Exception {
             = "Es ist ein SQL Fehler aufgetreten.";
 
     /**
+     * Fehler wird geworfen, wenn ein SQL Fehler aufgetreten ist.
+     */
+    private final String errorCode21
+            = "Es konnte keine Verbindung hergestellt werden.";    
+    
+    /**
      * Fehler wird geworfen, wenn nicht alle Felder ausgefüllt wurden.
      */
     private final String errorCode30
@@ -119,6 +119,9 @@ public class MyException extends Exception {
             case 20:
                 fehlerMeldung = errorCode20;
                 break;
+            case 21:
+                fehlerMeldung = errorCode21;
+                break;                
             case 30:
                 fehlerMeldung = errorCode30;
                 break;
@@ -135,9 +138,9 @@ public class MyException extends Exception {
             default:
                 fehlerMeldung = errorCode10;
         }
-
         return fehlerMeldung;
-
     }
+    
+    
 
 }
