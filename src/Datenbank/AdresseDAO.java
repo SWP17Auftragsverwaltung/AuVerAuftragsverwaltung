@@ -12,6 +12,7 @@
 package Datenbank;
 
 import Klassen.Adresse;
+import Klassen.MyException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -75,7 +76,7 @@ public class AdresseDAO extends DataAccess {
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
-            alert.showAndWait();
+            alert.showAndWait();           
         }
         return adressListe;
     }
@@ -260,7 +261,7 @@ public class AdresseDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 15.08.17    Hen     Erstellt.
+    /* 15.08.17    GET     Erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -269,127 +270,114 @@ public class AdresseDAO extends DataAccess {
      */
     public void aendereAdresse(Adresse a) {
         PreparedStatement stmt = null;
-        String query
-                = "";
+        String query = "";
 
         try {
             con.setAutoCommit(false);
 
             query
                 = "UPDATE ROOT.ADRESSE SET ANREDE = ? WHERE ANSCHRIFT_ID = ?";
-
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getAnrede());
             stmt.setString(2, a.getAdresseID());
-
             stmt.executeUpdate();
             con.commit();
 
+            
             query = "UPDATE ROOT.ADRESSE SET ANREDE = ? WHERE ANSCHRIFT_ID = ?";
-
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getAnrede());
             stmt.setString(2, a.getAdresseID());
-
             stmt.executeUpdate();
             con.commit();
 
+            
             query = "UPDATE ROOT.ADRESSE SET NAME = ? WHERE ANSCHRIFT_ID = ?";
-
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getName());
             stmt.setString(2, a.getAdresseID());
-
             stmt.executeUpdate();
             con.commit();
 
+            
             query 
                 = "UPDATE ROOT.ADRESSE SET VORNAME = ? WHERE ANSCHRIFT_ID = ?";
-
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getVorname());
             stmt.setString(2, a.getAdresseID());
-
             stmt.executeUpdate();
             con.commit();
 
+            
             query 
                 = "UPDATE ROOT.ADRESSE SET STRASSE = ? WHERE ANSCHRIFT_ID = ?";
-
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getStrasse());
             stmt.setString(2, a.getAdresseID());
-
             stmt.executeUpdate();
             con.commit();
 
+            
             query 
                 = "UPDATE ROOT.ADRESSE SET HAUSNUMMER = ? "
                    + "WHERE ANSCHRIFT_ID = ?";
-
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getHausnummer());
             stmt.setString(2, a.getAdresseID());
-
             stmt.executeUpdate();
             con.commit();
 
+            
             query = "UPDATE ROOT.ADRESSE SET PLZ = ? WHERE ANSCHRIFT_ID = ?";
-
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getPlz());
             stmt.setString(2, a.getAdresseID());
-
             stmt.executeUpdate();
             con.commit();
 
+            
             query = "UPDATE ROOT.ADRESSE SET ORT = ? WHERE ANSCHRIFT_ID = ?";
-
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getOrt());
             stmt.setString(2, a.getAdresseID());
-
             stmt.executeUpdate();
             con.commit();
 
+            
             query = "UPDATE ROOT.ADRESSE SET STAAT = ? WHERE ANSCHRIFT_ID = ?";
-
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getStaat());
             stmt.setString(2, a.getAdresseID());
-
             stmt.executeUpdate();
             con.commit();
 
+            
             query = "UPDATE ROOT.ADRESSE SET TELEFON = ? "
                     + "WHERE ANSCHRIFT_ID = ?";
-
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getTelefon());
             stmt.setString(2, a.getAdresseID());
-
             stmt.executeUpdate();
             con.commit();
 
+            
             query = "UPDATE ROOT.ADRESSE SET E_MAIL = ? WHERE ANSCHRIFT_ID = ?";
-
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getEmail());
             stmt.setString(2, a.getAdresseID());
-
             stmt.executeUpdate();
             con.commit();
 
+            
             query = "UPDATE ROOT.ADRESSE SET ERFASSUNGSDATUM = ? "
                     + "WHERE ANSCHRIFT_ID = ?";
-
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getErfassungsdatum());
             stmt.setString(2, a.getAdresseID());
-
             stmt.executeUpdate();
             con.commit();
 
+            
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -412,7 +400,6 @@ public class AdresseDAO extends DataAccess {
      * @param a Adresse
      */
     public void setzeLKZ(Adresse a) {
-
         PreparedStatement stmt = null;
         String anschriftID = a.getAdresseID();
 
@@ -421,14 +408,13 @@ public class AdresseDAO extends DataAccess {
 
             String query
                     = "UPDATE ROOT.ADRESSE SET LKZ = ? WHERE ANSCHRIFT_ID = ?";
-
             stmt = con.prepareStatement(query);
             stmt.setString(1, "J");
             stmt.setString(2, anschriftID);
-
             stmt.executeUpdate();
             con.commit();
 
+            
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -464,6 +450,8 @@ public class AdresseDAO extends DataAccess {
                 value = rs.getString(1);
             }
             con.commit();
+        
+            
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -486,7 +474,6 @@ public class AdresseDAO extends DataAccess {
      * @return neue ID aufgezählt.
      */    
     public String generiereID() {
-   
         //Holt sich die aktuell maximale ID.
         String alteIDString = gibLetztID();
         String neueID;
@@ -501,274 +488,12 @@ public class AdresseDAO extends DataAccess {
             //Fügt die neue ID in den String und füllt vordere Zahlen mit 0 auf,
             //wenn neueID < 6 Zeichen.
             neueID = String.format("%06d", alteIDInt);
+        
         } else {
             neueID = "000001";
         }
-
         return neueID;
     }
-    
-    
-    
-    /**
-     * Such nach einer Adresse.
-     * @param suchkriterium Suchkriterium.
-     * @param suchbegriff Suchbegriff.
-     * @return Adresse.
-     */
-//    public ArrayList<Adresse> adressSuche(
-//            String suchkriterium, String suchbegriff) {
-//
-//        Statement stmt = null;
-//        ResultSet rs = null;
-//        ArrayList<Adresse> gefundeneAdressen = new ArrayList<>();
-//        StringBuilder neuerSuchbegriff = new StringBuilder(suchbegriff);
-//        
-//        for (int i = 0; i < suchbegriff.length(); i++) {
-//            if (suchbegriff.charAt(i) == '*') {
-//                neuerSuchbegriff.setCharAt(i, '%');
-//            } else if (suchbegriff.charAt(i) == '?') {
-//                neuerSuchbegriff.setCharAt(i, '_');
-//            }
-//        }
-//        
-//        try {
-//            
-//            if (suchkriterium.equals("AnschriftID")) {            
-//                String query 
-//                    = "SELECT * FROM ROOT.ADRESSE WHERE ANSCHRIFT_ID LIKE '" 
-//                    + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//                
-//                while (rs.next()) {
-//                    Adresse adresse = new Adresse(rs.getString(1), 
-//                            rs.getString(2), rs.getString(3), rs.getString(4), 
-//                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), 
-//                            rs.getString(10), rs.getString(11), 
-//                            rs.getString(12), rs.getString(13));
-//                    gefundeneAdressen.add(adresse);
-//                }
-//                con.commit();
-//                        
-//                
-//            } else if (suchkriterium.equals("Anrede")) {
-//                String query 
-//                    = "SELECT * FROM ROOT.ADRESSE WHERE ANREDE LIKE '" 
-//                    + neuerSuchbegriff + "' AND LKZ LIKE 'N'";                
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);               
-//                
-//                while (rs.next()) {
-//                    Adresse adresse = new Adresse(rs.getString(1), 
-//                            rs.getString(2), rs.getString(3), rs.getString(4), 
-//                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), 
-//                            rs.getString(10), rs.getString(11), 
-//                            rs.getString(12), rs.getString(13));
-//                    gefundeneAdressen.add(adresse);
-//                }
-//                con.commit();
-//                
-//                
-//            } else if (suchkriterium.equals("Name")) {
-//                String query 
-//                    = "SELECT * FROM ROOT.ADRESSE WHERE NAME LIKE '" 
-//                    + neuerSuchbegriff + "' AND LKZ LIKE 'N'";                
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//                
-//                while (rs.next()) {
-//                    Adresse adresse = new Adresse(rs.getString(1), 
-//                            rs.getString(2), rs.getString(3), rs.getString(4), 
-//                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), 
-//                            rs.getString(10), rs.getString(11), 
-//                            rs.getString(12), rs.getString(13));
-//                    gefundeneAdressen.add(adresse);
-//                }
-//                con.commit();
-//                
-//                
-//            } else if (suchkriterium.equals("Vorname")) {
-//                String query 
-//                    = "SELECT * FROM ROOT.ADRESSE WHERE VORNAME LIKE '" 
-//                    + neuerSuchbegriff + "' AND LKZ LIKE 'N'";                
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);                
-//                
-//                while (rs.next()) {
-//                    Adresse adresse = new Adresse(rs.getString(1), 
-//                            rs.getString(2), rs.getString(3), rs.getString(4), 
-//                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), 
-//                            rs.getString(10), rs.getString(11), 
-//                            rs.getString(12), rs.getString(13));
-//                    gefundeneAdressen.add(adresse);
-//                }
-//                con.commit();
-//                
-//                
-//            } else if (suchkriterium.equals("Straße")) {
-//                String query 
-//                    = "SELECT * FROM ROOT.ADRESSE WHERE STRASSE LIKE '" 
-//                    + neuerSuchbegriff + "' AND LKZ LIKE 'N'";                
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);                
-//                
-//                while (rs.next()) {
-//                    Adresse adresse = new Adresse(rs.getString(1), 
-//                            rs.getString(2), rs.getString(3), rs.getString(4), 
-//                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), 
-//                            rs.getString(10), rs.getString(11), 
-//                            rs.getString(12), rs.getString(13));
-//                    gefundeneAdressen.add(adresse);
-//                }
-//                con.commit();
-//                
-//                
-//            } else if (suchkriterium.equals("HausNr")) {
-//                String query 
-//                    = "SELECT * FROM ROOT.ADRESSE WHERE HAUSNUMMER LIKE '" 
-//                    + neuerSuchbegriff + "' AND LKZ LIKE 'N'";                
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);                
-//                
-//                while (rs.next()) {
-//                    Adresse adresse = new Adresse(rs.getString(1), 
-//                            rs.getString(2), rs.getString(3), rs.getString(4), 
-//                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), 
-//                            rs.getString(10), rs.getString(11), 
-//                            rs.getString(12), rs.getString(13));
-//                    gefundeneAdressen.add(adresse);
-//                }
-//                con.commit();
-//                
-//                
-//            } else if (suchkriterium.equals("PLZ")) {
-//                String query 
-//                    = "SELECT * FROM ROOT.ADRESSE WHERE PLZ LIKE '" 
-//                    + neuerSuchbegriff + "' AND LKZ LIKE 'N'";                
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);                
-//                
-//                while (rs.next()) {
-//                    Adresse adresse = new Adresse(rs.getString(1), 
-//                            rs.getString(2), rs.getString(3), rs.getString(4), 
-//                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), 
-//                            rs.getString(10), rs.getString(11), 
-//                            rs.getString(12), rs.getString(13));
-//                    gefundeneAdressen.add(adresse);
-//                }
-//                con.commit();
-//                
-//                
-//            } else if (suchkriterium.equals("Ort")) {
-//                String query 
-//                    = "SELECT * FROM ROOT.ADRESSE WHERE ORT LIKE '" 
-//                    + neuerSuchbegriff + "' AND LKZ LIKE 'N'";                
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);                
-//                
-//                while (rs.next()) {
-//                    Adresse adresse = new Adresse(rs.getString(1), 
-//                            rs.getString(2), rs.getString(3), rs.getString(4), 
-//                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), 
-//                            rs.getString(10), rs.getString(11), 
-//                            rs.getString(12), rs.getString(13));
-//                    gefundeneAdressen.add(adresse);
-//                }
-//                con.commit();
-//                
-//                
-//            } else if (suchkriterium.equals("Staat")) {
-//                String query 
-//                    = "SELECT * FROM ROOT.ADRESSE WHERE STAAT LIKE '" 
-//                    + neuerSuchbegriff + "' AND LKZ LIKE 'N'";                
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);                
-//                               
-//                while (rs.next()) {
-//                    Adresse adresse = new Adresse(rs.getString(1), 
-//                            rs.getString(2), rs.getString(3), rs.getString(4), 
-//                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), 
-//                            rs.getString(10), rs.getString(11), 
-//                            rs.getString(12), rs.getString(13));
-//                    gefundeneAdressen.add(adresse);
-//                }
-//                con.commit();
-//                
-//                
-//            } else if (suchkriterium.equals("Tel")) {
-//                String query 
-//                    = "SELECT * FROM ROOT.ADRESSE WHERE TELEFON LIKE '" 
-//                    + neuerSuchbegriff + "' AND LKZ LIKE 'N'";                
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);                
-//                
-//                while (rs.next()) {
-//                    Adresse adresse = new Adresse(rs.getString(1), 
-//                            rs.getString(2), rs.getString(3), rs.getString(4), 
-//                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), 
-//                            rs.getString(10), rs.getString(11), 
-//                            rs.getString(12), rs.getString(13));
-//                    gefundeneAdressen.add(adresse);
-//                }
-//                con.commit();
-//                
-//                
-//            } else if (suchkriterium.equals("Email")) {
-//                String query 
-//                    = "SELECT * FROM ROOT.ADRESSE WHERE E_MAIL LIKE '" 
-//                    + neuerSuchbegriff + "' AND LKZ LIKE 'N'";                
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);                
-//                
-//                while (rs.next()) {
-//                    Adresse adresse = new Adresse(rs.getString(1), 
-//                            rs.getString(2), rs.getString(3), rs.getString(4), 
-//                            rs.getString(5), rs.getString(6), rs.getString(7), 
-//                            rs.getString(8), rs.getString(9), 
-//                            rs.getString(10), rs.getString(11), 
-//                            rs.getString(12), rs.getString(13));
-//                    gefundeneAdressen.add(adresse);
-//                }
-//                con.commit();
-//                
-//                
-//            } else if (suchkriterium.equals("ErfDatum")) {
-//                String query 
-//                    = "SELECT * FROM ROOT.ADRESSE WHERE ERFASSUNGSDATUM LIKE '" 
-//                    + neuerSuchbegriff + "' AND LKZ LIKE 'N'";                
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);  
-//                while (rs.next()) {
-//                    Adresse adresse = new Adresse(rs.getString(1), 
-//                        rs.getString(2), rs.getString(3), rs.getString(4), 
-//                        rs.getString(5), rs.getString(6), rs.getString(7), 
-//                        rs.getString(8), rs.getString(9), rs.getString(10), 
-//                        rs.getString(11), rs.getString(12), rs.getString(13));
-//                    gefundeneAdressen.add(adresse);
-//                }      
-//            }
-//
-//            
-//        } catch (SQLException e) {
-//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//            alert.initStyle(StageStyle.UTILITY);
-//            alert.setTitle("Fehler");
-//            alert.setHeaderText(e.getMessage());
-//            alert.showAndWait();
-//        }
-//        return gefundeneAdressen;
-//    }    
     
     
 

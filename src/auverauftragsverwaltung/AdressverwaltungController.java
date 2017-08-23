@@ -666,9 +666,10 @@ public class AdressverwaltungController implements Initializable {
      * Speichert die gemachten Änderungen in die Datenbank und aktualisiert
      * die View mit den neuen Werten.
      * @throws java.sql.SQLException SQLException.
+     * @throws Klassen.MyException
     */      
     @FXML
-    public void speichereAenderung() throws SQLException {  
+    public void speichereAenderung() throws SQLException, MyException {  
         
         String anschriftID = tf_anschriftID.getText();
         String anrede = cb_anrede.getValue();
@@ -768,10 +769,10 @@ public class AdressverwaltungController implements Initializable {
         String suchbegriff = tf_suchbegriff.getText();
         
         if (suchkriterium == null) {
-            throw new MyException(114);
+            throw new MyException(51);
         
         } else if (suchbegriff.isEmpty()) {
-            throw new MyException(113);
+            throw new MyException(50);
         
         } else {
             gefundeneAdressen = ad.adressSuche(suchkriterium, suchbegriff);

@@ -18,13 +18,19 @@ import javafx.scene.control.Alert;
  *
  * @author Andre
  */
-public class MyException extends RuntimeException {
+public class MyException extends Exception {
 
     /**
      * Leerer Konstruktor.
      */
     public MyException() {
     
+    }
+
+    
+    
+    public MyException(String fehlerMeldung, Throwable cause) {
+        super(fehlerMeldung, cause);
     }
 
     
@@ -68,137 +74,40 @@ public class MyException extends RuntimeException {
     /**
      * Standard Fehler.
      */
-    private final String errorCode100
+    private final String errorCode10
             = "Es ist ein unbekannter Fehler aufgetreten.";
-
-    /**
-     * Fehler wird geworfen, wenn keine Datensätze gefunden wurden.
-     */
-    private final String errorCode101
-            = "Keine Datensätze in der Datenbank gefunden.";
-
-    /**
-     * Fehler wird geworfen, wenn es keine Ergebnisse zu den Suchkriterien gibt.
-     */
-    private final String errorCode102
-            = "Keine passenden Datensätze zu den Suchkriterien gefunden.";
-
-    /**
-     * Fehler wird geworfen, wenn Das Datum nicht dir korrekte Form hat.
-     */
-    private final String errorCode103
-            = "Datum ist nicht korrekt. Eingabe im DD.MM.YYYY Format.";
-
-    /**
-     * Fehler wird geworfen, wenn es keinen passenden Datensatz zur ID gibt.
-     */
-    private final String errorCode104
-            = "Kein passender Datensatz zu der ID vorhanden.";
-
-    /**
-     * Fehler wird geworfen, wenn kein Datensatz selektiert wurde.
-     */
-    private final String errorCode105
-            = "Es wurde kein Datensatz selektiert.";
-
-    /**
-     * Fehler wird geworfen, wenn das Objekt nicht aktualisiert werden konnte.
-     */
-    private final String errorCode106
-            = "Objekt konnte nicht aktualisiert werden.";
-
-    /**
-     * Fehler wird geworfen, wenn das Objekt nicht hinzugefügt werden konnte.
-     */
-    private final String errorCode107
-            = "Objekt konnte nicht hinzugefügt werden.";
-
-    /**
-     * Fehler wird geworfen, wenn das Objekt nicht gelöscht werden konnte.
-     */
-    private final String errorCode108
-            = "Objekt konnte nicht gelöscht werden.";
-
-    /**
-     * Fehler wird geworfen, wenn es einen Fehler bei der Suche gab.
-     */
-    private final String errorCode109
-            = "Fehler bei der Suche.";
 
     /**
      * Fehler wird geworfen, wenn ein SQL Fehler aufgetreten ist.
      */
-    private final String errorCode110
+    private final String errorCode20
             = "Es ist ein SQL Fehler aufgetreten.";
 
     /**
      * Fehler wird geworfen, wenn nicht alle Felder ausgefüllt wurden.
      */
-    private final String errorCode111
+    private final String errorCode30
             = "Bitte alle Felder ausfüllen!";
 
     /**
      * Fehler wird geworfen, wenn das Geburtsdatum in der Zukunft liegt.
      */
-    private final String errorCode112
+    private final String errorCode40
             = "Geburtstag darf nicht in der Zukunft liegen!";
 
     /**
      * Fehler wird geworfen, keine Eingabe bei der Suche.
      */
-    private final String errorCode113
+    private final String errorCode50
             = "Bitte einen Suchbegriff eingeben!";    
 
     /**
      * Fehler wird geworfen, keine Eingabe bei der Suche.
      */
-    private final String errorCode114
-            = "Bitte ein Suchkriterium auswählen";       
+    private final String errorCode51
+            = "Bitte ein Suchkriterium auswählen!";       
     
-    
-    /*--------------------------------------------------------------------------
-     * Datum     Name    Kommentar
-     * 26.07.17  Hen     Erstelltung Fehlerexception bezüglich Aufträge.
-     * 07.08.17  BER     Fehlerexceptions hinzugefügt.
-     *--------------------------------------------------------------------------
-     */
-    
-    /**
-     * Fehler wird geworfen, wenn der Auftragskopf keine Positionen hat.
-     */
-    private final String errorCode200
-            = "Der Auftragskopf muss mindestens eine Position enthalten.";
 
-    /**
-     * Fehler wird geworfen, wenn der Auftragskopf gelöscht werden soll.
-     */
-    private final String errorCode201
-            = "Der Auftragskopf kann nicht gelöscht werden.";
-
-    /**
-     * Fehler wird geworfen, wenn die Bestandsmenge nicht ausreicht.
-     */
-    private final String errorCode202
-            = "Bestandsmenge reicht für die Buchung nicht aus.";
-
-    /**
-     * Fehler wird geworfen, wenn Kreditlmit nicht ausreicht.
-     */
-    private String errorCode203
-            = "Kreditlimit des Geschäftspartner reicht nicht aus!";
-
-
-    /*--------------------------------------------------------------------------
-     * Datum     Name    Kommentar
-     * 26.07.17  Hen     Erstelltung Fehlerexception bezüglich Artikel.
-     * 07.08.17  BER     Fehlerexceptions hinzugefügt.
-     *--------------------------------------------------------------------------
-     */
-    /**
-     * Fehler wird geworfen, wenn Artikel nicht gelöscht werden kann.
-     */
-    private final String errorCode300
-            = "Artikel kann nicht gelöscht werden, wird noch verwendet.";
 
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
@@ -216,86 +125,34 @@ public class MyException extends RuntimeException {
         switch (fehlerCode) {
 
             //Allgemeine Fehler
-            case 100:
-                fehlerMeldung = errorCode100;
+            case 10:
+                fehlerMeldung = errorCode10;
                 break;
-            case 101:
-                fehlerMeldung = errorCode101;
+            case 20:
+                fehlerMeldung = errorCode20;
                 break;
-            case 102:
-                fehlerMeldung = errorCode102;
+            case 30:
+                fehlerMeldung = errorCode30;
                 break;
-            case 103:
-                fehlerMeldung = errorCode103;
+            case 40:
+                fehlerMeldung = errorCode40;
                 break;
-            case 104:
-                fehlerMeldung = errorCode104;
+            case 50:
+                fehlerMeldung = errorCode50;
                 break;
-            case 105:
-                fehlerMeldung = errorCode105;
-                break;
-            case 106:
-                fehlerMeldung = errorCode106;
-                break;
-            case 107:
-                fehlerMeldung = errorCode107;
-                break;
-            case 108:
-                fehlerMeldung = errorCode108;
-                break;
-            case 109:
-                fehlerMeldung = errorCode109;
-                break;
-            case 110:
-                fehlerMeldung = errorCode110;
-                break;
-            case 111:
-                fehlerMeldung = errorCode111;
-                break;
-            case 112:
-                fehlerMeldung = errorCode112;
-                break;
-            case 113:
-                fehlerMeldung = errorCode113;
-                break;
-            case 114:
-                fehlerMeldung = errorCode114;
-                break;
-                
-            //Fehler bezüglich Aufträge         
-            case 200:
-                fehlerMeldung = errorCode200;
-                break;
-            case 201:
-                fehlerMeldung = errorCode201;
-                break;
-            case 202:
-                fehlerMeldung = errorCode202;
-                break;
-            case 203:
-                fehlerMeldung = errorCode203;
+            case 51:
+                fehlerMeldung = errorCode51;
                 break;
 
-            //Fehler bezüglich Artikel
-            case 300:
-                fehlerMeldung = errorCode300;
-                break;
+                
 
             //Falls kein anderer Code passt.  
             default:
-                fehlerMeldung = errorCode100;
+                fehlerMeldung = errorCode10;
         }
 
         return fehlerMeldung;
 
-    }
-
-    /**
-     * Gibt den Fehlerdoce wieder.
-     * @return fehlerCode
-     */
-    public int getCode() {
-        return this.fehlerCode;
     }
 
 }
