@@ -15,6 +15,7 @@
  */
 package auverauftragsverwaltung;
 
+import Klassen.Meldung;
 import Datenbank.ArtikelDAO;
 import Datenbank.SucheDAO;
 import Klassen.Artikel;

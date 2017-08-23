@@ -16,6 +16,7 @@
  */
 package auverauftragsverwaltung;
 
+import Klassen.Meldung;
 import Datenbank.AdresseDAO;
 import Datenbank.SucheDAO;
 import Klassen.Adresse;
@@ -793,23 +794,19 @@ public class AdressverwaltungController implements Initializable {
     /**
      * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
      * @throws java.sql.SQLException SQLException
-     * @throws Klassen.MyException Eigene Exception.
      */
     @FXML
-    public void adresseSuchen() throws SQLException, MyException {
+    public void adresseSuchen() throws SQLException  {
         SucheDAO ad = new SucheDAO();
         ArrayList gefundeneAdressen;
 
         String suchkriterium = cb_suchfeld.getValue();
         String suchbegriff = tf_suchbegriff.getText();
+      
+        gefundeneAdressen = ad.adressSuche(suchkriterium, suchbegriff);
+        zeigeGefundeneAdressen(gefundeneAdressen);
 
-        if (suchkriterium == null || suchbegriff.isEmpty()) {
-            throw new MyException(50);
-
-        } else {
-            gefundeneAdressen = ad.adressSuche(suchkriterium, suchbegriff);
-            zeigeGefundeneAdressen(gefundeneAdressen);
-        }
+        
     }
 
     
