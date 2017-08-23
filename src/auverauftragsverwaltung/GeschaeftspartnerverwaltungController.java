@@ -14,6 +14,7 @@
  */
 package auverauftragsverwaltung;
 
+import Klassen.Meldung;
 import Datenbank.GeschaeftspartnerDAO;
 import Datenbank.SucheDAO;
 import Klassen.Geschaeftspartner;
@@ -36,7 +37,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -390,7 +390,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
 
                 refreshTable();
             } else {
-                meldung.schießeFenster();
+                meldung.schließeFenster();
                 clearTextFields();
             }
         }
@@ -536,7 +536,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
                 clearTextFields();
             } else {
 
-                meldung.schießeFenster();
+                meldung.schließeFenster();
 
             }
 

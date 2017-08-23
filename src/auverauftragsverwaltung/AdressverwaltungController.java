@@ -16,6 +16,7 @@
  */
 package auverauftragsverwaltung;
 
+import Klassen.Meldung;
 import Datenbank.AdresseDAO;
 import Datenbank.SucheDAO;
 import Klassen.Adresse;
@@ -653,7 +654,7 @@ public class AdressverwaltungController implements Initializable {
                 refreshTable();
 
             } else {
-                meldung.schießeFenster();
+                meldung.schließeFenster();
                 clearTextFields();
             }
         }
@@ -876,7 +877,7 @@ public class AdressverwaltungController implements Initializable {
                 clearTextFields();
             
             } else {
-                meldung.schießeFenster();
+                meldung.schließeFenster();
             }
         }
     }

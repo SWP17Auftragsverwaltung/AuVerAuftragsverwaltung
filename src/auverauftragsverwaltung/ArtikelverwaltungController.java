@@ -15,6 +15,7 @@
  */
 package auverauftragsverwaltung;
 
+import Klassen.Meldung;
 import Datenbank.ArtikelDAO;
 import Datenbank.SucheDAO;
 import Klassen.Artikel;
@@ -562,7 +563,7 @@ public class ArtikelverwaltungController implements Initializable {
 
                 refreshTable();
             } else {
-                meldung.schießeFenster();
+                meldung.schließeFenster();
                 clearTextFields();
             }
         }
@@ -741,7 +742,7 @@ public class ArtikelverwaltungController implements Initializable {
                 clearTextFields();
             } else {
 
-                meldung.schießeFenster();
+                meldung.schließeFenster();
 
             }
         }
