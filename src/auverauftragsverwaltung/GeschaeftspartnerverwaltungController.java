@@ -441,7 +441,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         // Speichern-Button wird eingeblendet
         this.speichernBT.setVisible(false);
         // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-        this.datensatzTP.setText("Adressdatensatz");
+        this.datensatzTP.setText("Geschäftspartnerdatensatz");
         // Anlegen-Button wird deaktiviert
         this.anlegenBT.setDisable(false);
         // Löschen-Button wird deaktiviert
@@ -504,7 +504,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     @FXML
     public void aktionAbbrechen() {
 
-        if (!this.tf_geschaeftspartnerID.getText().isEmpty()) {
+        if (!this.datensatzTP.getText().equalsIgnoreCase("Geschäftspartnerdatensatz")) {
             Meldung meldung = new Meldung();
             meldung.verwerfenFenster();
 

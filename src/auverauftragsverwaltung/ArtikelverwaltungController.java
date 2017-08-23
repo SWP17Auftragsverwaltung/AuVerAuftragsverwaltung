@@ -707,7 +707,7 @@ public class ArtikelverwaltungController implements Initializable {
     @FXML
     public void aktionAbbrechen() {
 
-        if (!this.tfMaterialNr.getText().isEmpty()) {
+        if (!this.artikeldatensatzPane.getText().equalsIgnoreCase("Artikeldatensatz")) {
 
             Meldung meldung = new Meldung();
             meldung.verwerfenFenster();

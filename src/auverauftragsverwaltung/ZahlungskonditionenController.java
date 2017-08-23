@@ -785,7 +785,7 @@ public class ZahlungskonditionenController implements Initializable {
     @FXML
     public void aktionAbbrechen() {
 
-        if (!this.tfZahlungskonditionsID.getText().isEmpty()) {
+        if (!this.zahlungskonditionendatensatzPane.getText().equalsIgnoreCase("Zahlungskonditionendatensatz")) {
             Meldung meldung = new Meldung();
             meldung.verwerfenFenster();
             if (!(this.tfZahlungskonditionsID.getText().isEmpty())) {
@@ -799,7 +799,7 @@ public class ZahlungskonditionenController implements Initializable {
                     // Speichern-Button wird eingeblendet
 
                     // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-                    this.zahlungskonditionendatensatzPane.setText("Adressdatensatz");
+                    this.zahlungskonditionendatensatzPane.setText("Zahlungskonditionendatensatz");
 
                     // Anlegen-Button wird deaktiviert
                     this.bearbeitenBT.setDisable(false);
