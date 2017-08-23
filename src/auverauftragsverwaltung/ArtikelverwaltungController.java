@@ -552,21 +552,20 @@ public class ArtikelverwaltungController implements Initializable {
         Object artikel = tvArtikel.getSelectionModel().getSelectedItem();
         Artikel b = (Artikel) artikel;
 
-        
-       if (!this.tfMaterialNr.getText().isEmpty()) {  
-        Meldung meldung = new Meldung();
-        meldung.loeschenAbfragen();
+        if (!this.tfMaterialNr.getText().isEmpty()) {
+            Meldung meldung = new Meldung();
+            meldung.loeschenAbfragen();
 
-        if (meldung.antwort()) {
-            ArtikelDAO ar = new ArtikelDAO();
-            ar.setzeLKZ(b);
+            if (meldung.antwort()) {
+                ArtikelDAO ar = new ArtikelDAO();
+                ar.setzeLKZ(b);
 
-            refreshTable();
-        } else {
-            meldung.schießeFenster();
-            clearTextFields();
+                refreshTable();
+            } else {
+                meldung.schießeFenster();
+                clearTextFields();
+            }
         }
-       }
     }
 
     /*------------------------------------------------------------------------*/
@@ -709,7 +708,7 @@ public class ArtikelverwaltungController implements Initializable {
     public void aktionAbbrechen() {
 
         if (!this.tfMaterialNr.getText().isEmpty()) {
-            
+
             Meldung meldung = new Meldung();
             meldung.verwerfenFenster();
 

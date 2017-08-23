@@ -794,7 +794,7 @@ public class AdressverwaltungController implements Initializable {
     @FXML
     public void aktionAbbrechen() {
 
-        if (!this.tf_anschriftID.getText().isEmpty()) {
+        if (!this.adressdatensatzPane.getText().equalsIgnoreCase("Adressdatensatz")) {
 
             Meldung meldung = new Meldung();
             meldung.verwerfenFenster();
