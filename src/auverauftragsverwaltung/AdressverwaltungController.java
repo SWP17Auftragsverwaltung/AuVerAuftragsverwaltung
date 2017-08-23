@@ -768,10 +768,7 @@ public class AdressverwaltungController implements Initializable {
         String suchkriterium = cb_suchfeld.getValue();
         String suchbegriff = tf_suchbegriff.getText();
         
-        if (suchkriterium == null) {
-            throw new MyException(51);
-        
-        } else if (suchbegriff.isEmpty()) {
+        if (suchkriterium == null || suchbegriff.isEmpty()) {
             throw new MyException(50);
         
         } else {

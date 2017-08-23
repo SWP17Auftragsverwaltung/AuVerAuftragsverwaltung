@@ -24,16 +24,10 @@ public class MyException extends Exception {
      * Leerer Konstruktor.
      */
     public MyException() {
-    
+        super("Ich bin deine Exception");
     }
 
-    
-    
-    public MyException(String fehlerMeldung, Throwable cause) {
-        super(fehlerMeldung, cause);
-    }
 
-    
     
     public MyException(String fehlerMeldung) {
         super(fehlerMeldung);
@@ -99,14 +93,8 @@ public class MyException extends Exception {
      * Fehler wird geworfen, keine Eingabe bei der Suche.
      */
     private final String errorCode50
-            = "Bitte einen Suchbegriff eingeben!";    
+            = "Bitte Suchkriterium und Suchbegriff eingeben!";    
 
-    /**
-     * Fehler wird geworfen, keine Eingabe bei der Suche.
-     */
-    private final String errorCode51
-            = "Bitte ein Suchkriterium auswählen!";       
-    
 
 
     /*--------------------------------------------------------------------------
@@ -139,9 +127,6 @@ public class MyException extends Exception {
                 break;
             case 50:
                 fehlerMeldung = errorCode50;
-                break;
-            case 51:
-                fehlerMeldung = errorCode51;
                 break;
 
                 
