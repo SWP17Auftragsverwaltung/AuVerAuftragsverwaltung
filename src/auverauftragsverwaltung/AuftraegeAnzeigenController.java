@@ -27,8 +27,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -44,7 +48,61 @@ public class AuftraegeAnzeigenController implements Initializable {
     @FXML
     private Button closeAA;
     
-        /**
+    /**
+     * Textfeld "Auftragskopf".
+     */
+    @FXML
+    private TextField tfAuftragskopf;
+    
+    /**
+     * Textfeld "Text zum Auftrag".
+     */
+    @FXML
+    private TextArea tfText;
+    
+    /**
+     * Textfeld "Partner-ID".
+     */
+    @FXML
+    private TextField tfPartnerID;
+    
+    /**
+     * Textfeld "Auftragswert".
+     */
+    @FXML
+    private TextField tfAuftragswert;
+    
+    /**
+     * Datepicker "Erfassungsdatum".
+     */
+    @FXML
+    private DatePicker dpErfdatum;
+    
+    /**
+     * Datepicker "Lieferdatum".
+     */
+    @FXML
+    private DatePicker dpLieferdatum;
+    
+    /**
+     * Datepicker "Abschlussdatum".
+     */
+    @FXML
+    private DatePicker dpAbschlussdatum;
+    
+     /**
+     * ComboBox "Auftragsstatus".
+     */
+    @FXML
+    private ComboBox<String> cbAuftragsstatus = new ComboBox();
+    
+    /**
+     * ComboBox "Suchfeld".
+     */
+    @FXML
+    private ComboBox<String> cbAuftragsart = new ComboBox();
+    
+     /**
      * TableView für die Anzeige der Adressen.
      */
     @FXML
@@ -175,6 +233,17 @@ public class AuftraegeAnzeigenController implements Initializable {
                 new PropertyValueFactory<>("status"));
         tcAbschDatum.setCellValueFactory(
                 new PropertyValueFactory<>("abschlussDatum"));
+        
+        cbAuftragsstatus.getItems().addAll(
+                "Erfasst", 
+                "Freigegeben", 
+                "abgeschlossen");
+        
+        cbAuftragsart.getItems().addAll(
+                "Barauftrag",
+                "Sofortauftrag", 
+                "Terminauftrag",
+                "Bestellauftrag");
     }
     
     

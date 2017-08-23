@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="607.0" prefWidth="1095.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.AuftraegeAnzeigenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.AuftraegeAnzeigenController">
    <children>
-      <TitledPane collapsible="false" layoutX="25.0" layoutY="62.0" prefHeight="427.0" prefWidth="1020.0" text="Aufträge" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
+      <TitledPane collapsible="false" layoutX="25.0" layoutY="62.0" prefHeight="427.0" prefWidth="1020.0" text="Aufträge" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="90.0">
          <content>
-            <TableView fx:id="tvAuftragskopf" prefHeight="396.0" prefWidth="875.0">
+            <TableView fx:id="tvAuftragskopf" prefHeight="359.0" prefWidth="1013.0">
                <columns>
                   <TableColumn fx:id="tcAuftragsID" prefWidth="156.0" text="Auftrags-ID" />
                   <TableColumn fx:id="tcAuftragsText" prefWidth="62.0" text="Text" />
@@ -28,10 +28,36 @@
          </font>
       </TitledPane>
       <Button layoutX="25.0" layoutY="36.0" mnemonicParsing="false" onAction="#sucheAuftrag" prefHeight="40.0" prefWidth="160.0" text="Auftrag Suchen " AnchorPane.leftAnchor="25.0" />
-      <Button layoutX="25.0" layoutY="546.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftragspositionen" />
-      <Button layoutX="200.0" layoutY="546.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftrag anlegen " />
-      <Button layoutX="376.0" layoutY="546.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftrag ändern" />
-      <Button fx:id="closeAA" layoutX="885.0" layoutY="546.0" mnemonicParsing="false" onAction="#closeAuftraegeAnzeigen" prefHeight="40.0" prefWidth="160.0" text="Abbrechen " />
-      <Button fx:id="btLoeschen" layoutX="555.0" layoutY="546.0" mnemonicParsing="false" onAction="#auftragskopfLoeschen" prefHeight="40.0" prefWidth="160.0" text="Auftrag löschen" />
+      <TitledPane animated="false" layoutX="25.0" layoutY="428.0" prefHeight="256.0" prefWidth="1013.0" text="Auftragskopf" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="29.0" layoutY="21.0" text="Auftragskopf" />
+                  <TextField fx:id="tfAuftragskopf" layoutX="14.0" layoutY="38.0" prefHeight="25.0" prefWidth="89.0" />
+                  <Label layoutX="140.0" layoutY="21.0" text="Text zum Auftrag" />
+                  <TextArea fx:id="tfText" layoutX="121.0" layoutY="38.0" prefHeight="40.0" prefWidth="123.0" />
+                  <TextField fx:id="tfPartnerID" layoutX="258.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
+                  <Label layoutX="293.0" layoutY="21.0" text="Partner-ID" />
+                  <Label layoutX="50.0" layoutY="98.0" text="Auftragswert" />
+                  <Label layoutX="407.0" layoutY="21.0" text="Erfassungsdatum" />
+                  <Label layoutX="533.0" layoutY="22.0" text="Lieferdatum" />
+                  <Label layoutX="649.0" layoutY="22.0" text="Abschlussdatum" />
+                  <Label layoutX="203.0" layoutY="98.0" text="Auftragsstatus" />
+                  <Label layoutX="356.0" layoutY="98.0" text="Auftragsart" />
+                  <ComboBox fx:id="cbAuftragsstatus" layoutX="183.0" layoutY="129.0" prefHeight="25.0" prefWidth="123.0" promptText="Bitte wählen..." />
+                  <ComboBox fx:id="cbAuftragsart" layoutX="328.0" layoutY="129.0" prefHeight="25.0" prefWidth="110.0" promptText="Bitte wählen..." />
+                  <TextField fx:id="tfAuftragswert" layoutX="45.0" layoutY="129.0" prefHeight="25.0" prefWidth="91.0" />
+                  <DatePicker fx:id="dpErfdatum" layoutX="383.0" layoutY="38.0" prefHeight="25.0" prefWidth="116.0" />
+                  <DatePicker fx:id="dpLieferdatum" layoutX="510.0" layoutY="38.0" prefHeight="25.0" prefWidth="108.0" />
+                  <DatePicker fx:id="dpAbschlussdatum" layoutX="631.0" layoutY="38.0" prefHeight="25.0" prefWidth="116.0" />
+                  <Button layoutX="18.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftragspositionen" />
+                  <Button layoutX="186.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftrag anlegen " />
+                  <Button layoutX="358.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftrag ändern" />
+                  <Button fx:id="btLoeschen" layoutX="522.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragskopfLoeschen" prefHeight="40.0" prefWidth="160.0" text="Auftrag löschen" />
+                  <Button fx:id="closeAA" layoutX="808.0" layoutY="180.0" mnemonicParsing="false" onAction="#closeAuftraegeAnzeigen" prefHeight="40.0" prefWidth="160.0" text="Abbrechen " />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
    </children>
 </AnchorPane>
