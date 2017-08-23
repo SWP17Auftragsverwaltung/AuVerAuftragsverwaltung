@@ -351,14 +351,16 @@ public class ArtikelverwaltungController implements Initializable {
                 -> change.getControlNewText().length() <= zahl ? change : null));
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 14.08.17    HEN     ObservableArrayList hinzugefügt
     /*------------------------------------------------------------------------*/
+    
     /**
      * Erstellt ein ArtikelDAO Objekt und gibt eine Artikel ArrayList an eine
      * OberservableList, die dann an die TableView übergeben wird.
-     *
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
