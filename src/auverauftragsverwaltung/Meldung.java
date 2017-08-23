@@ -39,7 +39,7 @@ public class Meldung {
 
     }
 
-    public void schießeFenster() {
+    public void schließeFenster() {
 
         meldung.close();
     }

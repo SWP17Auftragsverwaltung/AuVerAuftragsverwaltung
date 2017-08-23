@@ -22,6 +22,7 @@ import Klassen.Adresse;
 import Klassen.MyException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -32,6 +33,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -335,8 +337,8 @@ public class AdressverwaltungController implements Initializable {
         // Staat auf 30 Zeichen begrenzt
         begrenzeTextFeldEingabe(tf_staat, 30);
 
-        // Datum auf 10 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_datum, 10);
+//        // Datum auf 10 Zeichen begrenzt
+//        begrenzeTextFeldEingabe(tf_datum, 10);
 
         // Datum auf 10 Zeichen begrenzt
         begrenzeTextFeldEingabe(tf_anschriftID, 6);
@@ -653,7 +655,7 @@ public class AdressverwaltungController implements Initializable {
                 refreshTable();
 
             } else {
-                meldung.schießeFenster();
+                meldung.schließeFenster();
                 clearTextFields();
             }
         }
@@ -775,6 +777,7 @@ public class AdressverwaltungController implements Initializable {
             this.tf_plz.setText(b.getPlz());
             this.tf_ort.setText(b.getOrt());
             this.tf_staat.setText(b.getStaat());
+
             this.tf_datum.setText(b.getErfassungsdatum());
         }
     }
@@ -876,7 +879,7 @@ public class AdressverwaltungController implements Initializable {
                 clearTextFields();
             
             } else {
-                meldung.schießeFenster();
+                meldung.schließeFenster();
             }
         }
     }

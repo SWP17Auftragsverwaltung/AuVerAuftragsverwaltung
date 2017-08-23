@@ -65,12 +65,12 @@
                   <Label layoutX="570.0" layoutY="74.0" text="Staat" />
                   <NameTextField fx:id="tf_staat" layoutX="569.0" layoutY="88.0" prefHeight="25.0" prefWidth="150.0" />
                   <Label layoutX="771.0" layoutY="75.0" text="Erfassungsdatum" />
-                  <TextField fx:id="tf_datum" layoutX="771.0" layoutY="93.0" prefHeight="25.0" prefWidth="220.0" />
                   <ComboBox fx:id="cb_anrede" layoutX="132.0" layoutY="38.0" prefHeight="25.0" prefWidth="120.0" promptText="Bitte wählen..." />
-                  <Pane fx:id="pane" layoutX="14.0" layoutY="15.0" prefHeight="123.0" prefWidth="982.0" />
+                  <Pane fx:id="pane" layoutX="14.0" layoutY="15.0" prefHeight="123.0" prefWidth="982.0" visible="false" />
                   <Button fx:id="speichernBT" layoutX="132.0" layoutY="172.0" mnemonicParsing="false" onAction="#speichereAenderung" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
                   <Button fx:id="hinzufuegenAdresseBT" layoutX="24.0" layoutY="172.0" mnemonicParsing="false" onAction="#adresseHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
                   <Button fx:id="abbrechenBT" layoutX="354.0" layoutY="172.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
+                  <TextField fx:id="tf_datum" layoutX="771.0" layoutY="89.0" prefHeight="25.0" prefWidth="220.0" />
                   
                </children>
             </AnchorPane>

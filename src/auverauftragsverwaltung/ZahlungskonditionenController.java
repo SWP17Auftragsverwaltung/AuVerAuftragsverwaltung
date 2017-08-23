@@ -608,7 +608,7 @@ public class ZahlungskonditionenController implements Initializable {
 
                 refreshTable();
             } else {
-                meldung.schießeFenster();
+                meldung.schließeFenster();
                 clearTextFields();
             }
         }
@@ -820,7 +820,7 @@ public class ZahlungskonditionenController implements Initializable {
 
                 } else {
 
-                    meldung.schießeFenster();
+                    meldung.schließeFenster();
 
                 }
             }

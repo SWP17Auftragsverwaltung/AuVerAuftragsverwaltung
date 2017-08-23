@@ -479,7 +479,7 @@ public class ArtikelverwaltungController implements Initializable {
         this.btHinzufuegen.setVisible(true);
         // Der Anlegemodus des Adressdatensatzes wird aktiviert
         this.artikeldatensatzPane.setText(
-                "Adressdatensatz (Anlegemodus)");
+                "Artikeldatensatz (Anlegemodus)");
         // Anlegen-Button wird deaktiviert
         this.btBearbeiten.setDisable(true);
         // Löschen-Button wird deaktiviert
@@ -562,7 +562,7 @@ public class ArtikelverwaltungController implements Initializable {
 
                 refreshTable();
             } else {
-                meldung.schießeFenster();
+                meldung.schließeFenster();
                 clearTextFields();
             }
         }
@@ -721,7 +721,7 @@ public class ArtikelverwaltungController implements Initializable {
                 // Speichern-Button wird eingeblendet
 
                 // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-                this.artikeldatensatzPane.setText("Adressdatensatz");
+                this.artikeldatensatzPane.setText("Artikeldatensatz");
 
                 // Anlegen-Button wird deaktiviert
                 this.btBearbeiten.setDisable(false);
@@ -741,7 +741,7 @@ public class ArtikelverwaltungController implements Initializable {
                 clearTextFields();
             } else {
 
-                meldung.schießeFenster();
+                meldung.schließeFenster();
 
             }
         }

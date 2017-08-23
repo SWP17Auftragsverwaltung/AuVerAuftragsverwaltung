@@ -390,7 +390,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
 
                 refreshTable();
             } else {
-                meldung.schießeFenster();
+                meldung.schließeFenster();
                 clearTextFields();
             }
         }
@@ -517,7 +517,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
                 // Speichern-Button wird eingeblendet
 
                 // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-                this.datensatzTP.setText("Adressdatensatz");
+                this.datensatzTP.setText("Geschäftspartnerdatensatz");
 
                 // Anlegen-Button wird deaktiviert
                 this.bearbeitenBT.setDisable(false);
@@ -536,7 +536,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
                 clearTextFields();
             } else {
 
-                meldung.schießeFenster();
+                meldung.schließeFenster();
 
             }
 
