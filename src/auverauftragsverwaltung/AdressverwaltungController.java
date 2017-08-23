@@ -391,6 +391,11 @@ public class AdressverwaltungController implements Initializable {
 
     
     
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    GET     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
     /**
      * Begrenzte Feldeingabe.
      * @param tf Teftfekd
@@ -425,6 +430,11 @@ public class AdressverwaltungController implements Initializable {
     }
 
     
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
     
     /**
      * Methode bekommt eine ArrayList mit den gefundenen Adressen übergeben und
@@ -486,6 +496,7 @@ public class AdressverwaltungController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
+    /* 16.08.17    HEN     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -506,6 +517,7 @@ public class AdressverwaltungController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
+    /* 16.08.17    HEN     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -525,6 +537,7 @@ public class AdressverwaltungController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
+    /* 22.08.17    BER     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -559,6 +572,8 @@ public class AdressverwaltungController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
+    /* 21.08.17    GET     clearTextFields() & refresTable() ergänzt.
+    /*                     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -611,6 +626,7 @@ public class AdressverwaltungController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
+    /* 22.08.17    BER     refreshTable() ergänzt. Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -634,6 +650,7 @@ public class AdressverwaltungController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
+    /* 22.08.17    HEN     Adressdatenpane geändert. Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -660,13 +677,14 @@ public class AdressverwaltungController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
+    /* 22.08.17    HEN     Exceptions eingefügt. Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
      * Speichert die gemachten Änderungen in die Datenbank und aktualisiert
      * die View mit den neuen Werten.
      * @throws java.sql.SQLException SQLException.
-     * @throws Klassen.MyException
+     * @throws Klassen.MyException Eigene Exception.
     */      
     @FXML
     public void speichereAenderung() throws SQLException, MyException {  
@@ -684,11 +702,11 @@ public class AdressverwaltungController implements Initializable {
         String email = tf_email.getText();
         String erfdatum = tf_datum.getText();
         
-        if (anrede.equals("") || name.equals("") || vorname.equals("") 
-            || strasse.equals("") || hausnr.equals("") || plz.equals("")
-            || ort.equals("") || staat.equals("") || tel.equals("")
-            || email.equals("") || erfdatum.equals("")) {
-            throw new MyException(111);
+        if (anrede.isEmpty() || name.isEmpty() || vorname.isEmpty() 
+            || strasse.isEmpty() || hausnr.isEmpty() || plz.isEmpty()
+            || ort.isEmpty() || staat.isEmpty() || tel.isEmpty()
+            || email.isEmpty() || erfdatum.isEmpty()) {
+            throw new MyException(30);
         
         } else {
             String lkz = "N";
@@ -721,6 +739,7 @@ public class AdressverwaltungController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
+    /* 22.08.17    BER     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -752,7 +771,7 @@ public class AdressverwaltungController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    HEN     Methode erstellt.
-    /* 18.08.17    BER     IF Fälle ergänzt.
+    /* 18.08.17    BER     IF Fälle ergänzt. Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -782,6 +801,8 @@ public class AdressverwaltungController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 19.08.17    HEN     Methode erstellt.
+    /* 22.08.17    HEN     Suchfeld aktualisiert, setTableContent() eingefügt.
+    /*                     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
