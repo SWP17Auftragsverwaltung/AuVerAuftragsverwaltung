@@ -44,8 +44,9 @@ public class AdresseDAO extends DataAccess {
     /**
      * Gibt alle Adressen wieder die sich in der Datenbank befinden.
      * @return Gibt Arraylist aller Adressen wieder
+     * @throws java.sql.SQLException SQLException
      */
-    public ArrayList<Adresse> gibAlleAdressen() {
+    public ArrayList<Adresse> gibAlleAdressen() throws SQLException {
 
         //Variablendeklaration
         Statement stmt = null;
@@ -75,7 +76,8 @@ public class AdresseDAO extends DataAccess {
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
-            alert.showAndWait();           
+            alert.showAndWait();
+            con.rollback();
         }
         return adressListe;
     }
@@ -91,8 +93,9 @@ public class AdresseDAO extends DataAccess {
      * Gibt alle Adressen ohne Löschkennzeichen wieder.
      *
      * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
+     * @throws java.sql.SQLException SQLException.
      */
-    public ArrayList<Adresse> gibAlleAdressenOhneLKZ() {
+    public ArrayList<Adresse> gibAlleAdressenOhneLKZ() throws SQLException {
 
         //Variablendeklaration
         PreparedStatement stmt = null;
@@ -133,6 +136,7 @@ public class AdresseDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
         return adressListe;
     }
@@ -147,8 +151,9 @@ public class AdresseDAO extends DataAccess {
     /**
      * Gibt alle Adressen mit Löschkennzeichen wieder.
      * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
+     * @throws java.sql.SQLException SQLException.
      */
-    public ArrayList<Adresse> gibAlleAdressenMitLKZ() {
+    public ArrayList<Adresse> gibAlleAdressenMitLKZ() throws SQLException {
 
         //Variablendeklaration
         PreparedStatement stmt = null;
@@ -189,6 +194,7 @@ public class AdresseDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
         return adressListe;
     }
@@ -203,8 +209,9 @@ public class AdresseDAO extends DataAccess {
     /**
      * Fügt Adresse der Datenbank hinzu.
      * @param a Adressobjekt
+     * @throws java.sql.SQLException SQLException.
      */
-    public void fuegeAdresseHinzu(Adresse a) {
+    public void fuegeAdresseHinzu(Adresse a) throws SQLException {
         //Variablendeklaration
         PreparedStatement stmt = null;
         String anschriftID = generiereID();
@@ -253,6 +260,7 @@ public class AdresseDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
     }
 
@@ -266,8 +274,9 @@ public class AdresseDAO extends DataAccess {
     /**
      * Ändern die Adresse in der DB.
      * @param a Adressobjekt
+     * @throws java.sql.SQLException SQLException
      */
-    public void aendereAdresse(Adresse a) {
+    public void aendereAdresse(Adresse a) throws SQLException {
         PreparedStatement stmt = null;
         String query = "";
 
@@ -280,7 +289,6 @@ public class AdresseDAO extends DataAccess {
             stmt.setString(1, a.getAnrede());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
-            con.commit();
 
             
             query = "UPDATE ROOT.ADRESSE SET ANREDE = ? WHERE ANSCHRIFT_ID = ?";
@@ -288,7 +296,6 @@ public class AdresseDAO extends DataAccess {
             stmt.setString(1, a.getAnrede());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
-            con.commit();
 
             
             query = "UPDATE ROOT.ADRESSE SET NAME = ? WHERE ANSCHRIFT_ID = ?";
@@ -296,7 +303,6 @@ public class AdresseDAO extends DataAccess {
             stmt.setString(1, a.getName());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
-            con.commit();
 
             
             query 
@@ -305,7 +311,6 @@ public class AdresseDAO extends DataAccess {
             stmt.setString(1, a.getVorname());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
-            con.commit();
 
             
             query 
@@ -314,7 +319,6 @@ public class AdresseDAO extends DataAccess {
             stmt.setString(1, a.getStrasse());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
-            con.commit();
 
             
             query 
@@ -324,7 +328,6 @@ public class AdresseDAO extends DataAccess {
             stmt.setString(1, a.getHausnummer());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
-            con.commit();
 
             
             query = "UPDATE ROOT.ADRESSE SET PLZ = ? WHERE ANSCHRIFT_ID = ?";
@@ -332,7 +335,6 @@ public class AdresseDAO extends DataAccess {
             stmt.setString(1, a.getPlz());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
-            con.commit();
 
             
             query = "UPDATE ROOT.ADRESSE SET ORT = ? WHERE ANSCHRIFT_ID = ?";
@@ -340,7 +342,6 @@ public class AdresseDAO extends DataAccess {
             stmt.setString(1, a.getOrt());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
-            con.commit();
 
             
             query = "UPDATE ROOT.ADRESSE SET STAAT = ? WHERE ANSCHRIFT_ID = ?";
@@ -348,7 +349,6 @@ public class AdresseDAO extends DataAccess {
             stmt.setString(1, a.getStaat());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
-            con.commit();
 
             
             query = "UPDATE ROOT.ADRESSE SET TELEFON = ? "
@@ -357,7 +357,6 @@ public class AdresseDAO extends DataAccess {
             stmt.setString(1, a.getTelefon());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
-            con.commit();
 
             
             query = "UPDATE ROOT.ADRESSE SET E_MAIL = ? WHERE ANSCHRIFT_ID = ?";
@@ -365,7 +364,6 @@ public class AdresseDAO extends DataAccess {
             stmt.setString(1, a.getEmail());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
-            con.commit();
 
             
             query = "UPDATE ROOT.ADRESSE SET ERFASSUNGSDATUM = ? "
@@ -374,6 +372,9 @@ public class AdresseDAO extends DataAccess {
             stmt.setString(1, a.getErfassungsdatum());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
+            
+            
+            
             con.commit();
 
             
@@ -383,6 +384,7 @@ public class AdresseDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
     }
 
@@ -397,8 +399,9 @@ public class AdresseDAO extends DataAccess {
     /**
      * Setzt Löschkennzeichen bei einer ausgewählten Adresse.
      * @param a Adresse
+     * @throws java.sql.SQLException SQLException
      */
-    public void setzeLKZ(Adresse a) {
+    public void setzeLKZ(Adresse a) throws SQLException {
         PreparedStatement stmt = null;
         String anschriftID = a.getAdresseID();
 
@@ -420,6 +423,7 @@ public class AdresseDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
 
     }
@@ -434,8 +438,9 @@ public class AdresseDAO extends DataAccess {
     /**
      * Setzt Löschkennzeichen bei einer ausgewählten Adresse.
      * @return neue ID aufgezählt.
+     * @throws java.sql.SQLException SQLException
      */    
-    public String gibLetztID() {
+    public String gibLetztID() throws SQLException {
         Statement stmt = null;
         String value = "";
         ResultSet rs = null;
@@ -457,6 +462,7 @@ public class AdresseDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
         return value;
     }
@@ -471,8 +477,9 @@ public class AdresseDAO extends DataAccess {
     /**
      * Liest die letzte ID aus, erhöht sie um 1 und gibt sie wieder.
      * @return neue ID aufgezählt.
+     * @throws java.sql.SQLException SQLException.
      */    
-    public String generiereID() {
+    public String generiereID() throws SQLException {
         //Holt sich die aktuell maximale ID.
         String alteIDString = gibLetztID();
         String neueID;

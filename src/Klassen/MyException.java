@@ -19,15 +19,6 @@ import javafx.scene.control.Alert;
  * @author Andre
  */
 public class MyException extends Exception {
-
-    /**
-     * Leerer Konstruktor.
-     */
-    public MyException() {
-        
-    }
-
-
     
     /**
      * Konstruktor mit Fehlercode.

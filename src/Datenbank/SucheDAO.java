@@ -54,15 +54,16 @@ public class SucheDAO extends DataAccess {
      * @param suchbegriff ein String nach dem in der Suchspalte gesucht wird.
      * @return Liefert eine ArrayList mit den zu dem Suchbegriff passenden
      * Adressen.
+     * @throws java.sql.SQLException SQLException
      */
     public ArrayList<Adresse> adressSuche(
-            String suchkriterium, String suchbegriff) {
+            String suchkriterium, String suchbegriff) throws SQLException {
 
         Statement stmt = null;
         ResultSet rs = null;
         ArrayList<Adresse> gefundeneAdressen = new ArrayList<>();
         StringBuilder neuerSuchbegriff = new StringBuilder(suchbegriff);
-
+    
         for (int i = 0; i < suchbegriff.length(); i++) {
             if (suchbegriff.charAt(i) == '*') {
                 neuerSuchbegriff.setCharAt(i, '%');
@@ -72,7 +73,6 @@ public class SucheDAO extends DataAccess {
         }
 
         try {
-
             if (suchkriterium.equals("AnschriftID")) {
                 String query
                         = "SELECT * FROM ROOT.ADRESSE WHERE ANSCHRIFT_ID LIKE '"
@@ -89,7 +89,6 @@ public class SucheDAO extends DataAccess {
                             rs.getString(13));
                     gefundeneAdressen.add(adresse);
                 }
-                con.commit();
 
             } else if (suchkriterium.equals("Anrede")) {
                 String query
@@ -107,7 +106,6 @@ public class SucheDAO extends DataAccess {
                             rs.getString(13));
                     gefundeneAdressen.add(adresse);
                 }
-                con.commit();
 
             } else if (suchkriterium.equals("Name")) {
                 String query
@@ -125,7 +123,6 @@ public class SucheDAO extends DataAccess {
                             rs.getString(13));
                     gefundeneAdressen.add(adresse);
                 }
-                con.commit();
 
             } else if (suchkriterium.equals("Vorname")) {
                 String query
@@ -143,7 +140,6 @@ public class SucheDAO extends DataAccess {
                             rs.getString(13));
                     gefundeneAdressen.add(adresse);
                 }
-                con.commit();
 
             } else if (suchkriterium.equals("Straße")) {
                 String query
@@ -161,7 +157,6 @@ public class SucheDAO extends DataAccess {
                             rs.getString(13));
                     gefundeneAdressen.add(adresse);
                 }
-                con.commit();
 
             } else if (suchkriterium.equals("HausNr")) {
                 String query
@@ -179,7 +174,6 @@ public class SucheDAO extends DataAccess {
                             rs.getString(13));
                     gefundeneAdressen.add(adresse);
                 }
-                con.commit();
 
             } else if (suchkriterium.equals("PLZ")) {
                 String query
@@ -197,7 +191,6 @@ public class SucheDAO extends DataAccess {
                             rs.getString(13));
                     gefundeneAdressen.add(adresse);
                 }
-                con.commit();
 
             } else if (suchkriterium.equals("Ort")) {
                 String query
@@ -215,7 +208,6 @@ public class SucheDAO extends DataAccess {
                             rs.getString(13));
                     gefundeneAdressen.add(adresse);
                 }
-                con.commit();
 
             } else if (suchkriterium.equals("Staat")) {
                 String query
@@ -233,7 +225,6 @@ public class SucheDAO extends DataAccess {
                             rs.getString(13));
                     gefundeneAdressen.add(adresse);
                 }
-                con.commit();
 
             } else if (suchkriterium.equals("Tel")) {
                 String query
@@ -251,7 +242,6 @@ public class SucheDAO extends DataAccess {
                             rs.getString(13));
                     gefundeneAdressen.add(adresse);
                 }
-                con.commit();
 
             } else if (suchkriterium.equals("Email")) {
                 String query
@@ -269,12 +259,11 @@ public class SucheDAO extends DataAccess {
                             rs.getString(13));
                     gefundeneAdressen.add(adresse);
                 }
-                con.commit();
 
             } else if (suchkriterium.equals("ErfDatum")) {
                 String query
                         = "SELECT * FROM ROOT.ADRESSE WHERE ERFASSUNGSDATUM "
-                        + "LIKE '"+ neuerSuchbegriff + "' AND LKZ LIKE 'N'";
+                        + "LIKE '" + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
                 stmt = con.createStatement();
                 rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -287,6 +276,7 @@ public class SucheDAO extends DataAccess {
                     gefundeneAdressen.add(adresse);
                 }
             }
+            con.commit();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -294,6 +284,8 @@ public class SucheDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
+        
         }
         return gefundeneAdressen;
     }
