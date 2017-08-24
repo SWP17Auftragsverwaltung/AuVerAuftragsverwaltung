@@ -795,13 +795,13 @@ public class AdressverwaltungController implements Initializable {
      */
     @FXML
     public void adresseSuchen() throws SQLException  {
-        SucheDAO ad = new SucheDAO();
+        SucheDAO sd = new SucheDAO();
         ArrayList gefundeneAdressen;
 
         String suchkriterium = cb_suchfeld.getValue();
         String suchbegriff = tf_suchbegriff.getText();
       
-        gefundeneAdressen = ad.adressSuche(suchkriterium, suchbegriff);
+        gefundeneAdressen = sd.adressSuche(suchkriterium, suchbegriff);
         zeigeGefundeneAdressen(gefundeneAdressen);
 
         

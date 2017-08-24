@@ -43,12 +43,12 @@ public class DataDictionary {
     /**
      * Feldlaenge des Attributes.
      */
-    private int feldlaenge;
+    private String feldlaenge;
     
     /**
      * Positionsnummer des Atributes, dient der Ordnung.
      */
-    private int position;
+    private String position;
 
     
     /*--------------------------------------------------------------------------
@@ -68,8 +68,8 @@ public class DataDictionary {
      * @param position Position des Attributes.
      **/
     public DataDictionary(String tabellenID, String attributeID, 
-            String attributname, String datentyp, int feldlaenge, 
-            int position) {
+            String attributname, String datentyp, String feldlaenge, 
+            String position) {
         
         this.tabellenID = tabellenID;
         this.attributeID = attributeID;
@@ -79,21 +79,7 @@ public class DataDictionary {
         this.position = position;
     }
 
-    /*--------------------------------------------------------------------------
-     * Datum     Name    Kommentar
-     * 26.07.17  Hen     Erstellt.
-     *--------------------------------------------------------------------------
-    */
     
-    /**
-     * toString Methode für DataDictonary Objekte.
-     * @return String Wert mit TabellenID
-     */
-    /*----------------------------------------------------------*/
-    @Override
-    public String toString() {
-        return "ID: " + tabellenID;
-    }
 
     /*------------------------------------------------
      *            Generierter Code Anfang
@@ -159,29 +145,29 @@ public class DataDictionary {
     /**
      * @return the Feldlaenge
      */
-    public int getFeldlaenge() {
+    public String getFeldlaenge() {
         return feldlaenge;
     }
 
     /**
      * @param feldlaenge the Feldlaenge to set
      */
-    public void setFeldlaenge(int feldlaenge) {
+    public void setFeldlaenge(String feldlaenge) {
         this.feldlaenge = feldlaenge;
     }
 
     /**
      * @return the Position
      */
-    public int getPosition() {
+    public String getPosition() {
         return position;
     }
 
     /**
-     * @param getter the Position to set
+     * @param position the Position to set
      */
-    public void setPosition(int getter) {
-        this.position = getter;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     /*------------------------------------------------

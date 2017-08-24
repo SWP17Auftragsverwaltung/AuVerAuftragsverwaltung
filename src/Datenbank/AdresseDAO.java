@@ -26,12 +26,17 @@ import javafx.stage.StageStyle;
 public class AdresseDAO extends DataAccess {
 
     /**
+     * Erzeugt ein neues DataDictionaryDAO Objekt.
+     */
+    private DataDictionaryDAO ddd = new DataDictionaryDAO();
+    
+    /**
      * Konstruktor.
      *
      * @throws SQLException SQLException
      */
     public AdresseDAO() throws SQLException {
-
+        ddd.gibTabellenNamen();
     }
 
     
@@ -54,7 +59,7 @@ public class AdresseDAO extends DataAccess {
         Adresse adresse = null;
         ArrayList<Adresse> adressListe = new ArrayList<>();
 
-        String query = "SELECT * FROM ROOT.Adresse";
+        String query = "SELECT * FROM ROOT." + ddd.getTabAdresse();
 
         try {
             stmt = con.createStatement();
@@ -103,7 +108,8 @@ public class AdresseDAO extends DataAccess {
         Adresse adresse = null;
         ArrayList<Adresse> adressListe = new ArrayList<>();
 
-        String query = "SELECT * FROM ROOT.ADRESSE WHERE LKZ = ?";
+        String query = "SELECT * FROM ROOT." 
+                + ddd.getTabAdresse() + " WHERE LKZ = ?";
 
         try {
             stmt = con.prepareStatement(query);
@@ -161,7 +167,8 @@ public class AdresseDAO extends DataAccess {
         Adresse adresse = null;
         ArrayList<Adresse> adressListe = new ArrayList<>();
 
-        String query = "SELECT * FROM ROOT.ADRESSE WHERE LKZ = ?";
+        String query = "SELECT * FROM ROOT." + ddd.getTabAdresse() 
+                + " WHERE LKZ = ?";
 
         try {
             stmt = con.prepareStatement(query);
