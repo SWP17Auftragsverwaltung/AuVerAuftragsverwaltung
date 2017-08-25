@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.scene.control.Alert;
 import javafx.stage.StageStyle;
 
@@ -27,12 +28,29 @@ import javafx.stage.StageStyle;
 public class GeschaeftspartnerDAO extends DataAccess {
 
     /**
+     * Erzeugt ein neues DataDictionaryDAO Objekt.
+     */
+    private DataDictionaryDAO ddd = new DataDictionaryDAO();
+    
+    /**
+     * 
+     */
+    private String TAB_GESCHAEFTSPARTNER = ddd.getTAB_GESCHAEFTSPARTNER();
+    
+    /**
+     * 
+     */
+    private HashMap<String, ArrayList> attribute;        
+    
+    
+    /**
      * Konstruktor.
      *
      * @throws SQLException SQLException
      */
     public GeschaeftspartnerDAO() throws SQLException {
-
+        attribute = ddd.getTabellenAttribute();
+        ddd.holeAlleAttribute(TAB_GESCHAEFTSPARTNER);
     }
 
     /*------------------------------------------------------------------------*/
@@ -52,12 +70,13 @@ public class GeschaeftspartnerDAO extends DataAccess {
         Geschaeftspartner geschaeftspartner = null;
         ArrayList<Geschaeftspartner> geschaeftspartnerListe = new ArrayList<>();
 
-        String query = "SELECT * FROM ROOT.Geschaeftspartner";
+        String query = "SELECT * FROM ROOT." + ddd.getTabGeschaeftspartner();
 
         try {
             stmt = con.createStatement();
             rs = stmt.executeQuery(query);
-
+            con.commit();
+            
             while (rs.next()) {
                 geschaeftspartner = new Geschaeftspartner(rs.getString(1),
                         rs.getString(2), rs.getString(3), rs.getString(4),
@@ -77,31 +96,33 @@ public class GeschaeftspartnerDAO extends DataAccess {
         return geschaeftspartnerListe;
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    CEL     Erstellt und getestet.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Gibt alle Geschäftspartner ohne Löschkennzeichen wieder.
-     *
      * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
      */
     public ArrayList<Geschaeftspartner> gibAlleGeschaeftspartnerOhneLKZ() {
-
         //Variablendeklaration
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Geschaeftspartner geschaeftspartner = null;
         ArrayList<Geschaeftspartner> geschaeftspartnerListe = new ArrayList<>();
 
-        String query = "SELECT * FROM ROOT.GESCHAEFTSPARTNER WHERE LKZ = ?";
+        String query = "SELECT * FROM ROOT." + ddd.getTabGeschaeftspartner() 
+            + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(5) + " = ?";
 
         try {
             stmt = con.prepareStatement(query);
             stmt.setString(1, "N");
             rs = stmt.executeQuery();
-
             con.commit();
+            
             while (rs.next()) {
                 geschaeftspartner = new Geschaeftspartner(rs.getString(1), 
                         rs.getString(2), rs.getString(3), rs.getString(4), 
@@ -145,14 +166,15 @@ public class GeschaeftspartnerDAO extends DataAccess {
         Geschaeftspartner geschaeftspartner = null;
         ArrayList<Geschaeftspartner> geschaeftspartnerListe = new ArrayList<>();
 
-        String query = "SELECT * FROM ROOT.GESCHAEFTSPARTNER WHERE LKZ = ?";
+        String query = "SELECT * FROM ROOT." + ddd.getTabGeschaeftspartner() 
+            + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(5) + " = ?";
 
         try {
             stmt = con.prepareStatement(query);
             stmt.setString(1, "J");
             rs = stmt.executeQuery();
-
             con.commit();
+            
             while (rs.next()) {
                 geschaeftspartner = new Geschaeftspartner(rs.getString(1), 
                         rs.getString(2), rs.getString(3), rs.getString(4),
@@ -202,9 +224,13 @@ public class GeschaeftspartnerDAO extends DataAccess {
         try {
             con.setAutoCommit(false);
 
-            String query = "INSERT INTO ROOT.GESCHAEFTSPARTNER "
-                    + "(GESCHAEFTSPARTNER_ID, TYP, ANSCHRIFT_ID, "
-                    + "LIEFER_ID, KREDITLIMIT, LKZ)"
+            String query = "INSERT INTO ROOT." + ddd.getTabGeschaeftspartner()
+                    + "(" + attribute.get(TAB_GESCHAEFTSPARTNER).get(0) + "," 
+                    + attribute.get(TAB_GESCHAEFTSPARTNER).get(1) + "," 
+                    + attribute.get(TAB_GESCHAEFTSPARTNER).get(2) + ", "
+                    + attribute.get(TAB_GESCHAEFTSPARTNER).get(3) + ", "
+                    + attribute.get(TAB_GESCHAEFTSPARTNER).get(4) + ", "
+                    + attribute.get(TAB_GESCHAEFTSPARTNER).get(5) + ") "
                     + "VALUES (?,?,?,?,?,?)";
 
             stmt = con.prepareStatement(query);
@@ -217,6 +243,7 @@ public class GeschaeftspartnerDAO extends DataAccess {
 
             stmt.executeUpdate();
             con.commit();
+            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -227,64 +254,68 @@ public class GeschaeftspartnerDAO extends DataAccess {
         }
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 17.08.17    BER     Erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Ändern der Geschäftspartner in der DB.
-     *
      * @param a Geschäftspartnerobjekt
      */
     public void aendernGeschaeftspartner(Geschaeftspartner a) {
 
         //Variablendeklaration
         PreparedStatement stmt = null;
-        String query
-                = "";
+        String query = "";
 
         try {
             con.setAutoCommit(false);
 
-            query = "UPDATE ROOT.GESCHAEFTSPARTNER SET TYP = ? "
-                    + "WHERE GESCHAEFTSPARTNER_ID = ?";
-
+            query = "UPDATE ROOT." + ddd.getTabGeschaeftspartner() 
+                + " SET " + attribute.get(TAB_GESCHAEFTSPARTNER).get(1) + " = ?"
+                + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(0) 
+                + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getTyp());
             stmt.setString(2, a.getGeschaeftspartnerID());
-
             stmt.executeUpdate();
-            con.commit();
 
-            query = "UPDATE ROOT.GESCHAEFTSPARTNER SET ANSCHRIFT_ID = ? "
-                    + "WHERE GESCHAEFTSPARTNER_ID = ?";
-
+            
+            query = "UPDATE ROOT." + ddd.getTabGeschaeftspartner() 
+                + " SET " + attribute.get(TAB_GESCHAEFTSPARTNER).get(2) + " = ?"
+                + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(0) 
+                + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getAdresseID());
             stmt.setString(2, a.getGeschaeftspartnerID());
-
             stmt.executeUpdate();
-            con.commit();
 
-            query = "UPDATE ROOT.GESCHAEFTSPARTNER SET LIEFER_ID = ? "
-                    + "WHERE GESCHAEFTSPARTNER_ID = ?";
 
+            query = "UPDATE ROOT." + ddd.getTabGeschaeftspartner() 
+                + " SET " + attribute.get(TAB_GESCHAEFTSPARTNER).get(3) + " = ?"
+                + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(0) 
+                + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getLieferID());
             stmt.setString(2, a.getGeschaeftspartnerID());
-
             stmt.executeUpdate();
-            con.commit();
+  
 
-            query = "UPDATE ROOT.GESCHAEFTSPARTNER SET KREDITLIMIT = ? "
-                    + "WHERE GESCHAEFTSPARTNER_ID = ?";
-
+            query = "UPDATE ROOT." + ddd.getTabGeschaeftspartner() 
+                + " SET " + attribute.get(TAB_GESCHAEFTSPARTNER).get(4) + " = ?"
+                + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(0) 
+                + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getKreditlimit());
             stmt.setString(2, a.getGeschaeftspartnerID());
-
             stmt.executeUpdate();
+            
+            
             con.commit();
+            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -295,13 +326,15 @@ public class GeschaeftspartnerDAO extends DataAccess {
         }
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
     /* 17.08.17     BER     Erstellt.     
     /*------------------------------------------------------------------------*/
+    
     /**
-     * Setzt Löschkennzeichen bei einer ausgewählten .
-     *
+     * Setzt Löschkennzeichen bei einem ausgewählten Geschäftspartner.
      * @param g Geschäftspartner
      */
     public void setzeLKZ(Geschaeftspartner g) {
@@ -313,8 +346,10 @@ public class GeschaeftspartnerDAO extends DataAccess {
             con.setAutoCommit(false);
 
             String query
-                    = "UPDATE ROOT.GESCHAEFTSPARTNER SET LKZ = ? "
-                    + "WHERE GESCHAEFTSPARTNER_ID = ?";
+                = "UPDATE ROOT." + ddd.getTabGeschaeftspartner() 
+                + " SET " + attribute.get(TAB_GESCHAEFTSPARTNER).get(5) + " = ?"
+                + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(0) 
+                + " = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, "J");
@@ -322,6 +357,7 @@ public class GeschaeftspartnerDAO extends DataAccess {
 
             stmt.executeUpdate();
             con.commit();
+            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -330,20 +366,26 @@ public class GeschaeftspartnerDAO extends DataAccess {
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
         }
-
     }
 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 17.08.17     BER     Erstellt.     
+    /*------------------------------------------------------------------------*/
+    
     /**
-     * Setzt Löschkennzeichen bei einer ausgewählten Adresse.
-     *
+     * Gibt die letzte ID aus der Tabelle aus.
      * @return neue ID aufgezählt.
      */
     public String gibLetztID() {
         Statement stmt = null;
         String value = "";
         ResultSet rs = null;
-        String query = "SELECT MAX(GESCHAEFTSPARTNER_ID) "
-                + "FROM ROOT.GESCHAEFTSPARTNER";
+        String query 
+            = "SELECT MAX(" + attribute.get(TAB_GESCHAEFTSPARTNER).get(0) + ") "
+            + "FROM ROOT." + ddd.getTabGeschaeftspartner();
 
         try {
             stmt = con.createStatement();
@@ -353,6 +395,7 @@ public class GeschaeftspartnerDAO extends DataAccess {
                 value = rs.getString(1);
             }
             con.commit();
+            
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -363,13 +406,18 @@ public class GeschaeftspartnerDAO extends DataAccess {
         return value;
     }
 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 17.08.17     BER     Erstellt.     
+    /*------------------------------------------------------------------------*/
+    
     /**
      * Liest die letzte ID aus, erhöht sie um 1 und gibt sie wieder.
-     *
      * @return neue ID aufgezählt.
      */
     public String generiereID() {
-
         //Holt sich die aktuell maximale ID.
         String alteIDString = gibLetztID();
         String neueID;
@@ -384,139 +432,13 @@ public class GeschaeftspartnerDAO extends DataAccess {
             //Fügt die neue ID in den String und füllt vordere Zahlen mit 0 auf,
             //wenn neueID < 6 Zeichen.
             neueID = String.format("%06d", alteIDInt);
+        
         } else {
             neueID = "000001";
         }
-
         return neueID;
     }
-//    /**
-//     * 
-//     * @param suchkriterium
-//     * @param suchbegriff
-//     * @return 
-//     */
-//    public ArrayList geschaeftspartnerSuche(String suchkriterium,
-//            String suchbegriff) {
-//
-//        Statement stmt = null;
-//        ResultSet rs = null;
-//        ArrayList<Geschaeftspartner> gefundeneGP = new ArrayList<>();
-//        StringBuilder neuerSuchbegriff = new StringBuilder(suchbegriff);
-//
-//        for (int i = 0; i < suchbegriff.length(); i++) {
-//            if (suchbegriff.charAt(i) == '*') {
-//                neuerSuchbegriff.setCharAt(i, '%');
-//            } else if (suchbegriff.charAt(i) == '?') {
-//                neuerSuchbegriff.setCharAt(i, '_');
-//            }
-//        }
-//
-//        try {
-//
-//            if (suchkriterium.equals("Geschaeftspartner-ID")) {
-//                String query
-//                        = "SELECT * FROM ROOT.GESCHAEFTSPARTNER "
-//                        + "WHERE GESCHAEFTSPARTNER_ID LIKE '"
-//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-//
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//
-//                while (rs.next()) {
-//
-//                    Geschaeftspartner gp = new Geschaeftspartner(
-//                            rs.getString(1), rs.getString(2), rs.getString(3),
-//                            rs.getString(4), rs.getString(5), rs.getString(6));
-//
-//                    gefundeneGP.add(gp);
-//                }
-//                con.commit();
-//
-//            } else if (suchkriterium.equals("Geschäftspartner-Typ")) {
-//                String query
-//                        = "SELECT * FROM ROOT.GESCHAEFTSPARTNER "
-//                        + "WHERE TYP LIKE '"
-//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-//
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//
-//                while (rs.next()) {
-//
-//                    Geschaeftspartner gp = new Geschaeftspartner(
-//                            rs.getString(1), rs.getString(2), rs.getString(3),
-//                            rs.getString(4), rs.getString(5), rs.getString(6));
-//
-//                    gefundeneGP.add(gp);
-//                }
-//                con.commit();
-//            } else if (suchkriterium.equals("Anschrift-ID")) {
-//                String query
-//                        = "SELECT * FROM ROOT.GESCHAEFTSPARTNER "
-//                        + "WHERE ANSCHRIFT_ID LIKE '"
-//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-//
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//
-//                while (rs.next()) {
-//
-//                    Geschaeftspartner gp = new Geschaeftspartner(
-//                            rs.getString(1), rs.getString(2), rs.getString(3),
-//                            rs.getString(4), rs.getString(5), rs.getString(6));
-//
-//                    gefundeneGP.add(gp);
-//                }
-//                con.commit();
-//            } else if (suchkriterium.equals("Liefer-ID")) {
-//                String query
-//                        = "SELECT * FROM ROOT.GESCHAEFTSPARTNER "
-//                        + "WHERE LIEFER_ID LIKE '"
-//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-//
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//
-//                while (rs.next()) {
-//
-//                    Geschaeftspartner gp = new Geschaeftspartner(
-//                            rs.getString(1), rs.getString(2), rs.getString(3),
-//                            rs.getString(4), rs.getString(5), rs.getString(6));
-//
-//                    gefundeneGP.add(gp);
-//                }
-//                con.commit();
-//            } else if (suchkriterium.equals("Kreditlimit")) {
-//                String query
-//                        = "SELECT * FROM ROOT.GESCHAEFTSPARTNER "
-//                        + "WHERE KREDITLIMIT LIKE '"
-//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-//
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//
-//                while (rs.next()) {
-//
-//                    Geschaeftspartner gp = new Geschaeftspartner(
-//                            rs.getString(1), rs.getString(2), rs.getString(3),
-//                            rs.getString(4), rs.getString(5), rs.getString(6));
-//
-//                    gefundeneGP.add(gp);
-//                }
-//                con.commit();
-//            }
-//
-//        } catch (SQLException e) {
-//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//            alert.initStyle(StageStyle.UTILITY);
-//            alert.setTitle("Fehler");
-//            alert.setHeaderText(e.getMessage());
-//            alert.showAndWait();
-//        }
-//        
-//        return gefundeneGP;
-//        
-//    }
+
+    
 
 }

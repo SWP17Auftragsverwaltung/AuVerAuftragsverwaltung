@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.scene.control.Alert;
 import javafx.stage.StageStyle;
 /**
@@ -24,12 +25,29 @@ import javafx.stage.StageStyle;
  */
 public class ArtikelDAO extends DataAccess {
 
+
+    /**
+     * Erzeugt ein neues DataDictionaryDAO Objekt.
+     */
+    private DataDictionaryDAO ddd = new DataDictionaryDAO();
+    
+    /**
+     * 
+     */
+    private String TAB_ARTIKEL = ddd.getTAB_ARTIKEL();
+    
+    /**
+     * 
+     */
+    private HashMap<String, ArrayList> attribute;    
+    
     /**
      * Konstruktor.
      * @throws SQLException SQLException. 
      */
     public ArtikelDAO() throws SQLException {
-        
+        attribute = ddd.getTabellenAttribute();
+        ddd.holeAlleAttribute(TAB_ARTIKEL);
     }
         
     
@@ -51,12 +69,13 @@ public class ArtikelDAO extends DataAccess {
         Artikel artikel = null;
         ArrayList<Artikel> artikelListe = new ArrayList<>();
         
-        String query = "SELECT * FROM ROOT.Artikel";    
+        String query = "SELECT * FROM ROOT." + ddd.getTabArtikel();    
         
         try {
             stmt = con.createStatement();
             rs = stmt.executeQuery(query);
-
+            con.commit();
+            
             while (rs.next()) {
                 artikel = new Artikel(rs.getString(1), rs.getString(2),
                         rs.getString(3), rs.getString(4), rs.getString(5),
@@ -96,14 +115,15 @@ public class ArtikelDAO extends DataAccess {
         Artikel artikel = null;  
         ArrayList<Artikel> artikelListe = new ArrayList<>();
         
-        String query = "SELECT * FROM ROOT.ARTIKEL WHERE LKZ = ?";
+        String query = "SELECT * FROM ROOT." + ddd.getTabArtikel() 
+            + " WHERE " + attribute.get(TAB_ARTIKEL).get(10) + " = ?";
 
         try {
             stmt = con.prepareStatement(query);
             stmt.setString(1, "N");
             rs = stmt.executeQuery();
-
             con.commit();
+            
             while (rs.next()) {
                 artikel = new Artikel(rs.getString(1), rs.getString(2),
                         rs.getString(3), rs.getString(4), rs.getString(5),
@@ -149,14 +169,15 @@ public class ArtikelDAO extends DataAccess {
         Artikel artikel = null;  
         ArrayList<Artikel> artikelListe = new ArrayList<>();
         
-        String query = "SELECT * FROM ROOT.ARTIKEL WHERE LKZ = ?";
+        String query = "SELECT * FROM ROOT." + ddd.getTabArtikel() + " WHERE " 
+            + attribute.get(TAB_ARTIKEL).get(12) + " = ?";
 
         try {
             stmt = con.prepareStatement(query);
             stmt.setString(1, "J");
             rs = stmt.executeQuery();
-
             con.commit();
+            
             while (rs.next()) {
                 artikel = new Artikel(rs.getString(1), rs.getString(2),
                         rs.getString(3), rs.getString(4), rs.getString(5),
@@ -215,10 +236,18 @@ public class ArtikelDAO extends DataAccess {
         try {
             con.setAutoCommit(false);
             
-            String query = "INSERT INTO ROOT.ARTIKEL (Artikel_ID, Artikeltext, "
-                    + "Bestelltext, Einzelwert, Bestellwert, MWST_Satz, "
-                    + "Bestandsmenge_FREI, Bestandsmenge_Reserviert, "
-                    + "Bestandsmenge_Zulauf, Bestandsmenge_Verkauft, LKZ)"
+            String query = "INSERT INTO ROOT." + ddd.getTabArtikel() 
+                    + "(" + attribute.get(TAB_ARTIKEL).get(0) + ", "
+                    + attribute.get(TAB_ARTIKEL).get(1) + ", "
+                    + attribute.get(TAB_ARTIKEL).get(2) + ", "
+                    + attribute.get(TAB_ARTIKEL).get(3) + ", "
+                    + attribute.get(TAB_ARTIKEL).get(4) + ", "
+                    + attribute.get(TAB_ARTIKEL).get(5) + ", "
+                    + attribute.get(TAB_ARTIKEL).get(6) + ", "
+                    + attribute.get(TAB_ARTIKEL).get(7) + ", "
+                    + attribute.get(TAB_ARTIKEL).get(8) + ", "
+                    + attribute.get(TAB_ARTIKEL).get(9) + ", "
+                    + attribute.get(TAB_ARTIKEL).get(10) + ") "
                     + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             
             stmt = con.prepareStatement(query);
@@ -236,6 +265,7 @@ public class ArtikelDAO extends DataAccess {
             
             stmt.executeUpdate();
             con.commit();
+            con.close();
             
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -257,108 +287,104 @@ public class ArtikelDAO extends DataAccess {
      * Ändern der Artikel in der DB.
      * @param a Artikelobjekt
     */
-
     public void aendereArtikel(Artikel a) {
         PreparedStatement stmt = null;
-        String query
-                = "";
+        String query = "";
 
         try {
             con.setAutoCommit(false);
 
             query = 
-                "UPDATE ROOT.ARTIKEL SET ARTIKELTEXT = ? WHERE ARTIKEL_ID = ?";
-
+                "UPDATE ROOT." + ddd.getTabArtikel() + " SET " 
+                + attribute.get(TAB_ARTIKEL).get(1) + " = ? WHERE " 
+                + attribute.get(TAB_ARTIKEL).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getArtikeltext());
             stmt.setString(2, a.getArtikelID());
-
             stmt.executeUpdate();
-            con.commit();
-
+            
+            
             query = 
-                "UPDATE ROOT.ARTIKEL SET BESTELLTEXT = ? WHERE ARTIKEL_ID = ?";
-
+                "UPDATE ROOT." + ddd.getTabArtikel() + " SET " 
+                + attribute.get(TAB_ARTIKEL).get(2) + " = ? WHERE " 
+                + attribute.get(TAB_ARTIKEL).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getBestelltext());
             stmt.setString(2, a.getArtikelID());
-
             stmt.executeUpdate();
-            con.commit();
 
+            
             query = 
-                "UPDATE ROOT.ARTIKEL SET EINZELWERT = ? WHERE ARTIKEL_ID = ?";
-
+                "UPDATE ROOT." + ddd.getTabArtikel() + " SET " 
+                + attribute.get(TAB_ARTIKEL).get(3) + " = ? WHERE " 
+                + attribute.get(TAB_ARTIKEL).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getEinzelwert());
             stmt.setString(2, a.getArtikelID());
-
             stmt.executeUpdate();
-            con.commit();
 
+            
             query = 
-                "UPDATE ROOT.ARTIKEL SET BESTELLWERT = ? WHERE ARTIKEL_ID = ?";
-
+                "UPDATE ROOT." + ddd.getTabArtikel() + " SET " 
+                + attribute.get(TAB_ARTIKEL).get(4) + " = ? WHERE " 
+                + attribute.get(TAB_ARTIKEL).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getBestellwert());
             stmt.setString(2, a.getArtikelID());
-
             stmt.executeUpdate();
-            con.commit();
 
-            query 
-                = "UPDATE ROOT.ARTIKEL SET MWST_SATZ = ? WHERE ARTIKEL_ID = ?";
-
+            
+            query = 
+                "UPDATE ROOT." + ddd.getTabArtikel() + " SET " 
+                + attribute.get(TAB_ARTIKEL).get(5) + " = ? WHERE " 
+                + attribute.get(TAB_ARTIKEL).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getSteuer());
             stmt.setString(2, a.getArtikelID());
-
             stmt.executeUpdate();
-            con.commit();
 
+            
             query = 
-                "UPDATE ROOT.ARTIKEL SET BESTANDSMENGE_FREI = ? "
-                + "WHERE ARTIKEL_ID = ?";
-
+                "UPDATE ROOT." + ddd.getTabArtikel() + " SET " 
+                + attribute.get(TAB_ARTIKEL).get(6) + " = ? WHERE " 
+                + attribute.get(TAB_ARTIKEL).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getBestandsmengeFrei());
             stmt.setString(2, a.getArtikelID());
-
             stmt.executeUpdate();
-            con.commit();
 
+            
             query = 
-                "UPDATE ROOT.ARTIKEL SET BESTANDSMENGE_RESERVIERT = ? "
-                + "WHERE ARTIKEL_ID = ?";
-
+                "UPDATE ROOT." + ddd.getTabArtikel() + " SET " 
+                + attribute.get(TAB_ARTIKEL).get(7) + " = ? WHERE " 
+                + attribute.get(TAB_ARTIKEL).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getBestandsmengeReserviert());
             stmt.setString(2, a.getArtikelID());
-
             stmt.executeUpdate();
-            con.commit();
 
+            
             query = 
-                "UPDATE ROOT.ARTIKEL SET BESTANDSMENGE_ZULAUF = ? "
-                + "WHERE ARTIKEL_ID = ?";
-
+                "UPDATE ROOT." + ddd.getTabArtikel() + " SET " 
+                + attribute.get(TAB_ARTIKEL).get(8) + " = ? WHERE " 
+                + attribute.get(TAB_ARTIKEL).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getBestandsmengeZulauf());
             stmt.setString(2, a.getArtikelID());
-
             stmt.executeUpdate();
-            con.commit();
 
+            
             query = 
-                "UPDATE ROOT.ARTIKEL SET BESTANDSMENGE_VERKAUFT = ? "
-                + "WHERE ARTIKEL_ID = ?";
-
+                "UPDATE ROOT." + ddd.getTabArtikel() + " SET " 
+                + attribute.get(TAB_ARTIKEL).get(9) + " = ? WHERE " 
+                + attribute.get(TAB_ARTIKEL).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getBestandsmengeVerkauft());
             stmt.setString(2, a.getArtikelID());
-
             stmt.executeUpdate();
+            
             con.commit();
+            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -368,6 +394,7 @@ public class ArtikelDAO extends DataAccess {
             alert.showAndWait();
         }
     }
+    
     
     
     /*------------------------------------------------------------------------*/
@@ -383,7 +410,8 @@ public class ArtikelDAO extends DataAccess {
         Statement stmt = null;
         String value = "";
         ResultSet rs = null;
-        String query = "SELECT MAX(ARTIKEL_ID) FROM ROOT.ARTIKEL";
+        String query = "SELECT MAX(" + attribute.get(TAB_ARTIKEL).get(0) 
+            + ") FROM ROOT." + ddd.getTabArtikel();
         
         try {
             stmt = con.createStatement();
@@ -393,6 +421,7 @@ public class ArtikelDAO extends DataAccess {
                 value = rs.getString(1);
             }
             con.commit();
+        
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -430,10 +459,10 @@ public class ArtikelDAO extends DataAccess {
             //Fügt die neue ID in den String und füllt vordere Zahlen mit 0 auf,
             //wenn neueID < 6 Zeichen.
             neueID = String.format("%06d", alteIDInt);
+        
         } else {
             neueID = "000001";
         }
-
         return neueID;
     }
         
@@ -453,12 +482,13 @@ public class ArtikelDAO extends DataAccess {
         PreparedStatement stmt = null;
         String artikelID = a.getArtikelID();
 
-
         try {
             con.setAutoCommit(false);
 
             String query 
-                    = "UPDATE ROOT.ARTIKEL SET LKZ = ? WHERE ARTIKEL_ID = ?";
+                = "UPDATE ROOT." + ddd.getTabArtikel() 
+                + " SET " + attribute.get(TAB_ARTIKEL).get(10) + " = ?"
+                + " WHERE " + attribute.get(TAB_ARTIKEL).get(0) + " = ?";
             
             stmt = con.prepareStatement(query);
             stmt.setString(1, "J");

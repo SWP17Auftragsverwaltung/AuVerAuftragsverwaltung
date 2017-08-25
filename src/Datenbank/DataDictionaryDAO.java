@@ -83,10 +83,15 @@ public class DataDictionaryDAO extends DataAccess {
      * @throws SQLException SQLException
      */
     public DataDictionaryDAO() throws SQLException {
-        
+        gibTabellenNamen();
     }
     
     
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 25.08.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
     
     /**
      * Speichert anhand der TabellenID die Tabellen Namen in eine HashMap und
@@ -107,7 +112,6 @@ public class DataDictionaryDAO extends DataAccess {
                 tabellenNamen.put(rs.getString(1), rs.getString(2));
             }     
             con.commit();
-//            con.close();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -130,21 +134,41 @@ public class DataDictionaryDAO extends DataAccess {
     }     
     
 
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 25.08.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
     
     /**
-     * 
-     * @throws SQLException 
+     * Holt alle Attribute zu den augerufenen Tabelle.
+     * @param tabelle Aufgerufene Tabelle.
+     * @throws SQLException  SQLException
      */
     public void holeAlleAttribute(String tabelle) throws SQLException {
         String gesuchteTabelle = null;
         
-        if(tabelle.equals(TAB_ADRESSE)) {
+        if (tabelle.equals(TAB_ADRESSE)) {
             gesuchteTabelle = TAB_ADRESSE;
-        }
-        else if(tabelle.equals(TAB_ARTIKEL)) {
-            gesuchteTabelle = TAB_ARTIKEL;
-        }
         
+        } else if (tabelle.equals(TAB_ARTIKEL)) {
+            gesuchteTabelle = TAB_ARTIKEL;
+        
+        } else if (tabelle.equals(TAB_AUFTRAGSKONDITIONEN)) {
+            gesuchteTabelle = TAB_AUFTRAGSKONDITIONEN;
+        
+        } else if (tabelle.equals(TAB_AUFTRAGSKOPF)) {
+            gesuchteTabelle = TAB_AUFTRAGSKOPF;
+        
+        } else if (tabelle.equals(TAB_AUFTRAGSPOSITION)) {
+            gesuchteTabelle = TAB_AUFTRAGSPOSITION;
+        
+        } else if (tabelle.equals(TAB_GESCHAEFTSPARTNER)) {
+            gesuchteTabelle = TAB_GESCHAEFTSPARTNER;
+        
+        } else if (tabelle.equals(TAB_ZAHLUNGSKONDITIONEN)) {
+            gesuchteTabelle = TAB_ZAHLUNGSKONDITIONEN;
+        }
         
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -155,9 +179,8 @@ public class DataDictionaryDAO extends DataAccess {
 
         try {
             stmt = con.prepareStatement(query);
-            stmt.setString(1, tabelle);
+            stmt.setString(1, gesuchteTabelle);
             rs = stmt.executeQuery();
-            int a = 1;
             
             while (rs.next()) {
                 if (tabellenAttribute.containsKey(gesuchteTabelle)) {
@@ -170,7 +193,6 @@ public class DataDictionaryDAO extends DataAccess {
                 }
             }     
             con.commit();
-//            con.close();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -249,10 +271,47 @@ public class DataDictionaryDAO extends DataAccess {
     public void setTabZahlungskonditionen(String tabZahlungskonditionen) {    
         this.tabZahlungskonditionen = tabZahlungskonditionen;
     }
+
+    public HashMap<String, ArrayList> getTabellenAttribute() {
+        return tabellenAttribute;
+    }
+
+    public void setTabellenAttribute(
+            HashMap<String, ArrayList> tabellenAttribute) {
+        this.tabellenAttribute = tabellenAttribute;
+    }
+
+    public String getTAB_ADRESSE() {
+        return TAB_ADRESSE;
+    }
+
+    public String getTAB_ARTIKEL() {
+        return TAB_ARTIKEL;
+    }
+
+    public String getTAB_AUFTRAGSKONDITIONEN() {
+        return TAB_AUFTRAGSKONDITIONEN;
+    }
+
+    public String getTAB_AUFTRAGSKOPF() {
+        return TAB_AUFTRAGSKOPF;
+    }
+
+    public String getTAB_AUFTRAGSPOSITION() {
+        return TAB_AUFTRAGSPOSITION;
+    }
+
+    public String getTAB_GESCHAEFTSPARTNER() {
+        return TAB_GESCHAEFTSPARTNER;
+    }
+
+    public String getTAB_ZAHLUNGSKONDITIONEN() {
+        return TAB_ZAHLUNGSKONDITIONEN;
+    }
     /*------------------------------------------------
      *            Generierter Code Ende
      *------------------------------------------------
-     */    
+     */       
  
     
 }

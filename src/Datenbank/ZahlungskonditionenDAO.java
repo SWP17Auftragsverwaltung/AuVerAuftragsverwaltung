@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.scene.control.Alert;
 import javafx.stage.StageStyle;
 
@@ -26,14 +27,30 @@ import javafx.stage.StageStyle;
  * @author Chakir, Jakob
  */
 public class ZahlungskonditionenDAO extends DataAccess {
-
+    
+    /**
+     * Erzeugt ein neues DataDictionaryDAO Objekt.
+     */
+    private DataDictionaryDAO ddd = new DataDictionaryDAO();
+    
+    /**
+     * 
+     */
+    private String TAB_ZAHLUNGSKONDITIONEN = ddd.getTAB_ZAHLUNGSKONDITIONEN();
+    
+    /**
+     * 
+     */
+    private HashMap<String, ArrayList> attribute; 
+        
     /**
      * Konstruktor.
      *
      * @throws SQLException SQLException
      */
     public ZahlungskonditionenDAO() throws SQLException {
-
+        attribute = ddd.getTabellenAttribute();
+        ddd.holeAlleAttribute(TAB_ZAHLUNGSKONDITIONEN);
     }
 
     /*------------------------------------------------------------------------*
@@ -56,7 +73,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
         ArrayList<Zahlungskonditionen> zahlungskonditionenListe
                 = new ArrayList<>();
 
-        String query = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN";
+        String query = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen();
 
         try {
             stmt = con.createStatement();
@@ -83,15 +100,15 @@ public class ZahlungskonditionenDAO extends DataAccess {
         return zahlungskonditionenListe;
     }
     
+    
+    
     /*------------------------------------------------------------------------*
     * Datum         Name    Was
     * 20.08.2017    GET     Querys erstellt und Methode fertiggestellt.
-    *
     /*------------------------------------------------------------------------*/
     
     /**
      * Gibt alle Adressen ohne Löschkennzeichen wieder.
-     *
      * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
      */
     public ArrayList<Zahlungskonditionen> gibAlleZahlungskonditionenOhneLKZ() {
@@ -103,14 +120,16 @@ public class ZahlungskonditionenDAO extends DataAccess {
         ArrayList<Zahlungskonditionen> 
                 zahlungskonditionenListe = new ArrayList<>();
 
-        String query = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE LKZ = ?";
+        String query = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
+            + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
+            + " = ?";
 
         try {
             stmt = con.prepareStatement(query);
             stmt.setString(1, "N");
             rs = stmt.executeQuery();
-
             con.commit();
+            
             while (rs.next()) {
                 zahlungskonditionen = new Zahlungskonditionen(rs.getString(1),
                         rs.getString(2), rs.getString(3), rs.getString(4),
@@ -140,16 +159,16 @@ public class ZahlungskonditionenDAO extends DataAccess {
         return zahlungskonditionenListe;
     }
     
+    
+    
     /*------------------------------------------------------------------------*
     * Datum         Name    Was
     * 14.08.2017    CEL     Erstellt.
     * 20.08.2017    GET     Querys erstellt und Methode fertiggestellt.
-    *
     /*------------------------------------------------------------------------*/
 
     /**
      * Gibt alle Adressen mit Löschkennzeichen wieder.
-     *
      * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
      */
     public ArrayList<Zahlungskonditionen> gibAlleZahlungskonditionenMitLKZ() {
@@ -161,14 +180,16 @@ public class ZahlungskonditionenDAO extends DataAccess {
         ArrayList<Zahlungskonditionen> zahlungskonditionenListe
                 = new ArrayList<>();
 
-        String query = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE LKZ = ?";
+        String query = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
+            + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
+            + " = ?";
 
         try {
             stmt = con.prepareStatement(query);
             stmt.setString(1, "J");
             rs = stmt.executeQuery();
-
             con.commit();
+            
             while (rs.next()) {
                 zahlungskonditionen = new Zahlungskonditionen(
                         rs.getString(1),
@@ -231,13 +252,20 @@ public class ZahlungskonditionenDAO extends DataAccess {
         try {
             con.setAutoCommit(false);
 
-            String query = "INSERT INTO ROOT.ZAHLUNGSKONDITIONEN ("
-                    + "ZAHLUNGSKONDITIONS_ID, AUFTRAGSART, "
-                    + "LIEFERZEIT_SOFORT, SPERRZEIT_WUNSCH,"
-                    + " SKONTOZEIT_1, SKONTOZEIT_2, SKONTO_1, "
-                    + "SKONTO_2, MAHNZEIT_1, "
-                    + "MAHNZEIT_2, MAHNZEIT_3, LKZ)"
-                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+            String query = "INSERT INTO ROOT." + ddd.getTabZahlungskonditionen()
+                + " (" + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) + ", "
+                + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(1) + ", "
+                + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(2) + ", "
+                + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(3) + ", "
+                + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(4) + ", "
+                + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(5) + ", "
+                + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(6) + ", "
+                + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(7) + ", "
+                + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(8) + ", "
+                + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(9) + ", "
+                + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(10) + ", "
+                + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) + ")"
+                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, zahlungskonditionsID);
@@ -281,8 +309,9 @@ public class ZahlungskonditionenDAO extends DataAccess {
         Statement stmt = null;
         String value = "";
         ResultSet rs = null;
-        String query = "SELECT MAX(ZAHLUNGSKONDITIONS_ID) FROM "
-                + "ROOT.ZAHLUNGSKONDITIONEN";
+        String query 
+            = "SELECT MAX(" + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
+                + ") FROM ROOT." + ddd.getTabZahlungskonditionen();
 
         try {
             stmt = con.createStatement();
@@ -292,14 +321,13 @@ public class ZahlungskonditionenDAO extends DataAccess {
                 value = rs.getString(1);
             }
             con.commit();
+        
         } catch (SQLException e) {
-
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
-
         }
         return value;
     }
@@ -316,7 +344,6 @@ public class ZahlungskonditionenDAO extends DataAccess {
      * @return neue ID aufgezählt.
      */ 
     public String generiereID() {
-
         //Holt sich die aktuell maximale ID.
         String alteIDString = gibLetztID();
         String neueID;
@@ -331,142 +358,154 @@ public class ZahlungskonditionenDAO extends DataAccess {
             //Fügt die neue ID in den String und füllt vordere Zahlen mit 0 auf,
             //wenn neueID < 6 Zeichen.
             neueID = String.format("%06d", alteIDInt);
+        
         } else {
             neueID = "000001";
         }
-
         return neueID;
     }
 
+    
+    
    /*------------------------------------------------------------------------*
     * Datum         Name    Was
     * 14.08.2017    CEL     Erstellt.
     * 20.08.2017    GET     Querys erstellt und Methode fertiggestellt.
-    *
     /*------------------------------------------------------------------------*/
+    
     /**
      * Änderd den Datensatz einer Zahlungskonditione in der Datenbank.
-     *
      * @param zk Zahlungskonditionen die geändert werden.
      */
     public void aendereZahlungskonditionen(Zahlungskonditionen zk) {
-
         PreparedStatement stmt = null;
         String query = "";
 
         try {
-
             con.setAutoCommit(false);
 
             query
-                    = "UPDATE ROOT.ZAHLUNGSKONDITIONEN SET AUFTRAGSART = ? "
-                    + "WHERE ZAHLUNGSKONDITIONS_ID = ?";
-
+                = "UPDATE ROOT." + ddd.getTabZahlungskonditionen() 
+                + " SET " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(1) 
+                + " = ? "
+                + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
+                + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, zk.getAuftragsart());
             stmt.setString(2, zk.getZahlungskonditionenID());
-
             stmt.executeUpdate();
-            con.commit();
+
 
             query
-                    = "UPDATE ROOT.ZAHLUNGSKONDITIONEN SET "
-                    + "LIEFERZEIT_SOFORT = ? WHERE ZAHLUNGSKONDITIONS_ID = ?";
-
+                = "UPDATE ROOT." + ddd.getTabZahlungskonditionen() 
+                + " SET " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(2) 
+                + " = ? "
+                + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
+                + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, zk.getLieferzeitSOFORT());
             stmt.setString(2, zk.getZahlungskonditionenID());
-
             stmt.executeUpdate();
-            con.commit();
+
 
             query
-                    = "UPDATE ROOT.ZAHLUNGSKONDITIONEN SET "
-                    + "SPERRZEIT_WUNSCH = ? WHERE ZAHLUNGSKONDITIONS_ID = ?";
-
+                = "UPDATE ROOT." + ddd.getTabZahlungskonditionen() 
+                + " SET " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(3) 
+                + " = ? "
+                + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
+                + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, zk.getSperrzeitWUNSCH());
             stmt.setString(2, zk.getZahlungskonditionenID());
-
             stmt.executeUpdate();
-            con.commit();
+
 
             query
-                    = "UPDATE ROOT.ZAHLUNGSKONDITIONEN SET MAHNZEIT_1 = ? "
-                    + "WHERE ZAHLUNGSKONDITIONS_ID = ?";
-
+                = "UPDATE ROOT." + ddd.getTabZahlungskonditionen() 
+                + " SET " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(4) 
+                + " = ? "
+                + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
+                + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, zk.getMahnzeit1());
             stmt.setString(2, zk.getZahlungskonditionenID());
-
             stmt.executeUpdate();
-            con.commit();
+
 
             query
-                    = "UPDATE ROOT.ZAHLUNGSKONDITIONEN SET MAHNZEIT_2 = ? "
-                    + "WHERE ZAHLUNGSKONDITIONS_ID = ?";
-
+                = "UPDATE ROOT." + ddd.getTabZahlungskonditionen() 
+                + " SET " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(5) 
+                + " = ? "
+                + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
+                + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, zk.getMahnzeit2());
             stmt.setString(2, zk.getZahlungskonditionenID());
-
             stmt.executeUpdate();
-            con.commit();
+ 
 
             query
-                    = "UPDATE ROOT.ZAHLUNGSKONDITIONEN SET MAHNZEIT_3 = ? "
-                    + "WHERE ZAHLUNGSKONDITIONS_ID = ?";
-
+                = "UPDATE ROOT." + ddd.getTabZahlungskonditionen() 
+                + " SET " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(6) 
+                + " = ? "
+                + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
+                + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, zk.getMahnzeit3());
             stmt.setString(2, zk.getZahlungskonditionenID());
-
             stmt.executeUpdate();
-            con.commit();
+ 
 
             query
-                    = "UPDATE ROOT.ZAHLUNGSKONDITIONEN SET SKONTOZEIT_1 = ? "
-                    + "WHERE ZAHLUNGSKONDITIONS_ID = ?";
-
+                = "UPDATE ROOT." + ddd.getTabZahlungskonditionen() 
+                + " SET " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(7) 
+                + " = ? "
+                + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
+                + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, zk.getSkontozeit1());
             stmt.setString(2, zk.getZahlungskonditionenID());
-
             stmt.executeUpdate();
-            con.commit();
+ 
 
             query
-                    = "UPDATE ROOT.ZAHLUNGSKONDITIONEN SET SKONTO_1 = ? "
-                    + "WHERE ZAHLUNGSKONDITIONS_ID = ?";
-
+                = "UPDATE ROOT." + ddd.getTabZahlungskonditionen() 
+                + " SET " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(8) 
+                + " = ? "
+                + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
+                + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, zk.getSkonto1());
             stmt.setString(2, zk.getZahlungskonditionenID());
-
             stmt.executeUpdate();
-            con.commit();
+ 
 
             query
-                    = "UPDATE ROOT.ZAHLUNGSKONDITIONEN SET SKONTOZEIT_2 = ? "
-                    + "WHERE ZAHLUNGSKONDITIONS_ID = ?";
-
+                = "UPDATE ROOT." + ddd.getTabZahlungskonditionen() 
+                + " SET " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(9) 
+                + " = ? "
+                + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
+                + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, zk.getSkontozeit2());
             stmt.setString(2, zk.getZahlungskonditionenID());
-
             stmt.executeUpdate();
-            con.commit();
+
 
             query
-                    = "UPDATE ROOT.ZAHLUNGSKONDITIONEN SET SKONTO_2 = ? "
-                    + "WHERE ZAHLUNGSKONDITIONS_ID = ?";
-
+                = "UPDATE ROOT." + ddd.getTabZahlungskonditionen() 
+                + " SET " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(10) 
+                + " = ? "
+                + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
+                + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, zk.getSkonto2());
             stmt.setString(2, zk.getZahlungskonditionenID());
-
             stmt.executeUpdate();
+            
+            
             con.commit();
+            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -475,19 +514,18 @@ public class ZahlungskonditionenDAO extends DataAccess {
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
         }
-
     }
+    
+    
     
     /*------------------------------------------------------------------------*
     * Datum         Name    Was
     * 14.08.2017    CEL     Erstellt.
     * 20.08.2017    GET     Querys erstellt und Methode fertiggestellt.
-    *
     /*------------------------------------------------------------------------*/
 
     /**
      * Setzt Löschkennzeichen bei einer ausgewählten Zahlungskonditionen.
-     *
      * @param zk Zahlungskonditionen
      */
     public void setzeLKZ(Zahlungskonditionen zk) {
@@ -499,13 +537,15 @@ public class ZahlungskonditionenDAO extends DataAccess {
             con.setAutoCommit(false);
 
             String query
-                    = "UPDATE ROOT.ZAHLUNGSKONDITIONEN SET LKZ = ? "
-                    + "WHERE ZAHLUNGSKONDITIONS_ID = ?";
+                = "UPDATE ROOT." + ddd.getTabZahlungskonditionen() 
+                + " SET " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
+                + " = ? "
+                + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
+                + " = ?";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, "J");
             stmt.setString(2, zkID);
-
             stmt.executeUpdate();
             con.commit();
 
@@ -518,285 +558,5 @@ public class ZahlungskonditionenDAO extends DataAccess {
         }
     }
 
-    
-//    /*------------------------------------------------------------------------*
-//    * Datum         Name    Was
-//    * 14.08.2017    CEL     Erstellt.
-//    * 20.08.2017    GET     Querys erstellt und Methode fertiggestellt.
-//    *
-//    /*------------------------------------------------------------------------*/
-//    
-//    /**
-//     *
-//     * Sucht mittels eines Suchbegriffs in der Datenbank nach den passenden
-//     * Zahlungskonditionen und speichert diese in einer ArrayList ab.
-//     *
-//     * @param suchkriterium Suchtriterium welches die Suchspalte der DB angibt.
-//     * @param suchbegriff ein String nach dem in der Suchspalte gesucht wird.
-//     * @return Liefert eine ArrayList mit den zu dem Suchbegriff passenden
-//     * Zahlungskonditionen.
-//     */
-//    public ArrayList<Zahlungskonditionen> zahlungskonditionSuche(
-//            String suchkriterium, String suchbegriff) {
-//
-//        Statement stmt = null;
-//        ResultSet rs = null;
-//        ArrayList<Zahlungskonditionen> gefundeneZK = new ArrayList<>();
-//        StringBuilder neuerSuchbegriff = new StringBuilder(suchbegriff);
-//
-//        for (int i = 0; i < suchbegriff.length(); i++) {
-//            if (suchbegriff.charAt(i) == '*') {
-//                neuerSuchbegriff.setCharAt(i, '%');
-//            } else if (suchbegriff.charAt(i) == '?') {
-//                neuerSuchbegriff.setCharAt(i, '_');
-//            }
-//        }
-//
-//        try {
-//
-//            if (suchkriterium.equals("Konditionen-ID")) {
-//
-//                String query
-//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-//                        + "ZAHLUNGSKONDITIONS_ID LIKE '"
-//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-//
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//
-//                while (rs.next()) {
-//                    Zahlungskonditionen zk = new Zahlungskonditionen(
-//                            rs.getString(1), rs.getString(2), rs.getString(3),
-//                            rs.getString(4), rs.getString(5), rs.getString(6),
-//                            rs.getString(7), rs.getString(8), rs.getString(9),
-//                            rs.getString(10), rs.getString(11),
-//                            rs.getString(12));
-//                    gefundeneZK.add(zk);
-//                }
-//                con.commit();
-//
-//            } else if (suchkriterium.equals("Auftragsart")) {
-//
-//                String query
-//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-//                        + "AUFTRAGSART LIKE '"
-//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-//
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//
-//                while (rs.next()) {
-//                    Zahlungskonditionen zk = new Zahlungskonditionen(
-//                            rs.getString(1), rs.getString(2), rs.getString(3),
-//                            rs.getString(4), rs.getString(5), rs.getString(6),
-//                            rs.getString(7), rs.getString(8), rs.getString(9),
-//                            rs.getString(10), rs.getString(11),
-//                            rs.getString(12));
-//                    gefundeneZK.add(zk);
-//                }
-//                con.commit();
-//
-//            } else if (suchkriterium.equals("LieferzeitSOFORT")) {
-//
-//                String query
-//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-//                        + "LIEFERZEIT_SOFORT LIKE '"
-//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-//
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//
-//                while (rs.next()) {
-//                    Zahlungskonditionen zk = new Zahlungskonditionen(
-//                            rs.getString(1), rs.getString(2), rs.getString(3),
-//                            rs.getString(4), rs.getString(5), rs.getString(6),
-//                            rs.getString(7), rs.getString(8), rs.getString(9),
-//                            rs.getString(10), rs.getString(11),
-//                            rs.getString(12));
-//                    gefundeneZK.add(zk);
-//                }
-//                con.commit();
-//
-//            } else if (suchkriterium.equals("SperrzeitWUNSCH")) {
-//
-//                String query
-//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-//                        + "SPERRZEIT_WUNSCH LIKE '"
-//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-//
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//
-//                while (rs.next()) {
-//                    Zahlungskonditionen zk = new Zahlungskonditionen(
-//                            rs.getString(1), rs.getString(2), rs.getString(3),
-//                            rs.getString(4), rs.getString(5), rs.getString(6),
-//                            rs.getString(7), rs.getString(8), rs.getString(9),
-//                            rs.getString(10), rs.getString(11),
-//                            rs.getString(12));
-//                    gefundeneZK.add(zk);
-//                }
-//                con.commit();
-//
-//            } else if (suchkriterium.equals("Skontozeit 1")) {
-//
-//                String query
-//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-//                        + "SKONTOZEIT_1 LIKE '"
-//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-//
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//
-//                while (rs.next()) {
-//                    Zahlungskonditionen zk = new Zahlungskonditionen(
-//                            rs.getString(1), rs.getString(2), rs.getString(3),
-//                            rs.getString(4), rs.getString(5), rs.getString(6),
-//                            rs.getString(7), rs.getString(8), rs.getString(9),
-//                            rs.getString(10), rs.getString(11),
-//                            rs.getString(12));
-//                    gefundeneZK.add(zk);
-//                }
-//                con.commit();
-//
-//            } else if (suchkriterium.equals("Skonto 1")) {
-//
-//                String query
-//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-//                        + "SKONTO_1 LIKE '"
-//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-//
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//
-//                while (rs.next()) {
-//                    Zahlungskonditionen zk = new Zahlungskonditionen(
-//                            rs.getString(1), rs.getString(2), rs.getString(3),
-//                            rs.getString(4), rs.getString(5), rs.getString(6),
-//                            rs.getString(7), rs.getString(8), rs.getString(9),
-//                            rs.getString(10), rs.getString(11),
-//                            rs.getString(12));
-//                    gefundeneZK.add(zk);
-//                }
-//                con.commit();
-//
-//            } else if (suchkriterium.equals("Skontozeit 2")) {
-//
-//                String query
-//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-//                        + "SKONTOZEIT_2 LIKE '"
-//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-//
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//
-//                while (rs.next()) {
-//                    Zahlungskonditionen zk = new Zahlungskonditionen(
-//                            rs.getString(1), rs.getString(2), rs.getString(3),
-//                            rs.getString(4), rs.getString(5), rs.getString(6),
-//                            rs.getString(7), rs.getString(8), rs.getString(9),
-//                            rs.getString(10), rs.getString(11),
-//                            rs.getString(12));
-//                    gefundeneZK.add(zk);
-//                }
-//                con.commit();
-//
-//            } else if (suchkriterium.equals("Skonto 2")) {
-//
-//                String query
-//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-//                        + "SKONTO_2 LIKE '"
-//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-//
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//
-//                while (rs.next()) {
-//                    Zahlungskonditionen zk = new Zahlungskonditionen(
-//                            rs.getString(1), rs.getString(2), rs.getString(3),
-//                            rs.getString(4), rs.getString(5), rs.getString(6),
-//                            rs.getString(7), rs.getString(8), rs.getString(9),
-//                            rs.getString(10), rs.getString(11),
-//                            rs.getString(12));
-//                    gefundeneZK.add(zk);
-//                }
-//                con.commit();
-//            } else if (suchkriterium.equals("Mahnzeit 1")) {
-//
-//                String query
-//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-//                        + "MAHNZEIT_1 LIKE '"
-//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-//
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//
-//                while (rs.next()) {
-//                    Zahlungskonditionen zk = new Zahlungskonditionen(
-//                            rs.getString(1), rs.getString(2), rs.getString(3),
-//                            rs.getString(4), rs.getString(5), rs.getString(6),
-//                            rs.getString(7), rs.getString(8), rs.getString(9),
-//                            rs.getString(10), rs.getString(11),
-//                            rs.getString(12));
-//                    gefundeneZK.add(zk);
-//                }
-//                con.commit();
-//
-//            } else if (suchkriterium.equals("Mahnzeit 2")) {
-//
-//                String query
-//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-//                        + "MAHNZEIT_2 LIKE '"
-//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-//
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//
-//                while (rs.next()) {
-//                    Zahlungskonditionen zk = new Zahlungskonditionen(
-//                            rs.getString(1), rs.getString(2), rs.getString(3),
-//                            rs.getString(4), rs.getString(5), rs.getString(6),
-//                            rs.getString(7), rs.getString(8), rs.getString(9),
-//                            rs.getString(10), rs.getString(11),
-//                            rs.getString(12));
-//                    gefundeneZK.add(zk);
-//                }
-//                con.commit();
-//
-//            } else if (suchkriterium.equals("Mahnzeit 3")) {
-//
-//                String query
-//                        = "SELECT * FROM ROOT.ZAHLUNGSKONDITIONEN WHERE "
-//                        + "MAHNZEIT_3 LIKE '"
-//                        + neuerSuchbegriff + "' AND LKZ LIKE 'N'";
-//
-//                stmt = con.createStatement();
-//                rs = stmt.executeQuery(query);
-//
-//                while (rs.next()) {
-//                    Zahlungskonditionen zk = new Zahlungskonditionen(
-//                            rs.getString(1), rs.getString(2), rs.getString(3),
-//                            rs.getString(4), rs.getString(5), rs.getString(6),
-//                            rs.getString(7), rs.getString(8), rs.getString(9),
-//                            rs.getString(10), rs.getString(11),
-//                            rs.getString(12));
-//                    gefundeneZK.add(zk);
-//                }
-//                con.commit();
-//
-//            }
-//
-//        } catch (SQLException e) {
-//
-//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//            alert.initStyle(StageStyle.UTILITY);
-//            alert.setTitle("Fehler");
-//            alert.setHeaderText(e.getMessage());
-//            alert.showAndWait();
-//
-//        }
-//
-//        return gefundeneZK;
-//    }
 
 }

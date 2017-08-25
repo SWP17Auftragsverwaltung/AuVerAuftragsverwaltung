@@ -292,19 +292,14 @@ public class SucheDAO extends DataAccess {
 
     
     
-    
     /*------------------------------------------------------------------------*
     * Datum         Name    Was
     * 14.08.2017    BER     Erstellt.
-    * 
-    *
     /*------------------------------------------------------------------------*/
     
     /**
-     *
      * Sucht mittels eines Suchbegriffs in der Datenbank nach den passenden
      * Artikeln und speichert diese in einer ArrayList ab.
-     *
      * @param suchkriterium Suchtriterium welches die Suchspalte der DB angibt.
      * @param suchbegriff ein String nach dem in der Suchspalte gesucht wird.
      * @return Liefert eine ArrayList mit den zu dem Suchbegriff passenden

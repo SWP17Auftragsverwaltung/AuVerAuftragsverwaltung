@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.scene.control.Alert;
 import javafx.stage.StageStyle;
 
@@ -31,12 +32,23 @@ public class AdresseDAO extends DataAccess {
     private DataDictionaryDAO ddd = new DataDictionaryDAO();
     
     /**
+     * 
+     */
+    private String TAB_ADRESSE = ddd.getTAB_ADRESSE();
+    
+    /**
+     * 
+     */
+    private HashMap<String, ArrayList> attribute; 
+    
+    /**
      * Konstruktor.
      *
      * @throws SQLException SQLException
      */
     public AdresseDAO() throws SQLException {
-        ddd.gibTabellenNamen();
+        attribute = ddd.getTabellenAttribute();
+        ddd.holeAlleAttribute(TAB_ADRESSE);
     }
 
     
@@ -109,7 +121,8 @@ public class AdresseDAO extends DataAccess {
         ArrayList<Adresse> adressListe = new ArrayList<>();
 
         String query = "SELECT * FROM ROOT." 
-                + ddd.getTabAdresse() + " WHERE LKZ = ?";
+            + ddd.getTabAdresse() + " WHERE " 
+            + attribute.get(TAB_ADRESSE).get(12) + " = ?";
 
         try {
             stmt = con.prepareStatement(query);
@@ -168,7 +181,7 @@ public class AdresseDAO extends DataAccess {
         ArrayList<Adresse> adressListe = new ArrayList<>();
 
         String query = "SELECT * FROM ROOT." + ddd.getTabAdresse() 
-                + " WHERE LKZ = ?";
+                + " WHERE " + attribute.get(TAB_ADRESSE).get(12) + " = ?";
 
         try {
             stmt = con.prepareStatement(query);
@@ -234,13 +247,24 @@ public class AdresseDAO extends DataAccess {
         String email = a.getEmail();
         String erfdatum = a.getErfassungsdatum();
         String lkz = a.getLkz();
-
+               
         try {
             con.setAutoCommit(false);
 
-            String query = "INSERT INTO ROOT.ADRESSE (Anschrift_ID, Anrede, "
-                    + "Name, Vorname, Strasse, Hausnummer, PLZ, Ort, Staat, "
-                    + "Telefon, E_Mail, Erfassungsdatum, LKZ)"
+            String query = "INSERT INTO ROOT." + ddd.getTabAdresse()
+                    + "(" + attribute.get(TAB_ADRESSE).get(0) + ", " 
+                    +  attribute.get(TAB_ADRESSE).get(1) + ", " 
+                    +  attribute.get(TAB_ADRESSE).get(2) + ", " 
+                    +  attribute.get(TAB_ADRESSE).get(3) + ", " 
+                    +  attribute.get(TAB_ADRESSE).get(4) + ", "
+                    +  attribute.get(TAB_ADRESSE).get(5) + ", "
+                    +  attribute.get(TAB_ADRESSE).get(6) + ", "
+                    +  attribute.get(TAB_ADRESSE).get(7) + ", "
+                    +  attribute.get(TAB_ADRESSE).get(8) + ", "
+                    +  attribute.get(TAB_ADRESSE).get(9) + ", "
+                    +  attribute.get(TAB_ADRESSE).get(10) + ", "
+                    +  attribute.get(TAB_ADRESSE).get(11) + ", "
+                    +  attribute.get(TAB_ADRESSE).get(12) + ") "
                     + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             stmt = con.prepareStatement(query);
@@ -260,6 +284,7 @@ public class AdresseDAO extends DataAccess {
 
             stmt.executeUpdate();
             con.commit();
+            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -291,100 +316,118 @@ public class AdresseDAO extends DataAccess {
             con.setAutoCommit(false);
 
             query
-                = "UPDATE ROOT.ADRESSE SET ANREDE = ? WHERE ANSCHRIFT_ID = ?";
+                = "UPDATE ROOT." + ddd.getTabAdresse() 
+                + " SET " + attribute.get(TAB_ADRESSE).get(1) + " = ? WHERE " 
+                + attribute.get(TAB_ADRESSE).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getAnrede());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
 
             
-            query = "UPDATE ROOT.ADRESSE SET ANREDE = ? WHERE ANSCHRIFT_ID = ?";
-            stmt = con.prepareStatement(query);
-            stmt.setString(1, a.getAnrede());
-            stmt.setString(2, a.getAdresseID());
-            stmt.executeUpdate();
-
-            
-            query = "UPDATE ROOT.ADRESSE SET NAME = ? WHERE ANSCHRIFT_ID = ?";
+            query
+                = "UPDATE ROOT." + ddd.getTabAdresse() 
+                + " SET " + attribute.get(TAB_ADRESSE).get(2) + " = ? WHERE " 
+                + attribute.get(TAB_ADRESSE).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getName());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
 
             
-            query 
-                = "UPDATE ROOT.ADRESSE SET VORNAME = ? WHERE ANSCHRIFT_ID = ?";
+            query
+                = "UPDATE ROOT." + ddd.getTabAdresse() 
+                + " SET " + attribute.get(TAB_ADRESSE).get(3) + " = ? WHERE " 
+                + attribute.get(TAB_ADRESSE).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getVorname());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
 
             
-            query 
-                = "UPDATE ROOT.ADRESSE SET STRASSE = ? WHERE ANSCHRIFT_ID = ?";
+            query
+                = "UPDATE ROOT." + ddd.getTabAdresse() 
+                + " SET " + attribute.get(TAB_ADRESSE).get(4) + " = ? WHERE " 
+                + attribute.get(TAB_ADRESSE).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getStrasse());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
 
             
-            query 
-                = "UPDATE ROOT.ADRESSE SET HAUSNUMMER = ? "
-                   + "WHERE ANSCHRIFT_ID = ?";
+            query
+                = "UPDATE ROOT." + ddd.getTabAdresse() 
+                + " SET " + attribute.get(TAB_ADRESSE).get(5) + " = ? WHERE " 
+                + attribute.get(TAB_ADRESSE).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getHausnummer());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
 
             
-            query = "UPDATE ROOT.ADRESSE SET PLZ = ? WHERE ANSCHRIFT_ID = ?";
+            query
+                = "UPDATE ROOT." + ddd.getTabAdresse() 
+                + " SET " + attribute.get(TAB_ADRESSE).get(6) + " = ? WHERE " 
+                + attribute.get(TAB_ADRESSE).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getPlz());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
 
             
-            query = "UPDATE ROOT.ADRESSE SET ORT = ? WHERE ANSCHRIFT_ID = ?";
+            query
+                = "UPDATE ROOT." + ddd.getTabAdresse() 
+                + " SET " + attribute.get(TAB_ADRESSE).get(7) + " = ? WHERE " 
+                + attribute.get(TAB_ADRESSE).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getOrt());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
 
             
-            query = "UPDATE ROOT.ADRESSE SET STAAT = ? WHERE ANSCHRIFT_ID = ?";
+            query
+                = "UPDATE ROOT." + ddd.getTabAdresse() 
+                + " SET " + attribute.get(TAB_ADRESSE).get(8) + " = ? WHERE " 
+                + attribute.get(TAB_ADRESSE).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getStaat());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
 
             
-            query = "UPDATE ROOT.ADRESSE SET TELEFON = ? "
-                    + "WHERE ANSCHRIFT_ID = ?";
+            query
+                = "UPDATE ROOT." + ddd.getTabAdresse() 
+                + " SET " + attribute.get(TAB_ADRESSE).get(9) + " = ? WHERE " 
+                + attribute.get(TAB_ADRESSE).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getTelefon());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
 
             
-            query = "UPDATE ROOT.ADRESSE SET E_MAIL = ? WHERE ANSCHRIFT_ID = ?";
+            query
+                = "UPDATE ROOT." + ddd.getTabAdresse() 
+                + " SET " + attribute.get(TAB_ADRESSE).get(10) + " = ? WHERE " 
+                + attribute.get(TAB_ADRESSE).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getEmail());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
 
             
-            query = "UPDATE ROOT.ADRESSE SET ERFASSUNGSDATUM = ? "
-                    + "WHERE ANSCHRIFT_ID = ?";
+            query
+                = "UPDATE ROOT." + ddd.getTabAdresse() 
+                + " SET " + attribute.get(TAB_ADRESSE).get(11) + " = ? WHERE " 
+                + attribute.get(TAB_ADRESSE).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getErfassungsdatum());
             stmt.setString(2, a.getAdresseID());
             stmt.executeUpdate();
             
             
-            
             con.commit();
-
-            
+            con.close();
+     
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -416,7 +459,9 @@ public class AdresseDAO extends DataAccess {
             con.setAutoCommit(false);
 
             String query
-                    = "UPDATE ROOT.ADRESSE SET LKZ = ? WHERE ANSCHRIFT_ID = ?";
+                = "UPDATE ROOT." + ddd.getTabAdresse() 
+                + " SET " + attribute.get(TAB_ADRESSE).get(12) + " = ?"
+                + " WHERE " + attribute.get(TAB_ADRESSE).get(0) + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, "J");
             stmt.setString(2, anschriftID);
@@ -451,7 +496,9 @@ public class AdresseDAO extends DataAccess {
         Statement stmt = null;
         String value = "";
         ResultSet rs = null;
-        String query = "SELECT MAX(ANSCHRIFT_ID) FROM ROOT.ADRESSE";
+        String query = "SELECT MAX(" 
+            + attribute.get(TAB_ADRESSE).get(0) + ") FROM ROOT." 
+            + ddd.getTabAdresse();
         
         try {
             stmt = con.createStatement();
