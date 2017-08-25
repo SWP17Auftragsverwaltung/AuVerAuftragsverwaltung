@@ -23,13 +23,13 @@
             <AnchorPane fx:id="tf_partnerID">
                <children>
                   <Label layoutX="14.0" layoutY="17.0" text="Geschäftspartner-ID" />
-                  <TextField fx:id="tf_geschaeftspartnerID" editable="false" layoutX="14.0" layoutY="34.0" prefHeight="25.0" prefWidth="119.0" />
+                  <TextField fx:id="tfGeschaeftspartnerID" editable="false" layoutX="14.0" layoutY="34.0" prefHeight="25.0" prefWidth="119.0" />
                   <Label layoutX="147.0" layoutY="17.0" text="Geschäftspartner - Typ" />
-                  <ComboBox fx:id="cb_partnerTyp" layoutX="144.0" layoutY="34.0" prefHeight="25.0" prefWidth="139.0" promptText="Bitte wählen..." />
+                  <ComboBox fx:id="cbPartnerTyp" layoutX="144.0" layoutY="34.0" prefHeight="25.0" prefWidth="139.0" promptText="Bitte wählen..." />
                   <Label layoutX="298.0" layoutY="17.0" text="Anschrift-ID" />
-                  <TextField fx:id="tf_anschriftID" layoutX="298.0" layoutY="34.0" prefWidth="112.0" />
+                  <TextField fx:id="tfAnschriftID" layoutX="298.0" layoutY="34.0" prefWidth="112.0" />
                   <Label layoutX="441.0" layoutY="17.0" text="Liefer-ID" />
-                  <TextField fx:id="tf_lieferID" layoutX="441.0" layoutY="34.0" prefWidth="112.0" />
+                  <TextField fx:id="tfLieferID" layoutX="441.0" layoutY="34.0" prefWidth="112.0" />
                   <Label layoutX="579.0" layoutY="17.0" text="Kreditlimit" />
                   <Label layoutX="690.0" layoutY="38.0" text="Euro" />
                   <Button fx:id="anlegenBT" layoutX="14.0" layoutY="116.0" mnemonicParsing="false" onAction="#geschaeftspartnerAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen">
@@ -40,7 +40,7 @@
                   <Button fx:id="bearbeitenBT" layoutX="133.0" layoutY="116.0" mnemonicParsing="false" onAction="#bearbeiteGeschaeftspartner" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten " />
                   <Button fx:id="loeschenBT" layoutX="254.0" layoutY="116.0" mnemonicParsing="false" onAction="#geschaeftspartnerLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
                   <Button fx:id="closeGP" layoutX="631.0" layoutY="116.0" mnemonicParsing="false" onAction="#closeGeschaeftspartner" prefHeight="40.0" prefWidth="100.0" text="Zurück" AnchorPane.rightAnchor="35.0" />
-                  <TextField fx:id="tf_kreditlimit" layoutX="579.0" layoutY="34.0" prefHeight="25.0" prefWidth="103.0" />
+                  <TextField fx:id="tfKreditlimit" layoutX="579.0" layoutY="34.0" prefHeight="25.0" prefWidth="103.0" />
                   <Pane fx:id="pane" layoutX="14.0" layoutY="11.0" prefHeight="72.0" prefWidth="711.0" />
                   <Button fx:id="hinzufuegenBT" layoutX="14.0" layoutY="116.0" mnemonicParsing="false" onAction="#geschaeftspartnerHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
                   <Button fx:id="speichernBT" layoutX="133.0" layoutY="116.0" mnemonicParsing="false" onAction="#speichereAenderung" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
@@ -52,8 +52,8 @@
             <Insets bottom="50.0" />
          </padding>
       </TitledPane>
-      <ComboBox fx:id="cb_suchfeld" layoutX="47.0" layoutY="43.0" prefHeight="25.0" prefWidth="184.0" promptText="Bitte wählen..." />
-      <TextField fx:id="tf_suchbegriff" layoutX="252.0" layoutY="43.0" onAction="#geschaeftspartnerSuchen" prefHeight="25.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbSuchfeld" layoutX="47.0" layoutY="43.0" prefHeight="25.0" prefWidth="184.0" promptText="Bitte wählen..." />
+      <TextField fx:id="tfSuchbegriff" layoutX="252.0" layoutY="43.0" onAction="#geschaeftspartnerSuchen" prefHeight="25.0" prefWidth="150.0" />
       <Label layoutX="47.0" layoutY="28.0" prefHeight="17.0" prefWidth="107.0" text="Suchkriterium" />
       <Label layoutX="252.0" layoutY="28.0" text="Suchbegriff" />
       <Button layoutX="583.0" layoutY="36.0" mnemonicParsing="false" onAction="#setzeSucheZurueck" prefHeight="40.0" prefWidth="147.0" text="Suche zurücksetzen" />

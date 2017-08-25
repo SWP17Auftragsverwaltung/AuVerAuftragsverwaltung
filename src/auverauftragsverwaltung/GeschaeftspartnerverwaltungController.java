@@ -52,39 +52,48 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      */
     @FXML
     private Button closeGP;
+    
     /**
-     * Liefer-ID des Lieferanten.
+     * Textfeld "LieferID".
      */
     @FXML
-    private TextField tf_lieferID;
+    private TextField tfLieferID;
+    
     /**
-     * Anschrift-ID des Geschäftspartners.
+     * Textfeld "AnschriftID".
      */
     @FXML
-    private TextField tf_anschriftID;
+    private TextField tfAnschriftID;
+    
     /**
      * ComboBox "Suchfeld".
      */
     @FXML
-    private ComboBox<String> cb_suchfeld = new ComboBox();
+    private ComboBox<String> cbSuchfeld = new ComboBox();
 
+     /**
+     * Textfeld "Suchbegriff".
+     */
     @FXML
-    private TextField tf_suchbegriff;
+    private TextField tfSuchbegriff;
+    
     /**
      * Kreditlimit des Geschäftspartners.
      */
     @FXML
-    private TextField tf_kreditlimit;
+    private TextField tfKreditlimit;
+    
     /**
      * PartnerTyp des Geschäftspartners.
      */
     @FXML
-    private ComboBox<String> cb_partnerTyp = new ComboBox();
+    private ComboBox<String> cbPartnerTyp = new ComboBox();
+    
     /**
      * ID des Geschäftspartners.
      */
     @FXML
-    private TextField tf_geschaeftspartnerID;
+    private TextField tfGeschaeftspartnerID;
 
     /**
      * Tabellenspalte "GeschäftspartnerID".
@@ -118,25 +127,46 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
 
 //    @FXML
 //    private AnchorPane tf_partnerID;
-//    
+    
+     /**
+     * Pane "Pane".
+     */
     @FXML
     private Pane pane;
 
+    /**
+     * Button "Hinzufügen".
+     */
     @FXML
     private Button hinzufuegenBT;
 
+    /**
+     * Button "Anlegen".
+     */
     @FXML
     private Button anlegenBT;
 
+    /**
+     * Button "Bearbeiten".
+     */
     @FXML
     private Button bearbeitenBT;
 
+    /**
+     * Button "Speichern".
+     */
     @FXML
     private Button speichernBT;
 
+    /**
+     * Button "Löschen".
+     */
     @FXML
     private Button loeschenBT;
 
+    /**
+     * TitledPane "Datensatz".
+     */
     @FXML
     private TitledPane datensatzTP;
 
@@ -176,13 +206,13 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         }
 
         //Die Geschäftspartner-ID enthält max. 6 Zeichen.        
-        begrenzeTextFeldEingabe(tf_geschaeftspartnerID, 6);
+        begrenzeTextFeldEingabe(tfGeschaeftspartnerID, 6);
         //Die Anschrift-ID enthält max. 6 Zeichen.
-        begrenzeTextFeldEingabe(tf_anschriftID, 6);
+        begrenzeTextFeldEingabe(tfAnschriftID, 6);
         //Die Liefer-Id enthält max. 6 Zeichen.
-        begrenzeTextFeldEingabe(tf_lieferID, 6);
+        begrenzeTextFeldEingabe(tfLieferID, 6);
         //Das Kreditlimit enthält max. 6 Zeichen.
-        begrenzeTextFeldEingabe(tf_kreditlimit, 6);
+        begrenzeTextFeldEingabe(tfKreditlimit, 6);
 
         gpID.setCellValueFactory(
                 new PropertyValueFactory<>("geschaeftspartnerID"));
@@ -192,14 +222,14 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         kredLimit.setCellValueFactory(
                 new PropertyValueFactory<>("kreditlimit"));
 
-        cb_suchfeld.getItems().addAll(
+        cbSuchfeld.getItems().addAll(
                 "Geschaeftspartner-ID",
                 "Geschäftspartner-Typ",
                 "Anschrift-ID",
                 "Liefer-ID",
                 "Kreditlimit");
 
-        cb_partnerTyp.getItems().addAll("K", "L");
+        cbPartnerTyp.getItems().addAll("K", "L");
     }
 
     /**
@@ -212,7 +242,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
 
         tf.setTextFormatter(new TextFormatter<>(change
-                -> change.getControlNewText().length() <= zahl
+            -> change.getControlNewText().length() <= zahl
                         ? change : null));
     }
 
@@ -254,8 +284,11 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         gpTable.setItems(geschaeftspartner);
     }
 
+    
+    
+    
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
@@ -272,11 +305,14 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         gpTable.setItems(geschaeftspartner);
     }
 
+    
+    
+    
     /**
      * Ermöglicht das Eingeben des Datensatzes für das Hinzufügen eines
      * Geschäftspartners.
      *
-     * @throws SQLException
+     * @throws java.sql.SQLException SQLException
      */
     public void geschaeftspartnerAnlegen() throws SQLException {
 
@@ -296,7 +332,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         this.loeschenBT.setDisable(true);
 
         GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
-        this.tf_geschaeftspartnerID.setText(gpDAO.generiereID());
+        this.tfGeschaeftspartnerID.setText(gpDAO.generiereID());
 
     }
 
@@ -309,11 +345,11 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      */
     public void geschaeftspartnerHinzufuegen() throws SQLException {
 
-        String geschaeftspartnerID = tf_geschaeftspartnerID.getText();
-        String typ = cb_partnerTyp.getValue();
-        String adresseID = tf_anschriftID.getText();
-        String lieferID = tf_lieferID.getText();
-        String kreditlimit = tf_kreditlimit.getText();
+        String geschaeftspartnerID = tfGeschaeftspartnerID.getText();
+        String typ = cbPartnerTyp.getValue();
+        String adresseID = tfAnschriftID.getText();
+        String lieferID = tfLieferID.getText();
+        String kreditlimit = tfKreditlimit.getText();
         String lkz = "N";
         Geschaeftspartner geschaeftspartner = new Geschaeftspartner(
                 geschaeftspartnerID, typ, adresseID, lieferID,
@@ -346,11 +382,11 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      */
     public void clearTextFields() {
 
-        this.tf_geschaeftspartnerID.clear();
-        this.cb_partnerTyp.setValue("Bitte wählen...");
-        this.tf_anschriftID.clear();
-        this.tf_lieferID.clear();
-        this.tf_kreditlimit.clear();
+        this.tfGeschaeftspartnerID.clear();
+        this.cbPartnerTyp.setValue("Bitte wählen...");
+        this.tfAnschriftID.clear();
+        this.tfLieferID.clear();
+        this.tfKreditlimit.clear();
 
     }
 
@@ -377,10 +413,11 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     @FXML
     public void geschaeftspartnerLoeschen() throws SQLException {
 
-        Object geschaeftspartner = gpTable.getSelectionModel().getSelectedItem();
+        Object geschaeftspartner = 
+                gpTable.getSelectionModel().getSelectedItem();
         Geschaeftspartner g = (Geschaeftspartner) geschaeftspartner;
 
-        if (!this.tf_geschaeftspartnerID.getText().isEmpty()) {
+        if (!this.tfGeschaeftspartnerID.getText().isEmpty()) {
             Meldung meldung = new Meldung();
             meldung.loeschenAbfragen();
 
@@ -396,10 +433,22 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         }
     }
 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.08.17    GET     Methode erstellt.
+    /* 22.08.17    HEN     Adressdatenpane geändert. Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Lässt das Bearbeiten eines ausgewählten Geschäftspartners zu.
+     * @throws java.sql.SQLException SQLException
+     */
     @FXML
     public void bearbeiteGeschaeftspartner() throws SQLException {
 
-        if (!this.tf_geschaeftspartnerID.getText().isEmpty()) {
+        if (!this.tfGeschaeftspartnerID.getText().isEmpty()) {
             // Textfeldbereich wird aktiviert
             this.pane.setDisable(true);
             // Bearbeiten-Button wird ausgeblendet
@@ -417,17 +466,32 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         }
     }
 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.08.17    GET     Methode erstellt.
+    /* 22.08.17    HEN     Exceptions eingefügt. Getestet & Freigegeben.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Speichert die gemachten Änderungen in die Datenbank und aktualisiert die
+     * View mit den neuen Werten.
+     * @throws java.sql.SQLException SQLException.
+     */
     @FXML
     public void speichereAenderung() throws SQLException {
 
-        String geschaeftspartnerID = this.tf_geschaeftspartnerID.getText();
-        String typ = this.cb_partnerTyp.getValue();
-        String anschriftID = this.tf_anschriftID.getText();
-        String lieferID = this.tf_lieferID.getText();
-        String kreditlimit = this.tf_kreditlimit.getText();
+        String geschaeftspartnerID = this.tfGeschaeftspartnerID.getText();
+        String typ = this.cbPartnerTyp.getValue();
+        String anschriftID = this.tfAnschriftID.getText();
+        String lieferID = this.tfLieferID.getText();
+        String kreditlimit = this.tfKreditlimit.getText();
         String lkz = "N";
 
-        Geschaeftspartner gp = new Geschaeftspartner(geschaeftspartnerID, typ, anschriftID, lieferID, kreditlimit, lkz);
+        Geschaeftspartner gp = new Geschaeftspartner(
+                geschaeftspartnerID, typ, anschriftID, lieferID, 
+                kreditlimit, lkz);
 
         GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
         gpDAO.aendernGeschaeftspartner(gp);
@@ -454,26 +518,40 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      */
     @FXML
     public void zeigeWerteAn() {
-        Object geschaeftspartner = gpTable.getSelectionModel().getSelectedItem();
+        Object geschaeftspartner = 
+                gpTable.getSelectionModel().getSelectedItem();
         Geschaeftspartner b = (Geschaeftspartner) geschaeftspartner;
 
         if (b != null) {
-            this.tf_geschaeftspartnerID.setText(b.getGeschaeftspartnerID());
-            this.cb_partnerTyp.setValue(b.getTyp());
-            this.tf_anschriftID.setText(b.getAdresseID());
-            this.tf_lieferID.setText(b.getLieferID());
-            this.tf_kreditlimit.setText(b.getKreditlimit());
+            this.tfGeschaeftspartnerID.setText(b.getGeschaeftspartnerID());
+            this.cbPartnerTyp.setValue(b.getTyp());
+            this.tfAnschriftID.setText(b.getAdresseID());
+            this.tfLieferID.setText(b.getLieferID());
+            this.tfKreditlimit.setText(b.getKreditlimit());
         }
     }
 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.08.17    HEN     Methode erstellt.
+    /* 18.08.17    BER     IF Fälle ergänzt. Getestet & Freigegeben.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Zeigt die Werte eines ausgewählten Geschäftspartners im unteren 
+     * Bereich an.
+     * @throws java.sql.SQLException SQLException
+     */
     @FXML
     public void geschaeftspartnerSuchen() throws SQLException {
 
         SucheDAO gpDAO = new SucheDAO();
         ArrayList gefundeneGeschaeftspartner;
 
-        String suchkriterium = this.cb_suchfeld.getValue();
-        String suchbegriff = this.tf_suchbegriff.getText();
+        String suchkriterium = this.cbSuchfeld.getValue();
+        String suchbegriff = this.tfSuchbegriff.getText();
 
         gefundeneGeschaeftspartner = gpDAO.geschaeftspartnerSuche(
                 suchkriterium, suchbegriff);
@@ -482,10 +560,18 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
 
     }
 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
     /**
-     *
-     * @param adressen
-     * @throws SQLException
+     * Methode bekommt eine ArrayList mit den gefundenen Adressen übergeben und
+     * aktualisiert damit die TableView.
+     * @param adressen Übergebene Adresse.
+     * @throws java.sql.SQLException SQL Exception
      */
     public void zeigeGefundeneAdressen(ArrayList adressen) throws SQLException {
         refreshTable();
@@ -494,17 +580,33 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         gpTable.setItems(adressenAusgabe);
     }
 
+     /**
+     *
+     * @throws java.sql.SQLException SQLException
+     */
     @FXML
     public void setzeSucheZurueck() throws SQLException {
-        this.tf_suchbegriff.setText("");
-        this.cb_suchfeld.setValue("Bitte wählen...");
+        this.tfSuchbegriff.setText("");
+        this.cbSuchfeld.setValue("Bitte wählen...");
         setTableContent();
     }
 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 19.08.17    GET     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Gibt dem Benutzer die Möglichkeit, seine Aktionen abzubrechen oder zu
+     * bestätigen.
+     */
     @FXML
     public void aktionAbbrechen() {
 
-        if (!this.datensatzTP.getText().equalsIgnoreCase("Geschäftspartnerdatensatz")) {
+        if (!this.datensatzTP.getText().equalsIgnoreCase(
+                "Geschäftspartnerdatensatz")) {
             Meldung meldung = new Meldung();
             meldung.verwerfenFenster();
 
