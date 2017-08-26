@@ -35,23 +35,26 @@ public class AuftragSuchenController implements Initializable {
     private Button closeAS;
 
     @FXML
-    private TextField auftragsID;
+    private TextField tfAuftragsID;
 
     @FXML
-    private TextField kundenname;
+    private TextField tfKundenname;
 
     @FXML
-    private TextField lieferantenname;
+    private TextField tfLieferantenname;
 
     @FXML
-    private TextField artikel;
+    private TextField tfArtikel;
 
     @FXML
-    private TextField steuersatz;
+    private TextField tfSteuersatz;
 
     @FXML
-    private TextField mahnstufe;
+    private TextField tfMahnstufe;
 
+    @FXML
+    private TextField tfDatum;
+    
     /**
      * Mehtode zum Abbrechen der Auftragssuche.
      *
@@ -73,12 +76,12 @@ public class AuftragSuchenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
            
-        begrenzeTextFeldEingabe(auftragsID, 6);
-        begrenzeTextFeldEingabe(kundenname, 41);
-        begrenzeTextFeldEingabe(lieferantenname, 41);
-        begrenzeTextFeldEingabe(artikel, 250);
-        begrenzeTextFeldEingabe(steuersatz, 3);
-        begrenzeTextFeldEingabe(mahnstufe, 1);
+        begrenzeTextFeldEingabe(tfAuftragsID, 6);
+        begrenzeTextFeldEingabe(tfKundenname, 41);
+        begrenzeTextFeldEingabe(tfLieferantenname, 41);
+        begrenzeTextFeldEingabe(tfArtikel, 250);
+        begrenzeTextFeldEingabe(tfSteuersatz, 3);
+        begrenzeTextFeldEingabe(tfMahnstufe, 1);
         
         
         

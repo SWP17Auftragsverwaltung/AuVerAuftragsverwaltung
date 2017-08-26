@@ -47,26 +47,26 @@
                   <TextField fx:id="tfAnschriftID" editable="false" layoutX="24.0" layoutY="38.0" prefHeight="25.0" prefWidth="100.0" />
                   <Label layoutX="136.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" text="Anrede" />
                   <Label layoutX="292.0" layoutY="20.0" text="Name" />
-                  <NameTextField fx:id="tfName" layoutX="292.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
+                  <TextField fx:id="tfName" layoutX="292.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
                   <Label layoutX="454.0" layoutY="20.0" text="Vorname" />
-                  <NameTextField fx:id="tfVorname" layoutX="453.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
+                  <TextField fx:id="tfVorname" layoutX="453.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
                   <Label layoutX="615.0" layoutY="20.0" text="Telefon" />
-                  <TelTextField fx:id="tfTelefon" layoutX="613.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
+                  <TextField fx:id="tfTelefon" layoutX="613.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
                   <Label layoutX="771.0" layoutY="20.0" text="E-Mail" />
                   <TextField fx:id="tfEmail" layoutX="771.0" layoutY="36.0" prefHeight="25.0" prefWidth="220.0" />
                   <Label layoutX="24.0" layoutY="76.0" text="Straße" />
-                  <StreetTextField fx:id="tfStrasse" layoutX="24.0" layoutY="90.0" prefHeight="25.0" prefWidth="150.0" />
+                  <TextField fx:id="tfStrasse" layoutX="24.0" layoutY="90.0" prefHeight="25.0" prefWidth="150.0" />
                   <TextField fx:id="tfHausNr" layoutX="187.0" layoutY="89.0" prefHeight="25.0" prefWidth="100.0" />
                   <Label layoutX="187.0" layoutY="74.0" text="HausNr" />
                   <Label layoutX="298.0" layoutY="73.0" text="PLZ" />
-                  <NumberTextField fx:id="tfPlz" layoutX="298.0" layoutY="88.0" prefHeight="25.0" prefWidth="100.0" />
+                  <TextField fx:id="tfPlz" layoutX="298.0" layoutY="88.0" prefHeight="25.0" prefWidth="100.0" />
                   <Label layoutX="408.0" layoutY="74.0" text="Ort" />
-                  <NameTextField fx:id="tfOrt" layoutX="408.0" layoutY="88.0" prefHeight="25.0" prefWidth="150.0" />
+                  <TextField fx:id="tfOrt" layoutX="408.0" layoutY="88.0" prefHeight="25.0" prefWidth="150.0" />
                   <Label layoutX="570.0" layoutY="74.0" text="Staat" />
-                  <NameTextField fx:id="tfStaat" layoutX="569.0" layoutY="88.0" prefHeight="25.0" prefWidth="150.0" />
+                  <TextField fx:id="tfStaat" layoutX="569.0" layoutY="88.0" prefHeight="25.0" prefWidth="150.0" />
                   <Label layoutX="771.0" layoutY="75.0" text="Erfassungsdatum" />
                   <ComboBox fx:id="cbAnrede" layoutX="132.0" layoutY="38.0" prefHeight="25.0" prefWidth="120.0" promptText="Bitte wählen..." />
-                  <Pane fx:id="pane" layoutX="14.0" layoutY="15.0" prefHeight="123.0" prefWidth="982.0" visible="false" />
+                  <Pane fx:id="pane" layoutX="14.0" layoutY="15.0" prefHeight="123.0" prefWidth="982.0" />
                   <Button fx:id="speichernBT" layoutX="132.0" layoutY="172.0" mnemonicParsing="false" onAction="#speichereAenderung" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
                   <Button fx:id="hinzufuegenAdresseBT" layoutX="24.0" layoutY="172.0" mnemonicParsing="false" onAction="#adresseHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
                   <Button fx:id="abbrechenBT" layoutX="354.0" layoutY="172.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
