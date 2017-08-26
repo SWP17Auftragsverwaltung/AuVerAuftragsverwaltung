@@ -38,7 +38,7 @@
             </TableView>
          </content>
       </TitledPane>
-      <TitledPane animated="false" layoutX="42.0" layoutY="494.0" prefHeight="206.0" prefWidth="941.0" text="Auftragspositionsdatensatz" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+      <TitledPane animated="false" collapsible="false" layoutX="42.0" layoutY="494.0" prefHeight="206.0" prefWidth="941.0" text="Auftragspositionsdatensatz" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
