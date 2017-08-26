@@ -42,18 +42,19 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="btHinzufuegen" layoutX="14.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" />
-                  <Button fx:id="btLoeschen" layoutX="127.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
-                  <Button fx:id="btMenge" layoutX="252.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Menge" />
-                  <Button fx:id="btEinzelwert" layoutX="391.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Einzelwert" />
+                  <Button fx:id="btAnlegen" layoutX="14.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
+                  <Button fx:id="btLoeschen" layoutX="340.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
+                  <Button fx:id="btBearbeiten" layoutX="121.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
+                  <Button fx:id="btAbbrechen" layoutX="229.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " />
                   <TextField fx:id="tfPositionsNr" layoutX="14.0" layoutY="47.0" />
                   <TextField fx:id="tfMaterialNr" layoutX="197.0" layoutY="47.0" />
                   <TextField fx:id="tfMenge" layoutX="371.0" layoutY="47.0" />
                   <TextField fx:id="tfEinzelwert" layoutX="551.0" layoutY="47.0" />
-                  <Label layoutX="57.0" layoutY="24.0" text="Positionsnummer" />
-                  <Label layoutX="245.0" layoutY="24.0" text="Materialnummer" />
-                  <Label layoutX="432.0" layoutY="24.0" text="Menge" />
-                  <Label layoutX="598.0" layoutY="24.0" text="Einzelwert" />
+                  <Label layoutX="18.0" layoutY="33.0" text="Positionsnummer" />
+                  <Label layoutX="197.0" layoutY="33.0" text="Materialnummer" />
+                  <Label layoutX="371.0" layoutY="33.0" prefHeight="13.0" prefWidth="38.0" text="Menge" />
+                  <Label layoutX="551.0" layoutY="33.0" text="Einzelwert" />
+                  <Button fx:id="btClose" layoutX="848.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zurück" AnchorPane.rightAnchor="35.0" />
                </children>
             </AnchorPane>
         </content>

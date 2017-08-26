@@ -28,33 +28,34 @@
          </font>
       </TitledPane>
       <Button layoutX="25.0" layoutY="36.0" mnemonicParsing="false" onAction="#sucheAuftrag" prefHeight="40.0" prefWidth="160.0" text="Auftrag Suchen " AnchorPane.leftAnchor="25.0" />
-      <TitledPane animated="false" layoutX="25.0" layoutY="428.0" prefHeight="256.0" prefWidth="1013.0" text="Auftragskopf" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+      <TitledPane animated="false" collapsible="false" layoutX="25.0" layoutY="428.0" prefHeight="256.0" prefWidth="1013.0" text="Auftragskopf" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="29.0" layoutY="21.0" text="Auftragskopf" />
+                  <Label layoutX="16.0" layoutY="22.0" text="Auftragskopf" />
                   <TextField fx:id="tfAuftragskopf" layoutX="14.0" layoutY="38.0" prefHeight="25.0" prefWidth="89.0" />
-                  <Label layoutX="140.0" layoutY="21.0" text="Text zum Auftrag" />
+                  <Label layoutX="121.0" layoutY="22.0" text="Text zum Auftrag" />
                   <TextArea fx:id="tfText" layoutX="121.0" layoutY="38.0" prefHeight="40.0" prefWidth="123.0" />
                   <TextField fx:id="tfPartnerID" layoutX="258.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
-                  <Label layoutX="293.0" layoutY="21.0" text="Partner-ID" />
-                  <Label layoutX="50.0" layoutY="98.0" text="Auftragswert" />
-                  <Label layoutX="407.0" layoutY="21.0" text="Erfassungsdatum" />
-                  <Label layoutX="533.0" layoutY="22.0" text="Lieferdatum" />
-                  <Label layoutX="649.0" layoutY="22.0" text="Abschlussdatum" />
-                  <Label layoutX="203.0" layoutY="98.0" text="Auftragsstatus" />
-                  <Label layoutX="356.0" layoutY="98.0" text="Auftragsart" />
-                  <ComboBox fx:id="cbAuftragsstatus" layoutX="183.0" layoutY="129.0" prefHeight="25.0" prefWidth="123.0" promptText="Bitte wählen..." />
-                  <ComboBox fx:id="cbAuftragsart" layoutX="328.0" layoutY="129.0" prefHeight="25.0" prefWidth="110.0" promptText="Bitte wählen..." />
-                  <TextField fx:id="tfAuftragswert" layoutX="45.0" layoutY="129.0" prefHeight="25.0" prefWidth="91.0" />
-                  <DatePicker fx:id="dpErfdatum" layoutX="383.0" layoutY="38.0" prefHeight="25.0" prefWidth="116.0" />
-                  <DatePicker fx:id="dpLieferdatum" layoutX="510.0" layoutY="38.0" prefHeight="25.0" prefWidth="108.0" />
-                  <DatePicker fx:id="dpAbschlussdatum" layoutX="631.0" layoutY="38.0" prefHeight="25.0" prefWidth="116.0" />
-                  <Button layoutX="18.0" layoutY="178.0" mnemonicParsing="false" onAction="#oeffneAuftragsposition" prefHeight="40.0" prefWidth="160.0" text="Auftragspositionen" />
-                  <Button layoutX="186.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragHinzufuegen" prefHeight="40.0" prefWidth="160.0" text="Auftrag anlegen " />
-                  <Button layoutX="358.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftrag ändern" />
-                  <Button fx:id="btLoeschen" layoutX="522.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragskopfLoeschen" prefHeight="40.0" prefWidth="160.0" text="Auftrag löschen" />
-                  <Button fx:id="closeAA" layoutX="808.0" layoutY="180.0" mnemonicParsing="false" onAction="#closeAuftraegeAnzeigen" prefHeight="40.0" prefWidth="160.0" text="Abbrechen " />
+                  <Label layoutX="258.0" layoutY="22.0" text="Partner-ID" />
+                  <Label layoutX="17.0" layoutY="98.0" text="Auftragswert" />
+                  <Label layoutX="383.0" layoutY="22.0" text="Erfassungsdatum" />
+                  <Label layoutX="510.0" layoutY="22.0" text="Lieferdatum" />
+                  <Label layoutX="631.0" layoutY="22.0" text="Abschlussdatum" />
+                  <Label layoutX="128.0" layoutY="98.0" text="Auftragsstatus" />
+                  <Label layoutX="266.0" layoutY="98.0" text="Auftragsart" />
+                  <ComboBox fx:id="cbAuftragsstatus" layoutX="125.0" layoutY="117.0" prefHeight="25.0" prefWidth="123.0" promptText="Bitte wählen..." />
+                  <ComboBox fx:id="cbAuftragsart" layoutX="266.0" layoutY="117.0" prefHeight="25.0" prefWidth="110.0" promptText="Bitte wählen..." />
+                  <TextField fx:id="tfAuftragswert" layoutX="13.0" layoutY="117.0" prefHeight="25.0" prefWidth="91.0" />
+                  <Button layoutX="18.0" layoutY="178.0" mnemonicParsing="false" onAction="#oeffneAuftragsposition" prefHeight="40.0" prefWidth="120.0" text="Auftragspositionen" />
+                  <Button layoutX="148.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
+                  <Button layoutX="257.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Ändern" />
+                  <Button fx:id="btLoeschen" layoutX="366.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragskopfLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
+                  <Button fx:id="closeAA" layoutX="847.0" layoutY="178.0" mnemonicParsing="false" onAction="#closeAuftraegeAnzeigen" prefHeight="40.0" prefWidth="100.0" text="Zurück" AnchorPane.rightAnchor="35.0" />
+                  <TextField fx:id="tfErfDatum" layoutX="380.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
+                  <TextField fx:id="tfLieferdatum" layoutX="510.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
+                  <TextField fx:id="tfAbschlussdatum" layoutX="626.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
+                  <Button fx:id="btAbbrechen" layoutX="474.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
                </children>
             </AnchorPane>
         </content>
