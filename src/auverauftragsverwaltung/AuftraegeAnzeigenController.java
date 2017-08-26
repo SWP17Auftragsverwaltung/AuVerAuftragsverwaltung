@@ -163,6 +163,30 @@ public class AuftraegeAnzeigenController implements Initializable {
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcAbschDatum;
+    
+        /**
+     * Methode zum öffnen der Artikelverwaltung durch das betätigen des Buttons
+     * "Artikelverwaltung" im Startfenster.
+     *
+     * @param event ActionEvent zur Prüfung ob der "Artikelverwaltung" - Button
+     * getätigt wurde.
+     */
+    @FXML
+    public void oeffneAuftragsposition(ActionEvent event) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "AuftragPosition.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Auftragsposition");
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Can't load the Auftragsposition!");
+        }
+    }
 
     /**
      * 

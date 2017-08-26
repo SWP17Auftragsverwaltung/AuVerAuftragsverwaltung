@@ -50,7 +50,7 @@
                   <DatePicker fx:id="dpErfdatum" layoutX="383.0" layoutY="38.0" prefHeight="25.0" prefWidth="116.0" />
                   <DatePicker fx:id="dpLieferdatum" layoutX="510.0" layoutY="38.0" prefHeight="25.0" prefWidth="108.0" />
                   <DatePicker fx:id="dpAbschlussdatum" layoutX="631.0" layoutY="38.0" prefHeight="25.0" prefWidth="116.0" />
-                  <Button layoutX="18.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftragspositionen" />
+                  <Button layoutX="18.0" layoutY="178.0" mnemonicParsing="false" onAction="#oeffneAuftragsposition" prefHeight="40.0" prefWidth="160.0" text="Auftragspositionen" />
                   <Button layoutX="186.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragHinzufuegen" prefHeight="40.0" prefWidth="160.0" text="Auftrag anlegen " />
                   <Button layoutX="358.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Auftrag ändern" />
                   <Button fx:id="btLoeschen" layoutX="522.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragskopfLoeschen" prefHeight="40.0" prefWidth="160.0" text="Auftrag löschen" />
