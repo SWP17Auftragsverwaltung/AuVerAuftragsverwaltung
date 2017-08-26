@@ -304,6 +304,7 @@ public class AdressverwaltungController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         try {
             setTableContent();
 

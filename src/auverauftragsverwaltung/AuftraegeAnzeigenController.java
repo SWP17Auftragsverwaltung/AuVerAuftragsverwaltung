@@ -36,6 +36,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -45,10 +46,58 @@ import javafx.stage.StageStyle;
  */
 public class AuftraegeAnzeigenController implements Initializable {
     /**
-     *  Abbrechen-Button der Auftragsanzeige.
+     *  Zurück-Button der Auftragsanzeige.
      */
     @FXML
     private Button closeAA;
+    
+    /**
+     *  Button für die Ansicht der Auftragspositionen zu einem Auftrag
+     */
+    @FXML
+    private Button btAuftragspositionen;
+    
+    /**
+     * Button für das Anlegen eines neuen Auftragkopfes.
+     */
+    @FXML
+    private Button btAnlegen;
+    
+    /**
+     * Button der den neun Auftragkopf Hinzufügt und an die DAO sendet.
+     */
+    @FXML
+    private Button btHinzufuegen;
+    
+    /**
+     * Button für das Ändern des Auftragkopfes.
+     */
+    @FXML
+    private Button btAendern;
+    
+    /**
+     * Button für das Speichern der Änderungen des Auftragkopfs.
+     */
+    @FXML
+    private Button btSpeichern;
+    
+    /**
+     * Button für das löschen eines Auftragskopfes.
+     */
+    @FXML
+    private Button btLoeschen;
+    
+    /**
+     * Button für das Abbrechen einer Aktion.
+     */
+    @FXML
+    private Button btAbbrechen;
+    
+    /**
+     * Eine Glaspane für das sperren der Eingabe.
+     */
+    @FXML
+    private Pane pane;
     
     /**
      * Textfeld "Auftragskopf".
@@ -78,19 +127,19 @@ public class AuftraegeAnzeigenController implements Initializable {
      * Datepicker "Erfassungsdatum".
      */
     @FXML
-    private DatePicker dpErfdatum;
+    private TextField tfErfDatum;
     
     /**
      * Datepicker "Lieferdatum".
      */
     @FXML
-    private DatePicker dpLieferdatum;
+    private TextField tfLieferdatum;
     
     /**
      * Datepicker "Abschlussdatum".
      */
     @FXML
-    private DatePicker dpAbschlussdatum;
+    private TextField tfAbschlussdatum;
     
      /**
      * ComboBox "Auftragsstatus".
@@ -302,12 +351,12 @@ public class AuftraegeAnzeigenController implements Initializable {
         tfAuftragskopf.clear();
         tfText.clear();
         tfPartnerID.clear();
-        dpErfdatum.valueProperty().set(null);
-        dpLieferdatum.valueProperty().set(null);
+        tfErfDatum.clear();
+        tfLieferdatum.clear();
         cbAuftragsart.valueProperty().set(null);
         tfAuftragswert.clear();
         cbAuftragsstatus.valueProperty().set(null);
-        dpAbschlussdatum.valueProperty().set(null);
+        tfAbschlussdatum.clear();
         cbAuftragsstatus.valueProperty().set(null);
         cbAuftragsart.valueProperty().set(null);
     }    
@@ -394,9 +443,9 @@ public class AuftraegeAnzeigenController implements Initializable {
         String auftragskopfID = tfAuftragskopf.getText();
         String geschaeftspartnerID = tfPartnerID.getText();
         String auftragsText = tfText.getText();
-        String erfassungsDatum = dpErfdatum.getValue().toString();
-        String lieferDatum = dpLieferdatum.getValue().toString();
-        String abschlussDatum = dpAbschlussdatum.getValue().toString();
+        String erfassungsDatum = this.tfErfDatum.getText();
+        String lieferDatum = this.tfLieferdatum.getText();
+        String abschlussDatum = this.tfAbschlussdatum.getText();
         String status = cbAuftragsstatus.getValue();
         String auftragsArt = cbAuftragsart.getValue();
         String auftragsWert = tfAuftragswert.getText();

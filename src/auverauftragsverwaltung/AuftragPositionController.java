@@ -29,7 +29,7 @@ public class AuftragPositionController implements Initializable {
      * Der Abbrechen-Button in der Adressverwaltung.
      */
     @FXML
-    private Button closeAW;
+    private Button btClose;
     
      /**
      * Textfeld für die Eingabe der Positionsnummer.
@@ -160,7 +160,7 @@ public class AuftragPositionController implements Initializable {
      */
     @FXML
     public void closeAuftragsposition(ActionEvent event) {
-        Stage stage = (Stage) closeAW.getScene().getWindow();
+        Stage stage = (Stage) btClose.getScene().getWindow();
         stage.close();
     }
     
