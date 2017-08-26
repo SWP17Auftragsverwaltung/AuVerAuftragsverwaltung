@@ -8,52 +8,44 @@
 
 <AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.AuftragPositionController">
    <children>
-      <TitledPane fx:id="tvAuftragsposition" animated="false" layoutX="42.0" layoutY="220.0" prefHeight="206.0" prefWidth="940.0" text="Auftragspositionen">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="257.0" prefWidth="938.0">
-               <children>
-                  <TableView layoutX="14.0" prefHeight="154.0" prefWidth="920.0">
-                    <columns>
-                      <TableColumn fx:id="tcAuftragskopfID" prefWidth="150.0" text="Auftragskopf-ID" />
-                      <TableColumn fx:id="tcPositionsNr" prefWidth="126.0" text="Positionsnummer" />
-                        <TableColumn fx:id="tcMaterialNr" prefWidth="101.0" text="Materialnummer" />
-                        <TableColumn fx:id="tcMenge" prefWidth="81.0" text="Menge" />
-                        <TableColumn fx:id="tcEinzelwert" prefWidth="109.0" text="Einzelwert" />
-                    </columns>
-                  </TableView>
-               </children>
-            </AnchorPane>
-        </content>
+      <TitledPane fx:id="tvAuftragsposition" animated="false" collapsible="false" layoutX="42.0" layoutY="140.0" prefHeight="352.0" prefWidth="974.0" text="Auftragspositionen" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+         <content>
+            <TableView prefHeight="232.0" prefWidth="972.0">
+              <columns>
+                <TableColumn fx:id="tcAuftragskopfID" prefWidth="150.0" text="Auftragskopf-ID" />
+                <TableColumn fx:id="tcPositionsNr" prefWidth="126.0" text="Positionsnummer" />
+                  <TableColumn fx:id="tcMaterialNr" prefWidth="101.0" text="Materialnummer" />
+                  <TableColumn fx:id="tcMenge" prefWidth="81.0" text="Menge" />
+                  <TableColumn fx:id="tcEinzelwert" prefWidth="109.0" text="Einzelwert" />
+              </columns>
+            </TableView>
+         </content>
       </TitledPane>
-      <TitledPane animated="false" layoutX="42.0" layoutY="44.0" prefHeight="114.0" prefWidth="900.0" text="Auftragskopf">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="88.0" prefWidth="939.0">
-               <children>
-                  <TableView fx:id="tvAuftragskopf" layoutX="4.0" layoutY="8.0" prefHeight="50.0" prefWidth="931.0">
-                    <columns>
-                      <TableColumn fx:id="tcAuftragsID" prefWidth="87.0" text="Auftragskopf-ID" />
-                      <TableColumn fx:id="tcText" prefWidth="63.0" text="Text" />
-                        <TableColumn fx:id="tcPartnerID" prefWidth="139.0" text="Geschäftspartner-ID" />
-                        <TableColumn fx:id="tcErfDatum" prefWidth="86.0" text="Erfassungsdatum" />
-                        <TableColumn fx:id="tcLieferDatum" minWidth="0.0" prefWidth="107.0" text="Lieferdatum" />
-                        <TableColumn fx:id="tcAuftragsart" prefWidth="72.0" text="Auftragsart" />
-                        <TableColumn fx:id="tcAuftragswert" prefWidth="95.0" text="Auftragswert" />
-                        <TableColumn fx:id="tcStatus" prefWidth="111.0" text="Status" />
-                        <TableColumn fx:id="tcAbschlussDatum" minWidth="0.0" prefWidth="118.0" text="Abschlussdatum" />
-                    </columns>
-                  </TableView>
-               </children>
-            </AnchorPane>
-        </content>
+      <TitledPane animated="false" collapsible="false" layoutX="42.0" layoutY="44.0" prefHeight="78.0" prefWidth="974.0" text="Auftragskopf" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+         <content>
+            <TableView fx:id="tvAuftragskopf" prefHeight="50.0" prefWidth="931.0">
+              <columns>
+                <TableColumn fx:id="tcAuftragsID" prefWidth="100.0" text="Auftragskopf-ID" />
+                <TableColumn fx:id="tcText" prefWidth="50.0" text="Text" />
+                  <TableColumn fx:id="tcPartnerID" prefWidth="139.0" text="Geschäftspartner-ID" />
+                  <TableColumn fx:id="tcErfDatum" prefWidth="114.0" text="Erfassungsdatum" />
+                  <TableColumn fx:id="tcLieferDatum" minWidth="0.0" prefWidth="99.0" text="Lieferdatum" />
+                  <TableColumn fx:id="tcAuftragsart" prefWidth="95.0" text="Auftragsart" />
+                  <TableColumn fx:id="tcAuftragswert" prefWidth="115.0" text="Auftragswert" />
+                  <TableColumn fx:id="tcStatus" prefWidth="85.0" text="Status" />
+                  <TableColumn fx:id="tcAbschlussDatum" minWidth="0.0" prefWidth="119.0" text="Abschlussdatum" />
+              </columns>
+            </TableView>
+         </content>
       </TitledPane>
-      <TitledPane animated="false" layoutX="42.0" layoutY="494.0" prefHeight="206.0" prefWidth="941.0" text="Auftragspositionsdatensatz">
+      <TitledPane animated="false" layoutX="42.0" layoutY="494.0" prefHeight="206.0" prefWidth="941.0" text="Auftragspositionsdatensatz" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="btHinzufuegen" layoutX="163.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" />
-                  <Button fx:id="btLoeschen" layoutX="276.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
-                  <Button fx:id="btMenge" layoutX="401.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Menge" />
-                  <Button fx:id="btEinzelwert" layoutX="540.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Einzelwert" />
+                  <Button fx:id="btHinzufuegen" layoutX="14.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" />
+                  <Button fx:id="btLoeschen" layoutX="127.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
+                  <Button fx:id="btMenge" layoutX="252.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Menge" />
+                  <Button fx:id="btEinzelwert" layoutX="391.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Einzelwert" />
                   <TextField fx:id="tfPositionsNr" layoutX="14.0" layoutY="47.0" />
                   <TextField fx:id="tfMaterialNr" layoutX="197.0" layoutY="47.0" />
                   <TextField fx:id="tfMenge" layoutX="371.0" layoutY="47.0" />

@@ -6,7 +6,7 @@
 
 <AnchorPane maxHeight="400.0" maxWidth="755.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="755.0" snapToPixel="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.AuftragSuchenController">
    <children>
-      <TitledPane animated="false" collapsible="false" layoutX="8.0" layoutY="26.0" prefHeight="252.0" prefWidth="740.0" text="Suche nach ">
+      <TitledPane animated="false" collapsible="false" layoutX="8.0" layoutY="26.0" prefHeight="252.0" prefWidth="740.0" text="Suche nach " AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="218.0" prefWidth="738.0">
                <children>
@@ -34,7 +34,7 @@
             </AnchorPane>
          </content>
       </TitledPane>
-      <Button layoutX="145.0" layoutY="316.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Suchen " />
-      <Button fx:id="closeAS" layoutX="511.0" layoutY="316.0" mnemonicParsing="false" onAction="#closeAuftragSuchen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " />
+      <Button layoutX="112.0" layoutY="316.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Suchen " AnchorPane.bottomAnchor="50.0" />
+      <Button fx:id="closeAS" layoutX="557.0" layoutY="316.0" mnemonicParsing="false" onAction="#closeAuftragSuchen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " AnchorPane.bottomAnchor="50.0" />
    </children>
 </AnchorPane>
