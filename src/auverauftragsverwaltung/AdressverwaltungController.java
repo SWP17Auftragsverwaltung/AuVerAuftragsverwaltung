@@ -59,85 +59,85 @@ public class AdressverwaltungController implements Initializable {
      * Textfeld für die Eingabe des Namens.
      */
     @FXML
-    private TextField tf_name;
+    private TextField tfName;
 
     /**
      * Textfeld für die Eingabe des Vornamens.
      */
     @FXML
-    private TextField tf_vorname;
+    private TextField tfVorname;
 
     /**
      * Textfeld für die Eingabe der Telefonnummer.
      */
     @FXML
-    private TextField tf_telefon;
+    private TextField tfTelefon;
 
     /**
      * Textfeld für die Eingabe der Emailadresse.
      */
     @FXML
-    private TextField tf_email;
+    private TextField tfEmail;
 
     /**
      * Textfeld für die Eingabe der Strasse.
      */
     @FXML
-    private TextField tf_strasse;
+    private TextField tfStrasse;
 
     /**
      * Textfeld für die Eingabe der Hausnummer.
      */
     @FXML
-    private TextField tf_hausNr;
+    private TextField tfHausNr;
 
     /**
      * Textfeld für die Eingabe der Postleitzahl.
      */
     @FXML
-    private TextField tf_plz;
+    private TextField tfPlz;
 
     /**
      * Textfeld für die Eingabe des Wohnortes.
      */
     @FXML
-    private TextField tf_ort;
+    private TextField tfOrt;
 
     /**
      * Textfeld für die Eingabe des Staates.
      */
     @FXML
-    private TextField tf_staat;
+    private TextField tfStaat;
 
     /**
      * Textfeld für die Eingabe des Erfassungsdatums.
      */
     @FXML
-    private TextField tf_datum;
+    private TextField tfDatum;
 
     /**
      * ComboBox für die Auswahl des Suchkriteriums.
      */
     @FXML
-    private ComboBox<String> cb_suchfeld = new ComboBox();
+    private ComboBox<String> cbSuchfeld = new ComboBox();
 
     /**
      * Textfeld für die Eingabe des Suchbegriffs.
      */
     @FXML
-    private TextField tf_suchbegriff;
+    private TextField tfSuchbegriff;
 
     /**
      * Textfeld für die Eingabe der AnschriftID.
      */
     @FXML
-    private TextField tf_anschriftID;
+    private TextField tfAnschriftID;
 
     /**
      * ComboBox für die Auswahl der Anrede.
      */
     @FXML
-    private ComboBox<String> cb_anrede = new ComboBox();
+    private ComboBox<String> cbAnrede = new ComboBox();
 
     /**
      * TableView für die Anzeige der Adressen.
@@ -149,79 +149,79 @@ public class AdressverwaltungController implements Initializable {
      * Tabellenspalte "AnschriftID".
      */
     @FXML
-    private TableColumn<Adresse, String> Anschrift_ID;
+    private TableColumn<Adresse, String> tcAnschriftID;
 
     /**
      * Tabellenspalte "Anrede".
      */
     @FXML
-    private TableColumn<Adresse, String> Anrede;
+    private TableColumn<Adresse, String> tcAnrede;
 
     /**
      * Tabellenspalte "Name".
      */
     @FXML
-    private TableColumn<Adresse, String> Name;
+    private TableColumn<Adresse, String> tcName;
 
     /**
      * Tabellenspalte "Vorname".
      */
     @FXML
-    private TableColumn<Adresse, String> Vorname;
+    private TableColumn<Adresse, String> tcVorname;
 
     /**
      * Tabellenspalte "Straße".
      */
     @FXML
-    private TableColumn<Adresse, String> Straße;
+    private TableColumn<Adresse, String> tcStraße;
 
     /**
      * Tabellenspalte "HausNr".
      */
     @FXML
-    private TableColumn<Adresse, String> HausNr;
+    private TableColumn<Adresse, String> tcHausNr;
 
     /**
      * Tabellenspalte "PLZ".
      */
     @FXML
-    private TableColumn<Adresse, String> PLZ;
+    private TableColumn<Adresse, String> tcPLZ;
 
     /**
      * Tabellenspalte "Ort".
      */
     @FXML
-    private TableColumn<Adresse, String> Ort;
+    private TableColumn<Adresse, String> tcOrt;
 
     /**
      * Tabellenspalte "Staat".
      */
     @FXML
-    private TableColumn<Adresse, String> Staat;
+    private TableColumn<Adresse, String> tcStaat;
 
     /**
      * Tabellenspalte "Tel".
      */
     @FXML
-    private TableColumn<Adresse, String> Tel;
+    private TableColumn<Adresse, String> tcTel;
 
     /**
      * Tabellenspalte "Email".
      */
     @FXML
-    private TableColumn<Adresse, String> EMail;
+    private TableColumn<Adresse, String> tcEMail;
 
     /**
      * Tabellenspalte "erfDatum".
      */
     @FXML
-    private TableColumn<Adresse, String> ErfDatum;
+    private TableColumn<Adresse, String> tcErfDatum;
 
     /**
      * Tabellenspalte LKZ.
      */
     @FXML
-    private TableColumn<Adresse, String> LKZ;
+    private TableColumn<Adresse, String> tcLKZ;
 
     /**
      * Unsichtbares Pane, um die Eingabe zu verhindern.
@@ -310,71 +310,71 @@ public class AdressverwaltungController implements Initializable {
         }
 
         // Name auf 20 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_name, 20);
+        begrenzeTextFeldEingabe(tfName, 20);
 
         // Vorname auf 20 Zeichen begrenzt   
-        begrenzeTextFeldEingabe(tf_vorname, 20);
+        begrenzeTextFeldEingabe(tfVorname, 20);
 
         // Telefon auf 20 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_telefon, 20);
+        begrenzeTextFeldEingabe(tfTelefon, 20);
 
         // E-Mail auf 100 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_email, 100);
+        begrenzeTextFeldEingabe(tfEmail, 100);
 
         // Strasse auf 30 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_strasse, 30);
+        begrenzeTextFeldEingabe(tfStrasse, 30);
 
         // Hausnummer auf 6 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_hausNr, 6);
+        begrenzeTextFeldEingabe(tfHausNr, 6);
 
         // PLZ auf 6 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_plz, 6);
+        begrenzeTextFeldEingabe(tfPlz, 6);
 
         // Ort auf 30 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_ort, 30);
+        begrenzeTextFeldEingabe(tfOrt, 30);
 
         // Staat auf 30 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_staat, 30);
+        begrenzeTextFeldEingabe(tfStaat, 30);
 
 //        // Datum auf 10 Zeichen begrenzt
 //        begrenzeTextFeldEingabe(tf_datum, 10);
 
         // Datum auf 10 Zeichen begrenzt
-        begrenzeTextFeldEingabe(tf_anschriftID, 6);
+        begrenzeTextFeldEingabe(tfAnschriftID, 6);
 
-        Anschrift_ID.setCellValueFactory(
+        tcAnschriftID.setCellValueFactory(
                 new PropertyValueFactory<>("adresseID"));
 
-        Anrede.setCellValueFactory(new PropertyValueFactory<>("anrede"));
+        tcAnrede.setCellValueFactory(new PropertyValueFactory<>("anrede"));
 
-        Name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tcName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        Vorname.setCellValueFactory(new PropertyValueFactory<>("vorname"));
+        tcVorname.setCellValueFactory(new PropertyValueFactory<>("vorname"));
 
-        Straße.setCellValueFactory(new PropertyValueFactory<>("strasse"));
+        tcStraße.setCellValueFactory(new PropertyValueFactory<>("strasse"));
 
-        HausNr.setCellValueFactory(
+        tcHausNr.setCellValueFactory(
                 new PropertyValueFactory<>("hausnummer"));
 
-        PLZ.setCellValueFactory(new PropertyValueFactory<>("plz"));
+        tcPLZ.setCellValueFactory(new PropertyValueFactory<>("plz"));
 
-        Ort.setCellValueFactory(new PropertyValueFactory<>("ort"));
+        tcOrt.setCellValueFactory(new PropertyValueFactory<>("ort"));
 
-        Staat.setCellValueFactory(
+        tcStaat.setCellValueFactory(
                 new PropertyValueFactory<>("staat"));
 
-        Tel.setCellValueFactory(
+        tcTel.setCellValueFactory(
                 new PropertyValueFactory<>("telefon"));
 
-        EMail.setCellValueFactory(new PropertyValueFactory<>("Email"));
+        tcEMail.setCellValueFactory(new PropertyValueFactory<>("Email"));
 
-        ErfDatum.setCellValueFactory(
+        tcErfDatum.setCellValueFactory(
                 new PropertyValueFactory<>("erfassungsdatum"));
 
-        LKZ.setCellValueFactory(
+        tcLKZ.setCellValueFactory(
                 new PropertyValueFactory<>("lkz"));
 
-        cb_suchfeld.getItems().addAll(
+        cbSuchfeld.getItems().addAll(
                 "AnschriftID",
                 "Anrede",
                 "Name",
@@ -388,7 +388,7 @@ public class AdressverwaltungController implements Initializable {
                 "Email",
                 "ErfDatum");
 
-        cb_anrede.getItems().addAll("Herr", "Frau");
+        cbAnrede.getItems().addAll("Herr", "Frau");
     }
 
     
@@ -478,18 +478,18 @@ public class AdressverwaltungController implements Initializable {
      * Löscht alle Eingaben in den Textfeldern.
      */
     public void clearTextFields() {
-        tf_anschriftID.clear();
-        cb_anrede.valueProperty().set(null);
-        tf_name.clear();
-        tf_vorname.clear();
-        tf_strasse.clear();
-        tf_hausNr.clear();
-        tf_plz.clear();
-        tf_ort.clear();
-        tf_staat.clear();
-        tf_telefon.clear();
-        tf_email.clear();
-        tf_datum.clear();
+        tfAnschriftID.clear();
+        cbAnrede.valueProperty().set(null);
+        tfName.clear();
+        tfVorname.clear();
+        tfStrasse.clear();
+        tfHausNr.clear();
+        tfPlz.clear();
+        tfOrt.clear();
+        tfStaat.clear();
+        tfTelefon.clear();
+        tfEmail.clear();
+        tfDatum.clear();
     }
 
     
@@ -566,7 +566,7 @@ public class AdressverwaltungController implements Initializable {
         this.loeschenBT.setDisable(true);
 
         AdresseDAO ad = new AdresseDAO();
-        tf_anschriftID.setText(ad.generiereID());
+        tfAnschriftID.setText(ad.generiereID());
     }
 
     
@@ -586,18 +586,18 @@ public class AdressverwaltungController implements Initializable {
      */
     @FXML
     public void adresseHinzufuegen() throws SQLException {
-        String anschriftID = tf_anschriftID.getText();
-        String anrede = cb_anrede.getValue();
-        String name = tf_name.getText();
-        String vorname = tf_vorname.getText();
-        String strasse = tf_strasse.getText();
-        String hausnr = tf_hausNr.getText();
-        String plz = tf_plz.getText();
-        String ort = tf_ort.getText();
-        String staat = tf_staat.getText();
-        String tel = tf_telefon.getText();
-        String email = tf_email.getText();
-        String erfdatum = tf_datum.getText();
+        String anschriftID = tfAnschriftID.getText();
+        String anrede = cbAnrede.getValue();
+        String name = tfName.getText();
+        String vorname = tfVorname.getText();
+        String strasse = tfStrasse.getText();
+        String hausnr = tfHausNr.getText();
+        String plz = tfPlz.getText();
+        String ort = tfOrt.getText();
+        String staat = tfStaat.getText();
+        String tel = tfTelefon.getText();
+        String email = tfEmail.getText();
+        String erfdatum = tfDatum.getText();
         String lkz = "N";
         Adresse adresse = new Adresse(anschriftID, anrede, name, vorname,
                 strasse, hausnr, plz, ort, staat, tel, email, erfdatum, lkz);
@@ -643,7 +643,7 @@ public class AdressverwaltungController implements Initializable {
         Object adresse = adresseTV.getSelectionModel().getSelectedItem();
         Adresse b = (Adresse) adresse;
 
-        if (!this.tf_anschriftID.getText().isEmpty()) {
+        if (!this.tfAnschriftID.getText().isEmpty()) {
             Meldung meldung = new Meldung();
             meldung.loeschenAbfragen();
 
@@ -703,18 +703,18 @@ public class AdressverwaltungController implements Initializable {
      */
     @FXML
     public void speichereAenderung() throws SQLException, MyException {
-        String anschriftID = tf_anschriftID.getText();
-        String anrede = cb_anrede.getValue();
-        String name = tf_name.getText();
-        String vorname = tf_vorname.getText();
-        String strasse = tf_strasse.getText();
-        String hausnr = tf_hausNr.getText();
-        String plz = tf_plz.getText();
-        String ort = tf_ort.getText();
-        String staat = tf_staat.getText();
-        String tel = tf_telefon.getText();
-        String email = tf_email.getText();
-        String erfdatum = tf_datum.getText();
+        String anschriftID = tfAnschriftID.getText();
+        String anrede = cbAnrede.getValue();
+        String name = tfName.getText();
+        String vorname = tfVorname.getText();
+        String strasse = tfStrasse.getText();
+        String hausnr = tfHausNr.getText();
+        String plz = tfPlz.getText();
+        String ort = tfOrt.getText();
+        String staat = tfStaat.getText();
+        String tel = tfTelefon.getText();
+        String email = tfEmail.getText();
+        String erfdatum = tfDatum.getText();
 
         if (anrede.isEmpty() || name.isEmpty() || vorname.isEmpty()
                 || strasse.isEmpty() || hausnr.isEmpty() || plz.isEmpty()
@@ -765,19 +765,19 @@ public class AdressverwaltungController implements Initializable {
         Adresse b = (Adresse) adresse;
 
         if (b != null) {
-            this.tf_anschriftID.setText(b.getAdresseID());
-            this.cb_anrede.setValue(b.getAnrede());
-            this.tf_name.setText(b.getName());
-            this.tf_vorname.setText(b.getVorname());
-            this.tf_telefon.setText(b.getTelefon());
-            this.tf_email.setText(b.getEmail());
-            this.tf_strasse.setText(b.getStrasse());
-            this.tf_hausNr.setText(b.getHausnummer());
-            this.tf_plz.setText(b.getPlz());
-            this.tf_ort.setText(b.getOrt());
-            this.tf_staat.setText(b.getStaat());
+            this.tfAnschriftID.setText(b.getAdresseID());
+            this.cbAnrede.setValue(b.getAnrede());
+            this.tfName.setText(b.getName());
+            this.tfVorname.setText(b.getVorname());
+            this.tfTelefon.setText(b.getTelefon());
+            this.tfEmail.setText(b.getEmail());
+            this.tfStrasse.setText(b.getStrasse());
+            this.tfHausNr.setText(b.getHausnummer());
+            this.tfPlz.setText(b.getPlz());
+            this.tfOrt.setText(b.getOrt());
+            this.tfStaat.setText(b.getStaat());
 
-            this.tf_datum.setText(b.getErfassungsdatum());
+            this.tfDatum.setText(b.getErfassungsdatum());
         }
     }
 
@@ -798,8 +798,8 @@ public class AdressverwaltungController implements Initializable {
         SucheDAO sd = new SucheDAO();
         ArrayList gefundeneAdressen;
 
-        String suchkriterium = cb_suchfeld.getValue();
-        String suchbegriff = tf_suchbegriff.getText();
+        String suchkriterium = cbSuchfeld.getValue();
+        String suchbegriff = tfSuchbegriff.getText();
       
         gefundeneAdressen = sd.adressSuche(suchkriterium, suchbegriff);
         zeigeGefundeneAdressen(gefundeneAdressen);
@@ -822,8 +822,8 @@ public class AdressverwaltungController implements Initializable {
      */
     @FXML
     public void setzeSucheZurueck() throws SQLException {
-        this.tf_suchbegriff.setText("");
-        this.cb_suchfeld.setValue(null);
+        this.tfSuchbegriff.setText("");
+        this.cbSuchfeld.setValue(null);
         setTableContent();
     }
 
