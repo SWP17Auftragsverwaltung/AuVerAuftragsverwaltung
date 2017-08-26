@@ -276,14 +276,20 @@ public class AdressverwaltungController implements Initializable {
      */
     @FXML
     private Button btSuchen;
-
     
+    /**
+     * Abbrechen Button.
+     */
+    @FXML
+    private Button abbrechenBT;
+
     
     /**
      * Methode zum Abbrechen der Adressverwaltung.
      * @param event ActionEvent welches das Klicken des Buttons "Abbrechen"
      * abfängt.
      */
+    @FXML
     public void closeAdressverwaltung(ActionEvent event) {
         Stage stage = (Stage) closeAW.getScene().getWindow();
         stage.close();
@@ -336,8 +342,8 @@ public class AdressverwaltungController implements Initializable {
         // Staat auf 30 Zeichen begrenzt
         begrenzeTextFeldEingabe(tfStaat, 30);
 
-//        // Datum auf 10 Zeichen begrenzt
-//        begrenzeTextFeldEingabe(tf_datum, 10);
+        // Datum auf 10 Zeichen begrenzt
+        begrenzeTextFeldEingabe(tfDatum, 10);
 
         // Datum auf 10 Zeichen begrenzt
         begrenzeTextFeldEingabe(tfAnschriftID, 6);
@@ -581,7 +587,6 @@ public class AdressverwaltungController implements Initializable {
     /**
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues Adress
      * Objekt, welches dann über die DAO in die DB geschrieben wird.
-     *
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
@@ -803,8 +808,6 @@ public class AdressverwaltungController implements Initializable {
       
         gefundeneAdressen = sd.adressSuche(suchkriterium, suchbegriff);
         zeigeGefundeneAdressen(gefundeneAdressen);
-
-        
     }
 
     
@@ -827,6 +830,7 @@ public class AdressverwaltungController implements Initializable {
         setTableContent();
     }
 
+    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was

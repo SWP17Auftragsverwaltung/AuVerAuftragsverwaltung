@@ -70,7 +70,7 @@
                   <Button fx:id="speichernBT" layoutX="132.0" layoutY="172.0" mnemonicParsing="false" onAction="#speichereAenderung" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
                   <Button fx:id="hinzufuegenAdresseBT" layoutX="24.0" layoutY="172.0" mnemonicParsing="false" onAction="#adresseHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
                   <Button fx:id="abbrechenBT" layoutX="354.0" layoutY="172.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
-                  <TextField fx:id="tf_datum" layoutX="771.0" layoutY="89.0" prefHeight="25.0" prefWidth="220.0" />
+                  <TextField fx:id="tfDatum" layoutX="771.0" layoutY="89.0" prefHeight="25.0" prefWidth="220.0" />
                   
                </children>
             </AnchorPane>
