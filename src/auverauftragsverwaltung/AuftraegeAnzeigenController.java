@@ -12,7 +12,9 @@
 */
 package auverauftragsverwaltung;
 
+import Datenbank.AdresseDAO;
 import Datenbank.AuftragskopfDAO;
+import Klassen.Auftragskopf;
 import Klassen.Auftragskopf;
 import java.io.IOException;
 import java.net.URL;
@@ -261,6 +263,30 @@ public class AuftraegeAnzeigenController implements Initializable {
         tvAuftragskopf.getItems().clear();
         setTableContent();
     } 
+
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Löscht alle Eingaben in den Textfeldern.
+     */
+    public void clearTextFields() {
+        tfAuftragskopf.clear();
+        tfText.clear();
+        tfPartnerID.clear();
+        dpErfdatum.valueProperty().set(null);
+        dpLieferdatum.valueProperty().set(null);
+        cbAuftragsart.valueProperty().set(null);
+        tfAuftragswert.clear();
+        cbAuftragsstatus.valueProperty().set(null);
+        dpAbschlussdatum.valueProperty().set(null);
+        cbAuftragsstatus.valueProperty().set(null);
+        cbAuftragsart.valueProperty().set(null);
+    }    
     
     
     
@@ -286,7 +312,7 @@ public class AuftraegeAnzeigenController implements Initializable {
     
     
     
-        /*------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
@@ -328,5 +354,40 @@ public class AuftraegeAnzeigenController implements Initializable {
         
         refreshTable();
     }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 26.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues.
+     * Auftragskopf Objekt, welches dann über die DAO in die DB geschrieben wird
+     * @throws java.sql.SQLException SQL Exception
+     */
+    @FXML
+    public void auftragHinzufuegen() throws SQLException {
+        String auftragskopfID = tfAuftragskopf.getText();
+        String geschaeftspartnerID = tfPartnerID.getText();
+        String auftragsText = tfText.getText();
+        String erfassungsDatum = dpErfdatum.getValue().toString();
+        String lieferDatum = dpLieferdatum.getValue().toString();
+        String abschlussDatum = dpAbschlussdatum.getValue().toString();
+        String status = cbAuftragsstatus.getValue();
+        String auftragsArt = cbAuftragsart.getValue();
+        String auftragsWert = tfAuftragswert.getText();
+        String lkz = "N";
+        
+        Auftragskopf auftragskopf = new Auftragskopf(auftragskopfID, 
+                geschaeftspartnerID, auftragsText, erfassungsDatum, lieferDatum,
+                abschlussDatum, status, auftragsArt, auftragsWert, lkz);
+
+        AuftragskopfDAO ad = new AuftragskopfDAO();
+        ad.fuegeAuftragHinzu(auftragskopf);
+
+        clearTextFields();
+        refreshTable();
+    }
+  
 
 }

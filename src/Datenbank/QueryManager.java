@@ -115,7 +115,7 @@ public class QueryManager {
                     query += "" + hm.get("Abschlussdatum") + " = '" 
                             + ak.getAbschlussDatum() + "',";
                 }
-                query += "" + hm.get("LKZ") + " = '" + ak.getLKZ() + "',";
+                query += "" + hm.get("LKZ") + " = '" + ak.getLkz() + "',";
                 query += " WHERE ";
                 query += "" + hm.get("AuftragskopfID") + " = '" 
                         + ak.getAuftragskopfID() + "',";

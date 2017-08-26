@@ -626,7 +626,6 @@ public class AdressverwaltungController implements Initializable {
         // Löschen-Button wird deaktiviert
         this.loeschenBT.setDisable(false);
         adresseTV.setMouseTransparent(false);
-
     }
 
     

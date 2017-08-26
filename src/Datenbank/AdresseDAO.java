@@ -477,7 +477,6 @@ public class AdresseDAO extends DataAccess {
             alert.showAndWait();
             con.rollback();
         }
-
     }
 
     

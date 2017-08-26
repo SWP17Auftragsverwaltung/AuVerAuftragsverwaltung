@@ -315,14 +315,14 @@ public class Auftragskopf {
     /**
      * @return the LKZ
     */
-    public String getLKZ() {
+    public String getLkz() {
         return lkz;
     }
 
     /**
      * @param lkz the LKZ to set
     */
-    public void setLKZ(String lkz) {
+    public void setLkz(String lkz) {
         this.lkz = lkz;
     }
 //
