@@ -509,9 +509,28 @@ public class AuftraegeController implements Initializable {
 
         AuftragskopfDAO akd = new AuftragskopfDAO();
         akd.fuegeAuftragHinzu(auftragskopf);
+        
 
         clearTextFields();
         refreshTable();
+        
+          // Sperre wird aufgehoben 
+        this.pane.setVisible(true);
+        
+        this.auftragskopfTP.setText("Auftragskopf");
+       
+        // Anlege-Button wird unsichtbar.
+        this.btAnlegen.setVisible(true);
+        
+        // Hinzufügen-Button wird sichtbar.
+        this.btHinzufuegen.setVisible(false);
+        
+        // Ändern Button wird deaktiviert.
+        this.btAendern.setDisable(false);
+        
+        
+        // Löschen Button wird deaktiviert
+        this.btLoeschen.setDisable(false);
     }
     
         /**
