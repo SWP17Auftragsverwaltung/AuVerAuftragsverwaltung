@@ -33,12 +33,6 @@ import javafx.stage.StageStyle;
 public class AuftragPositionController implements Initializable {
     
      /**
-     * Der Abbrechen-Button in der Adressverwaltung.
-     */
-    @FXML
-    private Button btClose;
-    
-     /**
      * Textfeld für die Eingabe der Positionsnummer.
      */
     @FXML
@@ -63,55 +57,55 @@ public class AuftragPositionController implements Initializable {
     private TextField tfEinzelwert;
     
     /**
-     * Tabellenspalte "Straße".
+     * Tabelle "Auftragskopf", Tabellenspalte "AuftragsID".
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcAuftragsID;
     
      /**
-     * Tabellenspalte "Straße".
+     * Tabelle "Auftragskopf", Tabellenspalte "Text".
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcText;
     
      /**
-     * Tabellenspalte "Straße".
+     * Tabelle "Auftragskopf", Tabellenspalte "GeschäftspartnerID".
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcPartnerID;
     
     /**
-     * Tabellenspalte "Straße".
+     * Tabelle "Auftragskopf", Tabellenspalte "Erfassungsdatum".
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcErfDatum;
     
     /**
-     * Tabellenspalte "Straße".
+     * Tabelle "Auftragskopf", Tabellenspalte "Lieferdatum".
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcLieferDatum;
     
     /**
-     * Tabellenspalte "Straße".
+     * Tabelle "Auftragskopf", Tabellenspalte "Auftragsart".
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcAuftragsart;
     
     /**
-     * Tabellenspalte "Straße".
+     * Tabelle "Auftragskopf", Tabellenspalte "Auftragswert".
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcAuftragswert;
     
     /**
-     * Tabellenspalte "Straße".
+     * Tabelle "Auftragskopf", Tabellenspalte "Status".
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcStatus;
     
     /**
-     * Tabellenspalte "Straße".
+     * Tabelle "Auftragskopf", Tabellenspalte "Abschlussdatum".
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcAbschlussDatum;
@@ -123,61 +117,67 @@ public class AuftragPositionController implements Initializable {
     private TableView tvAuftragsposition = new TableView<Auftragsposition>();
     
     /**
-     * Tabellenspalte "Straße".
+     * Tabelle "Auftragsposition", Tabellenspalte "AuftragskopfID".
      */
     @FXML
     private TableColumn<Auftragsposition, String> tcAuftragskopfID;
     
     /**
-     * Tabellenspalte "Straße".
+     * Tabelle "Auftragsposition", Tabellenspalte "Positionsnummer".
      */
     @FXML
     private TableColumn<Auftragsposition, String> tcPositionsNr;
     
     /**
-     * Tabellenspalte "Straße".
+     * Tabelle "Auftragsposition", Tabellenspalte "Materialnummer".
      */
     @FXML
     private TableColumn<Auftragsposition, String> tcMaterialNr;
     
     /**
-     * Tabellenspalte "Straße".
+     * Tabelle "Auftragsposition", Tabellenspalte "Menge".
      */
     @FXML
     private TableColumn<Auftragsposition, String> tcMenge;
     
     /**
-     * Tabellenspalte "Straße".
+     * Tabelle "Auftragsposition", Tabellenspalte "Einzelwert".
      */
     @FXML
     private TableColumn<Auftragsposition, String> tcEinzelwert;
     
     /**
-     * 
+     * TableView für die Anzeige des Auftragskopfes.
      */
     @FXML
     private TableView<Auftragsposition> tvAuftragskopf;
     
     /**
-     * 
+     * Der Schließen-Button in der Adressverwaltung.
+     */
+    @FXML
+    private Button btClose;
+    
+    /**
+     * Der Anlegen-Button in der Adressverwaltung.
      */
     @FXML
     private Button btAnlegen;
     
     /**
-     * 
+     * Der Löschen-Button in der Adressverwaltung.
      */
     @FXML
     private Button btLoeschen;
     
     /**
-     * 
+     * Der Bearbeiten-Button in der Adressverwaltung.
      */
     @FXML
     private Button btBearbeiten;
     
     /**
-     * 
+     * Der Abbrechen-Button in der Adressverwaltung.
      */
     @FXML
     private Button btAbbrechen;
