@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -20,9 +21,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * FXML Controller class.
  * @author Jakob
  */
-public class AuswahlController extends AuftraegeController 
-        implements Initializable {
+public class AuswahlController implements Initializable {
+
     
+    
+    private String gpID;
     
     @FXML
     private Label lableAuswahl;
@@ -86,7 +89,6 @@ public class AuswahlController extends AuftraegeController
      *
      * @throws java.sql.SQLException SQL Exception
     */
-    @Override
     public void setTableContent() throws SQLException {
         GeschaeftspartnerDAO gpd = new GeschaeftspartnerDAO();
 
@@ -100,19 +102,23 @@ public class AuswahlController extends AuftraegeController
     
     /**
      * Die ausgewählte gpID wird ausgegeben. 
+     * @return 
      */
     @FXML
     public void gibGeschaeftspartnerID() {
-        String gpID = null;
         Object geschaeftspartner 
                 = auswahlTV.getSelectionModel().getSelectedItem();
         Geschaeftspartner g = (Geschaeftspartner) geschaeftspartner;
 
         if (g != null) {
-            gpID = g.getGeschaeftspartnerID();        
-        }  
-        
-        aktualisiereWerte(gpID);
-    }    
+            this.gpID = g.getGeschaeftspartnerID();        
+        }     
+    }
+
+    public String getGpID() {
+        return gpID;
+    }
+    
+    
     
 }

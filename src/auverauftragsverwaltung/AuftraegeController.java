@@ -51,7 +51,7 @@ public class AuftraegeController implements Initializable {
     private Button closeAA;
     
     /**
-     *  Button für die Ansicht der Auftragspositionen zu einem Auftrag
+     *  Button für die Ansicht der Auftragspositionen zu einem Auftrag.
      */
     @FXML
     private Button btAuftragspositionen;
@@ -98,6 +98,9 @@ public class AuftraegeController implements Initializable {
     @FXML
     private Pane pane;
     
+    /**
+     * 
+     */
     @FXML
     private TitledPane auftragskopfTP;
     
@@ -117,7 +120,7 @@ public class AuftraegeController implements Initializable {
      * Textfeld "Partner-ID".
      */
     @FXML
-    protected TextField tfPartnerID;
+    private TextField tfPartnerID;
     
     /**
      * Textfeld "Auftragswert".
@@ -214,6 +217,8 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcAbschDatum;
+    @FXML
+    private Button btAbbrechen1;
     
         /**
      * Methode zum öffnen der Artikelverwaltung durch das betätigen des Buttons
@@ -377,6 +382,8 @@ public class AuftraegeController implements Initializable {
     @FXML
     public void auftragAnlegen() throws SQLException {
         
+        clearTextFields();
+        
         // Sperre wird aufgehoben 
         this.pane.setVisible(false);
         
@@ -461,7 +468,7 @@ public class AuftraegeController implements Initializable {
     public void auftragskopfLoeschen() throws SQLException {
         Object auftragskopf = 
                 tvAuftragskopf.getSelectionModel().getSelectedItem();
-        Auftragskopf b = (Auftragskopf) auftragskopf;
+        Auftragskopf a = (Auftragskopf) auftragskopf;
         
         if (!this.tfAuftragskopf.getText().isEmpty()) {
             Meldung meldung = new Meldung();
@@ -469,7 +476,7 @@ public class AuftraegeController implements Initializable {
 
             if (meldung.antwort()) {
                 AuftragskopfDAO ak = new AuftragskopfDAO();
-                ak.setzeLKZ(b);
+                ak.setzeLKZ(a);
 
                 refreshTable();
             } else {
@@ -490,14 +497,45 @@ public class AuftraegeController implements Initializable {
     
     /**
      * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
-     * @param gpID GPID
+     * @param event E
      */
     @FXML
-    public void aktualisiereWerte(String gpID) {
-        tfPartnerID.setText(gpID);    
+    public void aktualisiereWerte(ActionEvent event) {
+        AuswahlController ac = new AuswahlController();
+        String gpID = ac.getGpID();
+        tfPartnerID.setText(gpID);
     }
     
-         
+    
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 27.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+     */
+    @FXML
+    public void zeigeWerteAn() {
+        Object auftragskopf 
+                = tvAuftragskopf.getSelectionModel().getSelectedItem();
+        Auftragskopf a = (Auftragskopf) auftragskopf;
+
+        if (a != null) {
+            this.tfAuftragskopf.setText(a.getAuftragskopfID());
+            this.tfPartnerID.setText(a.getGeschaeftspartnerID());
+            this.tfText.setText(a.getAuftragstext());
+            this.tfErfDatum.setText(a.getErfassungsdatum());
+            this.tfLieferdatum.setText(a.getLieferdatum());
+            this.tfAbschlussdatum.setText(a.getAbschlussDatum());
+            this.cbAuftragsstatus.setValue(a.getStatus());
+            this.cbAuftragsart.setValue(a.getAuftragsart());
+            this.tfAuftragswert.setText(a.getAuftragswert());
+        }
+    }    
+    
+    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -511,7 +549,6 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     public void auftragHinzufuegen() throws SQLException {
-        AuswahlController ac = new AuswahlController();
         
         String auftragskopfID = tfAuftragskopf.getText();
         String geschaeftspartnerID = tfPartnerID.getText();
@@ -607,7 +644,6 @@ public class AuftraegeController implements Initializable {
     /**
      * 
      */
-   @FXML
     public void oeffneAuswahl() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(

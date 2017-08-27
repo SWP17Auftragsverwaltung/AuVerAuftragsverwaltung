@@ -114,9 +114,9 @@ public class Auftragskopf {
      * @param lkz Löschkennzeichen
      */
     public Auftragskopf(String auftragskopfID, String geschaeftspartnerID,
-            String erfassungsdatum, String lieferdatum, String auftragsart, 
-            String status, String auftragswert, String auftragstext, 
-            String abschlussDatum, String lkz) {
+            String auftragstext, String erfassungsdatum, String lieferdatum, 
+            String abschlussDatum, String status, String auftragsart, 
+            String auftragswert, String lkz) {
 
         this.auftragskopfID = auftragskopfID;    
         this.geschaeftspartnerID = geschaeftspartnerID;

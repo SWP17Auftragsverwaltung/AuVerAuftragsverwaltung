@@ -280,7 +280,7 @@ public class AuftragskopfDAO extends DataAccess {
      */
     public void fuegeAuftragHinzu(Auftragskopf a) throws SQLException {
         //Variablendeklaration
-        AuftragPositionController apd = new AuftragPositionController();
+        AuftragPositionController apc = new AuftragPositionController();
         
         PreparedStatement stmt = null;
         String auftragskopfID = generiereID();
@@ -326,7 +326,7 @@ public class AuftragskopfDAO extends DataAccess {
             con.commit();
             con.close();
             
-            apd.leereAuftragspositionHinzufuegen();
+            apc.leereAuftragspositionHinzufuegen();
             
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
