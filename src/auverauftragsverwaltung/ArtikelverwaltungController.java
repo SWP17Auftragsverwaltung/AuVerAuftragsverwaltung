@@ -233,17 +233,6 @@ public class ArtikelverwaltungController implements Initializable {
     @FXML
     private TitledPane artikeldatensatzPane;
 
-    /**
-     * Methode zum Abbrechen der Artikelverwaltung.
-     *
-     * @param event ActionEvent welches das Klicken des Buttons "Abbrechen"
-     * abfängt.
-     */
-    @FXML
-    public void closeArtikelverwaltung(ActionEvent event) {
-        Stage stage = (Stage) closeArW.getScene().getWindow();
-        stage.close();
-    }
 
     /**
      * Initialisiert die Controller-Klasse der Artikelverwaltung.
@@ -328,7 +317,31 @@ public class ArtikelverwaltungController implements Initializable {
                 "Bestand Verkauft");
 
     }
-
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    SAM     Methode erstellt.
+    /* 16.08.17    SAM     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/ 
+    
+    /**
+     * Methode zum Abbrechen der Artikelverwaltung.
+     *
+     * @param event ActionEvent welches das Klicken des Buttons "Abbrechen"
+     * abfängt.
+     */
+    @FXML
+    public void closeArtikelverwaltung(ActionEvent event) {
+        Stage stage = (Stage) closeArW.getScene().getWindow();
+        stage.close();
+    }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 16.08.17    GET     Methode erstellt.
+    /* 17.08.17    GET     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
+    
     /**
      *
      * @param tf Textfeld
@@ -370,6 +383,13 @@ public class ArtikelverwaltungController implements Initializable {
                 = FXCollections.observableArrayList(ar.gibAlleArtikelOhneLKZ());
         tvArtikel.setItems(artikel);
     }
+    
+    
+        /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 14.08.17    HEN     Methode erstellt.
+    /* 16.08.17    HEN     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
 
     /**
      * Methode bekommt eine ArrayList mit den gefundenen Adressen übergeben und
@@ -386,9 +406,11 @@ public class ArtikelverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
+    
     /**
      * Aktualisiert die TableView mit aktuellem Inhalt.
      *
@@ -401,9 +423,10 @@ public class ArtikelverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Löscht alle Eingaben in den Textfeldern.
      *
@@ -425,9 +448,10 @@ public class ArtikelverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Sucht nach allen Artikeln mit aktivem LKZ und stellt sie in der Tabelle
      * dar.
@@ -443,9 +467,10 @@ public class ArtikelverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Sucht nach allen Artikeln mit aktivem LKZ und stellt sie in der Tabelle
      * dar.
@@ -461,9 +486,10 @@ public class ArtikelverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Gibt die unteren Eingabefelder für das Anlegen einer neuer Adresse frei.
      *
@@ -493,9 +519,10 @@ public class ArtikelverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues Artikel
      * Objekt, welches dann über die DAO in die DB geschrieben wird.
@@ -541,9 +568,10 @@ public class ArtikelverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * "Löscht" einen markierten Artikel, in dem das LKZ auf J gesetzt wird.
      *
@@ -572,9 +600,10 @@ public class ArtikelverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Lässt das Bearbeiten einer ausgewählten Adresse zu.
      */
@@ -596,9 +625,10 @@ public class ArtikelverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Speichert die gemachten Änderungen in die Datenbank und aktualisiert die
      * View mit den neuen Werten.
@@ -643,9 +673,10 @@ public class ArtikelverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
      */
@@ -669,10 +700,11 @@ public class ArtikelverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 17.08.17    HEN     Methode erstellt.
     /* 18.08.17    BER     IF Fälle ergänzt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
      *
@@ -692,9 +724,10 @@ public class ArtikelverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 19.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Setzt die Suche zurück.
      *
@@ -706,11 +739,16 @@ public class ArtikelverwaltungController implements Initializable {
         this.cbSuchfeld.setValue("Bitte wählen...");
         setTableContent();
     }
-
+    /**
+     *  Methode für Funktionalität des Abbrechen-Buttons. 
+     * Bricht im Bearbeitungsmodus und im Anlegemodus die jeweilige Aktion falls
+     * gewünscht ab.
+     */
     @FXML
     public void aktionAbbrechen() {
 
-        if (!this.artikeldatensatzPane.getText().equalsIgnoreCase("Artikeldatensatz")) {
+        if (!this.artikeldatensatzPane.getText().equalsIgnoreCase(""
+                + "Artikeldatensatz")) {
 
             Meldung meldung = new Meldung();
             meldung.verwerfenFenster();

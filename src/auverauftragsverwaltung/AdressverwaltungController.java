@@ -285,19 +285,6 @@ public class AdressverwaltungController implements Initializable {
 
     
     /**
-     * Methode zum Abbrechen der Adressverwaltung.
-     * @param event ActionEvent welches das Klicken des Buttons "Abbrechen"
-     * abfängt.
-     */
-    @FXML
-    public void closeAdressverwaltung(ActionEvent event) {
-        Stage stage = (Stage) closeAW.getScene().getWindow();
-        stage.close();
-    }
-
-    
-    
-    /**
      * Initialisiert die Controller-Klasse.
      * @param url URL zur initialisierung.
      * @param rb Resourcen die geladen werden sollen.
@@ -396,6 +383,23 @@ public class AdressverwaltungController implements Initializable {
                 "ErfDatum");
 
         cbAnrede.getItems().addAll("Herr", "Frau");
+    }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    SAM     Methode erstellt.
+    /* 16.08.17    SAM     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/    
+    
+    /**
+     * Methode zum Abbrechen der Adressverwaltung.
+     * @param event ActionEvent welches das Klicken des Buttons "Abbrechen"
+     * abfängt.
+     */
+    @FXML
+    public void closeAdressverwaltung(ActionEvent event) {
+        Stage stage = (Stage) closeAW.getScene().getWindow();
+        stage.close();
     }
 
     
@@ -835,6 +839,8 @@ public class AdressverwaltungController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 19.08.17    GET     Methode erstellt.
+    /* 27.08.17    GET     Getestet & freigegeben 
+    */
     /*------------------------------------------------------------------------*/
     
     /**

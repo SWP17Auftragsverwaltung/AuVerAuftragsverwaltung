@@ -5,13 +5,22 @@
 * - FXML Controller-Klasse.
 *-------------------------------------------------------------------------------
 * Historie:
-* 2017-06-15 SAM Angelegt.
-* 2017-06-26 GET Checkstyleprüfung.
-* 2017-07-27 BER Kommentarlayout angepasst.
-* 2017-08-18 SAM Kommentare angepasst.
-* 2017-08-19 SAM Methodenerweiterungen.
+* 15.06.17  SAM     Angelegt und closeZahlungskonditionen() erstellt.
+* 26.06.17  GET     Checkstyleprüfung.
+* 27.07.17  BER     Kommentarlayout angepasst.
+* 15.08.17  HEN     setTableContent(),clearFields, refreshTable() implementiert.
+* 16.08.17  HEN     alleMitLKZ(), alleOhneLKZ() erstellt.
+* 18.08.17  GET     begrenzeTextFeldEingabe()
+*                   zeigeGefundeneZahlungskonditionen()
+* 19.08.17  GET     bearbeiteZahlungskonditionen(), speicherAenderung()
+*                   zahlungskoniditionenAnlegen(), 
+*                   zahlungskonditionenHinzufuegen() implementiert.
+* 20.08.17  GET     zeigeWertAn() erstellt 
+* 21.08.17  BER     zahlungskonditionenLoeschen(), zahlungskonditionenSuchen()
+*                   setzeSucheZurück() implementiert.
+* 23.08.17  BER     aktionAbbrechen() erstellt.
 *-------------------------------------------------------------------------------
- */
+*/
 package auverauftragsverwaltung;
 
 import Klassen.Meldung;
@@ -41,13 +50,15 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
+ * 
+ * Controller-Klasse der Zahlungskonditionsverwaltungs View.
  *
  * @author Mudimbi
  */
 public class ZahlungskonditionenController implements Initializable {
 
     /**
-     * Abbrechen-Button der Zahlungskonditionverwaltung.
+     * Zurück-Button der Zahlungskonditionverwaltung.
      */
     @FXML
     private Button closeZK;
@@ -222,6 +233,7 @@ public class ZahlungskonditionenController implements Initializable {
      */
     @FXML
     private Button speichernBT;
+    
     /**
      * Bearbeiten Button.
      */
@@ -263,6 +275,7 @@ public class ZahlungskonditionenController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    SAM     Methode erstellt.
+    /* 17.08.17    SAM     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -380,7 +393,7 @@ public class ZahlungskonditionenController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 18.08.17    SAM     Methode erstellt.
+    /* 18.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -399,8 +412,8 @@ public class ZahlungskonditionenController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 18.08.17    SAM     Methode erstellt.
-    /* 20.08.17    GET     Methode überarbeitet.
+    /* 15.08.17    HEN     Methode erstellt.
+    /* 16.08.17    HEN     Methode überarbeitet.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -421,7 +434,7 @@ public class ZahlungskonditionenController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 19.08.17    SAM     Methode erstellt.
+    /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -438,7 +451,7 @@ public class ZahlungskonditionenController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 19.08.17    SAM     Methode erstellt.
+    /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -463,7 +476,7 @@ public class ZahlungskonditionenController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 19.08.17    SAM     Methode erstellt.
+    /* 16.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -484,7 +497,7 @@ public class ZahlungskonditionenController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 19.08.17    SAM     Methode erstellt.
+    /* 16.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -505,8 +518,8 @@ public class ZahlungskonditionenController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 19.08.17    SAM     Methode erstellt.
-    /* 20.08.17    GET     Methode fertiggestellt.
+    /* 17.08.17    SAM     Methode erstellt.
+    /* 19.08.17    GET     Methode fertiggestellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -535,8 +548,8 @@ public class ZahlungskonditionenController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 19.08.17    SAM     Methode erstellt.
-    /* 20.08.17    GET     Methode fertiggestellt.
+    /* 17.08.17    SAM     Methode erstellt.
+    /* 18.08.17    GET     Methode fertiggestellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -593,8 +606,8 @@ public class ZahlungskonditionenController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 19.08.17    SAM     Methode erstellt.
-    /* 20.08.17    GET     Methode fertiggestellt.
+    /* 17.08.17    SAM     Methode erstellt.
+    /* 21.08.17    BER     Methode fertiggestellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -628,7 +641,8 @@ public class ZahlungskonditionenController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 19.08.17    SAM     Methode erstellt.
+    /* 17.08.17    SAM     Methode erstellt.
+    /* 19.08.17    GET     Methode fertiggestellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -656,8 +670,8 @@ public class ZahlungskonditionenController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 19.08.17    SAM     Methode erstellt.
-    /* 20.08.17    GET     Methode fertiggestellt.
+    /* 17.08.17    SAM     Methode erstellt.
+    /* 19.08.17    GET     Methode fertiggestellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -708,7 +722,9 @@ public class ZahlungskonditionenController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 19.08.17    GET     Methode erstellt.
+    /* 20.08.17    GET     Methode erstellt.
+    /* 21.08.17    GET     Getestet & freigegeben.
+    */
     /*------------------------------------------------------------------------*/
     
     /**
@@ -740,8 +756,8 @@ public class ZahlungskonditionenController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 18.08.17    SAM     Methode erstellt.
-    /* 20.08.17    GET     Methode fertiggestellt.
+    /* 17.08.17    SAM     Methode erstellt.
+    /* 18.08.17    GET     Methode fertiggestellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -764,7 +780,7 @@ public class ZahlungskonditionenController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 19.08.17    SAM     Methode erstellt.
-    /* 20.08.17    GET     Methode fertiggestellt.
+    /* 21.08.17    BER     Methode fertiggestellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -788,7 +804,7 @@ public class ZahlungskonditionenController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 20.08.17    GET     Methode erstellt.
+    /* 21.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -805,7 +821,7 @@ public class ZahlungskonditionenController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 20.08.17    GET     Methode erstellt.
+    /* 23.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -856,7 +872,4 @@ public class ZahlungskonditionenController implements Initializable {
             }
         }
     }
-    
-    
-
 }

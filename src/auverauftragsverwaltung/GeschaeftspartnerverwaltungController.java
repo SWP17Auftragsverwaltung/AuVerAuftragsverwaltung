@@ -5,11 +5,20 @@
 * - FXML Controller-Klasse.
 *-------------------------------------------------------------------------------
 * Historie:
-* 15.06.2017    SAM     Angelegt.
-* 26.06.2017    GET     Checkstyleprüfung sowie Fehlerkorrektur.
+* 15.06.2017    SAM     Klasse angelegt und closeGeschaeftspartner() erstellt.
+* 26.06.2017    GET     begrenzeTextFeldEingabe() implemenitert.
 * 27.07.2017    BER     Kommentarlayout angepasst.
-* 14.08.2017    HEN     setTabelContent() erstellt, TableColums erstellt.
-* 17.08.2017    CEL     
+* 14.08.2017    HEN     setTabelContent() erstellt, TableColums 
+*                       zeigeGefundeneAdressen() erstellt.
+* 19.08.2017    HEN     Methoden alleMitLKZ(), alleOhneLKZ()erstellt.
+* 20.08.2017    HEN     geschaeftspartnerAnlegen(),geschaeftspartnerHinzufügen() 
+*                       clearTextField() refreshTable() erstellt.
+* 21.08.2017    GET     bearbeiteGeschäftspartner(), speichereAenderung()
+*                       implimentiert.
+* 22.08.2017    GET     zeigeWerteAn() und aktionAbbrechen() implementiert,
+*                       FXML-Datei Buttons angeordnet.
+* 22.08.2017    BER     geschaeftspartnerLoeschen(), geschaeftspartnerSuchen()
+*                       setzeSucheZurueck() erstellt.    
 *-------------------------------------------------------------------------------
  */
 package auverauftragsverwaltung;
@@ -41,14 +50,15 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
- *
+ * Controller der Geschäftspartner die für die Darstellung der FXML Datei 
+ * zuständig ist.
+ * 
  * @author Mudimbi
  */
 public class GeschaeftspartnerverwaltungController implements Initializable {
 
     /**
-     * Hier wird die Geschätspartner Scene verwaltet. Der Zugriff auf die
-     * Datenbank etc wird hier implementiert
+     * Der Zurück-Button der Geschäftspartnerverwaltung
      */
     @FXML
     private Button closeGP;
@@ -124,12 +134,10 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      */
     @FXML
     private TableColumn<Geschaeftspartner, String> kredLimit;
-
-//    @FXML
-//    private AnchorPane tf_partnerID;
     
      /**
-     * Pane "Pane".
+     * Pane die die Eingabe ausserhalb des Bearbeitungsmodus und Anelgemodus
+     * sperrt.
      */
     @FXML
     private Pane pane;
@@ -175,6 +183,12 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      */
     @FXML
     private TableView gpTable = new TableView<Geschaeftspartner>();
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.08.17    SAM     Methode erstellt.
+    /* 16.08.17    SAM     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
 
     /**
      * Methode zum Schließen der Geschäftspartnerverwaltung durch den Button
@@ -188,6 +202,10 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         Stage stage = (Stage) closeGP.getScene().getWindow();
         stage.close();
     }
+    
+    
+    
+    
 
     /**
      * Initialisiert die Controller-Klasse.
@@ -231,6 +249,13 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
 
         cbPartnerTyp.getItems().addAll("K", "L");
     }
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 26.07.17    GET     Methode erstellt.
+    /* 27.07.17    GET     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
 
     /**
      * Methode zum begrenzen der Anzahl der Zeichen, die in ein Textfeld
@@ -247,11 +272,11 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 14.08.17    HEN     Methode erstellt.
-    /* 17.08.17    CEL     Methoden "alleOhneLKZ" & "alleMitLKZ" hinzugefügt.
-     */
- /*------------------------------------------------------------------------*/
+    /* 19.08.17    HEN     Methoden "alleOhneLKZ" & "alleMitLKZ" hinzugefügt.
+    /*------------------------------------------------------------------------*/
+    
     /**
      * Erstellt ein GeschäftspartnerDAO Objekt, gibt eine GP ArrayList an eine
      * OberservableList, die dann an die TableView übergeben wird.
@@ -267,9 +292,11 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 17.08.17    CEL     Methode erstellt.
+    /* 19.08.17    HEN     Methode überarbeitet und getestet & freigegeben.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Sucht nach allen Geschätspartnern mit aktivem LKZ und stellt sie in der
      * Tabelle dar.
@@ -289,8 +316,10 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 15.08.17    BER     Methode erstellt.
+    /* 19.08.17    HEN     Methode erstellt und fertiggestellt. 
+    /*                     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
+    
     /**
      * Sucht nach allen Geschätspartnern mit aktivem LKZ und stellt sie in der
      * Tabelle dar.
@@ -307,7 +336,12 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
 
     
     
-    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 20.08.17    HEN     Methode erstellt und fertiggestellt. 
+    /*                     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
+
     /**
      * Ermöglicht das Eingeben des Datensatzes für das Hinzufügen eines
      * Geschäftspartners.
@@ -335,6 +369,12 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         this.tfGeschaeftspartnerID.setText(gpDAO.generiereID());
 
     }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 20.08.17    HEN     Methode erstellt und fertiggestellt. 
+    /*                     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
 
     /**
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues
@@ -361,21 +401,28 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         clearTextFields();
         refreshTable();
 
-        // Textfeldbereich wird aktiviert
+        // Sperre für Bearbeitung wird deaktiviert.
         this.pane.setDisable(false);
-        // Bearbeiten-Button wird ausgeblendet
+        // Anlegen Button wird Sichtbar gemacht.
         this.anlegenBT.setVisible(true);
-        // Speichern-Button wird eingeblendet
+        // Hinzufügen -Button wird eingeblendet
         this.hinzufuegenBT.setVisible(false);
         // Der Anlegemodus wird dektiviert
         this.datensatzTP.setText("Geschäftspartnerdatensatz");
-        // Anlegen-Button wird deaktiviert
+        // Anlegen-Button wird aktiviert
         this.bearbeitenBT.setDisable(false);
-        // Löschen-Button wird deaktiviert
+        // Löschen-Button wird aktiviert
         this.loeschenBT.setDisable(false);
+        
         gpTable.setMouseTransparent(false);
 
     }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 20.08.17    HEN     Methode erstellt und fertiggestellt. 
+    /*                     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
 
     /**
      * Löscht alle Eingaben in den Textfeldern.
@@ -389,6 +436,12 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         this.tfKreditlimit.clear();
 
     }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 20.08.17    HEN     Methode erstellt und fertiggestellt. 
+    /*                     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
 
     /**
      * Aktualisiert die TableView mit aktuellem Inhalt.
@@ -401,9 +454,11 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 18.08.17    CEL     Methode erstellt.
+    /* 22.08.17    BER     Methode überarbeitet - getestet & freigegeben
     /*------------------------------------------------------------------------*/
+    
     /**
      * "Löscht" einen markierten Geschäftspartner, in dem das LKZ auf J gesetzt
      * wird.
@@ -437,7 +492,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 17.08.17    GET     Methode erstellt.
+    /* 21.08.17    GET     Methode erstellt.
     /* 22.08.17    HEN     Adressdatenpane geändert. Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
     
@@ -470,7 +525,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 17.08.17    GET     Methode erstellt.
+    /* 21.08.17    GET     Methode erstellt.
     /* 22.08.17    HEN     Exceptions eingefügt. Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
     
@@ -512,6 +567,12 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         this.loeschenBT.setDisable(false);
 
     }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 22.08.17    GET     Methode erstellt.
+    /* 22.08.17    HEN     Exceptions eingefügt. Getestet & Freigegeben.
+    /*------------------------------------------------------------------------*/
 
     /**
      * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
@@ -535,8 +596,8 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 17.08.17    HEN     Methode erstellt.
-    /* 18.08.17    BER     IF Fälle ergänzt. Getestet & Freigegeben.
+    /* 21.08.17    BER     Methode erstellt.
+    /* 22.08.17    BER     IF Fälle ergänzt. Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -564,7 +625,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 15.08.17    HEN     Methode erstellt.
+    /* 14.08.17    HEN     Methode erstellt. - getestet & freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -579,6 +640,12 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
                 = FXCollections.observableArrayList(adressen);
         gpTable.setItems(adressenAusgabe);
     }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 22.08.17    BER     Methode erstellt.
+    /* 22.08.17    BER     Getestet & Freigegeben.
+    /*------------------------------------------------------------------------*/
 
      /**
      *
@@ -595,7 +662,8 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 19.08.17    GET     Methode erstellt.
+    /* 22.08.17    GET     Methode erstellt.
+    /* 22.08.17    GET     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**

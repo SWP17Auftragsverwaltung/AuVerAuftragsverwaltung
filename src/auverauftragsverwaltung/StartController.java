@@ -5,9 +5,8 @@
 * - FXML Controller-Klasse.
 *-------------------------------------------------------------------------------
 * Historie:
-* 2017-06-15 SAM Angelegt.
-* 2017-06-26 GET Checkstyleprüfung.
-* 2017-07-27 BER Kommentarlayout angepasst.
+* 15.06.17  SAM     Angelegt. - Getestet & freigegeben.
+* 27.07.17  BER     Kommentarlayout angepasst.
 *-------------------------------------------------------------------------------
 */
 package auverauftragsverwaltung;
@@ -32,6 +31,13 @@ import javafx.stage.Stage;
  * @author Jakob
  */
 public class StartController implements Initializable {
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.06.17    SAM     Methode erstellt.
+    /* 16.06.17    SAM     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
 
     /**
      * Methode zum öffnen der Artikelverwaltung durch das betätigen des Buttons
@@ -56,6 +62,12 @@ public class StartController implements Initializable {
             System.out.println("Can't load the Artikelverwaltung!");
         }
     }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.06.17    SAM     Methode erstellt.
+    /* 16.06.17    SAM     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
 
     /**
      * Methode zum öffnen der Geschäftspartnerverwaltung durch das betätigen des
@@ -81,6 +93,12 @@ public class StartController implements Initializable {
             System.out.println("Can't load the Geschaeftspartnerverwaltung!");
         }
     }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.06.17    SAM     Methode erstellt.
+    /* 16.06.17    SAM     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
 
     /**
      * Methode zum öffnen der Adressverwaltung durch das betätigen des Buttons
@@ -104,6 +122,12 @@ public class StartController implements Initializable {
             System.out.println("Can't load the Adressverwaltung!");
         }
     }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.06.17    SAM     Methode erstellt.
+    /* 16.06.17    SAM     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
 
     /**
      * Methode zum öffnen der Zahlungskonditionverwaltung durch das betätigen
@@ -127,6 +151,12 @@ public class StartController implements Initializable {
             System.out.println("Can't load the Zahlungskonditionen!");
         }
     }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.06.17    SAM     Methode erstellt.
+    /* 16.06.17    SAM     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
 
     /**
      * Methode zum öffnen der Auftragsanzeige durch das betätigen des Buttons
@@ -151,6 +181,12 @@ public class StartController implements Initializable {
             System.out.println("Can't load the Auftraege!");
         }
     }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.06.17    SAM     Methode erstellt.
+    /* 16.06.17    SAM     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/ 
 
     /**
      * Methode zum öffnen des Fensters zum Anlegen von Aufträgen durch das
@@ -174,6 +210,12 @@ public class StartController implements Initializable {
             System.out.println("Can't load the Auftrag anlegen!");
         }
     }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.06.17    SAM     Methode erstellt.
+    /* 16.06.17    SAM     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/ 
     
     /**
      * Methode zum öffnen des Fensters zum Suchen von Aufträgen durch das
