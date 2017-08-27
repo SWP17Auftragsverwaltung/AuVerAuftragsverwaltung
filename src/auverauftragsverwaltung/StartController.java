@@ -169,7 +169,7 @@ public class StartController implements Initializable {
     public void zeigeAuftragAn(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "AuftraegeAnzeigen.fxml"));
+                    "Auftraege.fxml"));
             Scene scene = new Scene(loader.load(), 1095, 600);
             Stage stage = new Stage();
             stage.setTitle("Aufträge Anzeigen");
