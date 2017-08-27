@@ -12,9 +12,7 @@
 */
 package auverauftragsverwaltung;
 
-import Datenbank.AdresseDAO;
 import Datenbank.AuftragskopfDAO;
-import Klassen.Auftragskopf;
 import Klassen.Auftragskopf;
 import java.io.IOException;
 import java.net.URL;
@@ -30,7 +28,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -361,6 +358,23 @@ public class AuftraegeAnzeigenController implements Initializable {
         cbAuftragsart.valueProperty().set(null);
     }    
     
+  
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 27.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Gibt die unteren Eingabefelder für das Anlegen einer neuer Adresse frei.
+     * @throws java.sql.SQLException SQLException
+     */
+    @FXML
+    public void auftragAnlegen() throws SQLException {
+        AuftragskopfDAO akd = new AuftragskopfDAO();
+        tfAuftragskopf.setText(akd.generiereID());
+    }    
+    
     
     
     /*------------------------------------------------------------------------*/
@@ -441,7 +455,8 @@ public class AuftraegeAnzeigenController implements Initializable {
     @FXML
     public void auftragHinzufuegen() throws SQLException {
         String auftragskopfID = tfAuftragskopf.getText();
-        String geschaeftspartnerID = tfPartnerID.getText();
+//        String geschaeftspartnerID = tfPartnerID.getText();
+        String geschaeftspartnerID = "000001";
         String auftragsText = tfText.getText();
         String erfassungsDatum = this.tfErfDatum.getText();
         String lieferDatum = this.tfLieferdatum.getText();
@@ -455,8 +470,8 @@ public class AuftraegeAnzeigenController implements Initializable {
                 geschaeftspartnerID, auftragsText, erfassungsDatum, lieferDatum,
                 abschlussDatum, status, auftragsArt, auftragsWert, lkz);
 
-        AuftragskopfDAO ad = new AuftragskopfDAO();
-        ad.fuegeAuftragHinzu(auftragskopf);
+        AuftragskopfDAO akd = new AuftragskopfDAO();
+        akd.fuegeAuftragHinzu(auftragskopf);
 
         clearTextFields();
         refreshTable();

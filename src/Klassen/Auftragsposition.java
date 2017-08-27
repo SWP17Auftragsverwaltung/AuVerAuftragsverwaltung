@@ -23,32 +23,32 @@ public class Auftragsposition {
     /**
      * Primärschlüssel der Auftragsposition. 
     */
-    private int auftragskopfID;
+    private String auftragskopfID;
     
     /**
      * Positionsnummer des Auftragskopfes. 
     */
-    private int positionsnummer;
+    private String positionsnummer;
     
     /**
      * Fremdschlüssel der ArtikelID in der Position. 
     */
-    private int artikelID;
+    private String artikelID;
     
     /**
      * Menge des Artikels in der Position. 
     */
-    private int menge;
+    private String menge;
     
      /**
      * Einzelwert des Artikels in der Position. 
     */
-    private double einzelwert;
+    private String einzelwert;
     
     /**
      * gibt an ob das LKZ der Auftagsposition aktiviert ist. 
     */
-    private boolean lkz;
+    private String lkz;
     
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
@@ -66,9 +66,8 @@ public class Auftragsposition {
      * @param einzelwert Einzelwert
      * @param lkz Löschkennzeichen
      */
-    public Auftragsposition(int auftragskopfID, int positionsnummer, 
-            int artikelID, int menge, 
-            double einzelwert, boolean lkz) {
+    public Auftragsposition(String auftragskopfID, String positionsnummer, 
+            String artikelID, String menge, String einzelwert, String lkz) {
 
         this.auftragskopfID = auftragskopfID;
         this.positionsnummer = positionsnummer;
@@ -78,6 +77,8 @@ public class Auftragsposition {
         this.lkz = lkz;
     }
 
+    
+    
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstellt.
@@ -90,9 +91,11 @@ public class Auftragsposition {
      */
     @Override
     public int hashCode() {
-        return getAuftragskopfID() + getPositionsnummer();
+        return getAuftragskopfID().hashCode() + getPositionsnummer().hashCode();
     }
 
+    
+    
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstellt.
@@ -109,6 +112,8 @@ public class Auftragsposition {
         return gleicherArtikel(obj);
     }
     
+    
+    
     /**
      * Eigentlich die equals Methode, jedoch kann man diese von Außen aufrufen.
      * @param obj Zu prüfendes Objekt
@@ -118,26 +123,12 @@ public class Auftragsposition {
         boolean gleich = false;
         if (obj instanceof Auftragsposition) {
             Auftragsposition a = (Auftragsposition) obj;
-            gleich = this.getArtikelID() == a.getArtikelID();
+            gleich = this.getArtikelID().equals(a.getArtikelID());
         }
         return gleich;
     }
 
-    /*--------------------------------------------------------------------------
-     * Datum     Name    Kommentar
-     * 26.07.17  Hen     Erstellt.
-     *--------------------------------------------------------------------------
-    */
     
-    /**
-     * toString Methode für Auftragspositionobjekte.
-     * @return Id vom Auftragspositionobjekt + Position Nr
-     */
-    @Override
-    public String toString() {
-        return "ID: " + auftragskopfID + " PN: " + positionsnummer;
-    }
-
     
     /*------------------------------------------------
      *            Generierter Code Anfang
@@ -147,87 +138,86 @@ public class Auftragsposition {
     /**
      * @return auftragskopfID 
      */
-    public int getAuftragskopfID() {
+    public String getAuftragskopfID() {
         return auftragskopfID;
     }
 
     /**
      * @param auftragskopfID AuftragskopfID
      */
-    public void setAuftragskopfID(int auftragskopfID) {
+    public void setAuftragskopfID(String auftragskopfID) {
         this.auftragskopfID = auftragskopfID;
     }
 
     /**
      * @return positionsnummer 
      */
-    public int getPositionsnummer() {
+    public String getPositionsnummer() {
         return positionsnummer;
     }
 
     /**
      * @param positionsnummer Positionsnummer
      */
-    public void setPositionsnummer(int positionsnummer) {
+    public void setPositionsnummer(String positionsnummer) {
         this.positionsnummer = positionsnummer;
     }
 
     /**
      * @return artikelID 
      */
-    public int getArtikelID() {
+    public String getArtikelID() {
         return artikelID;
     }
 
     /**
      * @param artikelID ArtikelID 
      */
-    public void setArtikelID(int artikelID) {
+    public void setArtikelID(String artikelID) {
         this.artikelID = artikelID;
     }
 
     /**
      * @return menge 
      */
-    public int getMenge() {
+    public String getMenge() {
         return menge;
     }
 
     /**
      * @param menge Menge 
      */
-    public void setMenge(int menge) {
+    public void setMenge(String menge) {
         this.menge = menge;
     }
 
     /**
      * @return eunzelwert 
      */
-    public double getEinzelwert() {
+    public String getEinzelwert() {
         return einzelwert;
     }
 
     /**
      * @param einzelwert Einzelwert
      */
-    public void setEinzelwert(double einzelwert) {
+    public void setEinzelwert(String einzelwert) {
         this.einzelwert = einzelwert;
     }
 
     /**
      * @return lkz 
      */
-    public boolean getLkz() {
+    public String getLkz() {
         return lkz;
     }
 
     /**
      * @param lkz Löschkennzeichen
      */
-    public void setLkz(boolean lkz) {
+    public void setLkz(String lkz) {
         this.lkz = lkz;
     }
-
     /*------------------------------------------------
      *            Generierter Code Ende
      *------------------------------------------------

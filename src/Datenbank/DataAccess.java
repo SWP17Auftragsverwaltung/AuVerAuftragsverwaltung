@@ -89,7 +89,7 @@ public class DataAccess {
         return con;
     }
 
-    
+     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 23.06.17    Hen     Methode schliessen erstellt.

@@ -8,9 +8,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.AuftragPositionController">
    <children>
-      <TitledPane fx:id="tvAuftragsposition" animated="false" collapsible="false" layoutX="42.0" layoutY="140.0" prefHeight="352.0" prefWidth="974.0" text="Auftragspositionen" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+      <TitledPane animated="false" collapsible="false" layoutX="42.0" layoutY="140.0" prefHeight="352.0" prefWidth="974.0" text="Auftragspositionen" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <content>
-            <TableView prefHeight="232.0" prefWidth="972.0">
+            <TableView fx:id="tvAuftragsposition" prefHeight="232.0" prefWidth="972.0">
               <columns>
                 <TableColumn fx:id="tcAuftragskopfID" prefWidth="150.0" text="Auftragskopf-ID" />
                 <TableColumn fx:id="tcPositionsNr" prefWidth="126.0" text="Positionsnummer" />

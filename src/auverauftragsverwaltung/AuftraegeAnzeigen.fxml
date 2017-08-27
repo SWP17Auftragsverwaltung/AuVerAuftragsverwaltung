@@ -48,7 +48,7 @@
                   <ComboBox fx:id="cbAuftragsart" layoutX="266.0" layoutY="117.0" prefHeight="25.0" prefWidth="110.0" promptText="Bitte wählen..." />
                   <TextField fx:id="tfAuftragswert" layoutX="13.0" layoutY="117.0" prefHeight="25.0" prefWidth="91.0" />
                   <Button fx:id="btAuftragspositionen" layoutX="18.0" layoutY="178.0" mnemonicParsing="false" onAction="#oeffneAuftragsposition" prefHeight="40.0" prefWidth="120.0" text="Auftragspositionen" />
-                  <Button fx:id="btAnlegen" layoutX="148.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
+                  <Button fx:id="btAnlegen" layoutX="148.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
                   <Button fx:id="btAendern" layoutX="257.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Ändern" />
                   <Button fx:id="btLoeschen" layoutX="366.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragskopfLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
                   <Button fx:id="closeAA" layoutX="847.0" layoutY="178.0" mnemonicParsing="false" onAction="#closeAuftraegeAnzeigen" prefHeight="40.0" prefWidth="100.0" text="Zurück" AnchorPane.rightAnchor="35.0" />
@@ -59,6 +59,7 @@
                   <Button fx:id="btHinzufuegen" layoutX="148.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
                   <Button fx:id="btSpeichern" layoutX="257.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
                   <Pane fx:id="pane" layoutX="4.0" layoutY="19.0" prefHeight="132.0" prefWidth="947.0" />
+                  <Button fx:id="TEST" layoutX="668.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="TEST!!!!!" />
                </children>
             </AnchorPane>
         </content>

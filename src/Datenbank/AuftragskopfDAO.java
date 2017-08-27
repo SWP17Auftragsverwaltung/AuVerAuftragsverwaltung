@@ -1,12 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/*------------------------------------------------------------------------------
+* Klasse: AuftragskopfDAO.
+*-------------------------------------------------------------------------------
+* Zweck:
+* - Diese Klasse bearbeitet Queries Auftragsköpfe.
+*-------------------------------------------------------------------------------
+* Datum         Name    Was
+* 07.08.2017    BER     Erstellt.
+*-------------------------------------------------------------------------------
+*/
+
 package Datenbank;
 
-import Klassen.Adresse;
 import Klassen.Auftragskopf;
+import auverauftragsverwaltung.AuftragPositionController;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -274,6 +280,8 @@ public class AuftragskopfDAO extends DataAccess {
      */
     public void fuegeAuftragHinzu(Auftragskopf a) throws SQLException {
         //Variablendeklaration
+        AuftragPositionController apd = new AuftragPositionController();
+        
         PreparedStatement stmt = null;
         String auftragskopfID = generiereID();
         String geschaeftspartnerID = a.getGeschaeftspartnerID();
@@ -317,6 +325,10 @@ public class AuftragskopfDAO extends DataAccess {
             stmt.executeUpdate();
             con.commit();
             con.close();
+            
+            apd.leereAuftragspositionHinzufuegen();
+            
+            
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -453,7 +465,7 @@ public class AuftragskopfDAO extends DataAccess {
         ResultSet rs = null;
         String query = "SELECT MAX(" 
             + attribute.get(TAB_AUFTRAGSKOPF).get(0) + ") FROM ROOT." 
-            + ddd.getTabAdresse();
+            + ddd.getTabAuftragskopf();
         
         try {
             stmt = con.createStatement();
