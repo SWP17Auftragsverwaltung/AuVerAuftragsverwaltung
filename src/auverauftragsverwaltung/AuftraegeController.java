@@ -527,8 +527,7 @@ public class AuftraegeController implements Initializable {
         
         // Ändern Button wird deaktiviert.
         this.btAendern.setDisable(false);
-        
-        
+
         // Löschen Button wird deaktiviert
         this.btLoeschen.setDisable(false);
     }
@@ -579,6 +578,23 @@ public class AuftraegeController implements Initializable {
 
                 }
             }
+        }
+    }
+    
+    
+   @FXML
+    public void oeffneAuswahl(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "Auswahl.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Auswahl");
+            stage.setScene(scene);
+//            stage.setMaximized(true);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Can't load the Auftrag anlegen!");
         }
     }
   

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="auverauftragsverwaltung.AuswahlController">
+   <children>
+      <TableView fx:id="auswahlTV" layoutX="50.0" layoutY="61.0" prefHeight="200.0" prefWidth="514.0">
+        <columns>
+          <TableColumn fx:id="ID" prefWidth="75.0" />
+          <TableColumn fx:id="spalte2" prefWidth="75.0" />
+            <TableColumn fx:id="spalte3" prefWidth="75.0" />
+            <TableColumn fx:id="spalte4" prefWidth="75.0" />
+            <TableColumn fx:id="spalte5" prefWidth="75.0" />
+            <TableColumn fx:id="spalte6" prefWidth="75.0" />
+        </columns>
+      </TableView>
+      <Label fx:id="lableAuswahl" layoutX="70.0" layoutY="14.0" prefHeight="41.0" prefWidth="249.0" />
+      <Button fx:id="btHinzufügen" layoutX="124.0" layoutY="330.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" />
+      <Button fx:id="btZurueck" layoutX="404.0" layoutY="330.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zurück" />
+   </children>
+</AnchorPane>
