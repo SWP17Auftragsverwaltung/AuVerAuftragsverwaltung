@@ -14,6 +14,7 @@ package auverauftragsverwaltung;
 
 import Datenbank.AuftragskopfDAO;
 import Klassen.Auftragskopf;
+import Klassen.Meldung;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -32,6 +33,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -95,6 +97,9 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     private Pane pane;
+    
+    @FXML
+    private TitledPane auftragskopfTP;
     
     /**
      * Textfeld "Auftragskopf".
@@ -307,9 +312,9 @@ public class AuftraegeController implements Initializable {
                 new PropertyValueFactory<>("abschlussDatum"));
         
         cbAuftragsstatus.getItems().addAll(
-                "Erfasst", 
-                "Freigegeben", 
-                "abgeschlossen");
+                "E", 
+                "F", 
+                "A");
         
         cbAuftragsart.getItems().addAll(
                 "Barauftrag",
@@ -372,10 +377,28 @@ public class AuftraegeController implements Initializable {
     @FXML
     public void auftragAnlegen() throws SQLException {
         
+        // Sperre wird aufgehoben 
+        this.pane.setVisible(false);
         
+        this.auftragskopfTP.setText("Auftragskopf (Anlegemodus)");
+       
+        // Anlege-Button wird unsichtbar.
+        this.btAnlegen.setVisible(false);
+        
+        // Hinzufügen-Button wird sichtbar.
+        this.btHinzufuegen.setVisible(true);
+        
+        // Ändern Button wird deaktiviert.
+        this.btAendern.setDisable(true);
+        
+        
+        // Löschen Button wird deaktiviert
+        this.btLoeschen.setDisable(true);
+
         
         AuftragskopfDAO akd = new AuftragskopfDAO();
         tfAuftragskopf.setText(akd.generiereID());
+        
     }    
     
     
@@ -438,11 +461,22 @@ public class AuftraegeController implements Initializable {
         Object auftragskopf = 
                 tvAuftragskopf.getSelectionModel().getSelectedItem();
         Auftragskopf b = (Auftragskopf) auftragskopf;
-
-        AuftragskopfDAO ak = new AuftragskopfDAO();
-        ak.setzeLKZ(b);
         
-        refreshTable();
+         if (!this.tfAuftragskopf.getText().isEmpty()) {
+            Meldung meldung = new Meldung();
+            meldung.loeschenAbfragen();
+
+            if (meldung.antwort()) {
+                AuftragskopfDAO ak = new AuftragskopfDAO();
+                ak.setzeLKZ(b);
+
+                refreshTable();
+            } else {
+                meldung.schließeFenster();
+                clearTextFields();
+            }
+        }
+
     }
     
     /*------------------------------------------------------------------------*/
@@ -459,7 +493,7 @@ public class AuftraegeController implements Initializable {
     public void auftragHinzufuegen() throws SQLException {
         String auftragskopfID = tfAuftragskopf.getText();
 //        String geschaeftspartnerID = tfPartnerID.getText();
-        String geschaeftspartnerID = "000001";
+        String geschaeftspartnerID = this.tfPartnerID.getText();
         String auftragsText = tfText.getText();
         String erfassungsDatum = this.tfErfDatum.getText();
         String lieferDatum = this.tfLieferdatum.getText();
@@ -478,6 +512,55 @@ public class AuftraegeController implements Initializable {
 
         clearTextFields();
         refreshTable();
+    }
+    
+        /**
+     * Lässt den Benutzer die Aktion abbrechen.
+     */    
+    @FXML
+    public void aktionAbbrechen() {
+
+        if (!this.auftragskopfTP.getText().equalsIgnoreCase(
+                "Auftragskopf")) {
+            Meldung meldung = new Meldung();
+            meldung.verwerfenFenster();
+            if (!(this.tfAuftragskopf.getText().isEmpty())) {
+
+                if (meldung.antwort()) {
+                    // Textfeldbereich wird aktiviert
+                    this.pane.setDisable(false);
+                    // Bearbeiten-Button wird ausgeblendet
+                    this.btAnlegen.setVisible(true);
+                    // Speichern-Button wird eingeblendet
+
+                    //Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
+                    this.auftragskopfTP.setText(
+                            "Auftragskopf");
+
+                    // Anlegen-Button wird deaktiviert
+                    this.btAendern.setDisable(false);
+
+                    
+                    
+                    this.btSpeichern.setVisible(false);
+
+                    this.btSpeichern.setDisable(false);
+                    // Löschen-Button wird deaktiviert
+                    this.btLoeschen.setDisable(false);
+
+                    this.btHinzufuegen.setVisible(false);
+
+                    this.tvAuftragskopf.setMouseTransparent(false);
+
+                    clearTextFields();
+
+                } else {
+
+                    meldung.schließeFenster();
+
+                }
+            }
+        }
     }
   
 

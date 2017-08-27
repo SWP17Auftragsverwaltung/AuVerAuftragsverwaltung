@@ -28,7 +28,7 @@
          </font>
       </TitledPane>
       <Button layoutX="25.0" layoutY="36.0" mnemonicParsing="false" onAction="#sucheAuftrag" prefHeight="40.0" prefWidth="160.0" text="Auftrag Suchen " AnchorPane.leftAnchor="25.0" />
-      <TitledPane animated="false" collapsible="false" layoutX="25.0" layoutY="428.0" prefHeight="256.0" prefWidth="1013.0" text="Auftragskopf" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+      <TitledPane fx:id="auftragskopfTP" animated="false" collapsible="false" layoutX="25.0" layoutY="428.0" prefHeight="256.0" prefWidth="1013.0" text="Auftragskopf" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
                <children>
@@ -55,11 +55,10 @@
                   <TextField fx:id="tfErfDatum" layoutX="380.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
                   <TextField fx:id="tfLieferdatum" layoutX="510.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
                   <TextField fx:id="tfAbschlussdatum" layoutX="626.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
-                  <Button fx:id="btAbbrechen" layoutX="474.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
+                  <Button fx:id="btAbbrechen" layoutX="474.0" layoutY="178.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
                   <Button fx:id="btHinzufuegen" layoutX="148.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
                   <Button fx:id="btSpeichern" layoutX="257.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
                   <Pane fx:id="pane" layoutX="4.0" layoutY="19.0" prefHeight="132.0" prefWidth="947.0" />
-                  <Button fx:id="TEST" layoutX="668.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="TEST!!!!!" />
                </children>
             </AnchorPane>
         </content>
