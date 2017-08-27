@@ -117,7 +117,7 @@ public class AuftraegeController implements Initializable {
      * Textfeld "Partner-ID".
      */
     @FXML
-    private TextField tfPartnerID;
+    protected TextField tfPartnerID;
     
     /**
      * Textfeld "Auftragswert".
@@ -395,6 +395,7 @@ public class AuftraegeController implements Initializable {
         // Löschen Button wird deaktiviert
         this.btLoeschen.setDisable(true);
 
+        oeffneAuswahl();
         
         AuftragskopfDAO akd = new AuftragskopfDAO();
         tfAuftragskopf.setText(akd.generiereID());
@@ -462,7 +463,7 @@ public class AuftraegeController implements Initializable {
                 tvAuftragskopf.getSelectionModel().getSelectedItem();
         Auftragskopf b = (Auftragskopf) auftragskopf;
         
-         if (!this.tfAuftragskopf.getText().isEmpty()) {
+        if (!this.tfAuftragskopf.getText().isEmpty()) {
             Meldung meldung = new Meldung();
             meldung.loeschenAbfragen();
 
@@ -479,6 +480,25 @@ public class AuftraegeController implements Initializable {
 
     }
     
+
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.08.17    GET     Methode erstellt.
+    /* 22.08.17    BER     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+     * @param gpID GPID
+     */
+    @FXML
+    public void aktualisiereWerte(String gpID) {
+        tfPartnerID.setText(gpID);    
+    }
+    
+         
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 26.08.17    HEN     Methode erstellt.
@@ -491,9 +511,10 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     public void auftragHinzufuegen() throws SQLException {
+        AuswahlController ac = new AuswahlController();
+        
         String auftragskopfID = tfAuftragskopf.getText();
-//        String geschaeftspartnerID = tfPartnerID.getText();
-        String geschaeftspartnerID = this.tfPartnerID.getText();
+        String geschaeftspartnerID = tfPartnerID.getText();
         String auftragsText = tfText.getText();
         String erfassungsDatum = this.tfErfDatum.getText();
         String lieferDatum = this.tfLieferdatum.getText();
@@ -582,8 +603,12 @@ public class AuftraegeController implements Initializable {
     }
     
     
+    
+    /**
+     * 
+     */
    @FXML
-    public void oeffneAuswahl(ActionEvent event) {
+    public void oeffneAuswahl() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
                     "Auswahl.fxml"));
@@ -593,10 +618,11 @@ public class AuftraegeController implements Initializable {
             stage.setScene(scene);
 //            stage.setMaximized(true);
             stage.show();
+        
         } catch (IOException e) {
             System.out.println("Can't load the Auftrag anlegen!");
         }
     }
-  
+    
 
 }

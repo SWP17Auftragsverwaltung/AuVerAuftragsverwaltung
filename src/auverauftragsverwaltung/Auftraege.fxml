@@ -33,10 +33,10 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label layoutX="16.0" layoutY="22.0" text="Auftragskopf" />
-                  <TextField fx:id="tfAuftragskopf" layoutX="14.0" layoutY="38.0" prefHeight="25.0" prefWidth="89.0" />
+                  <TextField fx:id="tfAuftragskopf" editable="false" layoutX="14.0" layoutY="38.0" prefHeight="25.0" prefWidth="89.0" />
                   <Label layoutX="121.0" layoutY="22.0" text="Text zum Auftrag" />
                   <TextArea fx:id="tfText" layoutX="121.0" layoutY="38.0" prefHeight="40.0" prefWidth="123.0" />
-                  <TextField fx:id="tfPartnerID" layoutX="258.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
+                  <TextField fx:id="tfPartnerID" editable="false" layoutX="258.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
                   <Label layoutX="258.0" layoutY="22.0" text="Partner-ID" />
                   <Label layoutX="17.0" layoutY="98.0" text="Auftragswert" />
                   <Label layoutX="383.0" layoutY="22.0" text="Erfassungsdatum" />

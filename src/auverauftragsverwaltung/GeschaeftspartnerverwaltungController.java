@@ -205,8 +205,6 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     
     
     
-    
-
     /**
      * Initialisiert die Controller-Klasse.
      *
@@ -271,6 +269,8 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
                         ? change : null));
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 14.08.17    HEN     Methode erstellt.
@@ -291,6 +291,8 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         gpTable.setItems(geschaeftspartner);
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    CEL     Methode erstellt.
