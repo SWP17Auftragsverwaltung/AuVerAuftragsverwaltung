@@ -11,7 +11,6 @@
 
 package Datenbank;
 
-import Klassen.Auftragskopf;
 import Klassen.Auftragsposition;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -212,13 +211,13 @@ public class AuftragspositionDAO extends DataAccess {
             con.setAutoCommit(false);
 
             String query = "INSERT INTO ROOT." + ddd.getTabAuftragsposition()
-                    + "(" + attribute.get(TAB_AUFTRAGSPOSITION).get(0) + ", " 
+                    + " (" + attribute.get(TAB_AUFTRAGSPOSITION).get(0) + ", " 
                     +  attribute.get(TAB_AUFTRAGSPOSITION).get(1) + ", " 
                     +  attribute.get(TAB_AUFTRAGSPOSITION).get(2) + ", " 
                     +  attribute.get(TAB_AUFTRAGSPOSITION).get(3) + ", " 
                     +  attribute.get(TAB_AUFTRAGSPOSITION).get(4) + ", "
                     +  attribute.get(TAB_AUFTRAGSPOSITION).get(5) + ") "
-                    + "VALUES (?,?,?,?,?,?,?,?,?,?)";
+                    + "VALUES (?,?,?,?,?,?)";
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, auftragskopfID);

@@ -328,8 +328,6 @@ public class AuftragskopfDAO extends DataAccess {
             
             apd.leereAuftragspositionHinzufuegen();
             
-            
-
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -341,6 +339,7 @@ public class AuftragskopfDAO extends DataAccess {
     }    
 
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 26.08.17    HEN     Erstellt.

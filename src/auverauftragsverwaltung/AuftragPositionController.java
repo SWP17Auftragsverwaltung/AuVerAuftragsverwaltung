@@ -5,6 +5,7 @@
  */
 package auverauftragsverwaltung;
 
+import Datenbank.ArtikelDAO;
 import Datenbank.AuftragskopfDAO;
 import Datenbank.AuftragspositionDAO;
 import Klassen.Auftragskopf;
@@ -331,10 +332,13 @@ public class AuftragPositionController implements Initializable {
     @FXML
     public void leereAuftragspositionHinzufuegen() throws SQLException {
         AuftragskopfDAO akd = new AuftragskopfDAO();
+        ArtikelDAO ad = new ArtikelDAO();
+        
+        
         
         String auftragskopfID = akd.gibLetztID();
         String positionsnummer = "";
-        String artikelID = "";
+        String artikelID = "000001";
         String menge = "";
         String einzelwert = "";
         String lkz = "N";
