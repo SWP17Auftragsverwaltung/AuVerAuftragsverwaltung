@@ -7,7 +7,7 @@
 * Historie:
 * 15.06.2017    SAM     Klasse angelegt und closeGeschaeftspartner() erstellt.
 * 26.06.2017    GET     begrenzeTextFeldEingabe() implemenitert.
-* 27.07.2017    BER     Kommentarlayout angepasst.
+* 27.07.2017    BER     Javadoc angepasst.
 * 14.08.2017    HEN     setTabelContent() erstellt, TableColums 
 *                       zeigeGefundeneAdressen() erstellt.
 * 19.08.2017    HEN     Methoden alleMitLKZ(), alleOhneLKZ()erstellt.

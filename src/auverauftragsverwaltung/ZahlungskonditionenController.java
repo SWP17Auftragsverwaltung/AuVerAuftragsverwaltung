@@ -7,7 +7,7 @@
 * Historie:
 * 15.06.17  SAM     Angelegt und closeZahlungskonditionen() erstellt.
 * 26.06.17  GET     Checkstyleprüfung.
-* 27.07.17  BER     Kommentarlayout angepasst.
+* 27.07.17  BER     Javadoc angepasst.
 * 15.08.17  HEN     setTableContent(),clearFields, refreshTable() implementiert.
 * 16.08.17  HEN     alleMitLKZ(), alleOhneLKZ() erstellt.
 * 18.08.17  GET     begrenzeTextFeldEingabe()

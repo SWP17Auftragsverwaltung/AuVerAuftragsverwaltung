@@ -322,7 +322,7 @@ public class ArtikelverwaltungController implements Initializable {
     /* Datum       Name    Was
     /* 15.08.17    SAM     Methode erstellt.
     /* 16.08.17    SAM     Getestet & freigegeben.
-    /*------------------------------------------------------------------------*/ 
+    /*------------------------------------------------------------------------*/
     
     /**
      * Methode zum Abbrechen der Artikelverwaltung.
@@ -349,7 +349,7 @@ public class ArtikelverwaltungController implements Initializable {
      */
     private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
         tf.setTextFormatter(new TextFormatter<>(change
-                -> change.getControlNewText().length() <= zahl ? change : null));
+            -> change.getControlNewText().length() <= zahl ? change : null));
     }
 
     /**
@@ -361,7 +361,7 @@ public class ArtikelverwaltungController implements Initializable {
         // Zeilenumbruch im TextArea Feld
         ta.setWrapText(true);
         ta.setTextFormatter(new TextFormatter<>(change
-                -> change.getControlNewText().length() <= zahl ? change : null));
+            -> change.getControlNewText().length() <= zahl ? change : null));
     }
 
     
@@ -385,7 +385,7 @@ public class ArtikelverwaltungController implements Initializable {
     }
     
     
-        /*------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 14.08.17    HEN     Methode erstellt.
     /* 16.08.17    HEN     Getestet & freigegeben.
@@ -429,8 +429,6 @@ public class ArtikelverwaltungController implements Initializable {
     
     /**
      * Löscht alle Eingaben in den Textfeldern.
-     *
-     * @throws java.sql.SQLException SQL Exception
      */
     @FXML
     public void clearTextFields() {
