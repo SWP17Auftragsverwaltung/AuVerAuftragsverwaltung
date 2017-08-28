@@ -445,7 +445,10 @@ public class AuftraegeController implements Initializable {
         tfAuftragskopf.setText(akd.generiereID());
         
         this.paneAuftrage.setVisible(false);
-        this.paneGP.setVisible(true);
+        
+  
+       this.paneGP.setVisible(true);
+    
         setTableContentGP();
     }    
     

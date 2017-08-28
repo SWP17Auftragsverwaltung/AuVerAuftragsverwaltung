@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package auverauftragsverwaltung;
 
 import Datenbank.ArtikelDAO;
@@ -188,32 +184,86 @@ public class AuftragPositionController implements Initializable {
      */
     @FXML
     private Button btAbbrechen;
+    
+    /**
+     *  Artikelauswahlfenster.
+     */
     @FXML
     private TitledPane paneArtikelauswahl;
+    
+    /**
+     * Tabelle für Artikelauswahl.
+     */
     @FXML
     private TableView tvArtikelauswahl = new TableView<Artikel>();
+    
+    /**
+     * Auftragspositionenfenster.
+     */
     @FXML
     private TitledPane paneAuftragsposition;
+    
+    /**
+     * Spalte ArtikelID.
+     */
     @FXML
     private TableColumn<Artikel, String> tcArtikelID;
+    
+    /**
+     * Spalte Artikeltext.
+     */
     @FXML
     private TableColumn<Artikel, String> tcArtikeltext;
+    
+    /**
+     * Spalte Bestelltext.
+     */
     @FXML
     private TableColumn<Artikel, String> tcBestelltext;
+    
+    /**
+     * Spalte Bestellwert.
+     */
     @FXML
     private TableColumn<Artikel, String> tcBestellwert;
+        
+    /**
+     * Spalte MwST.
+     */
     @FXML
     private TableColumn<Artikel, String> tcMwSt;
+        
+    /**
+     * Spalte Bestand FREI.
+     */
     @FXML
     private TableColumn<Artikel, String> tcBestandFrei;
-    @FXML
-    private TitledPane auftragspositionTP;
-    @FXML
-    private Pane pane;
-    @FXML
-    private Button btHinzufuegen;
+    
+    /**
+     * Spalte Einzelwert.
+     */
     @FXML
     private TableColumn<Artikel, String> tcEinzelwertArt;
+        
+    /**
+     * Datensatzeingabe für Auftragspositionen.
+     */
+    @FXML
+    private TitledPane auftragspositionTP;
+        
+    /**
+     * Sperrfläche für die nicht erlaubte eingabe.
+     */
+    @FXML
+    private Pane pane;
+        
+    /**
+     * Hinzufügen Button.
+     */
+    @FXML
+    private Button btHinzufuegen;
+       
+
     
     
     

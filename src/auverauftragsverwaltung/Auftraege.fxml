@@ -75,7 +75,6 @@
                   <Button fx:id="btHinzufuegen" layoutX="148.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
                   <Button fx:id="btSpeichern" layoutX="257.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
                   <Pane fx:id="pane" layoutX="4.0" layoutY="19.0" prefHeight="132.0" prefWidth="947.0" />
-                  <Button fx:id="test" layoutX="625.0" layoutY="178.0" mnemonicParsing="false" onAction="#waehleGeschaeftspartnerID" prefHeight="40.0" prefWidth="100.0" text="TEST!!!!" />
                </children>
             </AnchorPane>
         </content>
