@@ -6,7 +6,18 @@
 *-------------------------------------------------------------------------------
 * Datum         Name    Was
 * 07.08.2017    HEN     Erstellt.
+* 07.08.2017    HEN     Methode: gibAlleAdressen() erstellt.
+* 07.08.2017    HEN     Methode: gibAlleAdressenOhneLKZ() erstellt.
 * 12.08.2017    HEN     DB Verbindung ausgelagert.
+* 14.08.2017    HEN     Methode: gibAlleAdressenMitLKZ() erstellt.
+* 15.08.2017    HEN     Methode: fuegeAdresseHinzu() erstellt.
+* 16.08.2017    GET     Methode: aendereAdresse() erstellt.
+* 16.08.2017    BER     Methode: aendereAdresse() erweitert.
+* 17.08.2017    GET     Methode: setzeLKZ() erstellt.
+* 17.08.2017    HEN     Methode: setzeLKZ() erweitert.
+* 18.08.2017    GET     Methode: gibLetzteID() erstellt.
+* 19.08.2017    HEN     Methode: generiereID() erstellt.
+* 20.08.2017    BER     Methode: generiereID() erweitert.
 *-------------------------------------------------------------------------------
 */
 package Datenbank;
@@ -164,7 +175,7 @@ public class AdresseDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 15.08.17    Hen     Erstellt.
+    /* 14.08.17    Hen     Erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -300,11 +311,12 @@ public class AdresseDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 15.08.17    GET     Erstellt.
+    /* 16.08.17    GET     Erstellt.
+    /* 16.08.17    BER     Query Abfrage angepasst.
     /*------------------------------------------------------------------------*/
     
     /**
-     * Ändern die Adresse in der DB.
+     * Ändern der Adresse in der Datenbank.
      * @param a Adressobjekt
      * @throws java.sql.SQLException SQLException
      */
@@ -442,8 +454,8 @@ public class AdresseDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
-    /* 15.08.17     GET     Erstellt.
-    /* 15.08.17     HEN     preparedStmt ergänzt, positiv getestet.     
+    /* 17.08.17     GET     Erstellt.
+    /* 17.08.17     HEN     preparedStmt ergänzt, positiv getestet.     
     /*------------------------------------------------------------------------*/
     
     /**
@@ -525,11 +537,12 @@ public class AdresseDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
     /* 19.08.17     HEN     Erstellt.
+    /* 20.08.17     BER     Else-fall hinzugefügt.    
     /*------------------------------------------------------------------------*/
     
     /**
-     * Liest die letzte ID aus, erhöht sie um 1 und gibt sie wieder.
-     * @return neue ID aufgezählt.
+     * Liest die letzte AdressID aus, erhöht sie um 1 und gibt sie wieder.
+     * @return neue AdressID aufgezählt.
      * @throws java.sql.SQLException SQLException.
      */    
     public String generiereID() throws SQLException {

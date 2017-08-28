@@ -5,7 +5,7 @@
 * - Diese Klasse verwaltet alle Suchfelder.
 *-------------------------------------------------------------------------------
 * Datum         Name    Was
-* 17.08.2017    BER     Erstellt.
+* 18.08.2017    BER     Erstellt.
 *-------------------------------------------------------------------------------
  */
 package Datenbank;
@@ -49,9 +49,9 @@ public class SucheDAO extends DataAccess {
     
     
     /*------------------------------------------------------------------------*
-    * Datum         Name    Was
-    * 14.08.2017    CEL     Erstellt.
-    * 20.08.2017    BER     Querys erstellt und Methode fertiggestellt.
+    * Datum       Name    Was
+    * 18.08.17    BER     Erstellt
+    * 20.08.17    BER     Querys angepasst und Methode fertiggestellt.
     *
     /*------------------------------------------------------------------------*/
 

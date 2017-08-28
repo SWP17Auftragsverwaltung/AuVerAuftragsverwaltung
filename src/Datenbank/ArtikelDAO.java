@@ -58,7 +58,7 @@ public class ArtikelDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
   
     /**
-     * Gibt alle Adressen wieder die sich in der Datenbank befinden.
+     * Gibt alle Artikel wieder die sich in der Datenbank befinden.
      * @return Gibt Arraylist aller Adressen wieder
     */
     public ArrayList<Artikel> gibAlleArtikel() {
@@ -105,7 +105,7 @@ public class ArtikelDAO extends DataAccess {
     
      /**
      * Gibt alle Artikel ohne Löschkennzeichen wieder.
-     * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
+     * @return Gibt ArrayList aller Artikel ohne LKZ wieder.
      */
     public ArrayList<Artikel> gibAlleArtikelOhneLKZ() {
         
@@ -284,7 +284,7 @@ public class ArtikelDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Ändern der Artikel in der DB.
+     * Ändern der Artikel in der Datenbank.
      * @param a Artikelobjekt
     */
     public void aendereArtikel(Artikel a) {
@@ -403,7 +403,7 @@ public class ArtikelDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Setzt Löschkennzeichen bei einer ausgewählten Adresse.
+     * Setzt Löschkennzeichen bei einem ausgewählten Artikel.
      * @return neue ID aufgezählt.
      */    
     public String gibLetztID() {
@@ -440,8 +440,8 @@ public class ArtikelDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Liest die letzte ID aus, erhöht sie um 1 und gibt sie wieder.
-     * @return neue ID aufgezählt.
+     * Liest die letzte ArtikelID aus, erhöht sie um 1 und gibt sie wieder.
+     * @return neue ArtikelID aufgezählt.
      */    
     public String generiereID() {
    
@@ -474,7 +474,7 @@ public class ArtikelDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
         
     /**
-     * Setzt Löschkennzeichen bei einer ausgewählten Artikel.
+     * Setzt Löschkennzeichen bei einem ausgewählten Artikel.
      * @param a Artikel
      */
     public void setzeLKZ(Artikel a) {

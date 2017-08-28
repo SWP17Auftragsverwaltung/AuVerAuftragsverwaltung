@@ -7,11 +7,19 @@
 * Historie:
 * 14.06.2017    SAM     Angelegt.
 * 26.06.2017    GET     Checkstyleprüfung.
-* 27.07.2017    BER     Kommentarlayout angepasst.
-* 12.08.2017    HEN     setTable() content erstellt, clearTextFields()
+* 27.07.2017    BER     Javadoc angepasst.
+* 10.08.2017    SAM     closeAdressverwaltung erstellt.
+* 11.08.2017    HEN     setTableContent() erstellt.
+* 11.08.2017    BER     clearTextFields() erstellt.
+* 14.08.2017    HEN     alleOhneLKZ(), alleMitLKZ(), zeigeAlleAdressen() 
+*                       erstellt.
 * 15.08.2017    HEN     refreshTable(), adresseLoeschen() erstellt.
+* 16.08.2017    GET     zeigeWerte() erstellt.
 * 17.08.2017    GET     adresseAnlegen(), bearbeiteAdresse(), speichere
-                        Aenderung(), zeigeWerte() erstellt.     
+*                       Aenderung(),  
+* 18.08.2017    HEN     adresseSuchen erstellt.
+* 20.08.2017    BER     adresseSuchen() an SucheDAO angepasst
+* 20.08.2017    GET     Methode: aktionAbbrechen() erstellt.
 *-------------------------------------------------------------------------------
  */
 package auverauftragsverwaltung;
@@ -387,7 +395,7 @@ public class AdressverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 15.08.17    SAM     Methode erstellt.
+    /* 10.08.17    SAM     Methode erstellt.
     /* 16.08.17    SAM     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/    
     
@@ -445,7 +453,7 @@ public class AdressverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 15.08.17    HEN     Methode erstellt.
+    /* 14.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -482,7 +490,7 @@ public class AdressverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 15.08.17    HEN     Methode erstellt.
+    /* 11.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -507,7 +515,7 @@ public class AdressverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 15.08.17    HEN     Methode erstellt.
+    /* 14.08.17    HEN     Methode erstellt.
     /* 16.08.17    HEN     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
     
@@ -528,7 +536,7 @@ public class AdressverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 15.08.17    HEN     Methode erstellt.
+    /* 14.08.17    HEN     Methode erstellt.
     /* 16.08.17    HEN     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
     
@@ -637,7 +645,7 @@ public class AdressverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 15.08.17    HEN     Methode erstellt.
+    /* 17.08.17    HEN     Methode erstellt.
     /* 22.08.17    BER     refreshTable() ergänzt. Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
     
@@ -673,7 +681,7 @@ public class AdressverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 17.08.17    GET     Methode erstellt.
+    /* 16.08.17    GET     Methode erstellt.
     /* 22.08.17    HEN     Adressdatenpane geändert. Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
     
@@ -700,7 +708,7 @@ public class AdressverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 17.08.17    GET     Methode erstellt.
+    /* 16.08.17    GET     Methode erstellt.
     /* 22.08.17    HEN     Exceptions eingefügt. Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
     
@@ -761,8 +769,8 @@ public class AdressverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 17.08.17    GET     Methode erstellt.
-    /* 22.08.17    BER     Getestet & freigegeben.
+    /* 16.08.17    GET     Methode erstellt.
+    /* 18.08.17    BER     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -794,8 +802,8 @@ public class AdressverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 17.08.17    HEN     Methode erstellt.
-    /* 18.08.17    BER     IF Fälle ergänzt. Getestet & Freigegeben.
+    /* 18.08.17    HEN     Methode erstellt.
+    /* 20.08.17    BER     Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -838,9 +846,8 @@ public class AdressverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 19.08.17    GET     Methode erstellt.
+    /* 20.08.17    GET     Methode erstellt.
     /* 27.08.17    GET     Getestet & freigegeben 
-    */
     /*------------------------------------------------------------------------*/
     
     /**
