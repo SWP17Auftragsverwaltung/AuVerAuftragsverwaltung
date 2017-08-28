@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class.
@@ -24,40 +25,76 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class AuswahlController implements Initializable {
 
     
-    
+    /**
+     * 
+     */
     private String gpID;
     
+    /**
+     * 
+     */
     @FXML
     private Label lableAuswahl;
     
+    /**
+     * 
+     */
     @FXML
-    private TableView auswahlTV = new TableView<Geschaeftspartner>();
+    protected TableView auswahlTV = new TableView<Geschaeftspartner>();
     
     /**
      * 
      */
     @FXML
     private TableColumn<Geschaeftspartner, String> ID;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Geschaeftspartner, String> spalte2;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Geschaeftspartner, String> spalte3;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Geschaeftspartner, String> spalte4;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Geschaeftspartner, String> spalte5;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Geschaeftspartner, String> spalte6;
+    
+    /**
+     * 
+     */
     @FXML
-    private Button btHinzufügen;
+    protected Button btHinzufügen;
+    
+    /**
+     * 
+     */
     @FXML
     private Button btZurueck;
     
 
     /**
      * Initializes the controller class.
-     * @param url
-     * @param rb
+     * @param url URL
+     * @param rb RB
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -99,25 +136,24 @@ public class AuswahlController implements Initializable {
         auswahlTV.setItems(geschaeftspartner);
     }
 
+
     
-    /**
-     * Die ausgewählte gpID wird ausgegeben. 
-     * @return 
-     */
     @FXML
-    public void gibGeschaeftspartnerID() {
+    protected void gibGeschaeftspartnerID(ActionEvent event) {
         Object geschaeftspartner 
-                = auswahlTV.getSelectionModel().getSelectedItem();
+            = auswahlTV.getSelectionModel().getSelectedItem();
         Geschaeftspartner g = (Geschaeftspartner) geschaeftspartner;
 
         if (g != null) {
             this.gpID = g.getGeschaeftspartnerID();        
-        }     
+        }
+        
+
+        Stage stage = (Stage) btHinzufügen.getScene().getWindow();
+        stage.close();
     }
 
-    public String getGpID() {
-        return gpID;
-    }
+  
     
     
     

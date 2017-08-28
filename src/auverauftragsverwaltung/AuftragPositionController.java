@@ -8,6 +8,7 @@ package auverauftragsverwaltung;
 import Datenbank.ArtikelDAO;
 import Datenbank.AuftragskopfDAO;
 import Datenbank.AuftragspositionDAO;
+import Klassen.Artikel;
 import Klassen.Auftragskopf;
 import Klassen.Auftragsposition;
 import java.io.IOException;
@@ -26,7 +27,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -185,6 +188,32 @@ public class AuftragPositionController implements Initializable {
      */
     @FXML
     private Button btAbbrechen;
+    @FXML
+    private TitledPane paneArtikelauswahl;
+    @FXML
+    private TableView tvArtikelauswahl = new TableView<Artikel>();
+    @FXML
+    private TitledPane paneAuftragsposition;
+    @FXML
+    private TableColumn<Artikel, String> tcArtikelID;
+    @FXML
+    private TableColumn<Artikel, String> tcArtikeltext;
+    @FXML
+    private TableColumn<Artikel, String> tcBestelltext;
+    @FXML
+    private TableColumn<Artikel, String> tcBestellwert;
+    @FXML
+    private TableColumn<Artikel, String> tcMwSt;
+    @FXML
+    private TableColumn<Artikel, String> tcBestandFrei;
+    @FXML
+    private TitledPane auftragspositionTP;
+    @FXML
+    private Pane pane;
+    @FXML
+    private Button btHinzufuegen;
+    @FXML
+    private TableColumn<Artikel, String> tcEinzelwertArt;
     
     
     
@@ -208,6 +237,10 @@ public class AuftragPositionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        pane.setVisible(true);
+        paneArtikelauswahl.setVisible(false);
+        paneAuftragsposition.setVisible(true);
+        
         try {
             setTableContent();
         
@@ -219,6 +252,29 @@ public class AuftragPositionController implements Initializable {
             alert.showAndWait();
         }
         
+        //Tabellenspalten Aritkel
+        tcArtikelID.setCellValueFactory(
+                new PropertyValueFactory<>("artikelID"));
+        
+        tcArtikeltext.setCellValueFactory(
+                new PropertyValueFactory<>("artikeltext"));
+        
+        tcEinzelwertArt.setCellValueFactory(
+                new PropertyValueFactory<>("einzelwert"));
+        
+        tcBestelltext.setCellValueFactory(
+                new PropertyValueFactory<>("bestelltext"));
+        
+        tcBestellwert.setCellValueFactory(
+                new PropertyValueFactory<>("bestellwert"));       
+        
+        tcMwSt.setCellValueFactory(new PropertyValueFactory<>("steuer"));
+        
+        tcBestandFrei.setCellValueFactory(
+                new PropertyValueFactory<>("bestandsmengeFrei"));
+                
+        
+        //Tabellenspalten Auftragsposition        
         tcAuftragskopfID.setCellValueFactory(
                 new PropertyValueFactory<>("auftragskopfID"));
         
@@ -255,7 +311,66 @@ public class AuftragPositionController implements Initializable {
                     apd.gibAlleAuftragspositionenOhneLKZ());
         tvAuftragsposition.setItems(auftragspositionen);
     }
+
     
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 27.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Erstellt ein AuftragspositionDAO Objekt und gibt eine Auftragsposition 
+     * ArrayList an eine OberservableList, die dann an die TableView 
+     * übergeben wird.
+     * @throws java.sql.SQLException SQL Exception
+     */
+    public void setTableContentArtikel() throws SQLException {
+        ArtikelDAO ad = new ArtikelDAO();
+        ObservableList<Artikel> artikel
+            = FXCollections.observableArrayList(ad.gibAlleArtikelOhneLKZ());
+        tvArtikelauswahl.setItems(artikel);
+    }    
+    
+   
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 27.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Gibt die unteren Eingabefelder für das Anlegen einer neuer Adresse frei.
+     * @throws java.sql.SQLException SQLException
+     */
+    @FXML
+    public void auftragAnlegen() throws SQLException {
+        
+        clearTextFields();
+        
+        // Sperre wird aufgehoben 
+        this.pane.setVisible(false);
+        
+        this.auftragspositionTP.setText("Auftragsposition (Anlegemodus)");
+       
+        // Anlege-Button wird unsichtbar.
+        this.btAnlegen.setVisible(false);
+        
+        // Hinzufügen-Button wird sichtbar.
+        this.btHinzufuegen.setVisible(true);
+        
+        // Ändern Button wird deaktiviert.
+        this.btBearbeiten.setDisable(true);
+             
+        // Löschen Button wird deaktiviert
+        this.btLoeschen.setDisable(true);
+
+        this.paneAuftragsposition.setVisible(false);
+        this.paneArtikelauswahl.setVisible(true);
+        
+        setTableContentArtikel();
+    }    
+
     
     
     /*------------------------------------------------------------------------*/
@@ -301,7 +416,6 @@ public class AuftragPositionController implements Initializable {
      * wird.
      * @throws java.sql.SQLException SQL Exception
      */
-    @FXML
     public void auftragspositionHinzufuegen() throws SQLException {
         String auftragskopfID = tcAuftragsID.getText();
         String positionsnummer = tfPositionsNr.getText();
@@ -332,7 +446,6 @@ public class AuftragPositionController implements Initializable {
      * wird.
      * @throws java.sql.SQLException SQL Exception
      */
-    @FXML
     public void leereAuftragspositionHinzufuegen() throws SQLException {
         AuftragskopfDAO akd = new AuftragskopfDAO();
         ArtikelDAO ad = new ArtikelDAO();
@@ -356,22 +469,6 @@ public class AuftragPositionController implements Initializable {
         refreshTable();
     }
     
-    
-    
-   @FXML
-    public void oeffneAuswahl() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "Auswahl.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = new Stage();
-            stage.setTitle("Auswahl des Artikels");
-            stage.setScene(scene);
-//            stage.setMaximized(true);
-            stage.show();
-        } catch (IOException e) {
-            System.out.println("Can't load the Auftrag anlegen!");
-        }
-    }    
+   
     
 }

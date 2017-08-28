@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.AuftraegeController">
    <children>
-      <TitledPane collapsible="false" layoutX="25.0" layoutY="62.0" prefHeight="427.0" prefWidth="1020.0" text="Aufträge" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="90.0">
+      <TitledPane fx:id="paneAuftrage" collapsible="false" layoutX="25.0" layoutY="62.0" prefHeight="427.0" prefWidth="1020.0" text="Aufträge" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="90.0">
          <content>
             <TableView fx:id="tvAuftragskopf" onMouseClicked="#zeigeWerteAn" prefHeight="359.0" prefWidth="1013.0">
                <columns>
@@ -20,6 +20,22 @@
                   <TableColumn fx:id="tcAuftragswert" prefWidth="109.0" text="Auftragswert" />
                   <TableColumn fx:id="tcStatus" prefWidth="77.0" text="Status" />
                   <TableColumn fx:id="tcAbschDatum" editable="false" prefWidth="111.0" text="Abschlussdatum" />
+               </columns>
+            </TableView>
+         </content>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </TitledPane>
+      <TitledPane fx:id="paneGP" collapsible="false" layoutX="25.0" layoutY="91.0" prefHeight="427.0" prefWidth="1020.0" text="Geschäftspartner Auswahl" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="90.0">
+         <content>
+            <TableView fx:id="tvGPAuswahl" onMouseClicked="#waehleGeschaeftspartnerID" prefHeight="359.0" prefWidth="1013.0">
+               <columns>
+                  <TableColumn fx:id="tcGpID" prefWidth="156.0" text="GeschäftspartnerID" />
+                  <TableColumn fx:id="tcTyp" text="Typ" />
+                  <TableColumn fx:id="tcAnschriftID" prefWidth="166.0" text="AnschriftID" />
+                  <TableColumn fx:id="tcLieferID" prefWidth="75.0" text="LieferID" />
+                  <TableColumn fx:id="tcKreditlimit" prefWidth="129.0" text="Kreditlimit" />
                </columns>
             </TableView>
          </content>
@@ -59,7 +75,7 @@
                   <Button fx:id="btHinzufuegen" layoutX="148.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
                   <Button fx:id="btSpeichern" layoutX="257.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
                   <Pane fx:id="pane" layoutX="4.0" layoutY="19.0" prefHeight="132.0" prefWidth="947.0" />
-                  <Button fx:id="btAbbrechen1" layoutX="625.0" layoutY="178.0" mnemonicParsing="false" onAction="#aktualisiereWerte" prefHeight="40.0" prefWidth="100.0" text="TEST!!!!" />
+                  <Button fx:id="test" layoutX="625.0" layoutY="178.0" mnemonicParsing="false" onAction="#waehleGeschaeftspartnerID" prefHeight="40.0" prefWidth="100.0" text="TEST!!!!" />
                </children>
             </AnchorPane>
         </content>

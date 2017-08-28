@@ -8,7 +8,22 @@
 
 <AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.AuftragPositionController">
    <children>
-      <TitledPane animated="false" collapsible="false" layoutX="42.0" layoutY="140.0" prefHeight="352.0" prefWidth="974.0" text="Auftragspositionen" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+      <TitledPane fx:id="paneArtikelauswahl" animated="false" collapsible="false" layoutX="52.0" layoutY="150.0" prefHeight="352.0" prefWidth="974.0" text="Artikelauswahl" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+         <content>
+            <TableView fx:id="tvArtikelauswahl" prefHeight="232.0" prefWidth="972.0">
+               <columns>
+                  <TableColumn fx:id="tcArtikelID" prefWidth="150.0" text="ArtikelID" />
+                  <TableColumn fx:id="tcArtikeltext" prefWidth="126.0" text="Artikeltext" />
+                  <TableColumn fx:id="tcBestelltext" prefWidth="101.0" text="Bestelltext" />
+                  <TableColumn fx:id="tcEinzelwertArt" prefWidth="81.0" text="Einzelwert" />
+                  <TableColumn fx:id="tcBestellwert" prefWidth="109.0" text="Bestellwert" />
+                  <TableColumn fx:id="tcMwSt" prefWidth="109.0" text="MwSt." />
+                  <TableColumn fx:id="tcBestandFrei" prefWidth="109.0" text="Bestandsmenge FREI" />
+               </columns>
+            </TableView>
+         </content>
+      </TitledPane>
+      <TitledPane fx:id="paneAuftragsposition" animated="false" collapsible="false" layoutX="42.0" layoutY="140.0" prefHeight="352.0" prefWidth="974.0" text="Auftragspositionen" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <content>
             <TableView fx:id="tvAuftragsposition" prefHeight="232.0" prefWidth="972.0">
               <columns>
@@ -38,14 +53,15 @@
             </TableView>
          </content>
       </TitledPane>
-      <TitledPane animated="false" collapsible="false" layoutX="42.0" layoutY="494.0" prefHeight="206.0" prefWidth="941.0" text="Auftragspositionsdatensatz" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+      <TitledPane fx:id="auftragspositionTP" animated="false" collapsible="false" layoutX="42.0" layoutY="494.0" prefHeight="206.0" prefWidth="941.0" text="Auftragspositionsdatensatz" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="btAnlegen" layoutX="14.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
-                  <Button fx:id="btLoeschen" layoutX="340.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
+                  <Pane fx:id="pane" prefHeight="114.0" prefWidth="771.0" />
+                  <Button fx:id="btAnlegen" layoutX="14.0" layoutY="119.0" mnemonicParsing="false" onAction="#auftragAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
+                  <Button fx:id="btLoeschen" layoutX="228.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
                   <Button fx:id="btBearbeiten" layoutX="121.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
-                  <Button fx:id="btAbbrechen" layoutX="229.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " />
+                  <Button fx:id="btAbbrechen" layoutX="336.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " />
                   <TextField fx:id="tfPositionsNr" layoutX="14.0" layoutY="47.0" />
                   <TextField fx:id="tfMaterialNr" layoutX="197.0" layoutY="47.0" />
                   <TextField fx:id="tfMenge" layoutX="371.0" layoutY="47.0" />
@@ -55,6 +71,7 @@
                   <Label layoutX="371.0" layoutY="33.0" prefHeight="13.0" prefWidth="38.0" text="Menge" />
                   <Label layoutX="551.0" layoutY="33.0" text="Einzelwert" />
                   <Button fx:id="btClose" layoutX="848.0" layoutY="119.0" mnemonicParsing="false" onAction="#closeAuftragsposition" prefHeight="40.0" prefWidth="100.0" text="Zurück" AnchorPane.rightAnchor="35.0" />
+                  <Button fx:id="btHinzufuegen" layoutX="14.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Hinzufuegen" visible="false" />
                </children>
             </AnchorPane>
         </content>

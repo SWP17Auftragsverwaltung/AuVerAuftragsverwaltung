@@ -13,7 +13,9 @@
 package auverauftragsverwaltung;
 
 import Datenbank.AuftragskopfDAO;
+import Datenbank.GeschaeftspartnerDAO;
 import Klassen.Auftragskopf;
+import Klassen.Geschaeftspartner;
 import Klassen.Meldung;
 import java.io.IOException;
 import java.net.URL;
@@ -217,8 +219,29 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcAbschDatum;
+    
+    
+    /**
+     * 
+     */
     @FXML
-    private Button btAbbrechen1;
+    private Button test;
+    @FXML
+    private TableView tvGPAuswahl = new TableView<Geschaeftspartner>();
+    @FXML
+    private TableColumn<Geschaeftspartner, String> tcGpID;
+    @FXML
+    private TableColumn<Geschaeftspartner, String> tcTyp;
+    @FXML
+    private TableColumn<Geschaeftspartner, String> tcAnschriftID;
+    @FXML
+    private TableColumn<Geschaeftspartner, String> tcLieferID;
+    @FXML
+    private TableColumn<Geschaeftspartner, String> tcKreditlimit;
+    @FXML
+    private TitledPane paneAuftrage;
+    @FXML
+    private TitledPane paneGP;
     
         /**
      * Methode zum öffnen der Artikelverwaltung durch das betätigen des Buttons
@@ -286,6 +309,11 @@ public class AuftraegeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        this.paneGP.setVisible(false);
+        
+        this.paneAuftrage.setVisible(true);
+        
         try {   
             setTableContent();
             
@@ -297,6 +325,18 @@ public class AuftraegeController implements Initializable {
             alert.showAndWait();
         }
         
+        tcGpID.setCellValueFactory(
+                new PropertyValueFactory<>("geschaeftspartnerID"));
+        tcTyp.setCellValueFactory(
+                new PropertyValueFactory<>("typ"));
+        tcAnschriftID.setCellValueFactory(
+                new PropertyValueFactory<>("adresseID"));
+        tcLieferID.setCellValueFactory(
+                new PropertyValueFactory<>("lieferID"));
+        tcKreditlimit.setCellValueFactory(
+                new PropertyValueFactory<>("kreditlimit"));
+        
+                
         tcAuftragsID.setCellValueFactory(
                 new PropertyValueFactory<>("auftragskopfID"));
         tcAuftragsText.setCellValueFactory(
@@ -397,16 +437,16 @@ public class AuftraegeController implements Initializable {
         
         // Ändern Button wird deaktiviert.
         this.btAendern.setDisable(true);
-        
-        
+             
         // Löschen Button wird deaktiviert
         this.btLoeschen.setDisable(true);
 
-        oeffneAuswahl();
-        
         AuftragskopfDAO akd = new AuftragskopfDAO();
         tfAuftragskopf.setText(akd.generiereID());
         
+        this.paneAuftrage.setVisible(false);
+        this.paneGP.setVisible(true);
+        setTableContentGP();
     }    
     
     
@@ -430,6 +470,28 @@ public class AuftraegeController implements Initializable {
                     ak.gibAlleAuftragskoepfeOhneLKZ());
         tvAuftragskopf.setItems(auftragskopf);
     }
+ 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 11.08.17    HEN     Methode erstellt.
+    /* 12.08.17    HEN     ObservableArrayList hinzugefügt
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Erstellt ein AdressDAO Objekt und gibt eine Adress ArrayList an eine
+     * OberservableList, die dann an die TableView übergeben wird.
+     *
+     * @throws java.sql.SQLException SQL Exception
+    */
+    public void setTableContentGP() throws SQLException {
+        GeschaeftspartnerDAO gpd = new GeschaeftspartnerDAO();
+        ObservableList<Geschaeftspartner> geschaeftspartner
+            = FXCollections.observableArrayList(
+                    gpd.gibAlleGeschaeftspartnerOhneLKZ());
+        tvGPAuswahl.setItems(geschaeftspartner);
+    }   
     
     
     
@@ -484,7 +546,6 @@ public class AuftraegeController implements Initializable {
                 clearTextFields();
             }
         }
-
     }
     
 
@@ -496,17 +557,19 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
-     * @param event E
+     * 
      */
     @FXML
-    public void aktualisiereWerte(ActionEvent event) {
-        AuswahlController ac = new AuswahlController();
-        String gpID = ac.getGpID();
-        tfPartnerID.setText(gpID);
+    public void waehleGeschaeftspartnerID() {
+        Object geschaeftspartner 
+            = tvGPAuswahl.getSelectionModel().getSelectedItem();
+        Geschaeftspartner g = (Geschaeftspartner) geschaeftspartner;
+
+        if (g != null) {
+            this.tfPartnerID.setText(g.getGeschaeftspartnerID());        
+        }
     }
-    
-    
+
 
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -588,9 +651,16 @@ public class AuftraegeController implements Initializable {
 
         // Löschen Button wird deaktiviert
         this.btLoeschen.setDisable(false);
+        
+        this.paneGP.setVisible(false);
+        
+        this.paneAuftrage.setVisible(true);  
+        
     }
     
-        /**
+    
+    
+    /**
      * Lässt den Benutzer die Aktion abbrechen.
      */    
     @FXML
@@ -638,27 +708,6 @@ public class AuftraegeController implements Initializable {
             }
         }
     }
-    
-    
-    
-    /**
-     * 
-     */
-    public void oeffneAuswahl() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "Auswahl.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = new Stage();
-            stage.setTitle("Auswahl");
-            stage.setScene(scene);
-//            stage.setMaximized(true);
-            stage.show();
-        
-        } catch (IOException e) {
-            System.out.println("Can't load the Auftrag anlegen!");
-        }
-    }
-    
+      
 
 }
