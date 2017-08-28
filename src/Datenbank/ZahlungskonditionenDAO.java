@@ -108,7 +108,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Gibt alle Adressen ohne Löschkennzeichen wieder.
+     * Gibt alle Zahlungskonditionen ohne Löschkennzeichen wieder.
      * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
      */
     public ArrayList<Zahlungskonditionen> gibAlleZahlungskonditionenOhneLKZ() {
@@ -168,7 +168,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
 
     /**
-     * Gibt alle Adressen mit Löschkennzeichen wieder.
+     * Gibt alle Zahlungskonditionen mit Löschkennzeichen wieder.
      * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
      */
     public ArrayList<Zahlungskonditionen> gibAlleZahlungskonditionenMitLKZ() {
@@ -301,7 +301,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Setzt Löschkennzeichen bei einer ausgewählten Adresse.
+     * Setzt Löschkennzeichen bei einer ausgewählten Zahlungskondition.
      * @return neue ID aufgezählt.
      */ 
     public String gibLetztID() {
@@ -340,8 +340,8 @@ public class ZahlungskonditionenDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Liest die letzte ID aus, erhöht sie um 1 und gibt sie wieder.
-     * @return neue ID aufgezählt.
+     * Liest die letzte KonditionenID aus, erhöht sie um 1 und gibt sie wieder.
+     * @return gibt neue KonditionenID aufgezählt.
      */ 
     public String generiereID() {
         //Holt sich die aktuell maximale ID.

@@ -58,7 +58,7 @@ public class GeschaeftspartnerDAO extends DataAccess {
     /* 14.08.17    CEL     Erstellt.
     /*------------------------------------------------------------------------*/
     /**
-     * Gibt alle Zahlungskonditionen wieder, die sich in der Datenbank befinden.
+     * Gibt alle Geschäftspartner wieder, die sich in der Datenbank befinden.
      *
      * @return Gibt Arraylist aller Zahlungskonditionen wieder
      */
@@ -376,8 +376,8 @@ public class GeschaeftspartnerDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Gibt die letzte ID aus der Tabelle aus.
-     * @return neue ID aufgezählt.
+     * Gibt die letzte PartnerID aus der Tabelle aus.
+     * @return gibt neue PartnerID aufgezählt.
      */
     public String gibLetztID() {
         Statement stmt = null;
@@ -414,8 +414,8 @@ public class GeschaeftspartnerDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Liest die letzte ID aus, erhöht sie um 1 und gibt sie wieder.
-     * @return neue ID aufgezählt.
+     * Liest die letzte PartnerID aus, erhöht sie um 1 und gibt sie wieder.
+     * @return neue PartnerID aufgezählt.
      */
     public String generiereID() {
         //Holt sich die aktuell maximale ID.

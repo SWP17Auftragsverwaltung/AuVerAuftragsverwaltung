@@ -523,7 +523,8 @@ public class ZahlungskonditionenController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Gibt die unteren Eingabefelder für das Anlegen einer neuer Adresse frei.
+     * Gibt die unteren Eingabefelder für das Anlegen einer neuer 
+     * Zahlungskondition frei.
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
@@ -611,7 +612,8 @@ public class ZahlungskonditionenController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * "Löscht" eine markierte Adresse, in dem das LKZ auf J gesetzt wird.
+     * "Löscht" eine markierte Zahlungskondition, indem das LKZ auf J 
+     * gesetzt wird.
      * Aktualisiert anschließend die TableView.
      * @throws java.sql.SQLException SQL Exception
      */
@@ -646,7 +648,7 @@ public class ZahlungskonditionenController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Lässt das Bearbeiten einer ausgewählten Adresse zu.
+     * Lässt das Bearbeiten einer ausgewählten Zahlungskondition zu.
      */
     @FXML
     public void bearbeiteZahlungskonditionen() {
@@ -784,7 +786,8 @@ public class ZahlungskonditionenController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+     * Zeigt die Werte einer ausgewählten Zahlungskondition im unteren 
+     * Bereich an.
      * @throws java.sql.SQLException SQLException
      */
     @FXML

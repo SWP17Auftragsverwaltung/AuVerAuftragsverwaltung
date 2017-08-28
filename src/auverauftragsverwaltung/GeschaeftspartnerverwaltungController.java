@@ -598,8 +598,8 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 21.08.17    BER     Methode erstellt.
-    /* 22.08.17    BER     IF Fälle ergänzt. Getestet & Freigegeben.
+    /* 22.08.17    BER     Methode erstellt.
+    /* 22.08.17    BER     An SucheDAO angepasst. Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -619,7 +619,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         gefundeneGeschaeftspartner = gpDAO.geschaeftspartnerSuche(
                 suchkriterium, suchbegriff);
 
-        zeigeGefundeneAdressen(gefundeneGeschaeftspartner);
+        zeigeGefundeneGeschaeftspartner(gefundeneGeschaeftspartner);
 
     }
 
@@ -631,16 +631,17 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Methode bekommt eine ArrayList mit den gefundenen Adressen übergeben und
-     * aktualisiert damit die TableView.
-     * @param adressen Übergebene Adresse.
+     * Methode bekommt eine ArrayList mit den gefundenen Geschäftspartner
+     * übergeben und aktualisiert damit die TableView.
+     * @param geschaeftspartner Übergebener Geschäftspartner.
      * @throws java.sql.SQLException SQL Exception
      */
-    public void zeigeGefundeneAdressen(ArrayList adressen) throws SQLException {
+    public void zeigeGefundeneGeschaeftspartner(
+            ArrayList geschaeftspartner) throws SQLException {
         refreshTable();
-        ObservableList<Geschaeftspartner> adressenAusgabe
-                = FXCollections.observableArrayList(adressen);
-        gpTable.setItems(adressenAusgabe);
+        ObservableList<Geschaeftspartner> geschaeftspartnerAusgabe
+                = FXCollections.observableArrayList(geschaeftspartner);
+        gpTable.setItems(geschaeftspartnerAusgabe);
     }
     
     /*------------------------------------------------------------------------*/
