@@ -281,7 +281,24 @@ public class AuftraegeController implements Initializable {
             alert.showAndWait();
         }
         
+        //Artikel Tabelle
+        tcArtikelIDArtWahl.setCellValueFactory(
+                new PropertyValueFactory<>("artikelID"));
+        tcArtikeltextArtWahl.setCellValueFactory(
+                new PropertyValueFactory<>("artikeltext"));
+        tcBestelltextArtWahl.setCellValueFactory(
+                new PropertyValueFactory<>("bestelltext"));
+        tcEinzelwertArtArtWahl.setCellValueFactory(
+                new PropertyValueFactory<>("einzelwert"));
+        tcBestellwertArtWahl.setCellValueFactory(
+                new PropertyValueFactory<>("bestellwert"));
+        tcMwStArtWahl.setCellValueFactory(
+                new PropertyValueFactory<>("steuer"));
+        tcBestandFreiArtWahl.setCellValueFactory(
+                new PropertyValueFactory<>("bestandsmengeFrei"));
         
+        
+        //Auftrag Tabelle bei Auftragspositionen oben
         tcAuftragskopfIDAufPos.setCellValueFactory(
                 new PropertyValueFactory<>("auftragskopfID"));
         tcPositionsNrAufPos.setCellValueFactory(
@@ -289,11 +306,12 @@ public class AuftraegeController implements Initializable {
         tcMaterialNrAufPos.setCellValueFactory(
                 new PropertyValueFactory<>("artikelID"));
         tcMengeAufPos.setCellValueFactory(
-                new PropertyValueFactory<>("einzelwert"));        
+                new PropertyValueFactory<>("menge"));        
         tcEinzelwertAufPos.setCellValueFactory(
-                new PropertyValueFactory<>("menge"));
+                new PropertyValueFactory<>("einzelwert"));
                 
-                
+         
+        //Geschäftspartner Auswahltabelle
         tcGpIDGPWahl.setCellValueFactory(
                 new PropertyValueFactory<>("geschaeftspartnerID"));
         tcTypGPWahl.setCellValueFactory(
@@ -306,6 +324,7 @@ public class AuftraegeController implements Initializable {
                 new PropertyValueFactory<>("kreditlimit"));
         
                 
+        //Auftragskopf Tabelle
         tcAuftragsID.setCellValueFactory(
                 new PropertyValueFactory<>("auftragskopfID"));
         tcAuftragsText.setCellValueFactory(
@@ -370,7 +389,6 @@ public class AuftraegeController implements Initializable {
         tfErfDatum.clear();
         tfLieferdatum.clear();
         cbAuftragsart.valueProperty().set(null);
-        tfAuftragswert.clear();
         cbAuftragsstatus.valueProperty().set(null);
         tfAbschlussdatum.clear();
         cbAuftragsstatus.valueProperty().set(null);
@@ -611,6 +629,28 @@ public class AuftraegeController implements Initializable {
         btAuftragspositionen.setDisable(false);
     }    
     
+ 
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 27.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+     */
+    @FXML
+    public void zeigeWerteTvArtikel() {
+        Object artikel 
+                = tvArtikelauswahl.getSelectionModel().getSelectedItem();
+        Artikel a = (Artikel) artikel;
+
+        if (a != null) {
+            this.tfEinzelwertAPD.setText(a.getEinzelwert());
+            this.tfMaterialNrAPD.setText(a.getArtikelID());
+        }
+    }      
+    
     
     
     /*------------------------------------------------------------------------*/
@@ -667,6 +707,7 @@ public class AuftraegeController implements Initializable {
         
         this.auftraegeTP.setVisible(true);
         refreshAuftragskopfTable();
+        leereAuftragspositionHinzufuegen();
     }
     
     
@@ -736,6 +777,28 @@ public class AuftraegeController implements Initializable {
     }        
     
     
+ 
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 27.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues 
+     * Auftragsposition Objekt, welches dann über die DAO in die DB geschrieben 
+     * wird.
+     * @throws java.sql.SQLException SQL Exception
+     */
+    public void auftragspositionAnlegen() throws SQLException {   
+        this.paneAuftragsposition.setVisible(false);
+        this.paneArtikelauswahl.setVisible(true);
+        this.btAnlegenAPD.setVisible(false);
+        this.btHinzufuegenAPD.setVisible(true);
+        
+        setTableContentArtikel();
+    }       
+    
+    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -749,22 +812,67 @@ public class AuftraegeController implements Initializable {
      * @throws java.sql.SQLException SQL Exception
      */
     public void auftragspositionHinzufuegen() throws SQLException {
-        String auftragskopfID = tcAuftragskopfIDAufPos.getText();
-        String positionsnummer = tcPositionsNrAufPos.getText();
-        String artikelID = tcMaterialNrAufPos.getText();
-        String menge = tcMengeAufPos.getText();
-        String einzelwert = tcEinzelwertAufPos.getText();
+        AuftragspositionDAO apd = new AuftragspositionDAO();
+  
+        String auftragskopfID = tfAuftragskopfIDPOS.getText();
+        String positionsnummer = apd.generiereID(auftragskopfID);
+        String artikelID = tfMaterialNrAPD.getText();
+        String menge = tfMengeAPD.getText();
+        String einzelwert = tfEinzelwertAPD.getText();
         String lkz = "N";
         
         Auftragsposition auftragsposition = new Auftragsposition(auftragskopfID,
             positionsnummer, artikelID, menge, einzelwert, lkz);
-
-        AuftragspositionDAO apd = new AuftragspositionDAO();
+    
         apd.fuegeAuftragspositionHinzu(auftragsposition);
+        
+        tfAuftragswertPOS.setText(berechneAuftragswert());
 
         clearAuftragsPosTextFields();
-//        refreshAuftragskopfTable();
-    }    
+        this.paneAuftragsposition.setVisible(false);
+        this.paneArtikelauswahl.setVisible(true);
+        this.btAnlegenAPD.setVisible(true);
+        this.btHinzufuegenAPD.setVisible(false);
+    }
+
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 27.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+        
+    /**
+     * Berechnet den Auftragswert anhand der angegebenen Menge und füllt
+     * das obere Auftragswert Feld.
+     * @return Berechneter Auftragswert
+     */
+    public String berechneAuftragswert() {
+        String auftragsWert = tfAuftragswert.getText();
+        double auftragsWertAPD = 0;
+        
+        if (auftragsWert.isEmpty()) {
+            auftragsWert = "0";
+        } else {
+            auftragsWertAPD = Double.parseDouble(auftragsWert);
+        }
+        
+        
+        String mengeAPD = tfMengeAPD.getText();
+        int menge =  Integer.parseInt(mengeAPD);
+        
+        String einzelWertAPD = tfEinzelwertAPD.getText();
+        double einzelwert = Double.parseDouble(einzelWertAPD);
+        
+        double rechnung = auftragsWertAPD + menge * einzelwert;
+        rechnung = rechnung * 100;
+        rechnung = Math.round(rechnung);
+        rechnung = rechnung / 100;
+        
+        String ergebnis = String.valueOf(rechnung);
+        tfAuftragswert.setText(ergebnis);
+        
+        return ergebnis;
+    }
 
 
     

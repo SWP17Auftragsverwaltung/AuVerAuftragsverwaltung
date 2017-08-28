@@ -87,7 +87,7 @@
          <children>
             <TitledPane fx:id="paneArtikelauswahl" animated="false" collapsible="false" layoutX="52.0" layoutY="150.0" prefHeight="352.0" prefWidth="974.0" text="Artikelauswahl" AnchorPane.bottomAnchor="236.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="155.0">
                <content>
-                  <TableView fx:id="tvArtikelauswahl" prefHeight="232.0" prefWidth="972.0">
+                  <TableView fx:id="tvArtikelauswahl" onMouseClicked="#zeigeWerteTvArtikel" prefHeight="232.0" prefWidth="972.0">
                      <columns>
                         <TableColumn fx:id="tcArtikelIDArtWahl" prefWidth="150.0" text="ArtikelID" />
                         <TableColumn fx:id="tcArtikeltextArtWahl" prefWidth="126.0" text="Artikeltext" />
@@ -118,7 +118,7 @@
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Pane fx:id="paneAPD" prefHeight="114.0" prefWidth="771.0" />
-                        <Button fx:id="btAnlegenAPD" layoutX="14.0" layoutY="119.0" mnemonicParsing="false" onAction="#auftragAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
+                        <Button fx:id="btAnlegenAPD" layoutX="14.0" layoutY="119.0" mnemonicParsing="false" onAction="#auftragspositionAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
                         <Button fx:id="btLoeschenAPD" layoutX="228.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
                         <Button fx:id="btBearbeitenAPD" layoutX="121.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
                         <Button fx:id="btAbbrechenAPD" layoutX="336.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " />
@@ -131,7 +131,7 @@
                         <Label layoutX="371.0" layoutY="33.0" prefHeight="13.0" prefWidth="38.0" text="Menge" />
                         <Label layoutX="551.0" layoutY="33.0" text="Einzelwert" />
                         <Button fx:id="btCloseAPD" layoutX="848.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zurück" AnchorPane.rightAnchor="35.0" />
-                        <Button fx:id="btHinzufuegenAPD" layoutX="14.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Hinzufuegen" visible="false" />
+                        <Button fx:id="btHinzufuegenAPD" layoutX="14.0" layoutY="119.0" mnemonicParsing="false" onAction="#auftragspositionHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufuegen" visible="false" />
                      </children>
                   </AnchorPane>
                </content>

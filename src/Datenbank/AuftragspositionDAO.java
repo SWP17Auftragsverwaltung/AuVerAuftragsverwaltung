@@ -11,11 +11,11 @@
 
 package Datenbank;
 
+import Klassen.Auftragskopf;
 import Klassen.Auftragsposition;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.scene.control.Alert;
@@ -40,6 +40,11 @@ public class AuftragspositionDAO extends DataAccess {
     /**
      * 
      */
+    private String TAB_AUFTRAGSKOPF = ddd.getTAB_AUFTRAGSKOPF();
+    
+    /**
+     * 
+     */
     private HashMap<String, ArrayList> attribute;     
         /**
      * Konstruktor.
@@ -49,6 +54,7 @@ public class AuftragspositionDAO extends DataAccess {
     public AuftragspositionDAO() throws SQLException {
         attribute = ddd.getTabellenAttribute();
         ddd.holeAlleAttribute(TAB_AUFTRAGSPOSITION);
+        ddd.holeAlleAttribute(TAB_AUFTRAGSKOPF);
     }
 
 
@@ -108,7 +114,59 @@ public class AuftragspositionDAO extends DataAccess {
         }
         return auftragspositionListe;
     }    
- 
+    
+        
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 27.08.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Berechnet den Auftragswert.
+     * @param ap AP
+     * @throws java.sql.SQLException SQLException
+     */        
+    public void berechneAuftragswert(Auftragsposition ap) throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String query = "";
+        
+        try {
+            query = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
+                + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
+                + " = ?";
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, ap.getAuftragskopfID());
+            rs = stmt.executeQuery();
+            Auftragskopf auftragskopf = null;
+            
+            while (rs.next()) {
+                auftragskopf = new Auftragskopf(rs.getString(1), 
+                    rs.getString(2), rs.getString(3), rs.getString(4),
+                    rs.getString(5), rs.getString(6), rs.getString(7), 
+                    rs.getString(8), rs.getString(9), rs.getString(10));
+            }
+            
+            
+            query = "UPDATE ROOT." + ddd.getTabAuftragskopf() 
+                + " SET " + attribute.get(TAB_AUFTRAGSKOPF).get(8) 
+                + " = ? WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
+                + " = ?";    
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, auftragskopf.getAuftragswert());
+            stmt.setString(2, ap.getAuftragskopfID());
+            stmt.executeUpdate();
+        
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+            con.rollback();
+        }
+    }
+    
         
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
@@ -121,17 +179,19 @@ public class AuftragspositionDAO extends DataAccess {
      * @return neue ID aufgezählt.
      * @throws java.sql.SQLException SQLException
      */    
-    public String gibLetztID() throws SQLException {
-        Statement stmt = null;
+    public String gibLetztID(String posNr) throws SQLException {
+        PreparedStatement stmt = null;
         String value = "";
         ResultSet rs = null;
         String query = "SELECT MAX(" 
-            + attribute.get(TAB_AUFTRAGSPOSITION).get(0) + ") FROM ROOT." 
-            + ddd.getTabAuftragsposition();
+            + attribute.get(TAB_AUFTRAGSPOSITION).get(1) + ") FROM ROOT." 
+            + ddd.getTabAuftragsposition() + " WHERE " 
+            + attribute.get(TAB_AUFTRAGSPOSITION).get(0) + " = ?";
         
         try {
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(query);
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, posNr);
+            rs = stmt.executeQuery();
             
             while (rs.next()) {
                 value = rs.getString(1);
@@ -162,9 +222,9 @@ public class AuftragspositionDAO extends DataAccess {
      * @return neue ID aufgezählt.
      * @throws java.sql.SQLException SQLException.
      */    
-    public String generiereID() throws SQLException {
+    public String generiereID(String posNr) throws SQLException {
         //Holt sich die aktuell maximale ID.
-        String alteIDString = gibLetztID();
+        String alteIDString = gibLetztID(posNr);
         String neueID;
 
         if (alteIDString != null) {
@@ -201,7 +261,7 @@ public class AuftragspositionDAO extends DataAccess {
         
         PreparedStatement stmt = null;
         String auftragskopfID = ap.getAuftragskopfID();
-        String positionsnummer = generiereID();
+        String positionsnummer = generiereID(auftragskopfID);
         String artikelID = ap.getArtikelID();
         String menge = ap.getMenge();
         String einzelwert = ap.getEinzelwert();
