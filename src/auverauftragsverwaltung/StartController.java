@@ -11,14 +11,9 @@
 */
 package auverauftragsverwaltung;
 
-import Datenbank.AdresseDAO;
-import Klassen.Adresse;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -215,7 +210,7 @@ public class StartController implements Initializable {
     /* Datum       Name    Was
     /* 15.06.17    SAM     Methode erstellt.
     /* 16.06.17    SAM     Getestet & freigegeben.
-    /*------------------------------------------------------------------------*/ 
+    /*------------------------------------------------------------------------*/
     
     /**
      * Methode zum öffnen des Fensters zum Suchen von Aufträgen durch das

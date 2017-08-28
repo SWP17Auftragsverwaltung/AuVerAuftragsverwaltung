@@ -7,77 +7,158 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.AuftraegeController">
    <children>
-      <TitledPane fx:id="paneAuftrage" collapsible="false" layoutX="25.0" layoutY="62.0" prefHeight="427.0" prefWidth="1020.0" text="Aufträge" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="90.0">
-         <content>
-            <TableView fx:id="tvAuftragskopf" onMouseClicked="#zeigeWerteAn" prefHeight="359.0" prefWidth="1013.0">
-               <columns>
-                  <TableColumn fx:id="tcAuftragsID" prefWidth="156.0" text="Auftrags-ID" />
-                  <TableColumn fx:id="tcAuftragsText" text="Text" />
-                  <TableColumn fx:id="tcgeschaeftspartnerID" prefWidth="166.0" text="Geschäftspartner-ID" />
-                  <TableColumn fx:id="tcErfDatum" prefWidth="75.0" text="Erfassungsdatum" />
-                  <TableColumn fx:id="tcLieferDatum" prefWidth="129.0" text="Lieferdatum" />
-                  <TableColumn fx:id="tcAuftragsart" prefWidth="88.0" text="Auftragsart" />
-                  <TableColumn fx:id="tcAuftragswert" prefWidth="109.0" text="Auftragswert" />
-                  <TableColumn fx:id="tcStatus" prefWidth="77.0" text="Status" />
-                  <TableColumn fx:id="tcAbschDatum" editable="false" prefWidth="111.0" text="Abschlussdatum" />
-               </columns>
-            </TableView>
-         </content>
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </TitledPane>
-      <TitledPane fx:id="paneGP" collapsible="false" layoutX="25.0" layoutY="91.0" prefHeight="427.0" prefWidth="1020.0" text="Geschäftspartner Auswahl" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="90.0">
-         <content>
-            <TableView fx:id="tvGPAuswahl" onMouseClicked="#waehleGeschaeftspartnerID" prefHeight="359.0" prefWidth="1013.0">
-               <columns>
-                  <TableColumn fx:id="tcGpID" prefWidth="156.0" text="GeschäftspartnerID" />
-                  <TableColumn fx:id="tcTyp" text="Typ" />
-                  <TableColumn fx:id="tcAnschriftID" prefWidth="166.0" text="AnschriftID" />
-                  <TableColumn fx:id="tcLieferID" prefWidth="75.0" text="LieferID" />
-                  <TableColumn fx:id="tcKreditlimit" prefWidth="129.0" text="Kreditlimit" />
-               </columns>
-            </TableView>
-         </content>
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </TitledPane>
-      <Button layoutX="25.0" layoutY="36.0" mnemonicParsing="false" onAction="#sucheAuftrag" prefHeight="40.0" prefWidth="160.0" text="Auftrag Suchen " AnchorPane.leftAnchor="25.0" />
-      <TitledPane fx:id="auftragskopfTP" animated="false" collapsible="false" layoutX="25.0" layoutY="428.0" prefHeight="256.0" prefWidth="1013.0" text="Auftragskopf" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Label layoutX="16.0" layoutY="22.0" text="Auftragskopf" />
-                  <TextField fx:id="tfAuftragskopf" editable="false" layoutX="14.0" layoutY="38.0" prefHeight="25.0" prefWidth="89.0" />
-                  <Label layoutX="121.0" layoutY="22.0" text="Text zum Auftrag" />
-                  <TextArea fx:id="tfText" layoutX="121.0" layoutY="38.0" prefHeight="40.0" prefWidth="123.0" />
-                  <TextField fx:id="tfPartnerID" editable="false" layoutX="258.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
-                  <Label layoutX="258.0" layoutY="22.0" text="Partner-ID" />
-                  <Label layoutX="17.0" layoutY="98.0" text="Auftragswert" />
-                  <Label layoutX="383.0" layoutY="22.0" text="Erfassungsdatum" />
-                  <Label layoutX="510.0" layoutY="22.0" text="Lieferdatum" />
-                  <Label layoutX="631.0" layoutY="22.0" text="Abschlussdatum" />
-                  <Label layoutX="128.0" layoutY="98.0" text="Auftragsstatus" />
-                  <Label layoutX="266.0" layoutY="98.0" text="Auftragsart" />
-                  <ComboBox fx:id="cbAuftragsstatus" layoutX="125.0" layoutY="117.0" prefHeight="25.0" prefWidth="123.0" promptText="Bitte wählen..." />
-                  <ComboBox fx:id="cbAuftragsart" layoutX="266.0" layoutY="117.0" prefHeight="25.0" prefWidth="110.0" promptText="Bitte wählen..." />
-                  <TextField fx:id="tfAuftragswert" layoutX="13.0" layoutY="117.0" prefHeight="25.0" prefWidth="91.0" />
-                  <Button fx:id="btAuftragspositionen" layoutX="18.0" layoutY="178.0" mnemonicParsing="false" onAction="#oeffneAuftragsposition" prefHeight="40.0" prefWidth="120.0" text="Auftragspositionen" />
-                  <Button fx:id="btAnlegen" layoutX="148.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
-                  <Button fx:id="btAendern" layoutX="257.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Ändern" />
-                  <Button fx:id="btLoeschen" layoutX="366.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragskopfLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
-                  <Button fx:id="closeAA" layoutX="847.0" layoutY="178.0" mnemonicParsing="false" onAction="#closeAuftraegeAnzeigen" prefHeight="40.0" prefWidth="100.0" text="Zurück" AnchorPane.rightAnchor="35.0" />
-                  <TextField fx:id="tfErfDatum" layoutX="380.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
-                  <TextField fx:id="tfLieferdatum" layoutX="510.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
-                  <TextField fx:id="tfAbschlussdatum" layoutX="626.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
-                  <Button fx:id="btAbbrechen" layoutX="474.0" layoutY="178.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
-                  <Button fx:id="btHinzufuegen" layoutX="148.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
-                  <Button fx:id="btSpeichern" layoutX="257.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
-                  <Pane fx:id="pane" layoutX="4.0" layoutY="19.0" prefHeight="132.0" prefWidth="947.0" />
-               </children>
-            </AnchorPane>
-        </content>
-      </TitledPane>
+      <AnchorPane fx:id="paneAuftraege" layoutX="-2.0" prefHeight="768.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TitledPane fx:id="auftragskopfTP" animated="false" collapsible="false" layoutY="451.0" prefHeight="256.0" prefWidth="1013.0" text="Auftragskopf" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="16.0" layoutY="22.0" text="Auftragskopf" />
+                        <TextField fx:id="tfAuftragskopf" editable="false" layoutX="14.0" layoutY="38.0" prefHeight="25.0" prefWidth="89.0" />
+                        <Label layoutX="121.0" layoutY="22.0" text="Text zum Auftrag" />
+                        <TextArea fx:id="tfText" layoutX="121.0" layoutY="38.0" prefHeight="40.0" prefWidth="123.0" />
+                        <TextField fx:id="tfPartnerID" editable="false" layoutX="258.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
+                        <Label layoutX="258.0" layoutY="22.0" text="Partner-ID" />
+                        <Label layoutX="17.0" layoutY="98.0" text="Auftragswert" />
+                        <Label layoutX="383.0" layoutY="22.0" text="Erfassungsdatum" />
+                        <Label layoutX="510.0" layoutY="22.0" text="Lieferdatum" />
+                        <Label layoutX="631.0" layoutY="22.0" text="Abschlussdatum" />
+                        <Label layoutX="128.0" layoutY="98.0" text="Auftragsstatus" />
+                        <Label layoutX="266.0" layoutY="98.0" text="Auftragsart" />
+                        <ComboBox fx:id="cbAuftragsstatus" layoutX="125.0" layoutY="117.0" prefHeight="25.0" prefWidth="123.0" promptText="Bitte wählen..." />
+                        <ComboBox fx:id="cbAuftragsart" layoutX="266.0" layoutY="117.0" prefHeight="25.0" prefWidth="110.0" promptText="Bitte wählen..." />
+                        <TextField fx:id="tfAuftragswert" layoutX="13.0" layoutY="117.0" prefHeight="25.0" prefWidth="91.0" />
+                        <Button fx:id="btAuftragspositionen" layoutX="18.0" layoutY="178.0" mnemonicParsing="false" onAction="#zeigeAuftragspositionenZuAuftrag" prefHeight="40.0" prefWidth="120.0" text="Auftragspositionen" />
+                        <Button fx:id="btAnlegen" layoutX="148.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
+                        <Button fx:id="btAendern" layoutX="257.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Ändern" />
+                        <Button fx:id="btLoeschen" layoutX="366.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragskopfLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
+                        <Button fx:id="closeAA" layoutX="847.0" layoutY="178.0" mnemonicParsing="false" onAction="#closeAuftraegeAnzeigen" prefHeight="40.0" prefWidth="100.0" text="Zurück" AnchorPane.rightAnchor="35.0" />
+                        <TextField fx:id="tfErfDatum" layoutX="380.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
+                        <TextField fx:id="tfLieferdatum" layoutX="510.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
+                        <TextField fx:id="tfAbschlussdatum" layoutX="626.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
+                        <Button fx:id="btAbbrechen" layoutX="474.0" layoutY="178.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
+                        <Button fx:id="btHinzufuegen" layoutX="148.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
+                        <Button fx:id="btSpeichern" layoutX="257.0" layoutY="178.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
+                        <Pane fx:id="pane" layoutX="4.0" layoutY="19.0" prefHeight="132.0" prefWidth="947.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane fx:id="auftraegeTP" collapsible="false" layoutY="54.0" prefHeight="427.0" prefWidth="974.0" text="Aufträge" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="90.0">
+               <content>
+                  <TableView fx:id="tvAuftragskopf" onMouseClicked="#zeigeWerteAn" prefHeight="359.0" prefWidth="1013.0">
+                     <columns>
+                        <TableColumn fx:id="tcAuftragsID" prefWidth="156.0" text="Auftrags-ID" />
+                        <TableColumn fx:id="tcAuftragsText" text="Text" />
+                        <TableColumn fx:id="tcgeschaeftspartnerID" prefWidth="166.0" text="Geschäftspartner-ID" />
+                        <TableColumn fx:id="tcErfDatum" prefWidth="75.0" text="Erfassungsdatum" />
+                        <TableColumn fx:id="tcLieferDatum" prefWidth="129.0" text="Lieferdatum" />
+                        <TableColumn fx:id="tcAuftragsart" prefWidth="88.0" text="Auftragsart" />
+                        <TableColumn fx:id="tcAuftragswert" prefWidth="109.0" text="Auftragswert" />
+                        <TableColumn fx:id="tcStatus" prefWidth="77.0" text="Status" />
+                        <TableColumn fx:id="tcAbschDatum" editable="false" prefWidth="111.0" text="Abschlussdatum" />
+                     </columns>
+                  </TableView>
+               </content>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </TitledPane>
+            <Button layoutX="25.0" layoutY="14.0" mnemonicParsing="false" onAction="#sucheAuftrag" prefHeight="40.0" prefWidth="160.0" text="Auftrag Suchen " AnchorPane.leftAnchor="25.0" />
+            <TitledPane fx:id="paneGP" collapsible="false" layoutY="54.0" prefHeight="427.0" prefWidth="1020.0" text="Geschäftspartner Auswahl" AnchorPane.bottomAnchor="285.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="90.0">
+               <content>
+                  <TableView fx:id="tvGPAuswahl" onMouseClicked="#waehleGeschaeftspartnerID" prefHeight="359.0" prefWidth="1013.0">
+                     <columns>
+                        <TableColumn fx:id="tcGpIDGPWahl" prefWidth="156.0" text="GeschäftspartnerID" />
+                        <TableColumn fx:id="tcTypGPWahl" text="Typ" />
+                        <TableColumn fx:id="tcAnschriftIDGPWahl" prefWidth="166.0" text="AnschriftID" />
+                        <TableColumn fx:id="tcLieferIDGPWahl" prefWidth="75.0" text="LieferID" />
+                        <TableColumn fx:id="tcKreditlimitGPWahl" prefWidth="129.0" text="Kreditlimit" />
+                     </columns>
+                  </TableView>
+               </content>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </TitledPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="AnchorPane" fx:id="paneAuftragspositionen" layoutX="2.0" layoutY="10.0" prefHeight="768.0" prefWidth="1032.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TitledPane fx:id="paneArtikelauswahl" animated="false" collapsible="false" layoutX="52.0" layoutY="150.0" prefHeight="352.0" prefWidth="974.0" text="Artikelauswahl" AnchorPane.bottomAnchor="236.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="155.0">
+               <content>
+                  <TableView fx:id="tvArtikelauswahl" prefHeight="232.0" prefWidth="972.0">
+                     <columns>
+                        <TableColumn fx:id="tcArtikelIDArtWahl" prefWidth="150.0" text="ArtikelID" />
+                        <TableColumn fx:id="tcArtikeltextArtWahl" prefWidth="126.0" text="Artikeltext" />
+                        <TableColumn fx:id="tcBestelltextArtWahl" prefWidth="101.0" text="Bestelltext" />
+                        <TableColumn fx:id="tcEinzelwertArtArtWahl" prefWidth="81.0" text="Einzelwert" />
+                        <TableColumn fx:id="tcBestellwertArtWahl" prefWidth="109.0" text="Bestellwert" />
+                        <TableColumn fx:id="tcMwStArtWahl" prefWidth="109.0" text="MwSt." />
+                        <TableColumn fx:id="tcBestandFreiArtWahl" prefWidth="109.0" text="Bestandsmenge FREI" />
+                     </columns>
+                  </TableView>
+               </content>
+            </TitledPane>
+            <TitledPane fx:id="paneAuftragsposition" animated="false" collapsible="false" layoutX="42.0" layoutY="140.0" prefHeight="352.0" prefWidth="974.0" text="Auftragspositionen" AnchorPane.bottomAnchor="236.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="155.0">
+               <content>
+                  <TableView fx:id="tvAuftragsposition" prefHeight="232.0" prefWidth="972.0">
+                     <columns>
+                        <TableColumn fx:id="tcAuftragskopfIDAufPos" prefWidth="150.0" text="Auftragskopf-ID" />
+                        <TableColumn fx:id="tcPositionsNrAufPos" prefWidth="126.0" text="Positionsnummer" />
+                        <TableColumn fx:id="tcMaterialNrAufPos" prefWidth="101.0" text="Materialnummer" />
+                        <TableColumn fx:id="tcMengeAufPos" prefWidth="81.0" text="Menge" />
+                        <TableColumn fx:id="tcEinzelwertAufPos" prefWidth="109.0" text="Einzelwert" />
+                     </columns>
+                  </TableView>
+               </content>
+            </TitledPane>
+            <TitledPane fx:id="auftragspositionTP" animated="false" collapsible="false" layoutX="42.0" layoutY="494.0" prefHeight="206.0" prefWidth="941.0" text="Auftragspositionsdatensatz" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Pane fx:id="paneAPD" prefHeight="114.0" prefWidth="771.0" />
+                        <Button fx:id="btAnlegenAPD" layoutX="14.0" layoutY="119.0" mnemonicParsing="false" onAction="#auftragAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
+                        <Button fx:id="btLoeschenAPD" layoutX="228.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
+                        <Button fx:id="btBearbeitenAPD" layoutX="121.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
+                        <Button fx:id="btAbbrechenAPD" layoutX="336.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " />
+                        <TextField fx:id="tfPositionsNrAPD" layoutX="14.0" layoutY="47.0" />
+                        <TextField fx:id="tfMaterialNrAPD" layoutX="197.0" layoutY="47.0" />
+                        <TextField fx:id="tfMengeAPD" layoutX="371.0" layoutY="47.0" />
+                        <TextField fx:id="tfEinzelwertAPD" layoutX="551.0" layoutY="47.0" />
+                        <Label layoutX="18.0" layoutY="33.0" text="Positionsnummer" />
+                        <Label layoutX="197.0" layoutY="33.0" text="Materialnummer" />
+                        <Label layoutX="371.0" layoutY="33.0" prefHeight="13.0" prefWidth="38.0" text="Menge" />
+                        <Label layoutX="551.0" layoutY="33.0" text="Einzelwert" />
+                        <Button fx:id="btCloseAPD" layoutX="848.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zurück" AnchorPane.rightAnchor="35.0" />
+                        <Button fx:id="btHinzufuegenAPD" layoutX="14.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Hinzufuegen" visible="false" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </TitledPane>
+            <TitledPane fx:id="auftragskopfTPPOS" animated="false" collapsible="false" layoutY="12.0" prefHeight="125.0" prefWidth="974.0" text="Auftragskopf" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+               <content>
+                  <AnchorPane prefHeight="111.0" prefWidth="972.0">
+                     <children>
+                        <TextField fx:id="tfErfDatumPOS" editable="false" layoutX="373.0" layoutY="58.0" prefHeight="25.0" prefWidth="98.0" />
+                        <TextField fx:id="tfAuftragswertPOS" editable="false" layoutX="704.0" layoutY="58.0" prefHeight="25.0" prefWidth="91.0" />
+                        <Label layoutX="596.0" layoutY="41.0" text="Abschlussdatum" />
+                        <Label layoutX="486.0" layoutY="41.0" text="Lieferdatum" />
+                        <Label layoutX="373.0" layoutY="41.0" text="Erfassungsdatum" />
+                        <Label layoutX="704.0" layoutY="41.0" text="Auftragswert" />
+                        <Label layoutX="266.0" layoutY="41.0" text="Partner-ID" />
+                        <TextField fx:id="tfPartnerIDPOS" editable="false" layoutX="266.0" layoutY="58.0" prefHeight="25.0" prefWidth="98.0" />
+                        <TextArea fx:id="tfTextPOS" editable="false" layoutX="134.0" layoutY="60.0" prefHeight="40.0" prefWidth="123.0" />
+                        <Label layoutX="134.0" layoutY="41.0" text="Text zum Auftrag" />
+                        <TextField fx:id="tfAuftragskopfIDPOS" editable="false" layoutX="32.0" layoutY="58.0" prefHeight="25.0" prefWidth="89.0" />
+                        <Label layoutX="34.0" layoutY="41.0" text="Auftragskopf" />
+                        <TextField fx:id="tfAbschlussdatumPOS" editable="false" layoutX="596.0" layoutY="58.0" prefHeight="25.0" prefWidth="98.0" />
+                        <TextField fx:id="tfLieferdatumPOS" editable="false" layoutX="486.0" layoutY="58.0" prefHeight="25.0" prefWidth="98.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </TitledPane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

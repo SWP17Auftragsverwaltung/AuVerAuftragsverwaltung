@@ -12,7 +12,6 @@
 package Datenbank;
 
 import Klassen.Auftragskopf;
-import auverauftragsverwaltung.AuftragPositionController;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -279,9 +278,7 @@ public class AuftragskopfDAO extends DataAccess {
      * @throws java.sql.SQLException SQLException.
      */
     public void fuegeAuftragHinzu(Auftragskopf a) throws SQLException {
-        //Variablendeklaration
-        AuftragPositionController apc = new AuftragPositionController();
-        
+     
         PreparedStatement stmt = null;
         String auftragskopfID = generiereID();
         String geschaeftspartnerID = a.getGeschaeftspartnerID();
@@ -325,8 +322,6 @@ public class AuftragskopfDAO extends DataAccess {
             stmt.executeUpdate();
             con.commit();
             con.close();
-            
-            apc.leereAuftragspositionHinzufuegen();
             
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

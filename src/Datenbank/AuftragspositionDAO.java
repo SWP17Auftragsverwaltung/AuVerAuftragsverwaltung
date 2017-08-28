@@ -241,5 +241,64 @@ public class AuftragspositionDAO extends DataAccess {
         }
     }        
     
+ 
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 27.08.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Gibt alle Auftragspositionen zu einem bestimmten Auftrag wieder.
+     * @param auftragsID AuftragsID, zu den Positionen gesucht werden sollen.
+     * @return Gibt ArrayList aller Auftragspositionen ohne LKZ wieder.
+     * @throws java.sql.SQLException SQLException
+     */
+    public ArrayList<Auftragsposition> 
+        gibAuftragspositionenZuAuftrag(String auftragsID) throws SQLException {
+
+        //Variablendeklaration
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Auftragsposition auftragsposition = null;
+        ArrayList<Auftragsposition> auftragspositionListe = new ArrayList<>();
+
+        String query = "SELECT * FROM ROOT." + ddd.getTabAuftragsposition() 
+            + " WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(5) + " = ?"
+            + " AND " + attribute.get(TAB_AUFTRAGSPOSITION).get(0) + " = ?";
+
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "N");
+            stmt.setString(2, auftragsID);
+            rs = stmt.executeQuery();
+
+            con.commit();
+            while (rs.next()) {
+                auftragsposition = new Auftragsposition(rs.getString(1), 
+                        rs.getString(2), rs.getString(3), rs.getString(4), 
+                        rs.getString(5), rs.getString(6));
+
+                auftragspositionListe.add(auftragsposition);
+            }
+            //Fehler werfen wenn Rückgabeobjekt leer ist
+            if (auftragspositionListe.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setTitle("Fehler");
+                alert.setHeaderText("Keine Auftragspositionen gefunden!");
+                alert.showAndWait();
+            }
+
+            //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+            con.rollback();
+        }
+        return auftragspositionListe;
+    }        
     
 }
