@@ -6,6 +6,12 @@
 *-------------------------------------------------------------------------------
 * Datum         Name    Was
 * 14.08.2017    BER     Erstellt.
+* 14.08.2017    BER     gibAlleArtikel() erstellt.
+* 15.08.2017    BER     gibAlleArtikelOhneLKZ(), gibAlleArtikelMitLKZ() erstellt
+* 17.08.2017    BER     setzteLKZ() erstellt.
+* 17.08.2017    BER     fuegeArtikelHinzu() erstellt.
+* 18.08.2017    BER     aendereArtikel() erstellt.
+* 19.08.2017    SEZ     generiereID(), gibLetzteID() erstellt.
 *-------------------------------------------------------------------------------
 */
 package Datenbank;
@@ -209,7 +215,7 @@ public class ArtikelDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 15.08.17    BER     Erstellt.
+    /* 17.08.17    BER     Erstellt.
     /*------------------------------------------------------------------------*/
     
      /**
@@ -280,7 +286,7 @@ public class ArtikelDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 17.08.17    BER     Erstellt.
+    /* 18.08.17    BER     Erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -399,7 +405,7 @@ public class ArtikelDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
-    /* 17.08.17     BER     Erstellt.    
+    /* 19.08.17     BER     Erstellt.    
     /*------------------------------------------------------------------------*/
     
     /**
@@ -436,7 +442,7 @@ public class ArtikelDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
-    /* 19.08.17     BER     Erstellt.
+    /* 19.08.17     SEZ     Erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -470,7 +476,7 @@ public class ArtikelDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
-    /* 17.08.17     BER     Erstellt.     
+    /* 17.08.17     SEZ     Erstellt.     
     /*------------------------------------------------------------------------*/
         
     /**

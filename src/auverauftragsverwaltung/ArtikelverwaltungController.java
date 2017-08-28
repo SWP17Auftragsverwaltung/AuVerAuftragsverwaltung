@@ -11,6 +11,14 @@
 * 27.07.2017    BER     Javadoc angepasst.
 * 14.08.2017    BER     Angepasst an neue DB.
 * 14.08.2017    HEN     initialize() ergänzt, FXML TableColumns erstellt.
+* 15.08.2017    BER     alleMitLKZ(), alleOhneLKZ()
+* 16.08.2017    BER     artikelAnlegen() erstellt.
+* 17.08.2017    BER     artikelHinzufuegen(), artikelLoeschen() erstellt.
+* 17.08.2017    GET     zeigeWerteAn() erstellt.
+* 18.08.2017    BER     bearbeiteArtikel(), speichereAenderung() erstellt.
+* 19.08.2017    HEN     artikelSuchen() erstellt.
+* 19.08.2017    BER     artikelSuchen() erweitert.
+* 19.08 2017    SEZ     aktionAbbrechen(), setzeSucheZurueck() erstellt.
 *-------------------------------------------------------------------------------
  */
 package auverauftragsverwaltung;
@@ -387,12 +395,12 @@ public class ArtikelverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 14.08.17    HEN     Methode erstellt.
+    /* 15.08.17    HEN     Methode erstellt.
     /* 16.08.17    HEN     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
 
     /**
-     * Methode bekommt eine ArrayList mit den gefundenen Adressen übergeben und
+     * Methode bekommt eine ArrayList mit den gefundenen Artikel übergeben und
      * aktualisiert damit die TableView.
      *
      * @param artikel Übergebene Adresse.
@@ -485,7 +493,7 @@ public class ArtikelverwaltungController implements Initializable {
 
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 17.08.17    BER     Methode erstellt.
+    /* 16.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -518,7 +526,7 @@ public class ArtikelverwaltungController implements Initializable {
 
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 15.08.17    BER     Methode erstellt.
+    /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -599,7 +607,7 @@ public class ArtikelverwaltungController implements Initializable {
 
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 17.08.17    BER     Methode erstellt.
+    /* 18.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -624,7 +632,7 @@ public class ArtikelverwaltungController implements Initializable {
 
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 17.08.17    BER     Methode erstellt.
+    /* 18.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -699,8 +707,8 @@ public class ArtikelverwaltungController implements Initializable {
 
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 17.08.17    HEN     Methode erstellt.
-    /* 18.08.17    BER     IF Fälle ergänzt.
+    /* 19.08.17    HEN     Methode erstellt.
+    /* 19.08.17    BER     An SucheDAO angepasst.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -721,9 +729,11 @@ public class ArtikelverwaltungController implements Initializable {
         zeigeGefundeneArtikel(gefundenerArtikel);
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 19.08.17    BER     Methode erstellt.
+    /* 19.08.17    SEZ     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -737,6 +747,14 @@ public class ArtikelverwaltungController implements Initializable {
         this.cbSuchfeld.setValue("Bitte wählen...");
         setTableContent();
     }
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 19.08.17    SEZ     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
     /**
      *  Methode für Funktionalität des Abbrechen-Buttons. 
      * Bricht im Bearbeitungsmodus und im Anlegemodus die jeweilige Aktion falls

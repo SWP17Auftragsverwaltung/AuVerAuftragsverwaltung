@@ -107,9 +107,9 @@ public class Zahlungskonditionen {
      * @param lkz Löschkennzeichen
      */
     public Zahlungskonditionen(String zahlungskonditionsID, String auftragsart,
-            String lieferzeit, String sperrzeit, String skontozeit1, String skontozeit2, 
-            String skonto1, String skonto2, String mahnzeit1, String mahnzeit2, 
-            String mahnzeit3, String lkz) {
+            String lieferzeit, String sperrzeit, String skontozeit1, 
+            String skontozeit2, String skonto1, String skonto2, 
+            String mahnzeit1, String mahnzeit2, String mahnzeit3, String lkz) {
         
         this.zahlungskonditionsID = zahlungskonditionsID;
         this.auftragsart = auftragsart;

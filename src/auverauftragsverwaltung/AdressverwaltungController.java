@@ -9,6 +9,7 @@
 * 26.06.2017    GET     Checkstyleprüfung.
 * 27.07.2017    BER     Javadoc angepasst.
 * 10.08.2017    SAM     closeAdressverwaltung erstellt.
+* 10.08.2017    SAM     initialize() ergänzt
 * 11.08.2017    HEN     setTableContent() erstellt.
 * 11.08.2017    BER     clearTextFields() erstellt.
 * 14.08.2017    HEN     alleOhneLKZ(), alleMitLKZ(), zeigeAlleAdressen() 
@@ -292,6 +293,12 @@ public class AdressverwaltungController implements Initializable {
     private Button abbrechenBT;
 
     
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 10.08.17    SAM     begrenzeTextFeldEingabe, TableColumn werte zugewiesen
+    /*------------------------------------------------------------------------*/
+    
     /**
      * Initialisiert die Controller-Klasse.
      * @param url URL zur initialisierung.
@@ -397,7 +404,7 @@ public class AdressverwaltungController implements Initializable {
     /* Datum       Name    Was
     /* 10.08.17    SAM     Methode erstellt.
     /* 16.08.17    SAM     Getestet & freigegeben.
-    /*------------------------------------------------------------------------*/    
+    /*------------------------------------------------------------------------*/
     
     /**
      * Methode zum Abbrechen der Adressverwaltung.
@@ -414,7 +421,7 @@ public class AdressverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 15.08.17    GET     Methode erstellt.
+    /* 10.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
     /**

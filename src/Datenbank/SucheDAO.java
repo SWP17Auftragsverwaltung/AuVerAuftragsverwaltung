@@ -6,6 +6,10 @@
 *-------------------------------------------------------------------------------
 * Datum         Name    Was
 * 18.08.2017    BER     Erstellt.
+* 18.08.2017    BER     adressSuche erstellt.
+* 19.08.2017    BER     artikelSuche erstellt.
+* 19.08.2017    CEL     zahlungskonditionenSuche erstellt.
+* 20 08.2017    GET     zahlungskonditionenSuche erweitert.
 * 22.08.2017    BER     geschaeftspartnerSuche erstellt.
 *-------------------------------------------------------------------------------
  */
@@ -343,7 +347,7 @@ public class SucheDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*
     * Datum         Name    Was
-    * 14.08.2017    BER     Erstellt.
+    * 19.08.2017    BER     Erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -715,7 +719,7 @@ public class SucheDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*
     * Datum         Name    Was
-    * 14.08.2017    CEL     Erstellt.
+    * 19.08.2017    CEL     Methode erstellt.
     * 20.08.2017    GET     Querys erstellt und Methode fertiggestellt.
     /*------------------------------------------------------------------------*/
     

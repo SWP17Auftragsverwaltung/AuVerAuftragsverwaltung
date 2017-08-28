@@ -15,7 +15,7 @@
 * 16.08.2017    BER     Methode: aendereAdresse() erweitert.
 * 17.08.2017    GET     Methode: setzeLKZ() erstellt.
 * 17.08.2017    HEN     Methode: setzeLKZ() erweitert.
-* 18.08.2017    GET     Methode: gibLetzteID() erstellt.
+* 18.08.2017    SEZ     Methode: gibLetzteID() erstellt.
 * 19.08.2017    HEN     Methode: generiereID() erstellt.
 * 20.08.2017    BER     Methode: generiereID() erweitert.
 *-------------------------------------------------------------------------------
@@ -495,7 +495,7 @@ public class AdresseDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
-    /* 17.08.17     GET     Erstellt.    
+    /* 17.08.17     SEZ     Erstellt.    
     /*------------------------------------------------------------------------*/
     
     /**
