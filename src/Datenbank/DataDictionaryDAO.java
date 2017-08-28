@@ -6,6 +6,7 @@
 *-------------------------------------------------------------------------------
 * Datum         Name    Was
 * 23.08.2017    HEN     Erstellt.
+* 25.08.2017    BER     holeAlleAttribute() erweitert.
 *-------------------------------------------------------------------------------
 */
 package Datenbank;
@@ -41,41 +42,68 @@ public class DataDictionaryDAO extends DataAccess {
     private String tabAdresse;
     
     /**
-     * Variable für die Tabelle Adresse.
+     * Variable für die Tabelle Artikel.
      */
     private String tabArtikel;    
     
     /**
-     * Variable für die Tabelle Adresse.
+     * Variable für die Tabelle Auftragskonditionen.
      */
     private String tabAuftragskonditionen;    
     
     /**
-     * Variable für die Tabelle Adresse.
+     * Variable für die Tabelle Auftragskopf.
      */
     private String tabAuftragskopf;    
 
     /**
-     * Variable für die Tabelle Adresse.
+     * Variable für die Tabelle Auftragsposition.
      */
     private String tabAuftragsposition;    
     
     /**
-     * Variable für die Tabelle Adresse.
+     * Variable für die Tabelle Geschäftspartner.
      */
     private String tabGeschaeftspartner;    
     
     /**
-     * Variable für die Tabelle Adresse.
+     * Variable für die Tabelle Zahlungskonditionen.
      */
     private String tabZahlungskonditionen;
 
+    /**
+     * Zuordnung der Datenbanktabelle Adresse.
+     */
     private final String TAB_ADRESSE = "TAB_ADRESSE";
+    
+    /**
+     * Zuordnung der Datenbanktabelle Artikel.
+     */
     private final String TAB_ARTIKEL = "TAB_ARTIKEL";
+    
+    /**
+     * Zuordnung der Datenbanktabelle Auftragskonditionen.
+     */
     private final String TAB_AUFTRAGSKONDITIONEN = "TAB_AUFTRAGSKONDITIONEN";
+    
+    /**
+     * Zuordnung der Datenbanktabelle Auftragskopf.
+     */
     private final String TAB_AUFTRAGSKOPF = "TAB_AUFTRAGSKOPF";
+    
+    /**
+     * Zuordnung der Datenbanktabelle Auftragsposition.
+     */
     private final String TAB_AUFTRAGSPOSITION = "TAB_AUFTRAGSPOSITION";
+    
+    /**
+     * Zuordnung der Datenbanktabelle Geschäftspartner.
+     */
     private final String TAB_GESCHAEFTSPARTNER = "TAB_GESCHAEFTSPARTNER";
+    
+    /**
+     * Zuordnung der Datenbanktabelle Zahlungskonditionen.
+     */
     private final String TAB_ZAHLUNGSKONDITIONEN = "TAB_ZAHLUNGSKONDITIONEN";
         
     /**
@@ -138,6 +166,7 @@ public class DataDictionaryDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 25.08.17    Hen     Erstellt.
+    /* 25.08.17    Ber     while schleife erweitert.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -207,111 +236,174 @@ public class DataDictionaryDAO extends DataAccess {
     
 
     
-    /*------------------------------------------------
-     *            Generierter Code Anfang
-     *------------------------------------------------
-     */   
+    /*--------------------------------------------------------------------------
+     *                       Generierter Code Anfang
+     *------------------------------------------------------------------------*/
     
     /**
-     * 
-     * @return 
-     */
+    * @return the tabAdresse
+    */
     public String getTabAdresse() {
         return tabAdresse;
     }
 
+    /**
+     * @param tabAdresse the tabAdresse to set
+    */
     public void setTabAdresse(String tabAdresse) {
         this.tabAdresse = tabAdresse;
     }
 
+    /**
+     * @return the tabArtikel
+    */
     public String getTabArtikel() {
         return tabArtikel;
     }
 
+     /**
+     * @param tabArtikel the tabArtikel to set
+     */
     public void setTabArtikel(String tabArtikel) {
         this.tabArtikel = tabArtikel;
     }
 
+    /**
+     * @return the tabAuftragskonditionen
+    */
     public String getTabAuftragskonditionen() {
         return tabAuftragskonditionen;
     }
 
+    /**
+     * @param tabAuftragskonditionen the tabAuftragskonditionen to set
+     */
     public void setTabAuftragskonditionen(String tabAuftragskonditionen) {
         this.tabAuftragskonditionen = tabAuftragskonditionen;
     }
 
+    /**
+     * @return the tabAuftragskopf
+    */
     public String getTabAuftragskopf() {
         return tabAuftragskopf;
     }
 
+    /**
+     * @param tabAuftragskopf the tabAuftragskopf to set
+     */
     public void setTabAuftragskopf(String tabAuftragskopf) {
         this.tabAuftragskopf = tabAuftragskopf;
     }
 
+    /**
+    * @return the tabAuftragsposition
+    */
     public String getTabAuftragsposition() {
         return tabAuftragsposition;
     }
 
+    /**
+     * @param tabAuftragsposition the tabAuftragsposition to set
+     */
     public void setTabAuftragsposition(String tabAuftragsposition) {
         this.tabAuftragsposition = tabAuftragsposition;
     }
 
+    /**
+    * @return the tabGeschaeftspartner
+    */
     public String getTabGeschaeftspartner() {
         return tabGeschaeftspartner;
     }
 
+    /**
+     * @param tabGeschaeftspartner the tabGeschaeftspartner to set
+     */
     public void setTabGeschaeftspartner(String tabGeschaeftspartner) {
         this.tabGeschaeftspartner = tabGeschaeftspartner;
     }
 
+    /**
+    * @return the tabZahlungskonditionen
+    */
     public String getTabZahlungskonditionen() {
         return tabZahlungskonditionen;
     }
 
+    /**
+     * @param tabZahlungskonditionen the tabZahlungskonditionen to set
+     */
     public void setTabZahlungskonditionen(String tabZahlungskonditionen) {    
         this.tabZahlungskonditionen = tabZahlungskonditionen;
     }
 
+    /**
+    * @return the tabellenAttribute
+    */
     public HashMap<String, ArrayList> getTabellenAttribute() {
         return tabellenAttribute;
     }
 
+    /**
+     * @param tabellenAttribute the tabellenAttribute to set
+     */
     public void setTabellenAttribute(
             HashMap<String, ArrayList> tabellenAttribute) {
         this.tabellenAttribute = tabellenAttribute;
     }
 
+    /**
+    * @return the TAB_ADRESSE
+    */
     public String getTAB_ADRESSE() {
         return TAB_ADRESSE;
     }
 
+    /**
+    * @return the TAB_ARTIKEL
+    */
     public String getTAB_ARTIKEL() {
         return TAB_ARTIKEL;
     }
 
+    /**
+    * @return the TAB_AUFTRAGSKONDITIONEN
+    */
     public String getTAB_AUFTRAGSKONDITIONEN() {
         return TAB_AUFTRAGSKONDITIONEN;
     }
 
+    /**
+    * @return the TAB_AUFTRAGSKOPF
+    */
     public String getTAB_AUFTRAGSKOPF() {
         return TAB_AUFTRAGSKOPF;
     }
 
+    /**
+    * @return the TAB_AUFTRAGSPOSITION
+    */
     public String getTAB_AUFTRAGSPOSITION() {
         return TAB_AUFTRAGSPOSITION;
     }
 
+    /**
+    * @return the TAB_GESCHAEFTSPARTNER
+    */
     public String getTAB_GESCHAEFTSPARTNER() {
         return TAB_GESCHAEFTSPARTNER;
     }
 
+    /**
+    * @return the TAB_ZAHLUNGSKONDITIONEN
+    */
     public String getTAB_ZAHLUNGSKONDITIONEN() {
         return TAB_ZAHLUNGSKONDITIONEN;
     }
-    /*------------------------------------------------
-     *            Generierter Code Ende
-     *------------------------------------------------
-     */       
+    /*--------------------------------------------------------------------------
+     *                       Generierter Code Ende
+     *------------------------------------------------------------------------*/
  
     
 }
