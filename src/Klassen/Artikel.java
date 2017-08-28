@@ -75,6 +75,11 @@ public class Artikel {
     */
     private String lkz;   
 
+    
+    public Artikel() {
+        
+    }
+    
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstellt.

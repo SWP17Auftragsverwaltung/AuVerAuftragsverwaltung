@@ -83,6 +83,11 @@ public class Zahlungskonditionen {
     private String lkz;    
     
 
+    public Zahlungskonditionen() {
+        
+    }
+    
+    
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstellt.

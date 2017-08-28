@@ -51,6 +51,11 @@ public class DataDictionary {
     private String position;
 
     
+    public DataDictionary() {
+        
+    }
+    
+    
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstellt.

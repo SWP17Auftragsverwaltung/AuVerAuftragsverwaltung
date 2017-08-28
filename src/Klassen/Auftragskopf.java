@@ -91,6 +91,13 @@ public class Auftragskopf {
         this.auftragskopfID = auftragskopfID;
     }
 
+    public Auftragskopf() {
+        
+    }
+    
+    
+    
+    
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstellt.

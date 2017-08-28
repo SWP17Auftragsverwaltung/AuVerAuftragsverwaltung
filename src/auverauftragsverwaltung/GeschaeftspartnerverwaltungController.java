@@ -10,8 +10,9 @@
 * 27.07.2017    BER     Javadoc angepasst.
 * 14.08.2017    HEN     setTabelContent() erstellt, TableColums 
 *                       zeigeGefundeneAdressen() erstellt.
+* 17.08.2017    SAM     initialize() erweitert.
 * 19.08.2017    HEN     Methoden alleMitLKZ(), alleOhneLKZ()erstellt.
-* 20.08.2017    HEN     geschaeftspartnerAnlegen(),geschaeftspartnerHinzufügen() 
+* 20.08.2017    HEN     geschaeftspartnerAnlegen(),geschaeftspartnerHinzufügen()
 *                       clearTextField() refreshTable() erstellt.
 * 21.08.2017    GET     bearbeiteGeschäftspartner(), speichereAenderung()
 *                       implimentiert.
@@ -203,7 +204,12 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         stage.close();
     }
     
-    
+
+
+/*------------------------------------------------------------------------*
+     * Datum       Name    Was
+     * 17.08.17    SAM     Methode erstellt.
+     *------------------------------------------------------------------------*/    
     
     /**
      * Initialisiert die Controller-Klasse.
@@ -665,8 +671,8 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 22.08.17    GET     Methode erstellt.
-    /* 22.08.17    GET     Getestet & freigegeben.
+    /* 22.08.17    SEZ     Methode erstellt.
+    /* 22.08.17    SEZ     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**

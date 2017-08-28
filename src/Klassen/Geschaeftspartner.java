@@ -57,6 +57,11 @@ public class Geschaeftspartner {
     */
     private ArrayList<Auftragskopf> auftraege;
     
+    
+    public Geschaeftspartner() {
+        
+    }
+    
 
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar

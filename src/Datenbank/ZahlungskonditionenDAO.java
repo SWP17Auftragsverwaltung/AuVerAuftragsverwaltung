@@ -7,7 +7,15 @@
 *-------------------------------------------------------------------------------
 * Datum         Name    Was
 * 14.08.2017    CEL     Erstellt.
-* 20.08.2017    GET     Klasse fertiggestellt 
+* 15.08.2017    GET     gibAlleZahlungskonditionen() fertiggestellt.
+* 19.08.2017    SEZ     gibLetztID() erstellt.
+* 19.08.2017    HEN     generiereID() erstellt.
+* 20.08.2017    CEL     gibAlleZahlungskonditionenOhneLKZ() erstellt.
+* 20.08.2017    CEL     gibAlleZahlungskonditionenMitLKZ() erstellt.
+* 20.08.2017    CEL     fuegeZahlungskonditionenHinzu() erstellt.
+* 21.08.2017    BER     setzeLKZ() erweitert.
+* 21.08.2017    GET     aendereZahlungskonditionen() erweitert.
+*
 *-------------------------------------------------------------------------------
  */
 package Datenbank;
@@ -56,8 +64,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
     /*------------------------------------------------------------------------*
     * Datum         Name    Was
     * 14.08.2017    CEL     Erstellt.
-    * 20.08.2017    GET     Querys erstellt und Methode fertiggestellt.
-    *
+    * 15.08.2017    GET     Querys erstellt und Methode fertiggestellt.
     /*------------------------------------------------------------------------*/
     /**
      * Gibt alle Zahlungskonditionen wieder, die sich in der Datenbank befinden.
@@ -104,7 +111,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*
     * Datum         Name    Was
-    * 20.08.2017    GET     Querys erstellt und Methode fertiggestellt.
+    * 20.08.2017    CEL     Querys erstellt und Methode fertiggestellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -163,8 +170,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*
     * Datum         Name    Was
-    * 14.08.2017    CEL     Erstellt.
-    * 20.08.2017    GET     Querys erstellt und Methode fertiggestellt.
+    * 20.08.2017    CEL     Erstellt.
     /*------------------------------------------------------------------------*/
 
     /**
@@ -223,7 +229,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*
     * Datum         Name    Was
-    * 20.08.2017    GET     Querys erstellt und Methode fertiggestellt.
+    * 20.08.2017    CEL     Querys erstellt und Methode fertiggestellt.
     *
     /*------------------------------------------------------------------------*/
 
@@ -297,7 +303,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
-    /* 17.08.17     GET     Erstellt.    
+    /* 19.08.17     SEZ     Erstellt.    
     /*------------------------------------------------------------------------*/
     
     /**
@@ -370,7 +376,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
    /*------------------------------------------------------------------------*
     * Datum         Name    Was
     * 14.08.2017    CEL     Erstellt.
-    * 20.08.2017    GET     Querys erstellt und Methode fertiggestellt.
+    * 21.08.2017    GET     Querys angepasst und Methode fertiggestellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -521,7 +527,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
     /*------------------------------------------------------------------------*
     * Datum         Name    Was
     * 14.08.2017    CEL     Erstellt.
-    * 20.08.2017    GET     Querys erstellt und Methode fertiggestellt.
+    * 21.08.2017    BER     Querys angepasst und Methode fertiggestellt.
     /*------------------------------------------------------------------------*/
 
     /**

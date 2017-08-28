@@ -7,6 +7,13 @@
 *-------------------------------------------------------------------------------
 * Datum         Name    Was
 * 14.08.2017    CEL     Erstellt.
+* 15.08.2017    CEL     gibAlleGeschaeftspartnerMitLKZ(), 
+                        gibAlleGeschaeftspartnerMitLKZ(),
+                        gibAlleGeschaeftspartner() erstellt.
+* 15.08.2017    HEN     fuegeGeschaeftspartnerHinzu() erstellt.
+* 17.08.2017    SEZ     generiereID(), gibLetztID() erstellt.
+* 17.08.2017    BER     setzeLKZ() erstellt.
+* 17.08.2017    BER     aendernGeschaeftspartner() erstellt.
 *-------------------------------------------------------------------------------
  */
 package Datenbank;
@@ -150,7 +157,7 @@ public class GeschaeftspartnerDAO extends DataAccess {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    CEL     Erstellt und getestet.
     /*------------------------------------------------------------------------*/
     /**
@@ -372,7 +379,7 @@ public class GeschaeftspartnerDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
-    /* 17.08.17     BER     Erstellt.     
+    /* 17.08.17     SEZ     Erstellt.     
     /*------------------------------------------------------------------------*/
     
     /**
@@ -410,7 +417,7 @@ public class GeschaeftspartnerDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
-    /* 17.08.17     BER     Erstellt.     
+    /* 17.08.17     SEZ     Erstellt.     
     /*------------------------------------------------------------------------*/
     
     /**

@@ -85,6 +85,11 @@ public class Adresse {
      * LKZ des Adressobjektes.
      */
     private String Lkz;
+    
+    
+    public Adresse() {
+        
+    }
 
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar

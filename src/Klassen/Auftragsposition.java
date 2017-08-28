@@ -50,6 +50,11 @@ public class Auftragsposition {
     */
     private String lkz;
     
+    public Auftragsposition() {
+        
+    }
+    
+    
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstellt.

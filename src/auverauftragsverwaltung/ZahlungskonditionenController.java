@@ -17,8 +17,8 @@
 *                   zahlungskonditionenHinzufuegen() implementiert.
 * 20.08.17  GET     zeigeWertAn() erstellt 
 * 21.08.17  BER     zahlungskonditionenLoeschen(), zahlungskonditionenSuchen()
-*                   setzeSucheZurück() implementiert.
-* 23.08.17  BER     aktionAbbrechen() erstellt.
+*                    implementiert.
+* 23.08.17  SEZ     aktionAbbrechen(), setzeSucheZurück() erstellt.
 *-------------------------------------------------------------------------------
 */
 package auverauftragsverwaltung;
@@ -807,7 +807,7 @@ public class ZahlungskonditionenController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 21.08.17    BER     Methode erstellt.
+    /* 21.08.17    SEZ     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -824,7 +824,7 @@ public class ZahlungskonditionenController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 23.08.17    BER     Methode erstellt.
+    /* 23.08.17    SEZ     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
