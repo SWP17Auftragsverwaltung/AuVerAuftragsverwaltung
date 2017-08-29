@@ -219,6 +219,7 @@ public class AuftragspositionDAO extends DataAccess {
     
     /**
      * Liest die letzte ID aus, erhöht sie um 1 und gibt sie wieder.
+     * @param posNr Pos
      * @return neue ID aufgezählt.
      * @throws java.sql.SQLException SQLException.
      */    

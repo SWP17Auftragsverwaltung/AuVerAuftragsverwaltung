@@ -43,19 +43,18 @@ public class AdresseDAO extends DataAccess {
     private DataDictionaryDAO ddd = new DataDictionaryDAO();
     
     /**
-     * 
+     * Tabellennamen aus dem DD Objekt holen.
      */
     private String TAB_ADRESSE = ddd.getTAB_ADRESSE();
     
     /**
-     * 
+     * HashMap für die Attribute.
      */
     private HashMap<String, ArrayList> attribute; 
     
     /**
      * Konstruktor.
-     *
-     * @throws SQLException SQLException
+     * @throws SQLException Keine Verbindung zur DB.
      */
     public AdresseDAO() throws SQLException {
         attribute = ddd.getTabellenAttribute();
@@ -115,11 +114,11 @@ public class AdresseDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 07.08.17    Hen     Erstellt.
+    /* 08.08.17    BER     Getestet und freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
      * Gibt alle Adressen ohne Löschkennzeichen wieder.
-     *
      * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
      * @throws java.sql.SQLException SQLException.
      */
@@ -175,7 +174,7 @@ public class AdresseDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 14.08.17    Hen     Erstellt.
+    /* 07.08.17    Hen     Erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -238,9 +237,9 @@ public class AdresseDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Fügt Adresse der Datenbank hinzu.
+     * Fügt eine Adresse der Datenbank hinzu.
      * @param a Adressobjekt
-     * @throws java.sql.SQLException SQLException.
+     * @throws java.sql.SQLException Fehlerhafter SQL Befehl.
      */
     public void fuegeAdresseHinzu(Adresse a) throws SQLException {
         //Variablendeklaration
@@ -313,12 +312,13 @@ public class AdresseDAO extends DataAccess {
     /* Datum       Name    Was
     /* 16.08.17    GET     Erstellt.
     /* 16.08.17    BER     Query Abfrage angepasst.
+    /* 16.08.17    HEN     Getestet und freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
-     * Ändern der Adresse in der Datenbank.
+     * Ändert eine markierte Adresse in der Datenbank.
      * @param a Adressobjekt
-     * @throws java.sql.SQLException SQLException
+     * @throws java.sql.SQLException Fehlerhafter SQL Befehl.
      */
     public void aendereAdresse(Adresse a) throws SQLException {
         PreparedStatement stmt = null;
@@ -455,13 +455,14 @@ public class AdresseDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
     /* 17.08.17     GET     Erstellt.
-    /* 17.08.17     HEN     preparedStmt ergänzt, positiv getestet.     
+    /* 17.08.17     HEN     preparedStmt ergänzt
+    /*                      Getestet und freigegeben.     
     /*------------------------------------------------------------------------*/
     
     /**
-     * Setzt Löschkennzeichen bei einer ausgewählten Adresse.
+     * Setzt Löschkennzeichen bei einer markierten Adresse.
      * @param a Adresse
-     * @throws java.sql.SQLException SQLException
+     * @throws java.sql.SQLException Fehlerhafter SQL Befehl.
      */
     public void setzeLKZ(Adresse a) throws SQLException {
         PreparedStatement stmt = null;
@@ -495,7 +496,8 @@ public class AdresseDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
-    /* 17.08.17     SEZ     Erstellt.    
+    /* 17.08.17     SEZ     Erstellt.   
+    /* 17.08.17     HEN     Getestet und freigegeben.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -537,7 +539,8 @@ public class AdresseDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
     /* 19.08.17     HEN     Erstellt.
-    /* 20.08.17     BER     Else-fall hinzugefügt.    
+    /* 20.08.17     BER     Else-fall hinzugefügt.
+    /* 20.08.17     BER     Getestet und freigegeben. 
     /*------------------------------------------------------------------------*/
     
     /**
