@@ -24,6 +24,8 @@ import Klassen.Meldung;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,168 +54,461 @@ import javafx.stage.StageStyle;
  */
 public class AuftraegeController implements Initializable {
 
+    /**
+     * 
+     */
     @FXML
     private AnchorPane paneAuftraege;
+    
+    /**
+     * 
+     */
     @FXML
     private TitledPane auftragskopfTP;
+    
+    /**
+     * 
+     */
     @FXML
     private TextField tfAuftragskopf;
+    
+    /**
+     * 
+     */
     @FXML
     private TextArea tfText;
+    
+    /**
+     * 
+     */
     @FXML
     private TextField tfPartnerID;
+    
+    /**
+     * 
+     */
     @FXML
     private ComboBox<String> cbAuftragsstatus = new ComboBox<>();
+    
+    /**
+     * 
+     */
     @FXML
     private ComboBox<String> cbAuftragsart = new ComboBox<>();
+    
+    /**
+     * 
+     */
     @FXML
     private TextField tfAuftragswert;
+    
+    /**
+     * 
+     */
     @FXML
     private Button btAuftragspositionen;
+    
+    /**
+     * 
+     */
     @FXML
     private Button btAnlegen;
+    
+    /**
+     * 
+     */
     @FXML
     private Button btAendern;
+    
+    /**
+     * 
+     */
     @FXML
     private Button btLoeschen;
+    
+    /**
+     * 
+     */
     @FXML
     private Button closeAA;
+    
+    /**
+     * 
+     */
     @FXML
     private TextField tfErfDatum;
+    
+    /**
+     * 
+     */
     @FXML
     private TextField tfLieferdatum;
+    
+    /**
+     * 
+     */
     @FXML
     private TextField tfAbschlussdatum;
+    
+    /**
+     * 
+     */
     @FXML
     private Button btAbbrechen;
+    
+    /**
+     * 
+     */
     @FXML
     private Button btHinzufuegen;
+    
+    /**
+     * 
+     */
     @FXML
     private Button btSpeichern;
+    
+    /**
+     * 
+     */
     @FXML
     private Pane pane;
     
     
+    /**
+     * 
+     */
     @FXML
     private TableView tvAuftragskopf = new TableView<Auftragskopf>();
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Auftragskopf, String> tcAuftragsID;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Auftragskopf, String> tcAuftragsText;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Auftragskopf, String> tcgeschaeftspartnerID;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Auftragskopf, String> tcErfDatum;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Auftragskopf, String> tcLieferDatum;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Auftragskopf, String> tcAuftragsart;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Auftragskopf, String> tcAuftragswert;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Auftragskopf, String> tcStatus;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Auftragskopf, String> tcAbschDatum;
     
     
+    /**
+     * 
+     */
     @FXML
     private TitledPane paneGP;
+    
+    /**
+     * 
+     */
     @FXML
     private TableView tvGPAuswahl = new TableView<Geschaeftspartner>();
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Geschaeftspartner, String> tcGpIDGPWahl;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Geschaeftspartner, String> tcTypGPWahl;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Geschaeftspartner, String> tcAnschriftIDGPWahl;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Geschaeftspartner, String> tcLieferIDGPWahl;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Geschaeftspartner, String> tcKreditlimitGPWahl;
     
     
+    /**
+     * 
+     */
     @FXML
     private AnchorPane paneAuftragspositionen;
+    
+    /**
+     * 
+     */
     @FXML
     private TitledPane paneArtikelauswahl;
+    
+    /**
+     * 
+     */
     @FXML
     private TableView tvArtikelauswahl = new TableView<Artikel>();
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Artikel, String> tcArtikelIDArtWahl;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Artikel, String> tcArtikeltextArtWahl;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Artikel, String> tcBestelltextArtWahl;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Artikel, String> tcEinzelwertArtArtWahl;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Artikel, String> tcBestellwertArtWahl;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Artikel, String> tcMwStArtWahl;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Artikel, String> tcBestandFreiArtWahl;
     
     
+    /**
+     * 
+     */
     @FXML
     private TitledPane paneAuftragsposition;
+    
+    /**
+     * 
+     */
     @FXML
     private TableView tvAuftragsposition = new TableView<Auftragsposition>();
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Auftragsposition, String> tcAuftragskopfIDAufPos;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Auftragsposition, String> tcPositionsNrAufPos;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Auftragsposition, String> tcMaterialNrAufPos;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Auftragsposition, String> tcMengeAufPos;
+    
+    /**
+     * 
+     */
     @FXML
     private TableColumn<Auftragsposition, String> tcEinzelwertAufPos;
     
     
+    /**
+     * 
+     */
     @FXML
     private TitledPane auftragspositionTP;
+    
+    /**
+     * 
+     */
     @FXML
     private Pane paneAPD;
+    
+    /**
+     * 
+     */
     @FXML
     private Button btAnlegenAPD;
+    
+    /**
+     * 
+     */
     @FXML
     private Button btLoeschenAPD;
+    
+    /**
+     * 
+     */
     @FXML
     private Button btBearbeitenAPD;
+    
+    /**
+     * 
+     */
     @FXML
     private Button btAbbrechenAPD;
     
     
+    
+    /**
+     * 
+     */
     @FXML
     private TextField tfPositionsNrAPD;
+    
+    /**
+     * 
+     */
     @FXML
     private TextField tfMaterialNrAPD;
+    
+    /**
+     * 
+     */
     @FXML
     private TextField tfMengeAPD;
+    
+    /**
+     * 
+     */
     @FXML
     private TextField tfEinzelwertAPD;
     
     
+    /**
+     * 
+     */
     @FXML
     private Button btCloseAPD;
+    
+    /**
+     * 
+     */
     @FXML
     private Button btHinzufuegenAPD;
+    
+    /**
+     * 
+     */
     @FXML
     private TitledPane auftragskopfTPPOS;
+    
+    /**
+     * 
+     */
     @FXML
     private TextField tfErfDatumPOS;
+    
+    /**
+     * 
+     */
     @FXML
     private TextField tfAuftragswertPOS;
+    
+    /**
+     * 
+     */
     @FXML
     private TextField tfPartnerIDPOS;
+    
+    /**
+     * 
+     */
     @FXML
     private TextArea tfTextPOS;
+    
+    /**
+     * 
+     */
     @FXML
     private TextField tfAuftragskopfIDPOS;
+    
+    /**
+     * 
+     */
     @FXML
     private TextField tfAbschlussdatumPOS;
+    
+    /**
+     * 
+     */
     @FXML
     private TextField tfLieferdatumPOS;
+    
+    /**
+     * 
+     */
     @FXML
     private TitledPane auftraegeTP;
 
@@ -222,7 +517,6 @@ public class AuftraegeController implements Initializable {
     
     
     /**
-     * 
      * Mehtode die das öffnen der Suchmaske für Aufträge, durch den Button
      * "Auftrag suchen" ermöglicht.
      * @param event ActionEvent zur Prüfung ob der "Auftrag suchen" -
@@ -255,7 +549,22 @@ public class AuftraegeController implements Initializable {
         Stage stage = (Stage) closeAA.getScene().getWindow();
         stage.close();
     }
-
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 30.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+        
+    /**
+     * Methode zum Abbrechen der Auftragspositionsanzeige.
+     * @param event ActionEvent welches das Klicken des Buttons "Abbrechen" 
+     *              abfängt.
+     */
+    @FXML
+    public void closeAuftraegspositionAnzeigen(ActionEvent event) {
+        this.paneAuftraege.setVisible(true);
+        this.paneAuftragspositionen.setVisible(false);
+    }
     
     
     /**
@@ -345,9 +654,9 @@ public class AuftraegeController implements Initializable {
                 new PropertyValueFactory<>("abschlussDatum"));
         
         cbAuftragsstatus.getItems().addAll(
-                "E", 
-                "F", 
-                "A");
+                "Erfasst", 
+                "Freigegeben", 
+                "Abgeschlossen");
         
         cbAuftragsart.getItems().addAll(
                 "Barauftrag",
@@ -408,24 +717,13 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     public void auftragAnlegen() throws SQLException {
-        
         clearAuftragskopfTextFields();
         
-        // Sperre wird aufgehoben 
         this.pane.setVisible(false);
-        
-        this.auftragskopfTP.setText("Auftragskopf (Anlegemodus)");
-       
-        // Anlege-Button wird unsichtbar.
+        this.auftragskopfTP.setText("Auftragskopf (Anlegemodus)");    
         this.btAnlegen.setVisible(false);
-        
-        // Hinzufügen-Button wird sichtbar.
-        this.btHinzufuegen.setVisible(true);
-        
-        // Ändern Button wird deaktiviert.
+        this.btHinzufuegen.setVisible(true);   
         this.btAendern.setDisable(true);
-             
-        // Löschen Button wird deaktiviert
         this.btLoeschen.setDisable(true);
 
         AuftragskopfDAO akd = new AuftragskopfDAO();
@@ -433,7 +731,7 @@ public class AuftraegeController implements Initializable {
         
         this.auftraegeTP.setVisible(false);
         this.paneGP.setVisible(true);
-    
+        
         setTableContentGP();
     }    
     
@@ -622,7 +920,19 @@ public class AuftraegeController implements Initializable {
             this.tfErfDatum.setText(a.getErfassungsdatum());
             this.tfLieferdatum.setText(a.getLieferdatum());
             this.tfAbschlussdatum.setText(a.getAbschlussDatum());
-            this.cbAuftragsstatus.setValue(a.getStatus());
+            switch (a.getStatus()) {
+                case "E":
+                    this.cbAuftragsstatus.setValue("Erfasst");
+                    break;
+                case "F":
+                    this.cbAuftragsstatus.setValue("Freigegeben");
+                    break;
+                case "A":
+                    this.cbAuftragsstatus.setValue("Abgeschlossen");
+                    break;
+                default:
+                    break;
+            }
             this.cbAuftragsart.setValue(a.getAuftragsart());
             this.tfAuftragswert.setText(a.getAuftragswert());
         }
@@ -666,13 +976,28 @@ public class AuftraegeController implements Initializable {
     @FXML
     public void auftragHinzufuegen() throws SQLException {
         
+        
+        
         String auftragskopfID = tfAuftragskopf.getText();
         String geschaeftspartnerID = tfPartnerID.getText();
         String auftragsText = tfText.getText();
         String erfassungsDatum = this.tfErfDatum.getText();
         String lieferDatum = this.tfLieferdatum.getText();
-        String abschlussDatum = this.tfAbschlussdatum.getText();
-        String status = cbAuftragsstatus.getValue();
+        String abschlussDatum = this.tfAbschlussdatum.getText();  
+        String status = "";
+        switch (cbAuftragsstatus.getValue()) {
+            case "Erfasst":
+                status = "E";
+                break;
+            case "Freigegeben":
+                status = "F";
+                break;
+            case "Abgeschlossen":
+                status = "A";
+                break;
+            default:
+                break;
+        }
         String auftragsArt = cbAuftragsart.getValue();
         String auftragsWert = tfAuftragswert.getText();
         String lkz = "N";
@@ -735,25 +1060,20 @@ public class AuftraegeController implements Initializable {
                     this.auftragskopfTP.setText(
                             "Auftragskopf");
 
-                    // Anlegen-Button wird deaktiviert
+                    //Buttons aktivieren/deaktivieren
                     this.btAendern.setDisable(false);
-
                     this.btSpeichern.setVisible(false);
-
                     this.btSpeichern.setDisable(false);
-                    // Löschen-Button wird deaktiviert
                     this.btLoeschen.setDisable(false);
-
                     this.btHinzufuegen.setVisible(false);
-
                     this.tvAuftragskopf.setMouseTransparent(false);
-
+                    this.auftraegeTP.setVisible(true);
+                    
+                    this.paneGP.setVisible(false);
                     clearAuftragskopfTextFields();
 
                 } else {
-
                     meldung.schließeFenster();
-
                 }
             }
         }
@@ -927,18 +1247,13 @@ public class AuftraegeController implements Initializable {
             System.out.println("NEIN");
         
         } else {                 
-            tfErfDatumPOS.setText(tfErfDatum.getText());
-    
-            tfAuftragswertPOS.setText(tfAuftragswert.getText());
-    
+            //Daten aus dem Auftragskopf im oberen Abteil anzeigen.
+            tfErfDatumPOS.setText(tfErfDatum.getText());    
+            tfAuftragswertPOS.setText(tfAuftragswert.getText());  
             tfPartnerIDPOS.setText(tfPartnerID.getText());
-    
             tfTextPOS.setText(tfText.getText());
-    
             tfAuftragskopfIDPOS.setText(tfAuftragskopf.getText());
-    
             tfAbschlussdatumPOS.setText(tfAbschlussdatum.getText());
-    
             tfLieferdatumPOS.setText(tfLieferdatum.getText());
             
             
