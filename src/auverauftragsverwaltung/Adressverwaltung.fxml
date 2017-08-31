@@ -29,7 +29,7 @@
                 </TableView>
                 <ComboBox fx:id="cbSuchfeld" layoutX="25.0" layoutY="41.0" prefHeight="25.0" prefWidth="150.0" promptText="Bitte wählen..." />  
                 <Label layoutX="25.0" layoutY="24.0" prefHeight="17.0" prefWidth="100.0" text="Suchkriterium" />
-                <TextField fx:id="tfSuchbegriff" layoutX="246.0" layoutY="41.0" onAction="#adresseSuchen" prefHeight="25.0" prefWidth="199.0" />
+                <SuchTextField fx:id="tfSuchbegriff" layoutX="246.0" layoutY="41.0" onAction="#adresseSuchen" prefHeight="25.0" prefWidth="199.0" />
                 <Label layoutX="246.0" layoutY="24.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
                 <Button fx:id="btSuchen" layoutX="468.0" layoutY="24.0" mnemonicParsing="false" onAction="#adresseSuchen" prefHeight="40.0" prefWidth="160.0" text="Adresse suchen " />
                 <Button fx:id="btZuruecksetzen" layoutX="637.0" layoutY="24.0" mnemonicParsing="false" onAction="#setzeSucheZurueck" prefHeight="40.0" prefWidth="160.0" text="Suche zurücksetzen" />
@@ -47,23 +47,23 @@
                         <TextField fx:id="tfAnschriftID" editable="false" layoutX="24.0" layoutY="38.0" prefHeight="25.0" prefWidth="100.0" />
                         <Label layoutX="136.0" layoutY="20.0" prefHeight="17.0" prefWidth="40.0" text="Anrede" />
                         <Label layoutX="292.0" layoutY="20.0" text="Name" />
-                        <TextField fx:id="tfName" layoutX="292.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
+                        <NameTextField fx:id="tfName" layoutX="292.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
                         <Label layoutX="454.0" layoutY="20.0" text="Vorname" />
-                        <TextField fx:id="tfVorname" layoutX="453.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
+                        <NameTextField fx:id="tfVorname" layoutX="453.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
                         <Label layoutX="615.0" layoutY="20.0" text="Telefon" />
-                        <NumberTextField fx:id="tfTelefon" layoutX="613.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
+                        <TelTextField fx:id="tfTelefon" layoutX="613.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
                         <Label layoutX="771.0" layoutY="20.0" text="E-Mail" />
-                        <TextField fx:id="tfEmail" layoutX="771.0" layoutY="36.0" prefHeight="25.0" prefWidth="220.0" />
+                        <MailTextField fx:id="tfEmail" layoutX="771.0" layoutY="36.0" prefHeight="25.0" prefWidth="220.0" />
                         <Label layoutX="24.0" layoutY="76.0" text="Straße" />
-                        <TextField fx:id="tfStrasse" layoutX="24.0" layoutY="90.0" prefHeight="25.0" prefWidth="150.0" />
+                        <StreetTextField fx:id="tfStrasse" layoutX="24.0" layoutY="90.0" prefHeight="25.0" prefWidth="150.0" />
                         <NumberTextField fx:id="tfHausNr" layoutX="187.0" layoutY="89.0" prefHeight="25.0" prefWidth="100.0" />
                         <Label layoutX="187.0" layoutY="74.0" text="HausNr" />
                         <Label layoutX="298.0" layoutY="73.0" text="PLZ" />
                         <NumberTextField fx:id="tfPlz" layoutX="298.0" layoutY="88.0" prefHeight="25.0" prefWidth="100.0" />
                         <Label layoutX="408.0" layoutY="74.0" text="Ort" />
-                        <TextField fx:id="tfOrt" layoutX="408.0" layoutY="88.0" prefHeight="25.0" prefWidth="150.0" />
+                        <NameTextField fx:id="tfOrt" layoutX="408.0" layoutY="88.0" prefHeight="25.0" prefWidth="150.0" />
                         <Label layoutX="570.0" layoutY="74.0" text="Staat" />
-                        <TextField fx:id="tfStaat" layoutX="569.0" layoutY="88.0" prefHeight="25.0" prefWidth="150.0" />
+                        <NameTextField fx:id="tfStaat" layoutX="569.0" layoutY="88.0" prefHeight="25.0" prefWidth="150.0" />
                         <Label layoutX="771.0" layoutY="75.0" text="Erfassungsdatum" />
                         <ComboBox fx:id="cbAnrede" layoutX="132.0" layoutY="38.0" prefHeight="25.0" prefWidth="120.0" promptText="Bitte wählen..." />
                         <Pane fx:id="pane" layoutX="14.0" layoutY="15.0" prefHeight="123.0" prefWidth="982.0" />

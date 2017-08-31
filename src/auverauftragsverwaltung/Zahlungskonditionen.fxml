@@ -26,7 +26,7 @@
             </TableView>
             <ComboBox fx:id="cbSuchfeld" layoutX="14.0" layoutY="39.0" prefHeight="25.0" prefWidth="150.0" promptText="Bitte wählen..." />
             <Label layoutX="14.0" layoutY="22.0" prefHeight="17.0" prefWidth="106.0" text="Suchkriterium" />
-            <TextField fx:id="tfSuchbegriff" layoutX="227.0" layoutY="38.0" onAction="#zahlungskonditionenSuchen" prefHeight="25.0" prefWidth="199.0" />
+            <SuchTextField fx:id="tfSuchbegriff" layoutX="227.0" layoutY="38.0" onAction="#zahlungskonditionenSuchen" prefHeight="25.0" prefWidth="199.0" />
             <Label layoutX="235.0" layoutY="22.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
             <Button fx:id="zkSuchenBT" layoutX="457.0" layoutY="22.0" mnemonicParsing="false" onAction="#zahlungskonditionenSuchen" prefHeight="40.0" prefWidth="199.0" text="Zahlungskonditionen suchen " />
             <Button fx:id="sucheZuruecksetzenBT" layoutX="671.0" layoutY="22.0" mnemonicParsing="false" onAction="#setzeSucheZurueck" prefHeight="40.0" prefWidth="199.0" text="Suche zurücksetzen" />
@@ -64,9 +64,9 @@
                   <NumberTextField fx:id="tfMahnzeit2" layoutX="788.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
                   <NumberTextField fx:id="tfMahnzeit3" layoutX="894.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
                   <NumberTextField fx:id="tfSkontozeit1" layoutX="11.0" layoutY="111.0" prefHeight="25.0" prefWidth="100.0" />
-                  <TextField fx:id="tfSkonto1" layoutX="157.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
+                  <SkontoTextField fx:id="tfSkonto1" layoutX="157.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
                   <NumberTextField fx:id="tfSkontozeit2" layoutX="274.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
-                  <TextField fx:id="tfSkonto2" layoutX="411.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
+                  <SkontoTextField fx:id="tfSkonto2" layoutX="411.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
                   <Pane fx:id="pane" layoutX="11.0" layoutY="13.0" prefHeight="135.0" prefWidth="991.0" />
                   <Button fx:id="anlegenBT" layoutX="37.0" layoutY="166.0" mnemonicParsing="false" onAction="#zahlungskonditionenAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
                   <Button fx:id="bearbeitenBT" layoutX="150.0" layoutY="166.0" mnemonicParsing="false" onAction="#bearbeiteZahlungskonditionen" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />

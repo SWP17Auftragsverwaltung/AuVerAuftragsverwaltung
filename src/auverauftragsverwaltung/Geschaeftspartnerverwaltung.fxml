@@ -53,7 +53,7 @@
          </padding>
       </TitledPane>
       <ComboBox fx:id="cbSuchfeld" layoutX="47.0" layoutY="43.0" prefHeight="25.0" prefWidth="184.0" promptText="Bitte wählen..." />
-      <TextField fx:id="tfSuchbegriff" layoutX="252.0" layoutY="43.0" onAction="#geschaeftspartnerSuchen" prefHeight="25.0" prefWidth="150.0" />
+      <SuchTextField fx:id="tfSuchbegriff" layoutX="252.0" layoutY="43.0" onAction="#geschaeftspartnerSuchen" prefHeight="25.0" prefWidth="150.0" />
       <Label layoutX="47.0" layoutY="28.0" prefHeight="17.0" prefWidth="107.0" text="Suchkriterium" />
       <Label layoutX="252.0" layoutY="28.0" text="Suchbegriff" />
       <Button layoutX="583.0" layoutY="36.0" mnemonicParsing="false" onAction="#setzeSucheZurueck" prefHeight="40.0" prefWidth="147.0" text="Suche zurücksetzen" />

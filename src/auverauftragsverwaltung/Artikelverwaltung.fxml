@@ -11,7 +11,7 @@
       <Label layoutX="25.0" layoutY="20.0" prefHeight="17.0" prefWidth="100.0" text="Suchkriterium" />
       <ComboBox fx:id="cbSuchfeld" layoutX="25.0" layoutY="37.0" prefHeight="25.0" prefWidth="150.0" promptText="Bitte wählen..." />
       <Label layoutX="246.0" layoutY="20.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
-      <TextField fx:id="tfSuchbegriff" layoutX="246.0" layoutY="37.0" onAction="#artikelSuchen" prefHeight="25.0" prefWidth="199.0" />
+      <SuchTextField fx:id="tfSuchbegriff" layoutX="246.0" layoutY="37.0" onAction="#artikelSuchen" prefHeight="25.0" prefWidth="199.0" />
       <Button layoutX="468.0" layoutY="20.0" mnemonicParsing="false" onAction="#artikelSuchen" prefHeight="40.0" prefWidth="160.0" text="Artikel suchen " AnchorPane.leftAnchor="468.0" />
       <TableView fx:id="tvArtikel" layoutX="25.0" layoutY="70.0" onMouseClicked="#zeigeWerteAn" prefHeight="335.0" prefWidth="692.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
         <columns>
@@ -36,11 +36,11 @@
                   <Label layoutX="126.0" layoutY="57.0" text="Artikelbschreibung" />
                   <TextArea fx:id="tfArtikelbeschreibung" layoutX="126.0" layoutY="76.0" prefHeight="65.0" prefWidth="173.0" />
                   <Label layoutX="314.0" layoutY="58.0" text="Einzelwert" />
-                  <TextField fx:id="tfEinzelwert" layoutX="314.0" layoutY="75.0" prefHeight="25.0" prefWidth="85.0" />
+                  <SkontoTextField fx:id="tfEinzelwert" layoutX="314.0" layoutY="75.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="435.0" layoutY="58.0" text="Bestellbeschreibung" />
                   <TextArea fx:id="tfBestellbeschreibung" layoutX="436.0" layoutY="76.0" prefHeight="65.0" prefWidth="173.0" />
                   <Label layoutX="624.0" layoutY="57.0" text="Bestellwert" />
-                  <TextField fx:id="tfBestellwert" layoutX="624.0" layoutY="74.0" prefHeight="25.0" prefWidth="85.0" />
+                  <SkontoTextField fx:id="tfBestellwert" layoutX="624.0" layoutY="74.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="852.0" layoutY="66.0" prefHeight="17.0" prefWidth="61.0" text="Bestand" />
                   <Label layoutX="854.0" layoutY="100.0" text="FREI" />
                   <TextField fx:id="tfBestandFrei" layoutX="915.0" layoutY="95.0" prefHeight="25.0" prefWidth="85.0" />
