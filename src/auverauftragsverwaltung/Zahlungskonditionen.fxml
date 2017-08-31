@@ -58,14 +58,14 @@
                   <Label layoutX="615.0" layoutY="43.0" text="Tage" />
                   <Label layoutX="114.0" layoutY="116.0" text="Tage" />
                   <Label layoutX="365.0" layoutY="115.0" text="Tage" />
-                  <TextField fx:id="tfLieferzeitSOFORT" layoutX="285.0" layoutY="39.0" prefHeight="27.0" prefWidth="126.0" />
-                  <TextField fx:id="tfSperrzeitWUNSCH" layoutX="481.0" layoutY="40.0" prefHeight="27.0" prefWidth="133.0" />
-                  <TextField fx:id="tfMahnzeit1" layoutX="685.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
-                  <TextField fx:id="tfMahnzeit2" layoutX="788.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
-                  <TextField fx:id="tfMahnzeit3" layoutX="894.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
-                  <TextField fx:id="tfSkontozeit1" layoutX="11.0" layoutY="111.0" prefHeight="25.0" prefWidth="100.0" />
+                  <NumberTextField fx:id="tfLieferzeitSOFORT" layoutX="285.0" layoutY="39.0" prefHeight="27.0" prefWidth="126.0" />
+                  <NumberTextField fx:id="tfSperrzeitWUNSCH" layoutX="481.0" layoutY="40.0" prefHeight="27.0" prefWidth="133.0" />
+                  <NumberTextField fx:id="tfMahnzeit1" layoutX="685.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
+                  <NumberTextField fx:id="tfMahnzeit2" layoutX="788.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
+                  <NumberTextField fx:id="tfMahnzeit3" layoutX="894.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
+                  <NumberTextField fx:id="tfSkontozeit1" layoutX="11.0" layoutY="111.0" prefHeight="25.0" prefWidth="100.0" />
                   <TextField fx:id="tfSkonto1" layoutX="157.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
-                  <TextField fx:id="tfSkontozeit2" layoutX="274.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
+                  <NumberTextField fx:id="tfSkontozeit2" layoutX="274.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
                   <TextField fx:id="tfSkonto2" layoutX="411.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
                   <Pane fx:id="pane" layoutX="11.0" layoutY="13.0" prefHeight="135.0" prefWidth="991.0" />
                   <Button fx:id="anlegenBT" layoutX="37.0" layoutY="166.0" mnemonicParsing="false" onAction="#zahlungskonditionenAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />

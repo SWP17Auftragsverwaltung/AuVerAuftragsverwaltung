@@ -3,7 +3,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
+<?import validierung.*?>
 
 <AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.AdressverwaltungController">
     <children>
@@ -51,15 +51,15 @@
                         <Label layoutX="454.0" layoutY="20.0" text="Vorname" />
                         <TextField fx:id="tfVorname" layoutX="453.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
                         <Label layoutX="615.0" layoutY="20.0" text="Telefon" />
-                        <TextField fx:id="tfTelefon" layoutX="613.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
+                        <NumberTextField fx:id="tfTelefon" layoutX="613.0" layoutY="38.0" prefHeight="25.0" prefWidth="150.0" />
                         <Label layoutX="771.0" layoutY="20.0" text="E-Mail" />
                         <TextField fx:id="tfEmail" layoutX="771.0" layoutY="36.0" prefHeight="25.0" prefWidth="220.0" />
                         <Label layoutX="24.0" layoutY="76.0" text="Straße" />
                         <TextField fx:id="tfStrasse" layoutX="24.0" layoutY="90.0" prefHeight="25.0" prefWidth="150.0" />
-                        <TextField fx:id="tfHausNr" layoutX="187.0" layoutY="89.0" prefHeight="25.0" prefWidth="100.0" />
+                        <NumberTextField fx:id="tfHausNr" layoutX="187.0" layoutY="89.0" prefHeight="25.0" prefWidth="100.0" />
                         <Label layoutX="187.0" layoutY="74.0" text="HausNr" />
                         <Label layoutX="298.0" layoutY="73.0" text="PLZ" />
-                        <TextField fx:id="tfPlz" layoutX="298.0" layoutY="88.0" prefHeight="25.0" prefWidth="100.0" />
+                        <NumberTextField fx:id="tfPlz" layoutX="298.0" layoutY="88.0" prefHeight="25.0" prefWidth="100.0" />
                         <Label layoutX="408.0" layoutY="74.0" text="Ort" />
                         <TextField fx:id="tfOrt" layoutX="408.0" layoutY="88.0" prefHeight="25.0" prefWidth="150.0" />
                         <Label layoutX="570.0" layoutY="74.0" text="Staat" />

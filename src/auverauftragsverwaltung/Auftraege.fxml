@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import validierung.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.AuftraegeController">
    <children>
@@ -124,7 +125,7 @@
                         <Button fx:id="btAbbrechenAPD" layoutX="336.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " />
                         <TextField fx:id="tfPositionsNrAPD" layoutX="14.0" layoutY="47.0" />
                         <TextField fx:id="tfMaterialNrAPD" layoutX="197.0" layoutY="47.0" />
-                        <TextField fx:id="tfMengeAPD" layoutX="371.0" layoutY="47.0" />
+                        <NumberTextField fx:id="tfMengeAPD" layoutX="371.0" layoutY="47.0" />
                         <TextField fx:id="tfEinzelwertAPD" layoutX="551.0" layoutY="47.0" />
                         <Label layoutX="18.0" layoutY="33.0" text="Positionsnummer" />
                         <Label layoutX="197.0" layoutY="33.0" text="Materialnummer" />
