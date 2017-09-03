@@ -1,9 +1,7 @@
 package Klassen;
 
-import auverauftragsverwaltung.AuftraegeController;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.Calendar;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -53,7 +51,8 @@ public class Meldung {
      * Variable für den "Verwerfen Text".
      */
     private final String datumDialogText = "Das eingegebene Datum fällt auf ein"
-        + " Wochenende. Möchten Sie den Auftrag trotzdem hinzufügen?";
+        + " Wochenende oder einen Feiertag. Möchten Sie den Auftrag trotzdem"
+        + " hinzufügen?";
   
     /**
      * Button um das Datum zu ändern.
@@ -108,32 +107,40 @@ public class Meldung {
     
  
     
-    // Factory to create Cell of DatePicker
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 02.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Erzeugt einen angepassten Datepicker, der die Auswahl von Wochenendtagen
+     * nicht zulässt.
+     * @return Datepicker
+     */   
     private Callback<DatePicker, DateCell> getDayCellFactory() {
  
         final Callback<DatePicker, DateCell> dayCellFactory 
             = new Callback<DatePicker, DateCell>() {
  
-            @Override
-            public DateCell call(final DatePicker datePicker) {
-                return new DateCell() {
-                    @Override
-                    public void updateItem(LocalDate item, boolean empty) {
-                        super.updateItem(item, empty);
- 
-                        // Disable Monday, Tueday, Wednesday.
-                        if (item.getDayOfWeek() == DayOfWeek.SATURDAY
+                @Override
+                public DateCell call(final DatePicker datePicker) {
+                    return new DateCell() {
+                        
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item.getDayOfWeek() == DayOfWeek.SATURDAY
                                 || item.getDayOfWeek() == DayOfWeek.SUNDAY) {
-                            setDisable(true);
-                            setStyle("-fx-background-color: #ffc0cb;");
+                                setDisable(true);
+                                setStyle("-fx-background-color: #ffc0cb;");
+                            }
+                            if (item.isBefore(LocalDate.now())) {
+                                setDisable(true);
+                            }
                         }
-                        if (item.isBefore(LocalDate.now())) {
-                            setDisable(true);
-                        }
-                    }
-                };
-            }
-        };
+                    };
+                }
+            };
         return dayCellFactory;
     }      
     
@@ -178,8 +185,6 @@ public class Meldung {
         
         return datum;
     }    
-    
-    
     
     
     

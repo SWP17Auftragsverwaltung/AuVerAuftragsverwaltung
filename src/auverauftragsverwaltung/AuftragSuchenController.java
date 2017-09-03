@@ -12,12 +12,20 @@
  */
 package auverauftragsverwaltung;
 
+import de.jollyday.Holiday;
+import de.jollyday.HolidayCalendar;
+import de.jollyday.HolidayManager;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
@@ -54,6 +62,12 @@ public class AuftragSuchenController implements Initializable {
 
     @FXML
     private TextField tfDatum;
+    @FXML
+    private ComboBox<?> cbAuftragsstatus;
+    @FXML
+    private ComboBox<?> cbMaterialstatus;
+    @FXML
+    private ComboBox<?> cbAuftragsart;
     
     /**
      * Mehtode zum Abbrechen der Auftragssuche.
@@ -93,4 +107,5 @@ public class AuftragSuchenController implements Initializable {
                 -> change.getControlNewText().length() <= zahl ? change : null));
     }
 
+    
 }

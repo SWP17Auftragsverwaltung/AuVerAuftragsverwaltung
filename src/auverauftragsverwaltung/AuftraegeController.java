@@ -21,15 +21,18 @@ import Klassen.Auftragskopf;
 import Klassen.Auftragsposition;
 import Klassen.Geschaeftspartner;
 import Klassen.Meldung;
+import de.jollyday.Holiday;
+import de.jollyday.HolidayCalendar;
+import de.jollyday.HolidayManager;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 import javafx.collections.FXCollections;
@@ -42,8 +45,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -51,11 +52,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Callback;
 
 /**
  *
@@ -745,6 +744,37 @@ public class AuftraegeController implements Initializable {
         }
         return datum;
     }
+ 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 02.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Prüft, ob das eingegebene Datum auf einen Feiertrag fällt.
+     * @param cal Zu prüfendes Datum.
+     * @return Geprüftes Datum.
+     */
+    @FXML    
+    public boolean istFeiertag(GregorianCalendar cal) {
+        boolean istFeiertag;
+        
+        int jahr = cal.get(GregorianCalendar.YEAR);
+        int month = cal.get(GregorianCalendar.MONTH - 1);
+        int day = cal.get(GregorianCalendar.DATE);
+        
+        GregorianCalendar kalender = new GregorianCalendar(day, month, month);
+        HolidayManager manager 
+            = HolidayManager.getInstance(HolidayCalendar.GERMANY);
+        Set<Holiday> holidays = manager.getHolidays(jahr);
+    
+        istFeiertag = manager.isHoliday(cal);   
+        
+        return istFeiertag;
+    }
+    
     
     
     /*------------------------------------------------------------------------*/
@@ -1065,7 +1095,8 @@ public class AuftraegeController implements Initializable {
             if (cal.get(GregorianCalendar.DAY_OF_WEEK) 
                 == GregorianCalendar.SATURDAY
                 || cal.get(GregorianCalendar.DAY_OF_WEEK) 
-                == GregorianCalendar.SUNDAY) {
+                == GregorianCalendar.SUNDAY
+                || istFeiertag(cal)) {
                 
                 Meldung meldung = new Meldung();
                 meldung.dialogDatum();
