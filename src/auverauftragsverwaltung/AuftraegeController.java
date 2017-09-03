@@ -25,8 +25,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
+import java.util.TimeZone;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,6 +42,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -44,9 +51,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
 
 /**
  *
@@ -511,10 +520,7 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     private TitledPane auftraegeTP;
-
-
-
-    
+   
     
     /**
      * Mehtode die das öffnen der Suchmaske für Aufträge, durch den Button
@@ -705,6 +711,41 @@ public class AuftraegeController implements Initializable {
     }    
     
   
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 02.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Prüft, ob das eingegebene Datum auf ein Wochenende fällt.
+     * @return Geprüftes Datum.
+     */
+    @FXML
+    public String gibDatum() {
+        GregorianCalendar cal = new GregorianCalendar(); 
+        cal.setTimeZone(TimeZone.getTimeZone("CET"));
+        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT); 
+        String datum = "";
+        
+        if (cal.get(GregorianCalendar.DAY_OF_WEEK) 
+            == 7
+            || cal.get(GregorianCalendar.DAY_OF_WEEK) == 1) {   
+            
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Information");
+            alert.setHeaderText(
+                    "Achtung: Das heutige Datum fällt auf ein Wochenende!!!");
+            alert.showAndWait();
+            datum = df.format(cal.getTime());
+
+        } else {
+            datum = df.format(cal.getTime());
+            
+        }
+        return datum;
+    }
+    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -718,6 +759,7 @@ public class AuftraegeController implements Initializable {
     @FXML
     public void auftragAnlegen() throws SQLException {
         clearAuftragskopfTextFields();
+        this.tfErfDatum.setText(gibDatum());
         
         this.pane.setVisible(false);
         this.auftragskopfTP.setText("Auftragskopf (Anlegemodus)");    
@@ -962,6 +1004,27 @@ public class AuftraegeController implements Initializable {
     }      
     
     
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 03.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+     */
+    @FXML
+    public void datumAendern() {
+        Meldung meldung = new Meldung();
+        String date = meldung.dialogDatepicker();
+
+        if (meldung.antwort()) {
+            this.tfErfDatum.setText(date);
+        }
+        
+    } 
+    
+    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -972,16 +1035,60 @@ public class AuftraegeController implements Initializable {
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues.
      * Auftragskopf Objekt, welches dann über die DAO in die DB geschrieben wird
      * @throws java.sql.SQLException SQL Exception
+     * @throws java.text.ParseException S
      */
     @FXML
-    public void auftragHinzufuegen() throws SQLException {
+    public void auftragHinzufuegen() throws SQLException, ParseException { 
+        GregorianCalendar cal = new GregorianCalendar();
+        String erfassungsDatum = "";
+        String tag;
+        String monat;
+        String jahr;
+        boolean ergebnis = false;
         
         
+        while (!ergebnis) {
+            StringTokenizer st 
+                = new StringTokenizer(this.tfErfDatum.getText(), ".", false);
         
+            //Datum in cal Objekt packen.
+            while (st.hasMoreTokens()) {
+                cal.clear();
+                tag = st.nextToken();
+                monat = st.nextToken();
+                jahr = st.nextToken();
+                cal.set(Integer.parseInt(jahr), Integer.parseInt(monat), 
+                        Integer.parseInt(tag));
+            }
+        
+            //Datum auf Wochenende prüfen
+            if (cal.get(GregorianCalendar.DAY_OF_WEEK) 
+                == GregorianCalendar.SATURDAY
+                || cal.get(GregorianCalendar.DAY_OF_WEEK) 
+                == GregorianCalendar.SUNDAY) {
+                
+                Meldung meldung = new Meldung();
+                meldung.dialogDatum();
+            
+                //Benutzer entscheiden lasen, ob Auftrag anlegen oder nicht.
+                if (meldung.antwort()) {
+                    erfassungsDatum = this.tfErfDatum.getText();
+                    ergebnis = true;
+
+                } else {
+                    datumAendern();                   
+                    ergebnis = false;
+                } 
+        
+            } else {        
+                erfassungsDatum = this.tfErfDatum.getText();
+                ergebnis = true;
+            }
+        }
+           
         String auftragskopfID = tfAuftragskopf.getText();
         String geschaeftspartnerID = tfPartnerID.getText();
         String auftragsText = tfText.getText();
-        String erfassungsDatum = this.tfErfDatum.getText();
         String lieferDatum = this.tfLieferdatum.getText();
         String abschlussDatum = this.tfAbschlussdatum.getText();  
         String status = "";
@@ -1011,7 +1118,7 @@ public class AuftraegeController implements Initializable {
         
         clearAuftragskopfTextFields();
              
-          // Sperre wird aufgehoben 
+        // Sperre wird aufgehoben 
         this.pane.setVisible(true);
         
         this.auftragskopfTP.setText("Auftragskopf");
