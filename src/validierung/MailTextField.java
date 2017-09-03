@@ -9,15 +9,17 @@ import javafx.scene.control.TextField;
 public class MailTextField extends TextField {
 
     public MailTextField() {
+        
+        
 
         this.setPromptText(" ");
 
     }
-
-    @Override
+    
+    
+        @Override
     public void replaceText(int start, int end, String text) {
-        if (text.matches("^[a-zA-Z0-9]") 
-                || text.isEmpty()) {
+        if (text.matches("[A-Za-z0-9+_.@-]") || text.isEmpty()) {
             super.replaceText(start, end, text);
         }
     }
@@ -27,5 +29,6 @@ public class MailTextField extends TextField {
 
         super.replaceSelection(replacement);
     }
-
+    
+    
 }

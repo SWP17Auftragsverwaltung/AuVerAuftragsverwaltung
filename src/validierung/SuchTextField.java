@@ -21,7 +21,7 @@ public class SuchTextField extends TextField {
 
     @Override
     public void replaceText(int start, int end, String text) {
-        if (text.matches("[a-zA-Z0-9]") || text.isEmpty()) {
+        if (text.matches("[a-zA-Z0-9@?._*-]") || text.isEmpty()) {
             super.replaceText(start, end, text);
         }
     }         

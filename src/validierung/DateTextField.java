@@ -18,6 +18,14 @@ public class DateTextField extends TextField{
         this.setPromptText(" ");
 
     }
+    
+    
+    @Override
+    public void replaceText(int start, int end, String text) {
+        if (text.matches("[0-9.]") || text.isEmpty()) {
+            super.replaceText(start, end, text);
+        }
+    }
 
     @Override
     public void replaceSelection(String replacement) {
@@ -25,11 +33,11 @@ public class DateTextField extends TextField{
         super.replaceSelection(replacement);
     }
 
-    @Override
-    public void replaceText(int start, int end, String text) {
-        if (text.matches("^[0-9]{2}.[0-9]{2}.[0-9]{4}$/") || text.isEmpty()) {
-            super.replaceText(start, end, text);
-        }
-    }
+//    @Override
+//    public void replaceText(int start, int end, String text) {
+//        if (text.matches("^[0-9]{2}.[0-9]{2}.[0-9]{4}$/") || text.isEmpty()) {
+//            super.replaceText(start, end, text);
+//        }
+//    }
     
 }
