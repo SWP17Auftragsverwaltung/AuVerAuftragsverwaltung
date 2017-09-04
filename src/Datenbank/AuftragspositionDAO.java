@@ -16,6 +16,7 @@ import Klassen.Auftragsposition;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.scene.control.Alert;
@@ -176,6 +177,7 @@ public class AuftragspositionDAO extends DataAccess {
     /**
      * Gibt die letzte ID einer ausgewählten Auftragsposition wieder und zählt
      * sie um 1 hoch.
+     * @param posNr Positionsnummer
      * @return neue ID aufgezählt.
      * @throws java.sql.SQLException SQLException
      */    
@@ -265,13 +267,30 @@ public class AuftragspositionDAO extends DataAccess {
         String positionsnummer = generiereID(auftragskopfID);
         String artikelID = ap.getArtikelID();
         String menge = ap.getMenge();
+        int mengeInt = Integer.parseInt(menge);
         String einzelwert = ap.getEinzelwert();
         String lkz = ap.getLkz();
+        String query = "";
                
         try {
             con.setAutoCommit(false);
 
-            String query = "INSERT INTO ROOT." + ddd.getTabAuftragsposition()
+            if (artikelVorhanden(artikelID)) {
+                menge = berechneArtikelwert(artikelID, mengeInt);
+                
+                query = "UPDATE ROOT." + ddd.getTabAuftragsposition() 
+                    + " SET " + attribute.get(TAB_AUFTRAGSPOSITION).get(3) 
+                    + " = ?" 
+                    + " WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(2)
+                    + " = ?";
+                
+                stmt = con.prepareStatement(query);
+                stmt.setString(1, menge);
+                stmt.setString(2, artikelID);
+                stmt.executeUpdate();
+            
+            } else {
+                query = "INSERT INTO ROOT." + ddd.getTabAuftragsposition()
                     + " (" + attribute.get(TAB_AUFTRAGSPOSITION).get(0) + ", " 
                     +  attribute.get(TAB_AUFTRAGSPOSITION).get(1) + ", " 
                     +  attribute.get(TAB_AUFTRAGSPOSITION).get(2) + ", " 
@@ -280,17 +299,18 @@ public class AuftragspositionDAO extends DataAccess {
                     +  attribute.get(TAB_AUFTRAGSPOSITION).get(5) + ") "
                     + "VALUES (?,?,?,?,?,?)";
 
-            stmt = con.prepareStatement(query);
-            stmt.setString(1, auftragskopfID);
-            stmt.setString(2, positionsnummer);
-            stmt.setString(3, artikelID);
-            stmt.setString(4, menge);
-            stmt.setString(5, einzelwert);
-            stmt.setString(6, lkz);
+                stmt = con.prepareStatement(query);
+                stmt.setString(1, auftragskopfID);
+                stmt.setString(2, positionsnummer);
+                stmt.setString(3, artikelID);
+                stmt.setString(4, menge);
+                stmt.setString(5, einzelwert);
+                stmt.setString(6, lkz);
 
-            stmt.executeUpdate();
-            con.commit();
-            con.close();
+                stmt.executeUpdate();
+            }
+            
+            con.commit();           
             
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -302,7 +322,59 @@ public class AuftragspositionDAO extends DataAccess {
         }
     }        
     
- 
+       
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 04.09.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Rechnet einer bestehenden ArtikelID die eingegebene Menge hinzu.
+     * @param artikelID Eingegebene Artikel ID
+     * @param menge Zu addierende Menge
+     * @return Gibt ArrayList aller Auftragspositionen ohne LKZ wieder.
+     * @throws java.sql.SQLException SQLException
+     */
+    public String berechneArtikelwert(String artikelID, int menge)
+            throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String neueMenge = "";
+        int rechnung;
+
+        String query = "SELECT MENGE FROM ROOT." + ddd.getTabAuftragsposition() 
+            + " WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(5) + " = ?"
+            + " AND " + attribute.get(TAB_AUFTRAGSPOSITION).get(2) + " = ?";
+
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "N");
+            stmt.setString(2, artikelID);
+            rs = stmt.executeQuery();
+
+            con.commit();
+            if (rs.next()) {
+                neueMenge = rs.getString(1);
+                rechnung = Integer.parseInt(neueMenge);
+                rechnung = rechnung + menge;
+                neueMenge = String.valueOf(rechnung);
+            }
+
+            //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+            con.rollback();
+        }
+        return neueMenge;
+    } 
+
+    
+        
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 27.08.17    Hen     Erstellt.
@@ -360,6 +432,48 @@ public class AuftragspositionDAO extends DataAccess {
             con.rollback();
         }
         return auftragspositionListe;
-    }        
+    } 
+        
+
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 04.09.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Gibt alle Auftragspositionen zu einem bestimmten Auftrag wieder.
+     * @param artikelID ArtikelID
+     * @return Gibt ArrayList aller Auftragspositionen ohne LKZ wieder.
+     * @throws java.sql.SQLException S
+     */
+    public boolean artikelVorhanden(String artikelID) throws SQLException {
+        boolean ergebnis = false;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            String query = "SELECT * FROM ROOT." + ddd.getTabAuftragsposition() 
+                + " WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(2) 
+                + " = '" + artikelID + "'";
+            
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            con.commit();
+            ergebnis = rs.next();
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+            con.rollback();       
+        }
+
+        return ergebnis;
+    }
+        
+        
     
 }

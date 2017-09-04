@@ -50,10 +50,16 @@ public class Meldung {
     /**
      * Variable für den "Verwerfen Text".
      */
-    private final String datumDialogText = "Das eingegebene Datum fällt auf ein"
-        + " Wochenende oder einen Feiertag. Möchten Sie den Auftrag trotzdem"
-        + " hinzufügen?";
-  
+    private final String datumDialogWochenende = "Das eingegebene Datum fällt "
+        + "auf ein Wochenende. Möchten Sie den Auftrag trotzdem hinzufügen?";
+
+    /**
+     * Variable für den "Verwerfen Text".
+     */
+    private final String datumDialogFeiertag = "Das eingegebene Datum fällt "
+        + "auf einen Feiertag. Möchten Sie den Auftrag trotzdem hinzufügen?";
+      
+    
     /**
      * Button um das Datum zu ändern.
      */
@@ -96,16 +102,36 @@ public class Meldung {
      * Erzeugt ein Fenster das dem Benutzer ermöglicht, seine Aktion zu
      * verwerfen.
      */        
-    public void dialogDatum() { 
+    public void dialogDatumWochenende() { 
         meldung = new Alert(Alert.AlertType.CONFIRMATION);
         meldung.setTitle(datumDialogTitel);
-        meldung.setContentText(datumDialogText);
+        meldung.setContentText(datumDialogWochenende);
         meldung.getButtonTypes().clear();
         meldung.getButtonTypes().addAll(ButtonType.YES, btDatumAendern);
         meldung.showAndWait();
     }
+
+
     
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 02.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Erzeugt ein Fenster das dem Benutzer ermöglicht, seine Aktion zu
+     * verwerfen.
+     */        
+    public void dialogDatumFeiertag() { 
+        meldung = new Alert(Alert.AlertType.CONFIRMATION);
+        meldung.setTitle(datumDialogTitel);
+        meldung.setContentText(datumDialogFeiertag);
+        meldung.getButtonTypes().clear();
+        meldung.getButtonTypes().addAll(ButtonType.YES, btDatumAendern);
+        meldung.showAndWait();
+    }    
  
+    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was

@@ -21,7 +21,6 @@ import Klassen.Auftragskopf;
 import Klassen.Auftragsposition;
 import Klassen.Geschaeftspartner;
 import Klassen.Meldung;
-import de.jollyday.Holiday;
 import de.jollyday.HolidayCalendar;
 import de.jollyday.HolidayManager;
 import java.io.IOException;
@@ -30,9 +29,9 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 import javafx.collections.FXCollections;
@@ -723,12 +722,13 @@ public class AuftraegeController implements Initializable {
     public String gibDatum() {
         GregorianCalendar cal = new GregorianCalendar(); 
         cal.setTimeZone(TimeZone.getTimeZone("CET"));
-        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT); 
+        cal.getTime();
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM); 
         String datum = "";
         
-        if (cal.get(GregorianCalendar.DAY_OF_WEEK) 
-            == 7
-            || cal.get(GregorianCalendar.DAY_OF_WEEK) == 1) {   
+        if (cal.get(GregorianCalendar.DAY_OF_WEEK) == GregorianCalendar.SATURDAY
+            || cal.get(GregorianCalendar.DAY_OF_WEEK) 
+            == GregorianCalendar.SUNDAY) {   
             
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -760,17 +760,22 @@ public class AuftraegeController implements Initializable {
     @FXML    
     public boolean istFeiertag(GregorianCalendar cal) {
         boolean istFeiertag;
-        
+
         int jahr = cal.get(GregorianCalendar.YEAR);
-        int month = cal.get(GregorianCalendar.MONTH - 1);
-        int day = cal.get(GregorianCalendar.DATE);
+        int monat = cal.get(GregorianCalendar.MONTH);
+        int tag = cal.get(GregorianCalendar.DATE);
         
-        GregorianCalendar kalender = new GregorianCalendar(day, month, month);
+        Calendar kalender = GregorianCalendar.getInstance();
+        kalender.clear();
+        kalender.setTimeZone(TimeZone.getTimeZone("CET"));
+        kalender.set(jahr, monat, tag);
+        
+        kalender.getTime();
+        
         HolidayManager manager 
             = HolidayManager.getInstance(HolidayCalendar.GERMANY);
-        Set<Holiday> holidays = manager.getHolidays(jahr);
     
-        istFeiertag = manager.isHoliday(cal);   
+        istFeiertag = manager.isHoliday(kalender);   
         
         return istFeiertag;
     }
@@ -1071,11 +1076,7 @@ public class AuftraegeController implements Initializable {
     public void auftragHinzufuegen() throws SQLException, ParseException { 
         GregorianCalendar cal = new GregorianCalendar();
         String erfassungsDatum = "";
-        String tag;
-        String monat;
-        String jahr;
         boolean ergebnis = false;
-        
         
         while (!ergebnis) {
             StringTokenizer st 
@@ -1083,23 +1084,29 @@ public class AuftraegeController implements Initializable {
         
             //Datum in cal Objekt packen.
             while (st.hasMoreTokens()) {
+                String tag = st.nextToken();
+                String monat = st.nextToken();
+                String jahr =  st.nextToken();
+                
+                int year = Integer.parseInt(jahr);
+                int month = Integer.parseInt(monat);
+                int day = Integer.parseInt(tag);
+                month = month - 1;
+                
                 cal.clear();
-                tag = st.nextToken();
-                monat = st.nextToken();
-                jahr = st.nextToken();
-                cal.set(Integer.parseInt(jahr), Integer.parseInt(monat), 
-                        Integer.parseInt(tag));
+                cal.setTimeZone(TimeZone.getTimeZone("CET"));
+                cal.set(year, month, day);
+                cal.getTime();
             }
         
             //Datum auf Wochenende prüfen
             if (cal.get(GregorianCalendar.DAY_OF_WEEK) 
                 == GregorianCalendar.SATURDAY
                 || cal.get(GregorianCalendar.DAY_OF_WEEK) 
-                == GregorianCalendar.SUNDAY
-                || istFeiertag(cal)) {
+                == GregorianCalendar.SUNDAY) {
                 
                 Meldung meldung = new Meldung();
-                meldung.dialogDatum();
+                meldung.dialogDatumWochenende();
             
                 //Benutzer entscheiden lasen, ob Auftrag anlegen oder nicht.
                 if (meldung.antwort()) {
@@ -1111,7 +1118,21 @@ public class AuftraegeController implements Initializable {
                     ergebnis = false;
                 } 
         
-            } else {        
+            } else if (istFeiertag(cal)) {        
+                Meldung meldung = new Meldung();
+                meldung.dialogDatumFeiertag();
+            
+                //Benutzer entscheiden lasen, ob Auftrag anlegen oder nicht.
+                if (meldung.antwort()) {
+                    erfassungsDatum = this.tfErfDatum.getText();
+                    ergebnis = true;
+
+                } else {
+                    datumAendern();                   
+                    ergebnis = false;
+                } 
+                
+            } else {
                 erfassungsDatum = this.tfErfDatum.getText();
                 ergebnis = true;
             }
@@ -1286,11 +1307,13 @@ public class AuftraegeController implements Initializable {
         
         tfAuftragswertPOS.setText(berechneAuftragswert());
 
+        setTableContentPositionen();
         clearAuftragsPosTextFields();
-        this.paneAuftragsposition.setVisible(false);
-        this.paneArtikelauswahl.setVisible(true);
-        this.btAnlegenAPD.setVisible(true);
+        
+        this.paneArtikelauswahl.setVisible(false);
+        this.paneAuftragsposition.setVisible(true);
         this.btHinzufuegenAPD.setVisible(false);
+        this.btAnlegenAPD.setVisible(true);
     }
 
     
