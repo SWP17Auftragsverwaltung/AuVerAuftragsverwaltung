@@ -103,7 +103,7 @@
             </TitledPane>
             <TitledPane fx:id="paneAuftragsposition" animated="false" collapsible="false" layoutX="42.0" layoutY="140.0" prefHeight="352.0" prefWidth="974.0" text="Auftragspositionen" AnchorPane.bottomAnchor="236.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="155.0">
                <content>
-                  <TableView fx:id="tvAuftragsposition" prefHeight="232.0" prefWidth="972.0">
+                  <TableView fx:id="tvAuftragsposition" onMouseClicked="#zeigeWerteTvPositionen" prefHeight="232.0" prefWidth="972.0">
                      <columns>
                         <TableColumn fx:id="tcAuftragskopfIDAufPos" prefWidth="150.0" text="Auftragskopf-ID" />
                         <TableColumn fx:id="tcPositionsNrAufPos" prefWidth="126.0" text="Positionsnummer" />
@@ -120,7 +120,7 @@
                      <children>
                         <Pane fx:id="paneAPD" prefHeight="114.0" prefWidth="771.0" />
                         <Button fx:id="btAnlegenAPD" layoutX="14.0" layoutY="119.0" mnemonicParsing="false" onAction="#auftragspositionAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
-                        <Button fx:id="btLoeschenAPD" layoutX="228.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
+                        <Button fx:id="btLoeschenAPD" layoutX="228.0" layoutY="119.0" mnemonicParsing="false" onAction="#auftragspositionLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
                         <Button fx:id="btBearbeitenAPD" layoutX="121.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
                         <Button fx:id="btAbbrechenAPD" layoutX="336.0" layoutY="119.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " />
                         <TextField fx:id="tfPositionsNrAPD" layoutX="14.0" layoutY="47.0" />

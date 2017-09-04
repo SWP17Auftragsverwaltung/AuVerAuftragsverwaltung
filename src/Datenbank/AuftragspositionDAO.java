@@ -267,7 +267,6 @@ public class AuftragspositionDAO extends DataAccess {
         String positionsnummer = generiereID(auftragskopfID);
         String artikelID = ap.getArtikelID();
         String menge = ap.getMenge();
-        int mengeInt = Integer.parseInt(menge);
         String einzelwert = ap.getEinzelwert();
         String lkz = ap.getLkz();
         String query = "";
@@ -276,6 +275,7 @@ public class AuftragspositionDAO extends DataAccess {
             con.setAutoCommit(false);
 
             if (artikelVorhanden(artikelID)) {
+                int mengeInt = Integer.parseInt(menge);
                 menge = berechneArtikelwert(artikelID, mengeInt);
                 
                 query = "UPDATE ROOT." + ddd.getTabAuftragsposition() 
@@ -374,6 +374,50 @@ public class AuftragspositionDAO extends DataAccess {
     } 
 
     
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 04.09.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Rechnet einer bestehenden ArtikelID die eingegebene Menge hinzu.
+     * @param auftragswert Berechneter Auftrasgwert
+     * @param auftragsID Auftragskopf, dessen Wert gesetzt werden soll
+     * @throws java.sql.SQLException SQLException
+     */
+    public void setzeAuftragswert(String auftragswert, String auftragsID)
+            throws SQLException {
+        
+        PreparedStatement stmt = null;
+        String query = "";
+
+        try {
+            con.setAutoCommit(false);
+
+            query = "UPDATE ROOT." + ddd.getTabAuftragskopf()
+                + " SET " + attribute.get(TAB_AUFTRAGSKOPF).get(8) 
+                + " = ? WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
+                + " = ?";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, auftragswert);
+            stmt.setString(2, auftragsID);
+            stmt.executeUpdate();
+            con.commit();
+
+            //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+            con.rollback();
+        }
+    } 
+    
+    
         
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -455,7 +499,7 @@ public class AuftragspositionDAO extends DataAccess {
         try {
             String query = "SELECT * FROM ROOT." + ddd.getTabAuftragsposition() 
                 + " WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(2) 
-                + " = '" + artikelID + "'";
+                + " = '" + artikelID + "' AND LKZ = 'N'";
             
             stmt = con.createStatement();
             rs = stmt.executeQuery(query);
@@ -473,7 +517,48 @@ public class AuftragspositionDAO extends DataAccess {
 
         return ergebnis;
     }
-        
+ 
+   
+    /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 04.09.17     HEN     Erstellt.   
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Setzt Löschkennzeichen bei einer markierten Auftragsposition.
+     * @param ap Zu löschende Auftragsposition
+     * @throws java.sql.SQLException Fehlerhafter SQL Befehl.
+     */
+    public void setzeAuftragsposLKZ(Auftragsposition ap) throws SQLException {
+        PreparedStatement stmt = null;
+        String positionsnummer = ap.getPositionsnummer();
+
+        try {
+            con.setAutoCommit(false);
+
+            String query
+                = "UPDATE ROOT." + ddd.getTabAuftragsposition()
+                + " SET " + attribute.get(TAB_AUFTRAGSPOSITION).get(5) + " = ?"
+                + " WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(1) 
+                + " = ?";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "J");
+            stmt.setString(2, positionsnummer);
+            stmt.executeUpdate();
+            con.commit();
+
+            
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+            con.rollback();
+        }
+    }    
+    
         
     
 }

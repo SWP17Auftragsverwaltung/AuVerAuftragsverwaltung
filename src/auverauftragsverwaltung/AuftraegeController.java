@@ -29,7 +29,6 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
@@ -689,6 +688,22 @@ public class AuftraegeController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
+    /* 04.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Aktualisiert die TableView mit aktuellem Inhalt.
+     * @throws java.sql.SQLException SQL Exception
+    */
+    public void refreshAuftragspositionTable() throws SQLException {
+        tvAuftragsposition.getItems().clear();
+        setTableContentPositionen();
+    }     
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     
@@ -957,6 +972,47 @@ public class AuftraegeController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
+    /* 04.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * "Löscht" eine markierte Adresse, in dem das LKZ auf J gesetzt wird.
+     * Aktualisiert anschließend die TableView.
+     * @throws java.sql.SQLException SQL Exception
+     */
+    @FXML
+    public void auftragspositionLoeschen() throws SQLException {
+        Object auftragsposition = 
+                tvAuftragsposition.getSelectionModel().getSelectedItem();
+        Auftragsposition ap = (Auftragsposition) auftragsposition;
+        
+        if (!tfPositionsNrAPD.getText().isEmpty()) {
+            Meldung meldung = new Meldung();
+            meldung.loeschenAbfragen();
+
+            if (meldung.antwort()) {
+                AuftragspositionDAO apd = new AuftragspositionDAO();
+                apd.setzeAuftragsposLKZ(ap);
+
+                double einzelwert = Double.parseDouble(ap.getEinzelwert());
+                int menge = Integer.parseInt(ap.getMenge());
+                double ergebnis = -(einzelwert * menge);
+                String wert = String.valueOf(ergebnis);
+                
+                apd.setzeAuftragswert(wert, ap.getAuftragskopfID());
+                refreshAuftragspositionTable();
+                refreshAuftragskopfTable();
+            } else {
+                meldung.schließeFenster();
+                clearAuftragsPosTextFields();
+            }
+        }
+    }    
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
     /* 22.08.17    BER     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
@@ -1038,8 +1094,32 @@ public class AuftraegeController implements Initializable {
         }
     }      
     
+
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 27.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+     */
+    @FXML
+    public void zeigeWerteTvPositionen() {
+        Object auftragsposition 
+                = tvAuftragsposition.getSelectionModel().getSelectedItem();
+        Auftragsposition ap = (Auftragsposition) auftragsposition;
+
+        if (ap != null) {       
+            this.tfPositionsNrAPD.setText(ap.getPositionsnummer());
+            this.tfMengeAPD.setText(ap.getMenge());
+            this.tfEinzelwertAPD.setText(ap.getEinzelwert());
+            this.tfMaterialNrAPD.setText(ap.getArtikelID());
+        }
+    }   
     
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 03.08.17    HEN     Methode erstellt.
@@ -1170,26 +1250,17 @@ public class AuftraegeController implements Initializable {
         
         clearAuftragskopfTextFields();
              
-        // Sperre wird aufgehoben 
-        this.pane.setVisible(true);
-        
+        //Buttons setzen
+        this.pane.setVisible(true);      
         this.auftragskopfTP.setText("Auftragskopf");
-       
-        // Anlege-Button wird unsichtbar.
         this.btAnlegen.setVisible(true);
-        
-        // Hinzufügen-Button wird sichtbar.
         this.btHinzufuegen.setVisible(false);
-        
-        // Ändern Button wird deaktiviert.
         this.btAendern.setDisable(false);
-
-        // Löschen Button wird deaktiviert
         this.btLoeschen.setDisable(false);
-        
         this.paneGP.setVisible(false);
-        
         this.auftraegeTP.setVisible(true);
+        
+        //Auftragskopftabelle aktualisieren
         refreshAuftragskopfTable();
         leereAuftragspositionHinzufuegen();
     }
@@ -1274,6 +1345,11 @@ public class AuftraegeController implements Initializable {
         this.btAnlegenAPD.setVisible(false);
         this.btHinzufuegenAPD.setVisible(true);
         
+        AuftragspositionDAO apd = new AuftragspositionDAO();
+        String auftragskopfID = tfAuftragskopfIDPOS.getText();
+        String positionsnummer = apd.generiereID(auftragskopfID);
+        tfPositionsNrAPD.setText(positionsnummer);
+        
         setTableContentArtikel();
     }       
     
@@ -1294,7 +1370,7 @@ public class AuftraegeController implements Initializable {
         AuftragspositionDAO apd = new AuftragspositionDAO();
   
         String auftragskopfID = tfAuftragskopfIDPOS.getText();
-        String positionsnummer = apd.generiereID(auftragskopfID);
+        String positionsnummer = tfPositionsNrAPD.getText();
         String artikelID = tfMaterialNrAPD.getText();
         String menge = tfMengeAPD.getText();
         String einzelwert = tfEinzelwertAPD.getText();
@@ -1305,9 +1381,12 @@ public class AuftraegeController implements Initializable {
     
         apd.fuegeAuftragspositionHinzu(auftragsposition);
         
-        tfAuftragswertPOS.setText(berechneAuftragswert());
+        String wert = berechneAuftragswert();
+        apd.setzeAuftragswert(wert, auftragskopfID);
+        tfAuftragswertPOS.setText(wert);
 
-        setTableContentPositionen();
+        refreshAuftragspositionTable();
+        refreshAuftragskopfTable();
         clearAuftragsPosTextFields();
         
         this.paneArtikelauswahl.setVisible(false);
@@ -1336,8 +1415,7 @@ public class AuftraegeController implements Initializable {
         } else {
             auftragsWertAPD = Double.parseDouble(auftragsWert);
         }
-        
-        
+            
         String mengeAPD = tfMengeAPD.getText();
         int menge =  Integer.parseInt(mengeAPD);
         
@@ -1349,10 +1427,9 @@ public class AuftraegeController implements Initializable {
         rechnung = Math.round(rechnung);
         rechnung = rechnung / 100;
         
-        String ergebnis = String.valueOf(rechnung);
-        tfAuftragswert.setText(ergebnis);
-        
-        return ergebnis;
+        String berechneterWert = String.valueOf(rechnung);
+            
+        return berechneterWert;
     }
 
 
@@ -1386,7 +1463,7 @@ public class AuftraegeController implements Initializable {
         apd.fuegeAuftragspositionHinzu(auftragsposition);
 
         clearAuftragsPosTextFields();
-//        refreshTable();
+        refreshAuftragspositionTable();
     }    
   
     
