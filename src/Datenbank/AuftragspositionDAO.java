@@ -116,58 +116,7 @@ public class AuftragspositionDAO extends DataAccess {
         return auftragspositionListe;
     }    
     
-        
-    /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 27.08.17    Hen     Erstellt.
-    /*------------------------------------------------------------------------*/
-    
-    /**
-     * Berechnet den Auftragswert.
-     * @param ap AP
-     * @throws java.sql.SQLException SQLException
-     */        
-    public void berechneAuftragswert(Auftragsposition ap) throws SQLException {
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        String query = "";
-        
-        try {
-            query = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
-                + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
-                + " = ?";
-            stmt = con.prepareStatement(query);
-            stmt.setString(1, ap.getAuftragskopfID());
-            rs = stmt.executeQuery();
-            Auftragskopf auftragskopf = null;
-            
-            while (rs.next()) {
-                auftragskopf = new Auftragskopf(rs.getString(1), 
-                    rs.getString(2), rs.getString(3), rs.getString(4),
-                    rs.getString(5), rs.getString(6), rs.getString(7), 
-                    rs.getString(8), rs.getString(9), rs.getString(10));
-            }
-            
-            
-            query = "UPDATE ROOT." + ddd.getTabAuftragskopf() 
-                + " SET " + attribute.get(TAB_AUFTRAGSKOPF).get(8) 
-                + " = ? WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
-                + " = ?";    
-            stmt = con.prepareStatement(query);
-            stmt.setString(1, auftragskopf.getAuftragswert());
-            stmt.setString(2, ap.getAuftragskopfID());
-            stmt.executeUpdate();
-        
-        } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.initStyle(StageStyle.UTILITY);
-            alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
-            alert.showAndWait();
-            con.rollback();
-        }
-    }
-    
+
         
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
@@ -373,6 +322,65 @@ public class AuftragspositionDAO extends DataAccess {
         return neueMenge;
     } 
 
+
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 04.09.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Rechnet einer bestehenden ArtikelID die eingegebene Menge hinzu.
+     * @param wert Berechneter Auftrasgwert
+     * @param auftragsID Auftragskopf, dessen Wert gesetzt werden soll
+     * @throws java.sql.SQLException SQLException
+     */
+    public void berechneAuftragswert(double wert, String auftragsID)
+            throws SQLException {
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String alterWert = "";
+        double neuerWertDouble;
+        String neuerWert = "";
+
+        String query = "SELECT " + attribute.get(TAB_AUFTRAGSKOPF).get(8) 
+            + " FROM ROOT." + ddd.getTabAuftragskopf()
+            + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(9) + " = ?"
+            + " AND " + attribute.get(TAB_AUFTRAGSKOPF).get(0) + " = ?";
+
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "N");
+            stmt.setString(2, auftragsID);
+            rs = stmt.executeQuery();
+            con.commit();
+            
+            if (rs.next()) {
+                alterWert = rs.getString(1);
+                neuerWertDouble = Double.parseDouble(alterWert);
+                neuerWertDouble = neuerWertDouble + wert;
+                
+                neuerWertDouble = neuerWertDouble * 100;
+                neuerWertDouble = Math.round(neuerWertDouble);
+                neuerWertDouble = neuerWertDouble / 100;
+                
+                neuerWert = String.valueOf(neuerWertDouble);
+                           
+                setzeAuftragswert(neuerWert, auftragsID);
+            }
+
+            //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+            con.rollback();
+        }
+    } 
+
     
     
     /*------------------------------------------------------------------------*/
@@ -417,8 +425,54 @@ public class AuftragspositionDAO extends DataAccess {
         }
     } 
     
+
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 04.09.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Rechnet einer bestehenden ArtikelID die eingegebene Menge hinzu.
+     * @param auftragsID Auftragskopf, dessen Wert ausgelesen werden soll
+     * @return Ausgelesener Auftragswert
+     * @throws java.sql.SQLException SQLException
+     */
+    public String gibAuftragswert(String auftragsID) throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String auftragswert = "";
+
+        String query = "SELECT " + attribute.get(TAB_AUFTRAGSKOPF).get(8) 
+            + " FROM ROOT." + ddd.getTabAuftragskopf()
+            + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(9) + " = ?"
+            + " AND " + attribute.get(TAB_AUFTRAGSKOPF).get(0) + " = ?";
+
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "N");
+            stmt.setString(2, auftragsID);
+            rs = stmt.executeQuery();
+            con.commit();
+            
+            if (rs.next()) {
+                auftragswert = rs.getString(1);
+            }
+            
+        //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+            con.rollback();
+        }
+        return auftragswert;
+    } 
     
         
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 27.08.17    Hen     Erstellt.
@@ -560,5 +614,48 @@ public class AuftragspositionDAO extends DataAccess {
     }    
     
         
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 05.09.17    HEN     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Ändert eine markierte Auftragsposition in der Datenbank.
+     * @param ap Auftragspositionsobjekt
+     * @throws java.sql.SQLException Fehlerhafter SQL Befehl.
+     */
+    public void aendereAuftragsposition(Auftragsposition ap) 
+            throws SQLException {
+        PreparedStatement stmt = null;
+        String query = "";
+
+        try {
+            con.setAutoCommit(false);
+
+            query
+                = "UPDATE ROOT." + ddd.getTabAuftragsposition()
+                + " SET " + attribute.get(TAB_AUFTRAGSPOSITION).get(3) 
+                + " = ? WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(0) 
+                + " = ?";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, ap.getMenge());
+            stmt.setString(2, ap.getPositionsnummer());
+            stmt.executeUpdate();
+
+      
+            con.commit();
+            con.close();
+     
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+            con.rollback();
+        }
+    }
+
     
 }

@@ -517,6 +517,8 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     private TitledPane auftraegeTP;
+    @FXML
+    private Button btSpeichernAPD;
    
     
     /**
@@ -733,7 +735,6 @@ public class AuftraegeController implements Initializable {
      * Prüft, ob das eingegebene Datum auf ein Wochenende fällt.
      * @return Geprüftes Datum.
      */
-    @FXML
     public String gibDatum() {
         GregorianCalendar cal = new GregorianCalendar(); 
         cal.setTimeZone(TimeZone.getTimeZone("CET"));
@@ -772,7 +773,6 @@ public class AuftraegeController implements Initializable {
      * @param cal Zu prüfendes Datum.
      * @return Geprüftes Datum.
      */
-    @FXML    
     public boolean istFeiertag(GregorianCalendar cal) {
         boolean istFeiertag;
 
@@ -992,16 +992,21 @@ public class AuftraegeController implements Initializable {
 
             if (meldung.antwort()) {
                 AuftragspositionDAO apd = new AuftragspositionDAO();
-                apd.setzeAuftragsposLKZ(ap);
 
                 double einzelwert = Double.parseDouble(ap.getEinzelwert());
                 int menge = Integer.parseInt(ap.getMenge());
                 double ergebnis = -(einzelwert * menge);
-                String wert = String.valueOf(ergebnis);
                 
-                apd.setzeAuftragswert(wert, ap.getAuftragskopfID());
+                apd.berechneAuftragswert(ergebnis, ap.getAuftragskopfID());
+                String auftragswert 
+                    = apd.gibAuftragswert(ap.getAuftragskopfID());
+                tfAuftragswertPOS.setText(auftragswert);
+                
+                apd.setzeAuftragsposLKZ(ap);
+
                 refreshAuftragspositionTable();
                 refreshAuftragskopfTable();
+                
             } else {
                 meldung.schließeFenster();
                 clearAuftragsPosTextFields();
@@ -1339,6 +1344,7 @@ public class AuftraegeController implements Initializable {
      * wird.
      * @throws java.sql.SQLException SQL Exception
      */
+    @FXML
     public void auftragspositionAnlegen() throws SQLException {   
         this.paneAuftragsposition.setVisible(false);
         this.paneArtikelauswahl.setVisible(true);
@@ -1349,6 +1355,7 @@ public class AuftraegeController implements Initializable {
         String auftragskopfID = tfAuftragskopfIDPOS.getText();
         String positionsnummer = apd.generiereID(auftragskopfID);
         tfPositionsNrAPD.setText(positionsnummer);
+        tfMengeAPD.clear();
         
         setTableContentArtikel();
     }       
@@ -1366,6 +1373,7 @@ public class AuftraegeController implements Initializable {
      * wird.
      * @throws java.sql.SQLException SQL Exception
      */
+    @FXML
     public void auftragspositionHinzufuegen() throws SQLException {
         AuftragspositionDAO apd = new AuftragspositionDAO();
   
@@ -1381,9 +1389,10 @@ public class AuftraegeController implements Initializable {
     
         apd.fuegeAuftragspositionHinzu(auftragsposition);
         
-        String wert = berechneAuftragswert();
-        apd.setzeAuftragswert(wert, auftragskopfID);
-        tfAuftragswertPOS.setText(wert);
+        berechneAuftragswert(auftragskopfID);
+//        String wert = berechneAuftragswert(auftragskopfID);
+//        apd.setzeAuftragswert(wert, auftragskopfID);
+        tfAuftragswertPOS.setText(apd.gibAuftragswert(auftragskopfID));
 
         refreshAuftragspositionTable();
         refreshAuftragskopfTable();
@@ -1404,32 +1413,24 @@ public class AuftraegeController implements Initializable {
     /**
      * Berechnet den Auftragswert anhand der angegebenen Menge und füllt
      * das obere Auftragswert Feld.
-     * @return Berechneter Auftragswert
+     * @param auftragskopfID Auftragskopf
+     * @throws java.sql.SQLException SQL
      */
-    public String berechneAuftragswert() {
-        String auftragsWert = tfAuftragswert.getText();
-        double auftragsWertAPD = 0;
-        
-        if (auftragsWert.isEmpty()) {
-            auftragsWert = "0";
-        } else {
-            auftragsWertAPD = Double.parseDouble(auftragsWert);
-        }
-            
+    public void berechneAuftragswert(String auftragskopfID) 
+            throws SQLException {
         String mengeAPD = tfMengeAPD.getText();
         int menge =  Integer.parseInt(mengeAPD);
         
         String einzelWertAPD = tfEinzelwertAPD.getText();
         double einzelwert = Double.parseDouble(einzelWertAPD);
         
-        double rechnung = auftragsWertAPD + menge * einzelwert;
+        double rechnung = menge * einzelwert;
         rechnung = rechnung * 100;
         rechnung = Math.round(rechnung);
-        rechnung = rechnung / 100;
+        rechnung = rechnung / 100;        
         
-        String berechneterWert = String.valueOf(rechnung);
-            
-        return berechneterWert;
+        AuftragspositionDAO apd = new AuftragspositionDAO();
+        apd.berechneAuftragswert(rechnung, auftragskopfID);          
     }
 
 
@@ -1504,6 +1505,70 @@ public class AuftraegeController implements Initializable {
         }
     }      
     
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 16.08.17    GET     Methode erstellt.
+    /* 22.08.17    HEN     Adressdatenpane geändert. Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Lässt das Bearbeiten einer ausgewählten Adresse zu.
+     */
+    public void bearbeitePosition() {
+        // Textfeldbereich wird aktiviert
+        this.paneAPD.setDisable(true);
+        // Bearbeiten-Button wird ausgeblendet
+        this.btBearbeitenAPD.setVisible(false);
+        // Speichern-Button wird eingeblendet
+        this.btSpeichernAPD.setVisible(true);
+        // Anlegen-Button wird deaktiviert
+        this.btAnlegenAPD.setDisable(true);
+        // Löschen-Button wird deaktiviert
+        this.btLoeschenAPD.setDisable(true);
+    }
+
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 16.08.17    GET     Methode erstellt.
+    /* 22.08.17    HEN     Exceptions eingefügt. Getestet & Freigegeben.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Speichert die gemachten Änderungen in die Datenbank und aktualisiert die
+     * View mit den neuen Werten.
+     * @throws java.sql.SQLException SQLException.
+     */
+    public void speichereAenderungPosition() throws SQLException {
+        String auftragsID = tfAuftragskopfIDPOS.getText();
+        String positionsnummer = tfPositionsNrAPD.getText();
+        String artikelID = tfMaterialNrAPD.getText();
+        String menge = tfMengeAPD.getText();
+        String einzelwert = tfEinzelwertAPD.getText();
+        String lkz = "N";
+            
+        Auftragsposition auftragsposition = new Auftragsposition(auftragsID, 
+            positionsnummer, artikelID, menge, einzelwert, lkz);
+
+        AuftragspositionDAO apd = new AuftragspositionDAO();
+        apd.aendereAuftragsposition(auftragsposition);
+
+        refreshAuftragspositionTable();
+
+        // Textfeldbereich wird deaktivieren
+        this.paneAPD.setDisable(false);
+        // Bearbeiten-Button wird ausgeblendet
+        this.btBearbeitenAPD.setVisible(true);
+        // Speichern-Button wird eingeblendet
+        this.btSpeichernAPD.setVisible(false);
+        // Anlegen-Button wird deaktiviert
+        this.btAnlegenAPD.setDisable(false);
+        // Löschen-Button wird deaktiviert
+        this.btLoeschenAPD.setDisable(false);     
+    }
+
     
     
 }
