@@ -471,7 +471,54 @@ public class AuftragspositionDAO extends DataAccess {
         return auftragswert;
     } 
     
-        
+    
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 04.09.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Rechnet einer bestehenden ArtikelID die eingegebene Menge hinzu.
+     * @param positionsnummer PosNr
+     * @return Ausgelesener Auftragswert
+     * @throws java.sql.SQLException SQLException
+     */
+    public String gibPositionsMenge(String positionsnummer) 
+            throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String posMenge = "";
+
+        String query = "SELECT " + attribute.get(TAB_AUFTRAGSPOSITION).get(3) 
+            + " FROM ROOT." + ddd.getTabAuftragsposition()
+            + " WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(5) + " = ?"
+            + " AND " + attribute.get(TAB_AUFTRAGSPOSITION).get(1) + " = ?";
+
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "N");
+            stmt.setString(2, positionsnummer);
+            rs = stmt.executeQuery();
+            con.commit();
+            
+            if (rs.next()) {
+                posMenge = rs.getString(1);
+            }
+            
+        //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+            con.rollback();
+        }
+        return posMenge;
+    }     
+    
+    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -635,17 +682,15 @@ public class AuftragspositionDAO extends DataAccess {
             query
                 = "UPDATE ROOT." + ddd.getTabAuftragsposition()
                 + " SET " + attribute.get(TAB_AUFTRAGSPOSITION).get(3) 
-                + " = ? WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(0) 
+                + " = ? WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(1) 
                 + " = ?";
             
             stmt = con.prepareStatement(query);
             stmt.setString(1, ap.getMenge());
             stmt.setString(2, ap.getPositionsnummer());
             stmt.executeUpdate();
-
-      
+ 
             con.commit();
-            con.close();
      
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

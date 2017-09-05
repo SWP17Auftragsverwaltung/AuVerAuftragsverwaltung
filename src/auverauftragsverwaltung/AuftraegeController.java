@@ -1542,30 +1542,57 @@ public class AuftraegeController implements Initializable {
      * @throws java.sql.SQLException SQLException.
      */
     public void speichereAenderungPosition() throws SQLException {
+        AuftragspositionDAO apd = new AuftragspositionDAO();
+        
         String auftragsID = tfAuftragskopfIDPOS.getText();
         String positionsnummer = tfPositionsNrAPD.getText();
         String artikelID = tfMaterialNrAPD.getText();
         String menge = tfMengeAPD.getText();
+        String alteMenge = apd.gibPositionsMenge(positionsnummer);
         String einzelwert = tfEinzelwertAPD.getText();
         String lkz = "N";
             
         Auftragsposition auftragsposition = new Auftragsposition(auftragsID, 
-            positionsnummer, artikelID, menge, einzelwert, lkz);
+            positionsnummer, artikelID, alteMenge, einzelwert, lkz);
 
-        AuftragspositionDAO apd = new AuftragspositionDAO();
+        //Erstellte Auftragsposition zur DB hinzufügen.       
         apd.aendereAuftragsposition(auftragsposition);
-
+        
+        //Alte Menge der gewählten Position holen und mit der neu eingegebenen
+        //verrechnen. 
+        int alteMengeInt = Integer.parseInt(alteMenge);
+        int mengeInt = Integer.parseInt(menge);
+        int x = alteMengeInt - mengeInt;
+           
+        if (x == 0) {
+   
+        } else if (menge.equals("0")) {
+            //Menge neu berechnen.
+            double einzelwertDouble = Double.parseDouble(einzelwert);    
+            double neuerWert = alteMengeInt * einzelwertDouble;  
+            apd.berechneAuftragswert(-neuerWert, auftragsID);  
+            apd.setzeAuftragsposLKZ(auftragsposition);
+        
+        } else {       
+            //Menge neu berechnen.
+            double einzelwertDouble = Double.parseDouble(einzelwert);    
+            double neuerWert = x * einzelwertDouble * (-1);  
+            
+            auftragsposition.setMenge(menge);
+            apd.aendereAuftragsposition(auftragsposition);
+            
+            apd.berechneAuftragswert(neuerWert, auftragsID);   
+        }
+         
         refreshAuftragspositionTable();
+        refreshAuftragskopfTable();
+        tfAuftragswertPOS.setText(apd.gibAuftragswert(auftragsID));
 
-        // Textfeldbereich wird deaktivieren
+        //Buttons und Textfelder aktivieren / deaktivieren.
         this.paneAPD.setDisable(false);
-        // Bearbeiten-Button wird ausgeblendet
         this.btBearbeitenAPD.setVisible(true);
-        // Speichern-Button wird eingeblendet
         this.btSpeichernAPD.setVisible(false);
-        // Anlegen-Button wird deaktiviert
         this.btAnlegenAPD.setDisable(false);
-        // Löschen-Button wird deaktiviert
         this.btLoeschenAPD.setDisable(false);     
     }
 
