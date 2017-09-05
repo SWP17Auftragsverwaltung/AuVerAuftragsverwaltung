@@ -10,9 +10,9 @@
    <children>
       <AnchorPane fx:id="paneAuftraege" layoutX="-2.0" prefHeight="768.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TitledPane fx:id="auftragskopfTP" animated="false" collapsible="false" layoutY="451.0" prefHeight="256.0" prefWidth="1013.0" text="Auftragskopf" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+            <TitledPane fx:id="auftragskopfTP" animated="false" collapsible="false" layoutX="25.0" layoutY="474.0" prefHeight="251.0" prefWidth="974.0" text="Auftragskopf" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="214.0" prefWidth="972.0">
                      <children>
                         <Label layoutX="16.0" layoutY="22.0" text="Auftragskopf" />
                         <TextField fx:id="tfAuftragskopf" editable="false" layoutX="14.0" layoutY="38.0" prefHeight="25.0" prefWidth="89.0" />
@@ -45,9 +45,9 @@
                   </AnchorPane>
               </content>
             </TitledPane>
-            <TitledPane fx:id="auftraegeTP" collapsible="false" layoutY="54.0" prefHeight="427.0" prefWidth="974.0" text="Aufträge" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="90.0">
+            <TitledPane fx:id="auftraegeTP" collapsible="false" layoutY="54.0" prefHeight="362.0" prefWidth="974.0" text="Aufträge" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="150.0">
                <content>
-                  <TableView fx:id="tvAuftragskopf" onMouseClicked="#zeigeWerteAn" prefHeight="359.0" prefWidth="1013.0">
+                  <TableView fx:id="tvAuftragskopf" onMouseClicked="#zeigeWerteAn" prefHeight="349.0" prefWidth="972.0">
                      <columns>
                         <TableColumn fx:id="tcAuftragsID" prefWidth="156.0" text="Auftrags-ID" />
                         <TableColumn fx:id="tcAuftragsText" text="Text" />
@@ -65,10 +65,10 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </TitledPane>
-            <Button layoutX="25.0" layoutY="14.0" mnemonicParsing="false" onAction="#sucheAuftrag" prefHeight="40.0" prefWidth="160.0" text="Auftrag Suchen " AnchorPane.leftAnchor="25.0" />
-            <TitledPane fx:id="paneGP" collapsible="false" layoutY="54.0" prefHeight="427.0" prefWidth="1020.0" text="Geschäftspartner Auswahl" AnchorPane.bottomAnchor="285.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="90.0">
+            <Button layoutX="25.0" layoutY="39.0" mnemonicParsing="false" onAction="#sucheAuftrag" prefHeight="40.0" prefWidth="160.0" text="Auftrag Suchen " AnchorPane.leftAnchor="25.0" />
+            <TitledPane fx:id="paneGP" collapsible="false" layoutY="54.0" prefHeight="362.0" prefWidth="974.0" text="Geschäftspartner Auswahl" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="150.0">
                <content>
-                  <TableView fx:id="tvGPAuswahl" onMouseClicked="#waehleGeschaeftspartnerID" prefHeight="359.0" prefWidth="1013.0">
+                  <TableView fx:id="tvGPAuswahl" onMouseClicked="#waehleGeschaeftspartnerID" prefHeight="321.0" prefWidth="972.0">
                      <columns>
                         <TableColumn fx:id="tcGpIDGPWahl" prefWidth="156.0" text="GeschäftspartnerID" />
                         <TableColumn fx:id="tcTypGPWahl" text="Typ" />
@@ -86,9 +86,9 @@
       </AnchorPane>
       <AnchorPane id="AnchorPane" fx:id="paneAuftragspositionen" layoutX="2.0" layoutY="10.0" prefHeight="768.0" prefWidth="1032.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TitledPane fx:id="paneArtikelauswahl" animated="false" collapsible="false" layoutX="52.0" layoutY="150.0" prefHeight="352.0" prefWidth="974.0" text="Artikelauswahl" AnchorPane.bottomAnchor="236.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="155.0">
+            <TitledPane fx:id="paneArtikelauswahl" animated="false" collapsible="false" layoutX="52.0" layoutY="150.0" prefHeight="352.0" prefWidth="974.0" text="Artikelauswahl" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="150.0">
                <content>
-                  <TableView fx:id="tvArtikelauswahl" onMouseClicked="#zeigeWerteTvArtikel" prefHeight="232.0" prefWidth="972.0">
+                  <TableView fx:id="tvArtikelauswahl" onMouseClicked="#zeigeWerteTvArtikel" prefHeight="264.0" prefWidth="972.0">
                      <columns>
                         <TableColumn fx:id="tcArtikelIDArtWahl" prefWidth="150.0" text="ArtikelID" />
                         <TableColumn fx:id="tcArtikeltextArtWahl" prefWidth="126.0" text="Artikeltext" />
@@ -101,7 +101,7 @@
                   </TableView>
                </content>
             </TitledPane>
-            <TitledPane fx:id="paneAuftragsposition" animated="false" collapsible="false" layoutX="42.0" layoutY="140.0" prefHeight="352.0" prefWidth="974.0" text="Auftragspositionen" AnchorPane.bottomAnchor="236.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="155.0">
+            <TitledPane fx:id="paneAuftragsposition" animated="false" collapsible="false" layoutX="42.0" layoutY="102.0" prefHeight="352.0" prefWidth="974.0" text="Auftragspositionen" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="150.0">
                <content>
                   <TableView fx:id="tvAuftragsposition" onMouseClicked="#zeigeWerteTvPositionen" prefHeight="232.0" prefWidth="972.0">
                      <columns>
@@ -114,7 +114,7 @@
                   </TableView>
                </content>
             </TitledPane>
-            <TitledPane fx:id="auftragspositionTP" animated="false" collapsible="false" layoutX="42.0" layoutY="494.0" prefHeight="206.0" prefWidth="941.0" text="Auftragspositionsdatensatz" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+            <TitledPane fx:id="auftragspositionTP" animated="false" collapsible="false" layoutX="42.0" layoutY="494.0" prefHeight="219.0" prefWidth="974.0" text="Auftragspositionsdatensatz" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -137,7 +137,7 @@
                   </AnchorPane>
                </content>
             </TitledPane>
-            <TitledPane fx:id="auftragskopfTPPOS" animated="false" collapsible="false" layoutY="12.0" prefHeight="125.0" prefWidth="974.0" text="Auftragskopf" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+            <TitledPane fx:id="auftragskopfTPPOS" animated="false" collapsible="false" layoutY="12.0" prefHeight="50.0" prefWidth="974.0" text="Auftragskopf" AnchorPane.bottomAnchor="570.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="10.0">
                <content>
                   <AnchorPane prefHeight="111.0" prefWidth="972.0">
                      <children>
