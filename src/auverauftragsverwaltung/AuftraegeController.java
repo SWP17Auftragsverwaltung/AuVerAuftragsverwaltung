@@ -611,7 +611,18 @@ public class AuftraegeController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.paneGP.setVisible(false);
         this.paneAuftraege.setVisible(true);
-        btAuftragspositionen.setDisable(true);
+        this.btAuftragspositionen.setDisable(true);
+        this.paneAPD.setDisable(true);
+        this.pane.setVisible(true);
+        this.btAendern.setVisible(true);
+        this.btAendern.setDisable(true);
+        this.btSpeichern.setVisible(false);
+        this.btAnlegen.setDisable(false);
+        this.btLoeschen.setDisable(true);
+        this.btAuftragspositionen.setDisable(true);
+        this.btAbbrechen.setDisable(true);
+        
+        
         
         try {   
             setTableContent();
@@ -1107,10 +1118,12 @@ public class AuftraegeController implements Initializable {
             paneAuftragskopfStatus.setVisible(true);
         
         } else if (a.getStatus().equals("A")) {
-            pane.setVisible(true);
+            this.pane.setVisible(true);
         }        
         
-        btAuftragspositionen.setDisable(false);
+        this.btAendern.setDisable(false);
+        this.btLoeschen.setDisable(false);
+        this.btAuftragspositionen.setDisable(false);
     }    
     
  
@@ -1567,6 +1580,28 @@ public class AuftraegeController implements Initializable {
         this.btAnlegenAPD.setDisable(true);
         this.btLoeschenAPD.setDisable(true);
     }
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 06.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Lässt das Bearbeiten einer ausgewählten Adresse zu.
+     */
+    @FXML
+    public void bearbeiteAuftragskopf() {
+        //Buttons aktivieren / deaktivieren
+        this.pane.setVisible(false);
+        this.btAendern.setVisible(false);
+        this.btSpeichern.setVisible(true);
+        this.btAnlegen.setDisable(true);
+        this.btLoeschen.setDisable(true);
+        this.btAuftragspositionen.setDisable(true);
+        this.btAbbrechen.setDisable(false);
+    }    
 
     
     
@@ -1659,16 +1694,38 @@ public class AuftraegeController implements Initializable {
         String abschlussdatum = tfAbschlussdatum.getText();
         String auftragswert = tfAuftragswert.getText();
         String status = cbAuftragsstatus.getValue();
+        switch (status) {
+            case "Erfasst":
+                status = "E";
+                break;
+            case "Freigegeben":
+                status = "F";
+                break;
+            case "Abgeschlossen":
+                status = "A";
+                break;
+            default:
+                break;
+        }
         String art = cbAuftragsart.getValue();
         String lkz = "N";
             
-        Auftragskopf auftrag = new Auftragskopf(auftragskopfID, auftragstext, 
-            partnerID, erfassungsdatum, lieferdatum, abschlussdatum, 
-            auftragswert, status, art, lkz);
+        Auftragskopf auftrag = new Auftragskopf(auftragskopfID, partnerID, 
+            auftragstext, erfassungsdatum, lieferdatum, abschlussdatum, 
+            status, art, auftragswert, lkz);
 
         AuftragskopfDAO akd = new AuftragskopfDAO();
         akd.aendereAuftragskopf(auftrag);
         
+        //Buttons aktivieren / deaktivieren
+        this.pane.setVisible(true);
+        this.btAendern.setVisible(true);
+        this.btAendern.setDisable(true);
+        this.btSpeichern.setVisible(false);
+        this.btAnlegen.setDisable(false);
+        this.btAbbrechen.setDisable(true);        
+        
+        tvAuftragskopf.getSelectionModel().select(-1);
         refreshAuftragskopfTable();
     }
 
@@ -1680,7 +1737,7 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Berechnet die Bestandsmenge FREI.fdffdgdfggfd
+     * Berechnet die Bestandsmenge FREI.
      * @param auftragsID Auftrag, mit dessen Positionen die Bestände berechnet 
      * werden.
      * @throws java.sql.SQLException SQLFEhler
@@ -1722,7 +1779,7 @@ public class AuftraegeController implements Initializable {
             artd.setzeMengeFreiRes(artikelID, mengeFreiNeu, mengeResNeu);
         }
         
-        
+       
     }    
 
     
