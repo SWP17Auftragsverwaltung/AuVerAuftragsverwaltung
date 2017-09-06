@@ -1680,7 +1680,7 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Berechnet die Bestandsmenge FREI. iuasdgigfsda
+     * Berechnet die Bestandsmenge FREI.
      * @param auftragsID Auftrag, mit dessen Positionen die Bestände berechnet 
      * werden.
      * @throws java.sql.SQLException SQLFEhler
