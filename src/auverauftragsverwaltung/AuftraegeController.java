@@ -61,366 +61,371 @@ import javafx.stage.StageStyle;
 public class AuftraegeController implements Initializable {
 
     /**
-     * 
+     * Pane, um die Eingabe in der Aufträgemaske zu deaktivieren.
      */
     @FXML
     private AnchorPane paneAuftraege;
     
     /**
-     * 
+     * Pane, in dem die Auftragsköpfe angezeigt werden.
      */
     @FXML
     private TitledPane auftragskopfTP;
     
     /**
-     * 
+     * Textfield für die AuftragskopfID in der Auftragskopfmaske.
      */
     @FXML
     private TextField tfAuftragskopf;
     
     /**
-     * 
+     * Textfield für den Auftragstext in der Auftragskopfmaske.
      */
     @FXML
     private TextArea tfText;
     
     /**
-     * 
+     * Textfield für die GeschäftspartnerID in der Auftragskopfmaske.
      */
     @FXML
     private TextField tfPartnerID;
     
     /**
-     * 
+     * Combobox für den Auftragsstatus in der Auftragskopfmaske.
      */
     @FXML
     private ComboBox<String> cbAuftragsstatus = new ComboBox<>();
     
     /**
-     * 
+     * Combobox für die Auftragsart in der Auftragskopfmaske.
      */
     @FXML
     private ComboBox<String> cbAuftragsart = new ComboBox<>();
     
     /**
-     * 
+     * Textfield für den Auftragswert in der Auftragskopfmaske.
      */
     @FXML
     private TextField tfAuftragswert;
     
     /**
-     * 
+     * Button in der Auftragskopfmaske, um die Auftragspositionen zu einem
+     * ausgewählten Auftragskopf anzuzeigen.
      */
     @FXML
     private Button btAuftragspositionen;
     
     /**
-     * 
+     * Button in der Auftragskopfmaske, um einen neuen Auftrag anzulegen.
      */
     @FXML
     private Button btAnlegen;
     
     /**
-     * 
+     * Button in der Auftragskopfmaske, um einen Auftrag zu bearbeiten.
      */
     @FXML
     private Button btAendern;
     
     /**
-     * 
+     * Button in der Auftragskopfmaske, um einen Auftrag zu löschen.
      */
     @FXML
     private Button btLoeschen;
     
     /**
-     * 
+     * Button in der Auftragskopfmaske, um eine Aktion abzubrechen.
      */
     @FXML
     private Button closeAA;
     
     /**
-     * 
+     * Textfield für das Erfassungsdatum in der Auftragskopfmaske. 
      */
     @FXML
     private TextField tfErfDatum;
     
     /**
-     * 
+     * Textfield für das Lieferdatum in der Auftragskopfmaske.
      */
     @FXML
     private TextField tfLieferdatum;
     
     /**
-     * 
+     * Textfield für das Abschlussdatum in der Auftragskopfmaske.
      */
     @FXML
     private TextField tfAbschlussdatum;
     
     /**
-     * 
+     * Button in der Auftragskopfmaske, um eine Aktion abzubrechen.
      */
     @FXML
     private Button btAbbrechen;
     
     /**
-     * 
+     * Button in der Auftragskopfmaske, um einen Auftragskopf hinzuzufügen.
      */
     @FXML
     private Button btHinzufuegen;
     
     /**
-     * 
+     * Button in der Auftragskopfmaske, um die Änderungen eines Auftragskopfs 
+     * zu speichern.
      */
     @FXML
     private Button btSpeichern;
     
     /**
-     * 
+     * Hauptpane im Auftragskopf.
      */
     @FXML
     private Pane pane;
     
     
     /**
-     * 
+     * TableView für die Anzeige aller Auftragsköpfe.
      */
     @FXML
     private TableView tvAuftragskopf = new TableView<Auftragskopf>();
     
     /**
-     * 
+     * Tabellenspalte für den Auftragskopf in der Auftragskopftabelle.
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcAuftragsID;
     
     /**
-     * 
+     * Tabellenspalte für den Auftragstext in der Auftragskopftabelle.
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcAuftragsText;
     
     /**
-     * 
+     * Tabellenspalte für die GeschäftspartnerID in der Auftragskopftabelle.
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcgeschaeftspartnerID;
     
     /**
-     * 
+     * Tabellenspalte für das Erfassungsdatum in der Auftragskopftabelle.
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcErfDatum;
     
     /**
-     * 
+     * Tabellenspalte für das Lieferdatum in der Auftragskopftabelle.
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcLieferDatum;
     
     /**
-     * 
+     * Tabellenspalte für die Auftragsart in der Auftragskopftabelle.
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcAuftragsart;
     
     /**
-     * 
+     * Tabellenspalte für den Auftragswert in der Auftragskopftabelle.
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcAuftragswert;
     
     /**
-     * 
+     * Tabellenspalte für den Auftragsstatus in der Auftragskopftabelle.
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcStatus;
     
     /**
-     * 
+     * Tabellenspalte für das Abschlussdatum in der Auftragskopftabelle.
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcAbschDatum;
     
     
     /**
-     * 
+     * Pane für die Anzeige der Geschäftspartner.
      */
     @FXML
     private TitledPane paneGP;
     
     /**
-     * 
+     * TableView für die Anzeige aller Geschäftspartner.
      */
     @FXML
     private TableView tvGPAuswahl = new TableView<Geschaeftspartner>();
     
     /**
-     * 
+     * Tabellenspalte für die GeschäftspartnerID in der GPTabelle.
      */
     @FXML
     private TableColumn<Geschaeftspartner, String> tcGpIDGPWahl;
     
     /**
-     * 
+     * Tabellenspalte für den GEschäftspartner Typ in der GPTabelle.
      */
     @FXML
     private TableColumn<Geschaeftspartner, String> tcTypGPWahl;
     
     /**
-     * 
+     * Tabellenspalte für die Geschäftspartner Anschrift in der GPTabelle.
      */
     @FXML
     private TableColumn<Geschaeftspartner, String> tcAnschriftIDGPWahl;
     
     /**
-     * 
+     * Tabellenspalte für die Geschäftspartner Lieferadresse in der GPTabelle.
      */
     @FXML
     private TableColumn<Geschaeftspartner, String> tcLieferIDGPWahl;
     
     /**
-     * 
+     * Tabellenspalte für das GeschäftspartnerLimit in der GPTabelle.
      */
     @FXML
     private TableColumn<Geschaeftspartner, String> tcKreditlimitGPWahl;
     
     
     /**
-     * 
+     * Pane für die Auftragspositionen.
      */
     @FXML
     private AnchorPane paneAuftragspositionen;
     
     /**
-     * 
+     * Pane für Artikelauswahl.
      */
     @FXML
     private TitledPane paneArtikelauswahl;
     
     /**
-     * 
+     * TableView für die Anzeige aller Artikel.
      */
     @FXML
     private TableView tvArtikelauswahl = new TableView<Artikel>();
     
     /**
-     * 
+     * Tabellenspalte für die ArtikelID in der Artikelauswahl
      */
     @FXML
     private TableColumn<Artikel, String> tcArtikelIDArtWahl;
     
     /**
-     * 
+     * Tabellenspalte für den Artikeltext in der Artikeltabelle.
      */
     @FXML
     private TableColumn<Artikel, String> tcArtikeltextArtWahl;
     
     /**
-     * 
+     * Tabellenspalte für den Bestelltext in der Artikelauswahl.
      */
     @FXML
     private TableColumn<Artikel, String> tcBestelltextArtWahl;
     
     /**
-     * 
+     * Tabellenspalte für die ArtikelID in der Artikelauswahl.
      */
     @FXML
     private TableColumn<Artikel, String> tcEinzelwertArtArtWahl;
     
     /**
-     * 
+     * Tabellenspalte für den Bestellwert in der Artikelauswahl.
      */
     @FXML
     private TableColumn<Artikel, String> tcBestellwertArtWahl;
     
     /**
-     * 
+     * Tabellenspalte für die Mehrwertsteuer in der Artikelauswahl.
      */
     @FXML
     private TableColumn<Artikel, String> tcMwStArtWahl;
     
     /**
-     * 
+     * Tabellenspalte für den Freien Bestand in der Artikelauswahl.
      */
     @FXML
     private TableColumn<Artikel, String> tcBestandFreiArtWahl;
     
     
     /**
-     * 
+     * Pane für die Auftragspositionen.
      */
     @FXML
     private TitledPane paneAuftragsposition;
     
     /**
-     * 
+     * TableView für die Anzeige aller Auftragspositionen.
      */
     @FXML
     private TableView tvAuftragsposition = new TableView<Auftragsposition>();
     
     /**
-     * 
+     * Tabellenspalte für die AuftragskopfID in der Positionsverwaltung.
      */
     @FXML
     private TableColumn<Auftragsposition, String> tcAuftragskopfIDAufPos;
     
     /**
-     * 
+     * Tabellenspalte für die Positionsnummer in der Positionsverwaltung.
      */
     @FXML
     private TableColumn<Auftragsposition, String> tcPositionsNrAufPos;
     
     /**
-     * 
+     * Tabellenspalte für die ArtikelID in der Positionsverwaltung.
      */
     @FXML
     private TableColumn<Auftragsposition, String> tcMaterialNrAufPos;
     
     /**
-     * 
+     * Tabellenspalte für die Menge in der Positionsverwaltung.
      */
     @FXML
     private TableColumn<Auftragsposition, String> tcMengeAufPos;
     
     /**
-     * 
+     * Tabellenspalte für den Einzelwert in der Positionsverwaltung.
      */
     @FXML
     private TableColumn<Auftragsposition, String> tcEinzelwertAufPos;
     
     
     /**
-     * 
+     * Pane für die Auftragspositionen.
      */
     @FXML
     private TitledPane auftragspositionTP;
     
     /**
-     * 
+     * Pane für die AuftragsPositionDatensätze.
      */
     @FXML
     private Pane paneAPD;
     
     /**
-     * 
+     * Button, um eine neue Auftragsposition in den AuftragsPositionDatensätzen
+     * anzulegen.
      */
     @FXML
     private Button btAnlegenAPD;
     
     /**
-     * 
+     * Button, um eine Auftragsposition in den AuftragsPositionDatensätzen zu
+     * löschen.
      */
     @FXML
     private Button btLoeschenAPD;
     
     /**
-     * 
+     * Button, um eine Auftragsposition in den AuftragsPositionDatensätzen zu
+     * bearbeiten.
      */
     @FXML
     private Button btBearbeitenAPD;
     
     /**
-     * 
+     * Button, um eine Aktion in den AuftragsPositionDatensätzen abzubrechen.
      */
     @FXML
     private Button btAbbrechenAPD;
@@ -428,95 +433,100 @@ public class AuftraegeController implements Initializable {
     
     
     /**
-     * 
+     * Textfield für die Positionsnummer in den AuftragsPositionDatensätzen.
      */
     @FXML
     private TextField tfPositionsNrAPD;
     
     /**
-     * 
+     * Textfield für die ArtikelID in den AuftragsPositionDatensätzen.
      */
     @FXML
     private TextField tfMaterialNrAPD;
     
     /**
-     * 
+     * Textfield für die Menge in den AuftragsPositionDatensätzen.
      */
     @FXML
     private TextField tfMengeAPD;
     
     /**
-     * 
+     * Textfield für den Einzelwert in den AuftragsPositionDatensätzen.
      */
     @FXML
     private TextField tfEinzelwertAPD;
     
     
     /**
-     * 
+     * Button, um die AuftragsPositionDatensätzen zu schließen.
      */
     @FXML
     private Button btCloseAPD;
     
     /**
-     * 
+     * Button, um eine Position in den AuftragsPositionDatensätzen anzulegen.
      */
     @FXML
     private Button btHinzufuegenAPD;
     
     /**
-     * 
+     * Pane für den Auftragskopf in den Postionen.
      */
     @FXML
     private TitledPane auftragskopfTPPOS;
     
     /**
-     * 
+     * Textfield für das Erfassungsdatum in den Auftragspositionen.
      */
     @FXML
     private TextField tfErfDatumPOS;
     
     /**
-     * 
+     * Textfield für den Auftragswert in den Auftragspositionen.
      */
     @FXML
     private TextField tfAuftragswertPOS;
     
     /**
-     * 
+     * Textfield für die PartnerID in den Auftragspositionen.
      */
     @FXML
     private TextField tfPartnerIDPOS;
     
     /**
-     * 
+     * Textarea für den Auftragstext in den Auftragspositionen.
      */
     @FXML
     private TextArea tfTextPOS;
     
     /**
-     * 
+     * Textfield für die AuftragskopfID in den Auftragspositionen.
      */
     @FXML
     private TextField tfAuftragskopfIDPOS;
     
     /**
-     * 
+     * Textfield für das Abschlussdatum in den Auftragspositionen.
      */
     @FXML
     private TextField tfAbschlussdatumPOS;
     
     /**
-     * 
+     * Textfield für das Lieferdatum in den Auftragspositionen.
      */
     @FXML
     private TextField tfLieferdatumPOS;
     
     /**
-     * 
+     * Pane für die Aufträgemaske.
      */
     @FXML
     private TitledPane auftraegeTP;
+    
+    /**
+     *Button ,um Änderungen an einer Position in den AuftragsPositionDatensätzen
+     * zu speichern.
+     */
     @FXML
     private Button btSpeichernAPD;
    
@@ -544,6 +554,11 @@ public class AuftraegeController implements Initializable {
 
     
     
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 30.08.17    GET     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
     /**
      * Methode zum Abbrechen der Auftragsanzeige.
      * @param event ActionEvent welches das Klicken des Buttons "Abbrechen" 
@@ -554,6 +569,8 @@ public class AuftraegeController implements Initializable {
         Stage stage = (Stage) closeAA.getScene().getWindow();
         stage.close();
     }
+    
+    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -572,6 +589,12 @@ public class AuftraegeController implements Initializable {
     }
     
     
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 30.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
     /**
      * Initialisiert die Controller-Klasse.
      * @param url URL zur initialisierung.
@@ -581,7 +604,6 @@ public class AuftraegeController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.paneGP.setVisible(false);
         this.paneAuftraege.setVisible(true);
-        
         btAuftragspositionen.setDisable(true);
         
         try {   
@@ -656,13 +678,11 @@ public class AuftraegeController implements Initializable {
         tcStatus.setCellValueFactory(
                 new PropertyValueFactory<>("status"));
         tcAbschDatum.setCellValueFactory(
-                new PropertyValueFactory<>("abschlussDatum"));
-        
+                new PropertyValueFactory<>("abschlussDatum"));      
         cbAuftragsstatus.getItems().addAll(
                 "Erfasst", 
                 "Freigegeben", 
-                "Abgeschlossen");
-        
+                "Abgeschlossen");    
         cbAuftragsart.getItems().addAll(
                 "Barauftrag",
                 "Sofortauftrag", 
@@ -678,8 +698,8 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Aktualisiert die TableView mit aktuellem Inhalt.
-     * @throws java.sql.SQLException SQL Exception
+     * Aktualisiert die TableView Auftragskopf mit aktuellem Inhalt.
+     * @throws java.sql.SQLException SQLFehler.
     */
     public void refreshAuftragskopfTable() throws SQLException {
         tvAuftragskopf.getItems().clear();
@@ -694,7 +714,7 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Aktualisiert die TableView mit aktuellem Inhalt.
+     * Aktualisiert die TableView Auftragspositionen mit aktuellem Inhalt.
      * @throws java.sql.SQLException SQL Exception
     */
     public void refreshAuftragspositionTable() throws SQLException {
@@ -710,7 +730,7 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Löscht alle Eingaben in den Textfeldern.
+     * Löscht alle Eingaben in den Textfeldern der Auftragskopfmaske.
      */
     public void clearAuftragskopfTextFields() {
         tfAuftragskopf.clear();
@@ -726,6 +746,7 @@ public class AuftraegeController implements Initializable {
     }    
     
   
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 02.09.17    HEN     Methode erstellt.
@@ -838,8 +859,7 @@ public class AuftraegeController implements Initializable {
     /**
      * Erstellt ein AdressDAO Objekt und gibt eine Adress ArrayList an eine
      * OberservableList, die dann an die TableView übergeben wird.
-     *
-     * @throws java.sql.SQLException SQL Exception
+     * @throws java.sql.SQLException SQLFehler
     */
     public void setTableContent() throws SQLException {
         AuftragskopfDAO ak = new AuftragskopfDAO();
@@ -858,9 +878,10 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Erstellt ein AdressDAO Objekt und gibt eine Adress ArrayList an eine
-     * OberservableList, die dann an die TableView übergeben wird.
-     * @throws java.sql.SQLException SQL Exception
+     * Erstellt ein GeschäftspartnerDAO Objekt und gibt eine Geschäftspartner 
+     * ArrayList an eine OberservableList, die dann an die TableView übergeben 
+     * wird.
+     * @throws java.sql.SQLException SQLFehler
     */
     public void setTableContentGP() throws SQLException {
         GeschaeftspartnerDAO gpd = new GeschaeftspartnerDAO();
@@ -881,7 +902,7 @@ public class AuftraegeController implements Initializable {
      * Erstellt ein AuftragspositionDAO Objekt und gibt eine Auftragsposition 
      * ArrayList an eine OberservableList, die dann an die TableView 
      * übergeben wird.
-     * @throws java.sql.SQLException SQL Exception
+     * @throws java.sql.SQLException SQLFehler
      */
     public void setTableContentPositionen() throws SQLException {
         AuftragspositionDAO apd = new AuftragspositionDAO();
@@ -901,10 +922,9 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Erstellt ein AuftragspositionDAO Objekt und gibt eine Auftragsposition 
-     * ArrayList an eine OberservableList, die dann an die TableView 
-     * übergeben wird.
-     * @throws java.sql.SQLException SQL Exception
+     * Erstellt ein ArtikelDAO Objekt und gibt eine Artikel ArrayList an eine 
+     * OberservableList, die dann an die TableView übergeben wird.
+     * @throws java.sql.SQLException SQLFehler
      */
     public void setTableContentArtikel() throws SQLException {
         ArtikelDAO ad = new ArtikelDAO();
@@ -923,7 +943,6 @@ public class AuftraegeController implements Initializable {
     /**
      * Sucht nach allen Adressen mit aktivem LKZ und stellt sie in der Tabelle
      * dar.
-     *
      * @throws java.sql.SQLException SQL Exception
     */
     public void alleMitLKZ() throws SQLException {
@@ -942,9 +961,9 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * "Löscht" eine markierte Adresse, in dem das LKZ auf J gesetzt wird.
+     * "Löscht" einen markierten Auftragskopf, in dem das LKZ auf J gesetzt wird.
      * Aktualisiert anschließend die TableView.
-     * @throws java.sql.SQLException SQL Exception
+     * @throws java.sql.SQLException SQLFehler
      */
     @FXML
     public void auftragskopfLoeschen() throws SQLException {
@@ -976,9 +995,9 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * "Löscht" eine markierte Adresse, in dem das LKZ auf J gesetzt wird.
-     * Aktualisiert anschließend die TableView.
-     * @throws java.sql.SQLException SQL Exception
+     * "Löscht" eine markierte Auftragsposition, in dem das LKZ auf J gesetzt 
+     * wird. Aktualisiert anschließend die TableView.
+     * @throws java.sql.SQLException SQLFEhler
      */
     @FXML
     public void auftragspositionLoeschen() throws SQLException {
@@ -1023,7 +1042,8 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * 
+     * Füllt das untere GeschäftspartnerID Feld mit einer ID, die in der 
+     * Tabelle ausgewählt wurde.
      */
     @FXML
     public void waehleGeschaeftspartnerID() {
@@ -1036,6 +1056,7 @@ public class AuftraegeController implements Initializable {
         }
     }
 
+    
 
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -1043,7 +1064,7 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+     * Zeigt die Werte eines ausgewählten Auftrags im unteren Bereich an.
      */
     @FXML
     public void zeigeWerteAn() {
@@ -1085,7 +1106,7 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+     * Zeigt die Werte eines ausgewählten Artikel im unteren Bereich an.
      */
     @FXML
     public void zeigeWerteTvArtikel() {
@@ -1107,7 +1128,7 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+     * Zeigt die Werte einer ausgewählten Position im unteren Bereich an.
      */
     @FXML
     public void zeigeWerteTvPositionen() {
@@ -1131,7 +1152,8 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+     * Füllt das untere Datumsfeld mit dem Datum, das im DatePicker ausgewählt
+     * wurde.
      */
     @FXML
     public void datumAendern() {
@@ -1153,9 +1175,14 @@ public class AuftraegeController implements Initializable {
     
     /**
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues.
-     * Auftragskopf Objekt, welches dann über die DAO in die DB geschrieben wird
-     * @throws java.sql.SQLException SQL Exception
-     * @throws java.text.ParseException S
+     * Auftragskopf Objekt,welches dann über die DAO in die DB geschrieben wird.
+     * Fragt den Benutzer, ob das eingegeben Datum gesetzt oder geändert werden
+     * soll, falls es auf einen Feiertag oder Wochenende fällt.
+     * Es wird zusätzlich eine neue Auftragsposition zu dem neu erstellen 
+     * Auftrag angelegt.
+     * Aktualisiert anschließend die Auftragskopftabelle.
+     * @throws java.sql.SQLException SQLFehler
+     * @throws java.text.ParseException ParseException
      */
     @FXML
     public void auftragHinzufuegen() throws SQLException, ParseException { 
@@ -1203,6 +1230,7 @@ public class AuftraegeController implements Initializable {
                     ergebnis = false;
                 } 
         
+            //Datum auf Feiertag prüfen
             } else if (istFeiertag(cal)) {        
                 Meldung meldung = new Meldung();
                 meldung.dialogDatumFeiertag();
@@ -1322,7 +1350,7 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Löscht alle Eingaben in den Textfeldern.
+     * Löscht alle Eingaben der Textfeldern in der Auftragspositionsmaske.
      */   
     public void clearAuftragsPosTextFields() {
         tfPositionsNrAPD.clear();
@@ -1340,7 +1368,7 @@ public class AuftraegeController implements Initializable {
     
     /**
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues 
-     * Auftragsposition Objekt, welches dann über die DAO in die DB geschrieben 
+     * Auftragsposition Objekt welches dann über die DAO in die DB geschrieben 
      * wird.
      * @throws java.sql.SQLException SQL Exception
      */
@@ -1390,8 +1418,6 @@ public class AuftraegeController implements Initializable {
         apd.fuegeAuftragspositionHinzu(auftragsposition);
         
         berechneAuftragswert(auftragskopfID);
-//        String wert = berechneAuftragswert(auftragskopfID);
-//        apd.setzeAuftragswert(wert, auftragskopfID);
         tfAuftragswertPOS.setText(apd.gibAuftragswert(auftragskopfID));
 
         refreshAuftragspositionTable();
@@ -1405,6 +1431,7 @@ public class AuftraegeController implements Initializable {
     }
 
     
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 27.08.17    HEN     Methode erstellt.
@@ -1413,8 +1440,8 @@ public class AuftraegeController implements Initializable {
     /**
      * Berechnet den Auftragswert anhand der angegebenen Menge und füllt
      * das obere Auftragswert Feld.
-     * @param auftragskopfID Auftragskopf
-     * @throws java.sql.SQLException SQL
+     * @param auftragskopfID Auftragskopf dessen Wert berechnet werden soll.
+     * @throws java.sql.SQLException SQLFehler
      */
     public void berechneAuftragswert(String auftragskopfID) 
             throws SQLException {
@@ -1475,7 +1502,7 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+     * Zeigt alle Auftragspositionen zu einem ausgewählten AUftragskopf an.
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
@@ -1506,6 +1533,7 @@ public class AuftraegeController implements Initializable {
     }      
     
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 16.08.17    GET     Methode erstellt.
@@ -1516,15 +1544,11 @@ public class AuftraegeController implements Initializable {
      * Lässt das Bearbeiten einer ausgewählten Adresse zu.
      */
     public void bearbeitePosition() {
-        // Textfeldbereich wird aktiviert
+        //Buttons aktivieren / deaktivieren
         this.paneAPD.setDisable(true);
-        // Bearbeiten-Button wird ausgeblendet
         this.btBearbeitenAPD.setVisible(false);
-        // Speichern-Button wird eingeblendet
         this.btSpeichernAPD.setVisible(true);
-        // Anlegen-Button wird deaktiviert
         this.btAnlegenAPD.setDisable(true);
-        // Löschen-Button wird deaktiviert
         this.btLoeschenAPD.setDisable(true);
     }
 
@@ -1537,9 +1561,9 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Speichert die gemachten Änderungen in die Datenbank und aktualisiert die
-     * View mit den neuen Werten.
-     * @throws java.sql.SQLException SQLException.
+     * Speichert die gemachten Änderungen an einer Auftragsposition in die 
+     * Datenbank und aktualisiert die TableView mit den neuen Werten.
+     * @throws java.sql.SQLException SQLFehler.
      */
     public void speichereAenderungPosition() throws SQLException {
         AuftragspositionDAO apd = new AuftragspositionDAO();
