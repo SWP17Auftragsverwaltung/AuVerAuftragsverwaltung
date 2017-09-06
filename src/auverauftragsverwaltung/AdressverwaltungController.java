@@ -723,10 +723,9 @@ public class AdressverwaltungController implements Initializable {
      * Speichert die gemachten Änderungen in die Datenbank und aktualisiert die
      * View mit den neuen Werten.
      * @throws java.sql.SQLException SQLException.
-     * @throws Klassen.MyException Eigene Exception.
      */
     @FXML
-    public void speichereAenderung() throws SQLException, MyException {
+    public void speichereAenderung() throws SQLException {
         String anschriftID = tfAnschriftID.getText();
         String anrede = cbAnrede.getValue();
         String name = tfName.getText();
@@ -740,36 +739,28 @@ public class AdressverwaltungController implements Initializable {
         String email = tfEmail.getText();
         String erfdatum = tfDatum.getText();
 
-        if (anrede.isEmpty() || name.isEmpty() || vorname.isEmpty()
-                || strasse.isEmpty() || hausnr.isEmpty() || plz.isEmpty()
-                || ort.isEmpty() || staat.isEmpty() || tel.isEmpty()
-                || email.isEmpty() || erfdatum.isEmpty()) {
-            throw new MyException(30);
+        String lkz = "N";
+        Adresse adresse = new Adresse(anschriftID, anrede, name, vorname,
+            strasse, hausnr, plz, ort, staat, tel, email, erfdatum, lkz);
 
-        } else {
-            String lkz = "N";
-            Adresse adresse = new Adresse(anschriftID, anrede, name, vorname,
-                    strasse, hausnr, plz, ort, staat, tel, email, erfdatum,
-                    lkz);
+        AdresseDAO aDAO = new AdresseDAO();
+        aDAO.aendereAdresse(adresse);
 
-            AdresseDAO aDAO = new AdresseDAO();
-            aDAO.aendereAdresse(adresse);
+        refreshTable();
 
-            refreshTable();
-
-            // Textfeldbereich wird deaktivieren
-            this.pane.setDisable(false);
-            // Bearbeiten-Button wird ausgeblendet
-            this.bearbeitenBT.setVisible(true);
-            // Speichern-Button wird eingeblendet
-            this.speichernBT.setVisible(false);
-            // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-            this.adressdatensatzPane.setText("Adressdatensatz");
-            // Anlegen-Button wird deaktiviert
-            this.anlegenBT.setDisable(false);
-            // Löschen-Button wird deaktiviert
-            this.loeschenBT.setDisable(false);
-        }
+        // Textfeldbereich wird deaktivieren
+        this.pane.setDisable(false);
+        // Bearbeiten-Button wird ausgeblendet
+        this.bearbeitenBT.setVisible(true);
+        // Speichern-Button wird eingeblendet
+        this.speichernBT.setVisible(false);
+        // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
+        this.adressdatensatzPane.setText("Adressdatensatz");
+        // Anlegen-Button wird deaktiviert
+        this.anlegenBT.setDisable(false);
+        // Löschen-Button wird deaktiviert
+        this.loeschenBT.setDisable(false);
+        
     }
 
     

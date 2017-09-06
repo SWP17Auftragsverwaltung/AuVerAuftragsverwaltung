@@ -28,6 +28,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
@@ -524,11 +525,17 @@ public class AuftraegeController implements Initializable {
     private TitledPane auftraegeTP;
     
     /**
-     *Button ,um Änderungen an einer Position in den AuftragsPositionDatensätzen
+     *Button, um Änderungen an einer Position in den AuftragsPositionDatensätzen
      * zu speichern.
      */
     @FXML
     private Button btSpeichernAPD;
+    
+    /**
+     * Pane, zum Deaktivieren der Eingabefelder beim Status "Freigegeben".
+     */
+    @FXML
+    private Pane paneAuftragskopfStatus;
    
     
     /**
@@ -1093,8 +1100,16 @@ public class AuftraegeController implements Initializable {
                     break;
             }
             this.cbAuftragsart.setValue(a.getAuftragsart());
-            this.tfAuftragswert.setText(a.getAuftragswert());
+            this.tfAuftragswert.setText(a.getAuftragswert());          
         }
+        
+        if (a.getStatus().equals("F")) {
+            paneAuftragskopfStatus.setVisible(true);
+        
+        } else if (a.getStatus().equals("A")) {
+            pane.setVisible(true);
+        }        
+        
         btAuftragspositionen.setDisable(false);
     }    
     
@@ -1543,6 +1558,7 @@ public class AuftraegeController implements Initializable {
     /**
      * Lässt das Bearbeiten einer ausgewählten Adresse zu.
      */
+    @FXML
     public void bearbeitePosition() {
         //Buttons aktivieren / deaktivieren
         this.paneAPD.setDisable(true);
@@ -1565,6 +1581,7 @@ public class AuftraegeController implements Initializable {
      * Datenbank und aktualisiert die TableView mit den neuen Werten.
      * @throws java.sql.SQLException SQLFehler.
      */
+    @FXML
     public void speichereAenderungPosition() throws SQLException {
         AuftragspositionDAO apd = new AuftragspositionDAO();
         
@@ -1619,6 +1636,94 @@ public class AuftraegeController implements Initializable {
         this.btAnlegenAPD.setDisable(false);
         this.btLoeschenAPD.setDisable(false);     
     }
+    
+
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 06.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Speichert die gemachten Änderungen in die Datenbank und aktualisiert die
+     * TableView mit den neuen Werten.
+     * @throws java.sql.SQLException SQLFehler
+     */
+    @FXML
+    public void speichereAenderungAuftragskopf() throws SQLException {
+        String auftragskopfID = tfAuftragskopf.getText();
+        String auftragstext = tfText.getText();
+        String partnerID = tfPartnerID.getText();
+        String erfassungsdatum = tfErfDatum.getText();
+        String lieferdatum = tfLieferdatum.getText();
+        String abschlussdatum = tfAbschlussdatum.getText();
+        String auftragswert = tfAuftragswert.getText();
+        String status = cbAuftragsstatus.getValue();
+        String art = cbAuftragsart.getValue();
+        String lkz = "N";
+            
+        Auftragskopf auftrag = new Auftragskopf(auftragskopfID, auftragstext, 
+            partnerID, erfassungsdatum, lieferdatum, abschlussdatum, 
+            auftragswert, status, art, lkz);
+
+        AuftragskopfDAO akd = new AuftragskopfDAO();
+        akd.aendereAuftragskopf(auftrag);
+        
+        refreshAuftragskopfTable();
+    }
+
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 06.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Berechnet die Bestandsmenge FREI.
+     * @param auftragsID Auftrag, mit dessen Positionen die Bestände berechnet 
+     * werden.
+     * @throws java.sql.SQLException SQLFEhler
+     */
+    public void berechneMengeFreiRes(String auftragsID) throws SQLException {
+        AuftragspositionDAO apd = new AuftragspositionDAO();
+        ArtikelDAO artd = new ArtikelDAO();
+        
+        ArrayList<Auftragsposition> auftragspositionen;
+        auftragspositionen 
+            = apd.gibAuftragspositionenZuAuftrag(tfAuftragskopf.getText());
+        String artikelID;
+        String mengePosition;
+        String mengeFreiAlt;
+        String mengeFreiNeu;
+        String mengeResAlt;
+        String mengeResNeu;
+        
+        for (int i = 0; i < auftragspositionen.size(); i++) {
+            //ArtikelID und Menge des Artikels der Positionen holen
+            artikelID = auftragspositionen.get(i).getArtikelID();
+            mengePosition = auftragspositionen.get(i).getMenge();
+            
+            //Menge FREI und RESERVIERT zu der Position aus DB holen
+            mengeFreiAlt = artd.gibMengeFrei(artikelID);
+            mengeResAlt = artd.gibMengeReserviert(artikelID);
+              
+            //Menge der Position mit alter Menge FREI in DB verrechnen
+            int mengePositionInt =  Integer.parseInt(mengePosition);
+            int mengeFreiAltInt = Integer.parseInt(mengeFreiAlt);
+            int mengeFreiNeuInt = mengeFreiAltInt - mengePositionInt;
+            mengeFreiNeu = String.valueOf(mengeFreiNeuInt);
+            
+            //Menge der Position mit alter Menge RES verrechnen
+            int mengeResAltInt = Integer.parseInt(mengeResAlt);
+            int mengeResNeuInt = mengeResAltInt + mengePositionInt;
+            mengeResNeu = String.valueOf(mengeResNeuInt);
+            
+            artd.setzeMengeFreiRes(artikelID, mengeFreiNeu, mengeResNeu);
+        }
+        
+        
+    }    
 
     
     

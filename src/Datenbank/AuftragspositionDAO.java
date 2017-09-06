@@ -11,7 +11,6 @@
 
 package Datenbank;
 
-import Klassen.Auftragskopf;
 import Klassen.Auftragsposition;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

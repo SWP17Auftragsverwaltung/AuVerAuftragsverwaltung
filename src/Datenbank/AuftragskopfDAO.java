@@ -341,7 +341,7 @@ public class AuftragskopfDAO extends DataAccess {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Ändern den Auftragskopf in der DB.
+     * Ändert den Auftragskopf in der DB.
      * @param a Adressobjekt
      * @throws java.sql.SQLException SQLException
      */
@@ -354,17 +354,6 @@ public class AuftragskopfDAO extends DataAccess {
 
             query
                 = "UPDATE ROOT." + ddd.getTabAuftragskopf() 
-                + " SET " + attribute.get(TAB_AUFTRAGSKOPF).get(1) 
-                + " = ? WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
-                + " = ?";
-            stmt = con.prepareStatement(query);
-            stmt.setString(1, a.getGeschaeftspartnerID());
-            stmt.setString(2, a.getAuftragskopfID());
-            stmt.executeUpdate();
-
-            
-            query
-                = "UPDATE ROOT." + ddd.getTabAdresse() 
                 + " SET " + attribute.get(TAB_AUFTRAGSKOPF).get(2) 
                 + " = ? WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
                 + " = ?";
@@ -375,7 +364,7 @@ public class AuftragskopfDAO extends DataAccess {
 
             
             query
-                = "UPDATE ROOT." + ddd.getTabAdresse() 
+                = "UPDATE ROOT." + ddd.getTabAuftragskopf() 
                 + " SET " + attribute.get(TAB_AUFTRAGSKOPF).get(3) 
                 + " = ? WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
                 + " = ?";
@@ -386,29 +375,7 @@ public class AuftragskopfDAO extends DataAccess {
 
             
             query
-                = "UPDATE ROOT." + ddd.getTabAdresse() 
-                + " SET " + attribute.get(TAB_AUFTRAGSKOPF).get(4) 
-                + " = ? WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
-                + " = ?";
-            stmt = con.prepareStatement(query);
-            stmt.setString(1, a.getLieferdatum());
-            stmt.setString(2, a.getAuftragskopfID());
-            stmt.executeUpdate();
-
-            
-            query
-                = "UPDATE ROOT." + ddd.getTabAdresse() 
-                + " SET " + attribute.get(TAB_AUFTRAGSKOPF).get(5) 
-                + " = ? WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
-                + " = ?";
-            stmt = con.prepareStatement(query);
-            stmt.setString(1, a.getAbschlussDatum());
-            stmt.setString(2, a.getAuftragskopfID());
-            stmt.executeUpdate();
-
-            
-            query
-                = "UPDATE ROOT." + ddd.getTabAdresse() 
+                = "UPDATE ROOT." + ddd.getTabAuftragskopf() 
                 + " SET " + attribute.get(TAB_AUFTRAGSKOPF).get(6) 
                 + " = ? WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
                 + " = ?";
@@ -419,17 +386,17 @@ public class AuftragskopfDAO extends DataAccess {
 
             
             query
-                = "UPDATE ROOT." + ddd.getTabAdresse() 
+                = "UPDATE ROOT." + ddd.getTabAuftragskopf() 
                 + " SET " + attribute.get(TAB_AUFTRAGSKOPF).get(7) 
                 + " = ? WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
                 + " = ?";
             stmt = con.prepareStatement(query);
             stmt.setString(1, a.getAuftragsart());
             stmt.setString(2, a.getAuftragskopfID());
-            stmt.executeUpdate();  
+            stmt.executeUpdate();
+   
             
-            con.commit();
-            con.close();
+            con.commit();           
      
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
