@@ -858,6 +858,7 @@ public class AuftraegeController implements Initializable {
     public void auftragAnlegen() throws SQLException {
         clearAuftragskopfTextFields();
         this.tfErfDatum.setText(gibDatum());
+        this.cbAuftragsstatus.setItems(komboBoxFilter(0, 1));
         
         this.pane.setVisible(false);
         this.auftragskopfTP.setText("Auftragskopf (Anlegemodus)");    
@@ -1126,7 +1127,7 @@ public class AuftraegeController implements Initializable {
         if (a.getStatus().equals("A")) {
             this.btAendern.setDisable(true);
             this.btLoeschen.setDisable(true);
-            this.btAuftragspositionen.setDisable(true);
+            this.btAuftragspositionen.setDisable(false);
             
         } else {
             this.btAendern.setDisable(false);
@@ -1178,6 +1179,19 @@ public class AuftraegeController implements Initializable {
             this.tfMengeAPD.setText(ap.getMenge());
             this.tfEinzelwertAPD.setText(ap.getEinzelwert());
             this.tfMaterialNrAPD.setText(ap.getArtikelID());
+            
+            if (this.cbAuftragsstatus.getValue().equals("Abgeschlossen")) { 
+                this.btAnlegenAPD.setDisable(true);
+                this.btBearbeitenAPD.setDisable(true);
+                this.btLoeschenAPD.setDisable(true);
+                this.btAbbrechenAPD.setDisable(true);
+            
+            } else {            
+                this.btAnlegenAPD.setDisable(false);
+                this.btBearbeitenAPD.setDisable(true);
+                this.btLoeschenAPD.setDisable(true);
+                this.btAbbrechenAPD.setDisable(true);
+            }
         }
     }   
     
@@ -1545,27 +1559,38 @@ public class AuftraegeController implements Initializable {
     @FXML
     public void zeigeAuftragspositionenZuAuftrag() throws SQLException {
         AuftragspositionDAO apd = new AuftragspositionDAO();
+        //Daten aus dem Auftragskopf im oberen Abteil anzeigen.
+        tfErfDatumPOS.setText(tfErfDatum.getText());    
+        tfAuftragswertPOS.setText(tfAuftragswert.getText());  
+        tfPartnerIDPOS.setText(tfPartnerID.getText());
+        tfTextPOS.setText(tfText.getText());
+        tfAuftragskopfIDPOS.setText(tfAuftragskopf.getText());
+        tfAbschlussdatumPOS.setText(tfAbschlussdatum.getText());
+        tfLieferdatumPOS.setText(tfLieferdatum.getText());
+        apd.gibAuftragspositionenZuAuftrag(tfAuftragskopf.getText());
+        setTableContentPositionen();
         
-        if (this.tfAuftragskopf.getText().isEmpty()) {
-            System.out.println("NEIN");
-        
-        } else {                 
-            //Daten aus dem Auftragskopf im oberen Abteil anzeigen.
-            tfErfDatumPOS.setText(tfErfDatum.getText());    
-            tfAuftragswertPOS.setText(tfAuftragswert.getText());  
-            tfPartnerIDPOS.setText(tfPartnerID.getText());
-            tfTextPOS.setText(tfText.getText());
-            tfAuftragskopfIDPOS.setText(tfAuftragskopf.getText());
-            tfAbschlussdatumPOS.setText(tfAbschlussdatum.getText());
-            tfLieferdatumPOS.setText(tfLieferdatum.getText());
-            
-            
-            apd.gibAuftragspositionenZuAuftrag(tfAuftragskopf.getText());
-            setTableContentPositionen();
+        if (this.cbAuftragsstatus.getValue().equals("Abgeschlossen")) {
             this.paneAuftraege.setVisible(false);
             this.paneAuftragspositionen.setVisible(true);
             this.paneArtikelauswahl.setVisible(false);
-            this.paneAuftragsposition.setVisible(true);        
+            this.paneAuftragsposition.setVisible(true);
+            
+            this.btAnlegenAPD.setDisable(true);
+            this.btBearbeitenAPD.setDisable(true);
+            this.btLoeschenAPD.setDisable(true);
+            this.btAbbrechenAPD.setDisable(true);
+            
+        } else {
+            this.paneAuftraege.setVisible(false);
+            this.paneAuftragspositionen.setVisible(true);
+            this.paneArtikelauswahl.setVisible(false);
+            this.paneAuftragsposition.setVisible(true);
+            
+            this.btAnlegenAPD.setDisable(false);
+            this.btBearbeitenAPD.setDisable(true);
+            this.btLoeschenAPD.setDisable(true);
+            this.btAbbrechenAPD.setDisable(true);
         }
     }      
     
