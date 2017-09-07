@@ -534,7 +534,7 @@ public class ArtikelDAO extends DataAccess {
         String query = "SELECT " + attribute.get(TAB_ARTIKEL).get(6) 
             + " FROM ROOT." + ddd.getTabArtikel() 
             + " WHERE " + attribute.get(TAB_ARTIKEL).get(0) + " = ?"
-            + " WHERE " + attribute.get(TAB_ARTIKEL).get(10) + " = ?";    
+            + " AND " + attribute.get(TAB_ARTIKEL).get(10) + " = ?";    
 
         try {
             stmt = con.prepareStatement(query);
@@ -559,6 +559,7 @@ public class ArtikelDAO extends DataAccess {
     }
 
     
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 06.09.17    BER     Erstellt.
@@ -570,8 +571,6 @@ public class ArtikelDAO extends DataAccess {
      * @return Gibt die Menge RESERVIERT wieder.
      */
     public String gibMengeReserviert(String artikelID) {
-        
-        //Variablendeklaration
         PreparedStatement  stmt = null;
         ResultSet rs = null;  
         String menge = "";
@@ -579,7 +578,7 @@ public class ArtikelDAO extends DataAccess {
         String query = "SELECT " + attribute.get(TAB_ARTIKEL).get(7) 
             + " FROM ROOT." + ddd.getTabArtikel() 
             + " WHERE " + attribute.get(TAB_ARTIKEL).get(0) + " = ?"
-            + " WHERE " + attribute.get(TAB_ARTIKEL).get(10) + " = ?";
+            + " AND " + attribute.get(TAB_ARTIKEL).get(10) + " = ?";
 
         try {
             stmt = con.prepareStatement(query);
@@ -602,17 +601,61 @@ public class ArtikelDAO extends DataAccess {
         } 
         return menge;
     }    
+ 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 07.09.17    BER     Erstellt.
+    /*------------------------------------------------------------------------*/
+     
+    /**
+     * Gibt die Menge VERKAUFT zu einem bestimmten Artikel.
+     * @param artikelID Artikel dessen Menge FREI wiedergegeben werden soll.
+     * @return Gibt die Menge RESERVIERT wieder.
+     */
+    public String gibMengeVerkauft(String artikelID) {
+        PreparedStatement  stmt = null;
+        ResultSet rs = null;  
+        String mengeVerkauft = "";
+        
+        String query = "SELECT " + attribute.get(TAB_ARTIKEL).get(9) 
+            + " FROM ROOT." + ddd.getTabArtikel() 
+            + " WHERE " + attribute.get(TAB_ARTIKEL).get(0) + " = ?"
+            + " AND " + attribute.get(TAB_ARTIKEL).get(10) + " = ?";
+
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, artikelID);
+            stmt.setString(2, "N");
+            rs = stmt.executeQuery();
+            con.commit();
+            
+            while (rs.next()) {
+                mengeVerkauft = rs.getString(1);
+            }
+        
+        //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+        } 
+        return mengeVerkauft;
+    }       
     
 
-
+    
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
     /* 06.09.17     HEN     Erstellt.     
     /*------------------------------------------------------------------------*/
         
     /**
-     * Berechnet die Menge FREI eines eingegebenen Artikels mit der eingegebenen
-     * Menge.
+     * Berechnet die Menge FREI und RESERVIERT eines eingegebenen Artikels mit 
+     * der eingegebenen Menge.
      * @param artikelID Artikel dessen Bestand berechnet werden soll.
      * @param mengeFrei Menge, mit der der Bestand FREI berechnet werden sollen.
      * @param mengeRes Menge, mit der der Bestand RES berechnet werden sollen.
@@ -630,17 +673,18 @@ public class ArtikelDAO extends DataAccess {
             query = "UPDATE ROOT." + ddd.getTabArtikel() 
                 + " SET " + attribute.get(TAB_ARTIKEL).get(6) + " = ?"
                 + " WHERE " + attribute.get(TAB_ARTIKEL).get(0) + " = ?"
-                + " WHERE " + attribute.get(TAB_ARTIKEL).get(10) + " = ?";      
+                + " AND " + attribute.get(TAB_ARTIKEL).get(10) + " = ?";      
             stmt = con.prepareStatement(query);
             stmt.setString(1, mengeFrei);
             stmt.setString(2, artikelID);
             stmt.setString(3, "N");
-
+            stmt.executeUpdate();
+            
             
             query = "UPDATE ROOT." + ddd.getTabArtikel() 
                 + " SET " + attribute.get(TAB_ARTIKEL).get(7) + " = ?"
                 + " WHERE " + attribute.get(TAB_ARTIKEL).get(0) + " = ?"
-                + " WHERE " + attribute.get(TAB_ARTIKEL).get(10) + " = ?"; 
+                + " AND " + attribute.get(TAB_ARTIKEL).get(10) + " = ?"; 
             stmt = con.prepareStatement(query);
             stmt.setString(1, mengeRes);
             stmt.setString(2, artikelID);
@@ -659,6 +703,62 @@ public class ArtikelDAO extends DataAccess {
         }
     }    
     
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 07.09.17     HEN     Erstellt.     
+    /*------------------------------------------------------------------------*/
+        
+    /**
+     * Berechnet die Menge RESERVIERT und VERKAUFT eines eingegebenen Artikels 
+     * mit der eingegebenen Menge.
+     * @param artikelID Artikel dessen Bestand berechnet werden soll.
+     * @param mengeVer Menge, mit der der Bestand VER berechnet werden sollen.
+     * @param mengeRes Menge, mit der der Bestand RES berechnet werden sollen.
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public void setzeMengeResVer(
+            String artikelID, String mengeVer, String mengeRes) 
+            throws SQLException {
+        PreparedStatement stmt = null;
+        String query;
+        
+        try {
+            con.setAutoCommit(false);
+
+            query = "UPDATE ROOT." + ddd.getTabArtikel() 
+                + " SET " + attribute.get(TAB_ARTIKEL).get(9) + " = ?"
+                + " WHERE " + attribute.get(TAB_ARTIKEL).get(0) + " = ?"
+                + " AND " + attribute.get(TAB_ARTIKEL).get(10) + " = ?";      
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, mengeVer);
+            stmt.setString(2, artikelID);
+            stmt.setString(3, "N");
+            stmt.executeUpdate();
+            
+            
+            query = "UPDATE ROOT." + ddd.getTabArtikel() 
+                + " SET " + attribute.get(TAB_ARTIKEL).get(7) + " = ?"
+                + " WHERE " + attribute.get(TAB_ARTIKEL).get(0) + " = ?"
+                + " AND " + attribute.get(TAB_ARTIKEL).get(10) + " = ?"; 
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, mengeRes);
+            stmt.setString(2, artikelID);
+            stmt.setString(3, "N");            
+            stmt.executeUpdate();
+            
+            con.commit();
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+            con.rollback();
+        }
+    }   
     
     
 }

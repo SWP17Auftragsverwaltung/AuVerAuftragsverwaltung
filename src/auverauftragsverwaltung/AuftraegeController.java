@@ -537,6 +537,14 @@ public class AuftraegeController implements Initializable {
     @FXML
     private Pane paneAuftragskopfStatus;
    
+    /**
+     * ObseravleList für die Kombobox "Status".
+     */
+    private ObservableList<String> allOptions 
+            = FXCollections.observableArrayList(
+                "Erfasst", "Freigegeben", "Abgeschlossen");
+    
+    
     
     /**
      * Mehtode die das öffnen der Suchmaske für Aufträge, durch den Button
@@ -755,6 +763,7 @@ public class AuftraegeController implements Initializable {
         tfText.clear();
         tfPartnerID.clear();
         tfErfDatum.clear();
+        tfAuftragswert.clear();
         tfLieferdatum.clear();
         cbAuftragsart.valueProperty().set(null);
         cbAuftragsstatus.valueProperty().set(null);
@@ -1112,18 +1121,18 @@ public class AuftraegeController implements Initializable {
             }
             this.cbAuftragsart.setValue(a.getAuftragsart());
             this.tfAuftragswert.setText(a.getAuftragswert());          
+        }   
+        
+        if (a.getStatus().equals("A")) {
+            this.btAendern.setDisable(true);
+            this.btLoeschen.setDisable(true);
+            this.btAuftragspositionen.setDisable(true);
+            
+        } else {
+            this.btAendern.setDisable(false);
+            this.btLoeschen.setDisable(false);
+            this.btAuftragspositionen.setDisable(false);      
         }
-        
-        if (a.getStatus().equals("F")) {
-            paneAuftragskopfStatus.setVisible(true);
-        
-        } else if (a.getStatus().equals("A")) {
-            this.pane.setVisible(true);
-        }        
-        
-        this.btAendern.setDisable(false);
-        this.btLoeschen.setDisable(false);
-        this.btAuftragspositionen.setDisable(false);
     }    
     
  
@@ -1579,8 +1588,32 @@ public class AuftraegeController implements Initializable {
         this.btSpeichernAPD.setVisible(true);
         this.btAnlegenAPD.setDisable(true);
         this.btLoeschenAPD.setDisable(true);
+        tvAuftragsposition.setMouseTransparent(true);
     }
     
+
+    
+
+    
+     
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 06.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Lässt das Bearbeiten einer ausgewählten Adresse zu.
+     * @param start Filter Start
+     * @param end Filter Ende
+     * @return Gefilterte Items für die Kombobox
+     */   
+    private ObservableList<String> komboBoxFilter(int start, int end) {
+        final ObservableList<String> anzuzeigendeItems 
+            = FXCollections.<String>observableArrayList();
+    
+        anzuzeigendeItems.addAll(allOptions.subList(start, end));
+        return anzuzeigendeItems;
+    }
     
     
     /*------------------------------------------------------------------------*/
@@ -1601,6 +1634,14 @@ public class AuftraegeController implements Initializable {
         this.btLoeschen.setDisable(true);
         this.btAuftragspositionen.setDisable(true);
         this.btAbbrechen.setDisable(false);
+        tvAuftragskopf.setMouseTransparent(true);
+
+        if (this.cbAuftragsstatus.getValue().equals("Erfasst")) {
+            this.cbAuftragsstatus.setItems(komboBoxFilter(0, 2));
+    
+        } else if (this.cbAuftragsstatus.getValue().equals("Freigegeben")) {
+            this.cbAuftragsstatus.setItems(komboBoxFilter(0, 3));
+        }  
     }    
 
     
@@ -1662,6 +1703,7 @@ public class AuftraegeController implements Initializable {
          
         refreshAuftragspositionTable();
         refreshAuftragskopfTable();
+        clearAuftragsPosTextFields();
         tfAuftragswertPOS.setText(apd.gibAuftragswert(auftragsID));
 
         //Buttons und Textfelder aktivieren / deaktivieren.
@@ -1669,7 +1711,8 @@ public class AuftraegeController implements Initializable {
         this.btBearbeitenAPD.setVisible(true);
         this.btSpeichernAPD.setVisible(false);
         this.btAnlegenAPD.setDisable(false);
-        this.btLoeschenAPD.setDisable(false);     
+        this.btLoeschenAPD.setDisable(false); 
+        tvAuftragsposition.setMouseTransparent(false);
     }
     
 
@@ -1685,7 +1728,9 @@ public class AuftraegeController implements Initializable {
      * @throws java.sql.SQLException SQLFehler
      */
     @FXML
-    public void speichereAenderungAuftragskopf() throws SQLException {
+    public void speichereAenderungAuftragskopf() throws SQLException { 
+        AuftragskopfDAO akd = new AuftragskopfDAO();
+        
         String auftragskopfID = tfAuftragskopf.getText();
         String auftragstext = tfText.getText();
         String partnerID = tfPartnerID.getText();
@@ -1693,28 +1738,60 @@ public class AuftraegeController implements Initializable {
         String lieferdatum = tfLieferdatum.getText();
         String abschlussdatum = tfAbschlussdatum.getText();
         String auftragswert = tfAuftragswert.getText();
-        String status = cbAuftragsstatus.getValue();
-        switch (status) {
+        String statusNeu = cbAuftragsstatus.getValue();
+        String statusAlt = akd.gibAuftragsstatus(auftragskopfID);
+        switch (statusNeu) {
             case "Erfasst":
-                status = "E";
+                statusNeu = "E";
                 break;
             case "Freigegeben":
-                status = "F";
+                statusNeu = "F";
                 break;
             case "Abgeschlossen":
-                status = "A";
+                statusNeu = "A";
                 break;
             default:
                 break;
         }
         String art = cbAuftragsart.getValue();
         String lkz = "N";
+        boolean istVerfuegbar; 
+        String rechnung;   
+        
+        if (statusAlt.equals("E") && statusNeu.equals("F")) {
+            istVerfuegbar = bestandVerfuegbar(auftragskopfID);
             
+            if (istVerfuegbar) {
+                rechnung = "addition";
+                berechneMengeFreiRes(auftragskopfID, rechnung);
+            } else {
+                //Buttons aktivieren / deaktivieren
+                this.pane.setVisible(true);
+                this.btAendern.setVisible(true);
+                this.btAendern.setDisable(true);
+                this.btSpeichern.setVisible(false);
+                this.btAnlegen.setDisable(false);
+                this.btAbbrechen.setDisable(true);
+                tvAuftragskopf.setMouseTransparent(false);  
+                tvAuftragskopf.getSelectionModel().select(-1);
+                clearAuftragskopfTextFields();
+                refreshAuftragskopfTable();
+                
+                return;
+            }
+            
+        } else if (statusAlt.equals("F") && statusNeu.equals("E")) {
+            rechnung = "subtraktion";
+            berechneMengeFreiRes(auftragskopfID, rechnung);
+        
+        } else if (statusAlt.equals("F") && statusNeu.equals("A")) {
+            berechneMengeResVer(auftragskopfID);
+        }
+        
         Auftragskopf auftrag = new Auftragskopf(auftragskopfID, partnerID, 
             auftragstext, erfassungsdatum, lieferdatum, abschlussdatum, 
-            status, art, auftragswert, lkz);
+            statusNeu, art, auftragswert, lkz);
 
-        AuftragskopfDAO akd = new AuftragskopfDAO();
         akd.aendereAuftragskopf(auftrag);
         
         //Buttons aktivieren / deaktivieren
@@ -1723,9 +1800,11 @@ public class AuftraegeController implements Initializable {
         this.btAendern.setDisable(true);
         this.btSpeichern.setVisible(false);
         this.btAnlegen.setDisable(false);
-        this.btAbbrechen.setDisable(true);        
+        this.btAbbrechen.setDisable(true);
+        tvAuftragskopf.setMouseTransparent(false);
         
         tvAuftragskopf.getSelectionModel().select(-1);
+        clearAuftragskopfTextFields();
         refreshAuftragskopfTable();
     }
 
@@ -1737,24 +1816,106 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Berechnet die Bestandsmenge FREI.
-     * @param auftragsID Auftrag, mit dessen Positionen die Bestände berechnet 
-     * werden.
-     * @throws java.sql.SQLException SQLFEhler
+     * Berechnet die Bestandsmenge FREI und RESERVIERT.
+     * @param auftragskopfID Auftrag, mit dessen Positionen die Bestände 
+     * berechnet werden.
+     * @param rechnung Rechnung die durchgeführt wird
+     * @throws java.sql.SQLException SQLFehler
      */
-    public void berechneMengeFreiRes(String auftragsID) throws SQLException {
+    public void berechneMengeFreiRes(String auftragskopfID, String rechnung) 
+            throws SQLException {
         AuftragspositionDAO apd = new AuftragspositionDAO();
         ArtikelDAO artd = new ArtikelDAO();
         
         ArrayList<Auftragsposition> auftragspositionen;
         auftragspositionen 
-            = apd.gibAuftragspositionenZuAuftrag(tfAuftragskopf.getText());
+            = apd.gibAuftragspositionenZuAuftrag(auftragskopfID);
+        
         String artikelID;
         String mengePosition;
         String mengeFreiAlt;
         String mengeFreiNeu;
         String mengeResAlt;
-        String mengeResNeu;
+        String mengeResNeu;       
+        
+        if (rechnung.equals("addition")) {
+            for (int i = 0; i < auftragspositionen.size(); i++) {
+                //ArtikelID und Menge des Artikels der Positionen holen
+                artikelID = auftragspositionen.get(i).getArtikelID();
+                mengePosition = auftragspositionen.get(i).getMenge();
+            
+                //Menge FREI und RESERVIERT zu der Position aus DB holen
+                mengeFreiAlt = artd.gibMengeFrei(artikelID);
+                mengeResAlt = artd.gibMengeReserviert(artikelID);
+              
+                //Menge der Position mit alter Menge FREI in DB verrechnen
+                int mengePositionInt =  Integer.parseInt(mengePosition);
+                int mengeFreiAltInt = Integer.parseInt(mengeFreiAlt);
+                int mengeFreiNeuInt = mengeFreiAltInt - mengePositionInt;
+                mengeFreiNeu = String.valueOf(mengeFreiNeuInt);
+            
+                //Menge der Position mit alter Menge RES verrechnen
+                int mengeResAltInt = Integer.parseInt(mengeResAlt);
+                int mengeResNeuInt = mengeResAltInt + mengePositionInt;
+                mengeResNeu = String.valueOf(mengeResNeuInt);
+            
+                artd.setzeMengeFreiRes(artikelID, mengeFreiNeu, mengeResNeu);
+            }
+                    
+        } else if (rechnung.equals("subtraktion")) {
+            for (int i = 0; i < auftragspositionen.size(); i++) {
+                //ArtikelID und Menge des Artikels der Positionen holen
+                artikelID = auftragspositionen.get(i).getArtikelID();
+                mengePosition = auftragspositionen.get(i).getMenge();
+            
+                //Menge FREI und RESERVIERT zu der Position aus DB holen
+                mengeFreiAlt = artd.gibMengeFrei(artikelID);
+                mengeResAlt = artd.gibMengeReserviert(artikelID);
+              
+                //Menge der Position mit alter Menge FREI in DB verrechnen
+                int mengePositionInt =  Integer.parseInt(mengePosition);
+                int mengeFreiAltInt = Integer.parseInt(mengeFreiAlt);
+                int mengeFreiNeuInt = mengeFreiAltInt + mengePositionInt;
+                mengeFreiNeu = String.valueOf(mengeFreiNeuInt);
+            
+                //Menge der Position mit alter Menge RES verrechnen
+                int mengeResAltInt = Integer.parseInt(mengeResAlt);
+                int mengeResNeuInt = mengeResAltInt - mengePositionInt;
+                mengeResNeu = String.valueOf(mengeResNeuInt);
+            
+                artd.setzeMengeFreiRes(artikelID, mengeFreiNeu, mengeResNeu);
+            }
+        }
+    }
+
+    
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 07.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Berechnet die Bestandsmenge RESERVIERT und VERKAUFT.
+     * @param auftragskopfID Auftrag, mit dessen Positionen die Bestände 
+     * berechnet werden.
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public void berechneMengeResVer(String auftragskopfID) 
+            throws SQLException {
+        AuftragspositionDAO apd = new AuftragspositionDAO();
+        ArtikelDAO artd = new ArtikelDAO();
+        
+        ArrayList<Auftragsposition> auftragspositionen;
+        auftragspositionen 
+            = apd.gibAuftragspositionenZuAuftrag(auftragskopfID);
+        
+        String artikelID;
+        String mengePosition;
+        String mengeVerkauftAlt;
+        String mengeVerkauftNeu;
+        String mengeResAlt;
+        String mengeResNeu;       
         
         for (int i = 0; i < auftragspositionen.size(); i++) {
             //ArtikelID und Menge des Artikels der Positionen holen
@@ -1762,26 +1923,77 @@ public class AuftraegeController implements Initializable {
             mengePosition = auftragspositionen.get(i).getMenge();
             
             //Menge FREI und RESERVIERT zu der Position aus DB holen
-            mengeFreiAlt = artd.gibMengeFrei(artikelID);
             mengeResAlt = artd.gibMengeReserviert(artikelID);
-              
-            //Menge der Position mit alter Menge FREI in DB verrechnen
+            mengeVerkauftAlt = artd.gibMengeVerkauft(artikelID);
+            
+            //Menge der Position mit alter Menge VERKAUFT in DB verrechnen
             int mengePositionInt =  Integer.parseInt(mengePosition);
-            int mengeFreiAltInt = Integer.parseInt(mengeFreiAlt);
-            int mengeFreiNeuInt = mengeFreiAltInt - mengePositionInt;
-            mengeFreiNeu = String.valueOf(mengeFreiNeuInt);
+            int mengeVerkauftAltInt = Integer.parseInt(mengeVerkauftAlt);
+            int mengeVerkauftNeuInt = mengeVerkauftAltInt + mengePositionInt;
+            mengeVerkauftNeu = String.valueOf(mengeVerkauftNeuInt);
             
             //Menge der Position mit alter Menge RES verrechnen
             int mengeResAltInt = Integer.parseInt(mengeResAlt);
-            int mengeResNeuInt = mengeResAltInt + mengePositionInt;
+            int mengeResNeuInt = mengeResAltInt - mengePositionInt;
             mengeResNeu = String.valueOf(mengeResNeuInt);
             
-            artd.setzeMengeFreiRes(artikelID, mengeFreiNeu, mengeResNeu);
+            artd.setzeMengeResVer(artikelID, mengeVerkauftNeu, mengeResNeu);   
+        }
+    }
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 06.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Prüft, ob der FREIE Bestand für die Menge der einzelnen Positionen
+     * ausreicht.
+     * @param auftragskopfID Auftrag, mit dessen Positionen die Bestände 
+     * geprüft werden.
+     * @return True, falls Bestand ausreicht, False, wenn nicht
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public boolean bestandVerfuegbar(String auftragskopfID) 
+            throws SQLException {
+        boolean bestandVerfuegbar = true;
+        AuftragspositionDAO apd = new AuftragspositionDAO();
+        ArtikelDAO artd = new ArtikelDAO();
+        
+        ArrayList<Auftragsposition> auftragspositionen;
+        auftragspositionen 
+            = apd.gibAuftragspositionenZuAuftrag(auftragskopfID);
+        
+        String artikelID;
+        String mengePosition;
+        String mengeFreiAlt;
+        
+        for (int i = 0; i < auftragspositionen.size() 
+            && bestandVerfuegbar; i++) {
+            //ArtikelID und Menge des Artikels der Positionen holen
+            artikelID = auftragspositionen.get(i).getArtikelID();
+            mengePosition = auftragspositionen.get(i).getMenge();
+            //Menge FREI zu der Position aus DB holen
+            mengeFreiAlt = artd.gibMengeFrei(artikelID);
+            int mengeFreiAltInt = Integer.parseInt(mengeFreiAlt);
+            int mengePositionInt =  Integer.parseInt(mengePosition);
+            
+            if (mengeFreiAltInt - mengePositionInt < 0) {
+                bestandVerfuegbar = false;
+                
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setTitle("Information zum Bestand");
+                alert.setHeaderText("Der Bestand des Artikels " + artikelID 
+                    + " ist zu niedrig!");
+                alert.showAndWait();
+            }      
         }
         
-       
-    }    
-
+        return bestandVerfuegbar;
+    }       
     
     
 }

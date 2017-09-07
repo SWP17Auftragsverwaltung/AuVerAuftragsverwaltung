@@ -481,6 +481,52 @@ public class AuftragskopfDAO extends DataAccess {
             neueID = "000001";
         }
         return neueID;
+    } 
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 07.09.17     HEN     Erstellt.    
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Gibt den Auftragsstatus zu einem bestimmten Auftrag.
+     * @param auftragskopfID Auftrags für den der Status ausgegeben werden soll.
+     * @return Auftragsstatus
+     * @throws java.sql.SQLException SQLFehler
+     */    
+    public String gibAuftragsstatus(String auftragskopfID) throws SQLException {
+        PreparedStatement stmt = null;
+        String status = "";
+        ResultSet rs = null;
+        
+        String query = "SELECT " + attribute.get(TAB_AUFTRAGSKOPF).get(6) 
+            + " FROM ROOT." + ddd.getTabAuftragskopf() 
+            + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) + " = ?"
+            + " AND " + attribute.get(TAB_AUFTRAGSKOPF).get(9) + " = ?";
+        
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, auftragskopfID);
+            stmt.setString(2, "N");
+            rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                status = rs.getString(1);           
+            }
+           
+            con.commit();
+            
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+            con.rollback();
+        }
+        return status;
     }    
     
 }
