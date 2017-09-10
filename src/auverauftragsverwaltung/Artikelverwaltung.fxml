@@ -43,17 +43,17 @@
                   <SkontoTextField fx:id="tfBestellwert" layoutX="624.0" layoutY="74.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="852.0" layoutY="66.0" prefHeight="17.0" prefWidth="61.0" text="Bestand" />
                   <Label layoutX="854.0" layoutY="100.0" text="FREI" />
-                  <TextField fx:id="tfBestandFrei" layoutX="915.0" layoutY="95.0" prefHeight="25.0" prefWidth="85.0" />
+                  <NumberTextField fx:id="tfBestandFrei" layoutX="915.0" layoutY="95.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="851.0" layoutY="126.0" text="RESERVIERT" />
-                  <TextField fx:id="tfBestandReserviert" layoutX="915.0" layoutY="122.0" prefHeight="25.0" prefWidth="85.0">
+                  <NumberTextField fx:id="tfBestandReserviert" layoutX="915.0" layoutY="122.0" prefHeight="25.0" prefWidth="85.0">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
-                  </TextField>
-                  <TextField fx:id="tfBestandZulauf" layoutX="915.0" layoutY="149.0" prefHeight="25.0" prefWidth="85.0" />
+                  </NumberTextField>
+                  <NumberTextField fx:id="tfBestandZulauf" layoutX="915.0" layoutY="149.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="852.0" layoutY="153.0" text="ZULAUF" />
                   <Label layoutX="852.0" layoutY="180.0" text="VERKAUFT" />
-                  <TextField fx:id="tfBestandVerkauft" layoutX="915.0" layoutY="176.0" prefHeight="25.0" prefWidth="85.0" />
+                  <NumberTextField fx:id="tfBestandVerkauft" layoutX="915.0" layoutY="176.0" prefHeight="25.0" prefWidth="85.0" />
                   <Button fx:id="btLoeschen" layoutX="264.0" layoutY="211.0" mnemonicParsing="false" onAction="#artikelLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
                   <Button fx:id="btAnlegen" layoutX="21.0" layoutY="211.0" mnemonicParsing="false" onAction="#artikelAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen " />
                   <Button fx:id="btBearbeiten" layoutX="143.0" layoutY="211.0" mnemonicParsing="false" onAction="#bearbeiteArtikel" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
