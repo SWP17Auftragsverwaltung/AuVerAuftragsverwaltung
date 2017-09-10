@@ -1,15 +1,18 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package validierung;
-
 import javafx.scene.control.TextField;
 
 /**
  *
  * @author Jakob
  */
-public class NameTextField extends TextField {
+public class HausNummerTextField  extends TextField{
     
-    public NameTextField() {
+     public HausNummerTextField() {
 
         this.setPromptText(" ");
 
@@ -23,12 +26,8 @@ public class NameTextField extends TextField {
 
     @Override
     public void replaceText(int start, int end, String text) {
-//        if (text.matches("(^[\\p{L} .'-]+$)") || text.isEmpty()) {
-        if (text.matches("(^[öÖäÄüÜßa-zA-Z]*$)") || text.isEmpty()) {
+        if (text.matches("([0-9]*)([a-zA-Z]?)") || text.isEmpty()) {
             super.replaceText(start, end, text);
         }
     }
-
-    
-    
 }

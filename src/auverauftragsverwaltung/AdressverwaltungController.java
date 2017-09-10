@@ -32,14 +32,20 @@ import Klassen.Adresse;
 import Klassen.MyException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -285,28 +291,26 @@ public class AdressverwaltungController implements Initializable {
      */
     @FXML
     private Button btSuchen;
-    
+
     /**
      * Abbrechen Button.
      */
     @FXML
     private Button abbrechenBT;
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 10.08.17    SAM     begrenzeTextFeldEingabe, TableColumn werte zugewiesen
     /*------------------------------------------------------------------------*/
-    
     /**
      * Initialisiert die Controller-Klasse.
+     *
      * @param url URL zur initialisierung.
      * @param rb Resourcen die geladen werden sollen.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         try {
             setTableContent();
 
@@ -399,15 +403,15 @@ public class AdressverwaltungController implements Initializable {
 
         cbAnrede.getItems().addAll("Herr", "Frau");
     }
-    
+
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 10.08.17    SAM     Methode erstellt.
     /* 16.08.17    SAM     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Methode zum Abbrechen der Adressverwaltung.
+     *
      * @param event ActionEvent welches das Klicken des Buttons "Abbrechen"
      * abfängt.
      */
@@ -417,55 +421,49 @@ public class AdressverwaltungController implements Initializable {
         stage.close();
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 10.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Begrenzte Feldeingabe.
+     *
      * @param tf Teftfekd
      * @param zahl Zahl
      */
     private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
         tf.setTextFormatter(new TextFormatter<>(change
-            -> {
+                -> {
             return change.getControlNewText().length() <= zahl ? change : null;
         }));
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 11.08.17    HEN     Methode erstellt.
     /* 12.08.17    HEN     ObservableArrayList hinzugefügt
     /*------------------------------------------------------------------------*/
-    
     /**
      * Erstellt ein AdressDAO Objekt und gibt eine Adress ArrayList an eine
      * OberservableList, die dann an die TableView übergeben wird.
+     *
      * @throws java.sql.SQLException SQL Exception
      */
     public void setTableContent() throws SQLException {
         AdresseDAO ad = new AdresseDAO();
         ObservableList<Adresse> adressen
-            = FXCollections.observableArrayList(ad.gibAlleAdressenOhneLKZ());
+                = FXCollections.observableArrayList(ad.gibAlleAdressenOhneLKZ());
         adresseTV.setItems(adressen);
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 14.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Methode bekommt eine ArrayList mit den gefundenen Adressen übergeben und
      * aktualisiert damit die TableView.
+     *
      * @param adressen Übergebene Adresse.
      * @throws java.sql.SQLException SQL Exception
      */
@@ -476,13 +474,10 @@ public class AdressverwaltungController implements Initializable {
         adresseTV.setItems(adressenAusgabe);
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Aktualisiert die TableView mit aktuellem Inhalt.
      *
@@ -493,13 +488,10 @@ public class AdressverwaltungController implements Initializable {
         setTableContent();
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 11.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Löscht alle Eingaben in den Textfeldern.
      */
@@ -518,14 +510,11 @@ public class AdressverwaltungController implements Initializable {
         tfDatum.clear();
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 14.08.17    HEN     Methode erstellt.
     /* 16.08.17    HEN     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Sucht nach allen Adressen mit aktivem LKZ und stellt sie in der Tabelle
      * dar.
@@ -539,14 +528,11 @@ public class AdressverwaltungController implements Initializable {
         adresseTV.setItems(adressen);
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 14.08.17    HEN     Methode erstellt.
     /* 16.08.17    HEN     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Sucht nach allen Adressen ohne LKZ und stellt sie in der Tabelle dar.
      *
@@ -560,16 +546,14 @@ public class AdressverwaltungController implements Initializable {
         adresseTV.setItems(adressen);
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
     /* 22.08.17    BER     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Gibt die unteren Eingabefelder für das Anlegen einer neuer Adresse frei.
+     *
      * @throws java.sql.SQLException SQLException
      */
     @FXML
@@ -577,6 +561,7 @@ public class AdressverwaltungController implements Initializable {
         adresseTV.setMouseTransparent(true);
         clearTextFields();
 
+        this.tfDatum.setText(gibDatum());
         // Textfeldbereich wird aktiviert
         this.pane.setDisable(true);
         // Bearbeiten-Button wird ausgeblendet
@@ -595,67 +580,72 @@ public class AdressverwaltungController implements Initializable {
         tfAnschriftID.setText(ad.generiereID());
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /* 21.08.17    GET     clearTextFields() & refresTable() ergänzt.
     /*                     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues Adress
      * Objekt, welches dann über die DAO in die DB geschrieben wird.
+     *
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
     public void adresseHinzufuegen() throws SQLException {
-        String anschriftID = tfAnschriftID.getText();
-        String anrede = cbAnrede.getValue();
-        String name = tfName.getText();
-        String vorname = tfVorname.getText();
-        String strasse = tfStrasse.getText();
-        String hausnr = tfHausNr.getText();
-        String plz = tfPlz.getText();
-        String ort = tfOrt.getText();
-        String staat = tfStaat.getText();
-        String tel = tfTelefon.getText();
-        String email = tfEmail.getText();
-        String erfdatum = tfDatum.getText();
-        String lkz = "N";
-        Adresse adresse = new Adresse(anschriftID, anrede, name, vorname,
-                strasse, hausnr, plz, ort, staat, tel, email, erfdatum, lkz);
 
-        AdresseDAO ad = new AdresseDAO();
-        ad.fuegeAdresseHinzu(adresse);
+        if (validateFields()) {
 
-        clearTextFields();
-        refreshTable();
+            if (validateEmail() && validateDatum() && validateTelefon()) {
 
-        // Textfeldbereich wird aktiviert
-        this.pane.setDisable(false);
-        // Bearbeiten-Button wird ausgeblendet
-        this.anlegenBT.setVisible(true);
-        // Speichern-Button wird eingeblendet
-        this.hinzufuegenAdresseBT.setVisible(false);
-        // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-        this.adressdatensatzPane.setText("Adressdatensatz");
-        // Anlegen-Button wird deaktiviert
-        this.bearbeitenBT.setDisable(false);
-        // Löschen-Button wird deaktiviert
-        this.loeschenBT.setDisable(false);
-        adresseTV.setMouseTransparent(false);
+                String anschriftID = tfAnschriftID.getText();
+                String anrede = cbAnrede.getValue();
+                String name = tfName.getText();
+                String vorname = tfVorname.getText();
+                String strasse = tfStrasse.getText();
+                String hausnr = tfHausNr.getText();
+                String plz = tfPlz.getText();
+                String ort = tfOrt.getText();
+                String staat = tfStaat.getText();
+                String tel = tfTelefon.getText();
+                String email = tfEmail.getText();
+                String erfdatum = tfDatum.getText();
+                String lkz = "N";
+                Adresse adresse = new Adresse(anschriftID, anrede, name, vorname,
+                        strasse, hausnr, plz, ort, staat, tel, email, erfdatum, lkz);
+
+                AdresseDAO ad = new AdresseDAO();
+                ad.fuegeAdresseHinzu(adresse);
+
+                clearTextFields();
+                refreshTable();
+
+                // Textfeldbereich wird aktiviert
+                this.pane.setDisable(false);
+                // Bearbeiten-Button wird ausgeblendet
+                this.anlegenBT.setVisible(true);
+                // Speichern-Button wird eingeblendet
+                this.hinzufuegenAdresseBT.setVisible(false);
+                // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
+                this.adressdatensatzPane.setText("Adressdatensatz");
+                // Anlegen-Button wird deaktiviert
+                this.bearbeitenBT.setDisable(false);
+                // Löschen-Button wird deaktiviert
+                this.loeschenBT.setDisable(false);
+                adresseTV.setMouseTransparent(false);
+
+            }
+
+        }
+
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 17.08.17    HEN     Methode erstellt.
     /* 22.08.17    BER     refreshTable() ergänzt. Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
-    
     /**
      * "Löscht" eine markierte Adresse, in dem das LKZ auf J gesetzt wird.
      * Aktualisiert anschließend die TableView.
@@ -684,14 +674,11 @@ public class AdressverwaltungController implements Initializable {
         }
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 16.08.17    GET     Methode erstellt.
     /* 22.08.17    HEN     Adressdatenpane geändert. Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Lässt das Bearbeiten einer ausgewählten Adresse zu.
      */
@@ -711,66 +698,67 @@ public class AdressverwaltungController implements Initializable {
         this.loeschenBT.setDisable(true);
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 16.08.17    GET     Methode erstellt.
     /* 22.08.17    HEN     Exceptions eingefügt. Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Speichert die gemachten Änderungen in die Datenbank und aktualisiert die
      * View mit den neuen Werten.
+     *
      * @throws java.sql.SQLException SQLException.
      */
     @FXML
     public void speichereAenderung() throws SQLException {
-        String anschriftID = tfAnschriftID.getText();
-        String anrede = cbAnrede.getValue();
-        String name = tfName.getText();
-        String vorname = tfVorname.getText();
-        String strasse = tfStrasse.getText();
-        String hausnr = tfHausNr.getText();
-        String plz = tfPlz.getText();
-        String ort = tfOrt.getText();
-        String staat = tfStaat.getText();
-        String tel = tfTelefon.getText();
-        String email = tfEmail.getText();
-        String erfdatum = tfDatum.getText();
 
-        String lkz = "N";
-        Adresse adresse = new Adresse(anschriftID, anrede, name, vorname,
-            strasse, hausnr, plz, ort, staat, tel, email, erfdatum, lkz);
+        if (validateFields()) {
 
-        AdresseDAO aDAO = new AdresseDAO();
-        aDAO.aendereAdresse(adresse);
+            if (validateEmail() && validateDatum() && validateTelefon()) {
 
-        refreshTable();
+                String anschriftID = tfAnschriftID.getText();
+                String anrede = cbAnrede.getValue();
+                String name = tfName.getText();
+                String vorname = tfVorname.getText();
+                String strasse = tfStrasse.getText();
+                String hausnr = tfHausNr.getText();
+                String plz = tfPlz.getText();
+                String ort = tfOrt.getText();
+                String staat = tfStaat.getText();
+                String tel = tfTelefon.getText();
+                String email = tfEmail.getText();
+                String erfdatum = tfDatum.getText();
 
-        // Textfeldbereich wird deaktivieren
-        this.pane.setDisable(false);
-        // Bearbeiten-Button wird ausgeblendet
-        this.bearbeitenBT.setVisible(true);
-        // Speichern-Button wird eingeblendet
-        this.speichernBT.setVisible(false);
-        // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-        this.adressdatensatzPane.setText("Adressdatensatz");
-        // Anlegen-Button wird deaktiviert
-        this.anlegenBT.setDisable(false);
-        // Löschen-Button wird deaktiviert
-        this.loeschenBT.setDisable(false);
-        
+                String lkz = "N";
+                Adresse adresse = new Adresse(anschriftID, anrede, name, vorname,
+                        strasse, hausnr, plz, ort, staat, tel, email, erfdatum, lkz);
+
+                AdresseDAO aDAO = new AdresseDAO();
+                aDAO.aendereAdresse(adresse);
+
+                refreshTable();
+
+                // Textfeldbereich wird deaktivieren
+                this.pane.setDisable(false);
+                // Bearbeiten-Button wird ausgeblendet
+                this.bearbeitenBT.setVisible(true);
+                // Speichern-Button wird eingeblendet
+                this.speichernBT.setVisible(false);
+                // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
+                this.adressdatensatzPane.setText("Adressdatensatz");
+                // Anlegen-Button wird deaktiviert
+                this.anlegenBT.setDisable(false);
+                // Löschen-Button wird deaktiviert
+                this.loeschenBT.setDisable(false);
+            }
+        }
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 16.08.17    GET     Methode erstellt.
     /* 18.08.17    BER     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
      */
@@ -796,41 +784,37 @@ public class AdressverwaltungController implements Initializable {
         }
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 18.08.17    HEN     Methode erstellt.
     /* 20.08.17    BER     Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
+     *
      * @throws java.sql.SQLException SQLException
      */
     @FXML
-    public void adresseSuchen() throws SQLException  {
+    public void adresseSuchen() throws SQLException {
         SucheDAO sd = new SucheDAO();
         ArrayList gefundeneAdressen;
 
         String suchkriterium = cbSuchfeld.getValue();
         String suchbegriff = tfSuchbegriff.getText();
-      
+
         gefundeneAdressen = sd.adressSuche(suchkriterium, suchbegriff);
         zeigeGefundeneAdressen(gefundeneAdressen);
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+ /* Datum       Name    Was
     /* 19.08.17    HEN     Methode erstellt.
     /* 22.08.17    HEN     Suchfeld aktualisiert, setTableContent() eingefügt.
     /*                     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Setzt die Suche zurück.
+     *
      * @throws java.sql.SQLException SQLException
      */
     @FXML
@@ -840,22 +824,19 @@ public class AdressverwaltungController implements Initializable {
         setTableContent();
     }
 
-    
-    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 20.08.17    GET     Methode erstellt.
     /* 27.08.17    GET     Getestet & freigegeben 
     /*------------------------------------------------------------------------*/
-    
     /**
      * Gibt dem Benutzer die Möglichkeit, seine Aktionen abzubrechen oder zu
      * bestätigen.
-     */    
+     */
     @FXML
     public void aktionAbbrechen() {
         if (!this.adressdatensatzPane.getText().equalsIgnoreCase(
-            "Adressdatensatz")) {
+                "Adressdatensatz")) {
 
             Meldung meldung = new Meldung();
             meldung.verwerfenFenster();
@@ -887,7 +868,7 @@ public class AdressverwaltungController implements Initializable {
                 this.adresseTV.setMouseTransparent(false);
 
                 clearTextFields();
-            
+
             } else {
                 meldung.schließeFenster();
             }
@@ -895,5 +876,229 @@ public class AdressverwaltungController implements Initializable {
     }
 
     
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 08.09.2017    GET     Methode erstellt.
+    /* 09.09.2017   GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+     /**
+     * Methode prüft vor dem Hinzufügen die E-Mail-Adresse ob 
+     * diese korrekt ist.
+     * 
+     * @return  true bei korrekter Eingabe und fals bei falscher Eingabe.
+     */
+    private boolean validateEmail() {
+        boolean istValidiert = false;
+
+        Pattern p = Pattern.compile("[a-zA-Z0-9][a-zA-Z0-9._-]*@[a-zA-Z0-9]"
+                + "+([.][a-zA-Z]+)+");
+        Matcher m = p.matcher(tfEmail.getText());
+
+        if (m.find() && m.group().equals(tfEmail.getText())) {
+            istValidiert = true;
+        } else {
+
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Fehlerhafte E-Mail Eingabe!");
+            alert.setContentText("E-Mail Eingabe entspricht nicht dem Muster"
+                    + "(example@example.de)!");
+            alert.showAndWait();
+
+        }
+        return istValidiert;
+
+    }
+  
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 09.09.2017    GET     Methode erstellt.
+    /* 10.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    /**
+     * Methode prüft vor dem Hinzufügen die Telefonnummer ob diese korrekt ist.
+     * 
+     * @return  true bei korrekter Eingabe und fals bei falscher Eingabe.
+     */
+    private boolean validateTelefon() {
+        boolean istValidiert = false;
+
+        Pattern p = Pattern.compile("([0][1-9][1-9]{2,4})([0-9]{3,8})");
+        Matcher m = p.matcher(this.tfTelefon.getText());
+        
+        if (m.find() && m.group().equals(tfTelefon.getText())) {
+            
+            istValidiert = true;
+            
+        } else {
+
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Fehlerhafte E-Mail Eingabe!");
+            alert.setContentText("Telefonnumer ist nicht dem entsprechendem"
+                    + " Muster (0123456789)!");
+            alert.showAndWait();
+
+        }
+        return istValidiert;
+    }
+
     
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 08.09.2017    GET     Methode erstellt.
+    /* 08.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    /**
+     * Prüft ob alle Pflichtfelder eingegeben sind und Korrekt sind.
+     *
+     * @return boolschen Wert ob die eingaben korrekt sind.
+     */
+    private boolean validateFields() {
+        boolean istValidiert = true;
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Fehlende Eingaben");
+
+        if (this.cbAnrede.getValue() == null) {
+
+            alert.setContentText("Bitte wählen Sie eine Anrede ein!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfName.getText().isEmpty()) {
+
+            alert.setContentText("Bitte geben Sie einen Namen ein!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfVorname.getText().isEmpty()) {
+
+            alert.setContentText("Bitte geben Sie einen Vornamen ein!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfTelefon.getText().isEmpty()) {
+
+            alert.setContentText("Bitte geben Sie eine Telefonnummer an!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfEmail.getText().isEmpty()) {
+
+            alert.setContentText("Bitte geben Sie eine E-Mail-Adresse an!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfStrasse.getText().isEmpty()) {
+
+            alert.setContentText("Bitte geben Sie eine Strasse ein!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfHausNr.getText().isEmpty()) {
+
+            alert.setContentText("Bitte geben Sie eine Hausnummer an!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfPlz.getText().isEmpty()) {
+
+            alert.setContentText("Bitte geben Sie eine Postleitzahl an!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfOrt.getText().isEmpty()) {
+
+            alert.setContentText("Bitte wählen Sie einen Ort an!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfStaat.getText().isEmpty()) {
+
+            alert.setContentText("Bitte geben Sie einen Staat an!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfDatum.getText().isEmpty()) {
+
+            alert.setContentText("Bitte geben sie das Erfassungsdatum an!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        }
+        return istValidiert;
+    }
+
+    private boolean validateDatum() {
+        boolean istValidiert = false;
+
+        Pattern p = Pattern.compile("[0-9][0-9][.][0-9][0-9][.][0-9][0-9][0-9][0-9]");
+        Matcher m = p.matcher(tfDatum.getText());
+
+        if (m.find() && m.group().equals(tfDatum.getText())) {
+
+            istValidiert = true;
+
+        } else {
+
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Fehlerhafte E-Mail Eingabe!");
+            alert.setContentText("Datum entspricht nicht dem Muster"
+                    + "(tt.mm.jjjj)!");
+            alert.showAndWait();
+
+        }
+
+        return istValidiert;
+
+    }
+
+    public String gibDatum() {
+
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTimeZone(TimeZone.getTimeZone("CET"));
+        cal.getTime();
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        String datum = "";
+
+        if (cal.get(GregorianCalendar.DAY_OF_WEEK)
+                == GregorianCalendar.SATURDAY) {
+
+            cal.add(GregorianCalendar.DATE, 1);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Information");
+            alert.setHeaderText(
+                    "Achtung: Das heutige Datum fällt auf ein Wochenende!!!");
+            alert.showAndWait();
+
+        } else if (cal.get(GregorianCalendar.DAY_OF_WEEK)
+                == GregorianCalendar.SUNDAY) {
+
+            cal.add(GregorianCalendar.DATE, 1);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Information");
+            alert.setHeaderText(
+                    "Achtung: Das heutige Datum fällt auf ein Wochenende!!!");
+            alert.showAndWait();
+
+        }
+
+        datum = df.format(cal.getTime());
+
+        return datum;
+    }
+
 }

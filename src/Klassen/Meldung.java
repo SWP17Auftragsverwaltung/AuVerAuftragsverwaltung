@@ -71,7 +71,7 @@ public class Meldung {
      */
     private final String datumDatepickerTitel = "Bitte Datum wählen:";
     
-    
+
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -260,7 +260,5 @@ public class Meldung {
         meldung.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
         meldung.showAndWait();
     }
-    
-    
 
 }
