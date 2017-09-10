@@ -581,7 +581,7 @@ public class AdressverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 15.08.17    HEN     Methode erstellt.
     /* 21.08.17    GET     clearTextFields() & refresTable() ergänzt.
     /*                     Getestet & freigegeben.
@@ -642,7 +642,7 @@ public class AdressverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 17.08.17    HEN     Methode erstellt.
     /* 22.08.17    BER     refreshTable() ergänzt. Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
@@ -675,7 +675,7 @@ public class AdressverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 16.08.17    GET     Methode erstellt.
     /* 22.08.17    HEN     Adressdatenpane geändert. Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
@@ -699,7 +699,7 @@ public class AdressverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 16.08.17    GET     Methode erstellt.
     /* 22.08.17    HEN     Exceptions eingefügt. Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
@@ -755,7 +755,7 @@ public class AdressverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 16.08.17    GET     Methode erstellt.
     /* 18.08.17    BER     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
@@ -785,7 +785,7 @@ public class AdressverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 18.08.17    HEN     Methode erstellt.
     /* 20.08.17    BER     Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
@@ -807,7 +807,7 @@ public class AdressverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 19.08.17    HEN     Methode erstellt.
     /* 22.08.17    HEN     Suchfeld aktualisiert, setTableContent() eingefügt.
     /*                     Getestet & freigegeben.
@@ -879,7 +879,7 @@ public class AdressverwaltungController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 08.09.2017    GET     Methode erstellt.
-    /* 09.09.2017   GET     Getestet & freigegeben 
+    /* 09.09.2017    GET     Getestet & freigegeben 
     /*------------------------------------------------------------------------*/
      /**
      * Methode prüft vor dem Hinzufügen die E-Mail-Adresse ob 

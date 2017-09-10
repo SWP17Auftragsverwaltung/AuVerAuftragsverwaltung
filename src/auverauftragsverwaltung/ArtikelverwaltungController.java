@@ -542,7 +542,7 @@ public class ArtikelverwaltungController implements Initializable {
         
         if (validateFields()) {
             
-             if (validateEinzelwert() && validateBestellwert()
+            if (validateEinzelwert() && validateBestellwert()
                      && validateBestandFREI() && validateBestandRESERVIERT()
                      && validateBestandZULAUF() && validateBestandVERKAUFT()) {
                  
@@ -558,10 +558,10 @@ public class ArtikelverwaltungController implements Initializable {
                 String bestandsmengeZulauf = tfBestandZulauf.getText();
                 String bestandsmengeVerkauft = tfBestandVerkauft.getText();
                 String lkz = "N";
-                Artikel artikel = new Artikel(artikelID, artikeltext, bestelltext,
-                        einzelwert, bestellwert, steuer, bestandsmengeFrei,
-                        bestandsmengeReserviert, bestandsmengeZulauf,
-                        bestandsmengeVerkauft, lkz);
+                Artikel artikel = new Artikel(artikelID, artikeltext, 
+                        bestelltext, einzelwert, bestellwert, steuer,
+                        bestandsmengeFrei, bestandsmengeReserviert, 
+                        bestandsmengeZulauf, bestandsmengeVerkauft, lkz);
 
                 ArtikelDAO ar = new ArtikelDAO();
                 ar.fuegeArtikelHinzu(artikel);
@@ -833,6 +833,7 @@ public class ArtikelverwaltungController implements Initializable {
     /* 08.09.2017    GET     Methode erstellt.
     /* 08.09.2017    GET     Getestet & freigegeben 
     /*------------------------------------------------------------------------*/
+    
     /**
      * Prüft ob alle Pflichtfelder eingegeben sind und Korrekt sind.
      *
@@ -899,7 +900,19 @@ public class ArtikelverwaltungController implements Initializable {
         return istValidiert;
     }
     
-    private boolean validateEinzelwert(){
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 10.09.2017    GET     Methode erstellt.
+    /* 10.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Prüft ob der Einzelwert korrekt eingegeben wurde.
+     *
+     * @return boolschen Wert ob die eingaben korrekt sind.
+     */
+    private boolean validateEinzelwert() {
         
         boolean istValidiert = false;
         
@@ -923,7 +936,19 @@ public class ArtikelverwaltungController implements Initializable {
         return istValidiert;
         
     }
-    private boolean validateBestellwert(){
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 10.09.2017    GET     Methode erstellt.
+    /* 10.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Prüft ob der Bestellwert korrekt eingegeben wurde.
+     *
+     * @return boolschen Wert ob die eingaben korrekt sind.
+     */
+    private boolean validateBestellwert() {
         
         boolean istValidiert = false;
         
@@ -948,7 +973,20 @@ public class ArtikelverwaltungController implements Initializable {
         
     }
     
-    private boolean validateBestandFREI(){
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 10.09.2017    GET     Methode erstellt.
+    /* 10.09.2017    GET     Getestet & freigegeben 
+    */
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Prüft ob der freie Bestand korrekt eingegeben wurde.
+     *
+     * @return boolschen Wert ob die eingaben korrekt sind.
+     */
+    private boolean validateBestandFREI() {
         boolean istValidiert = false;
         
         
@@ -971,7 +1009,19 @@ public class ArtikelverwaltungController implements Initializable {
         return istValidiert;
     }   
     
-    private boolean validateBestandRESERVIERT(){
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 10.09.2017    GET     Methode erstellt.
+    /* 10.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Prüft ob der reservierte Bestand korrekt eingegeben wurde.
+     *
+     * @return boolschen Wert ob die eingaben korrekt sind.
+     */
+    private boolean validateBestandRESERVIERT() {
         boolean istValidiert = false;
         
         
@@ -993,8 +1043,20 @@ public class ArtikelverwaltungController implements Initializable {
         
         return istValidiert;
     }
-        
-    private boolean validateBestandZULAUF(){
+    
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 10.09.2017    GET     Methode erstellt.
+    /* 10.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Prüft ob der im Zulauf befindende Bestand korrekt eingegeben wurde.
+     *
+     * @return boolschen Wert ob die eingaben korrekt sind.
+     */    
+    private boolean validateBestandZULAUF() {
         boolean istValidiert = false;
         
         
@@ -1017,8 +1079,18 @@ public class ArtikelverwaltungController implements Initializable {
         return istValidiert;
     }    
     
-
-    private boolean validateBestandVERKAUFT(){
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 10.09.2017    GET     Methode erstellt.
+    /* 10.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Prüft ob der verkaufte Bestand korrekt eingegeben wurde.
+     *
+     * @return boolschen Wert ob die eingaben korrekt sind.
+     */
+    private boolean validateBestandVERKAUFT() {
         boolean istValidiert = false;
         
         
@@ -1041,5 +1113,5 @@ public class ArtikelverwaltungController implements Initializable {
         return istValidiert;
     }
   
-    }
+}
     
