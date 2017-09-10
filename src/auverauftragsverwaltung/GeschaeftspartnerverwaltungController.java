@@ -867,6 +867,10 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
                 gpTable.setMouseTransparent(false);
 
                 clearTextFields();
+                
+                this.gpTable.setVisible(true);
+                this.paneAdresseWahl.setVisible(false);
+                
             } else {
 
                 meldung.schließeFenster();
