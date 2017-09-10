@@ -9,7 +9,7 @@
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.GeschaeftspartnerverwaltungController">
    <children>
       <Button layoutX="427.0" layoutY="36.0" mnemonicParsing="false" onAction="#geschaeftspartnerSuchen" prefHeight="40.0" prefWidth="147.0" text="Geschäftspartner suchen" AnchorPane.topAnchor="36.0" />
-      <TableView fx:id="gpTable" editable="true" layoutX="25.0" layoutY="100.0" onMouseClicked="#zeigeWerteAn" prefHeight="248.0" prefWidth="751.0" AnchorPane.bottomAnchor="274.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="100.0">
+      <TableView fx:id="gpTable" editable="true" layoutX="25.0" layoutY="100.0" onMouseClicked="#zeigeWerteAn" prefHeight="219.0" prefWidth="750.0" AnchorPane.bottomAnchor="281.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="100.0">
          <columns>
             <TableColumn fx:id="gpID" prefWidth="140.0" text="Geschäftspartner-ID" />
             <TableColumn fx:id="gpTyp" prefWidth="143.0" text="Geschäftspartner - Typ" />
@@ -27,9 +27,9 @@
                   <Label layoutX="147.0" layoutY="17.0" text="Geschäftspartner - Typ" />
                   <ComboBox fx:id="cbPartnerTyp" layoutX="144.0" layoutY="34.0" prefHeight="25.0" prefWidth="139.0" promptText="Bitte wählen..." />
                   <Label layoutX="298.0" layoutY="17.0" text="Anschrift-ID" />
-                  <TextField fx:id="tfAnschriftID" layoutX="298.0" layoutY="34.0" prefWidth="112.0" />
+                  <TextField fx:id="tfAnschriftID" layoutX="298.0" layoutY="34.0" onMouseClicked="#waehleAnschriftID" prefWidth="112.0" />
                   <Label layoutX="441.0" layoutY="17.0" text="Liefer-ID" />
-                  <TextField fx:id="tfLieferID" layoutX="441.0" layoutY="34.0" prefWidth="112.0" />
+                  <TextField fx:id="tfLieferID" layoutX="441.0" layoutY="34.0" onMouseClicked="#waehleLieferID" prefWidth="112.0" />
                   <Label layoutX="579.0" layoutY="17.0" text="Kreditlimit" />
                   <Label layoutX="690.0" layoutY="38.0" text="Euro" />
                   <Button fx:id="anlegenBT" layoutX="14.0" layoutY="116.0" mnemonicParsing="false" onAction="#geschaeftspartnerAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen">
@@ -40,8 +40,8 @@
                   <Button fx:id="bearbeitenBT" layoutX="133.0" layoutY="116.0" mnemonicParsing="false" onAction="#bearbeiteGeschaeftspartner" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten " />
                   <Button fx:id="loeschenBT" layoutX="254.0" layoutY="116.0" mnemonicParsing="false" onAction="#geschaeftspartnerLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
                   <Button fx:id="closeGP" layoutX="631.0" layoutY="116.0" mnemonicParsing="false" onAction="#closeGeschaeftspartner" prefHeight="40.0" prefWidth="100.0" text="Zurück" AnchorPane.rightAnchor="35.0" />
-                  <TextField fx:id="tfKreditlimit" layoutX="579.0" layoutY="34.0" prefHeight="25.0" prefWidth="103.0" />
-                  <Pane fx:id="pane" layoutX="14.0" layoutY="11.0" prefHeight="72.0" prefWidth="711.0" />
+                  <NumberTextField fx:id="tfKreditlimit" layoutX="579.0" layoutY="34.0" prefHeight="25.0" prefWidth="103.0" />
+                  <Pane fx:id="pane" layoutX="-1.0" layoutY="11.0" prefHeight="72.0" prefWidth="711.0" />
                   <Button fx:id="hinzufuegenBT" layoutX="14.0" layoutY="116.0" mnemonicParsing="false" onAction="#geschaeftspartnerHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
                   <Button fx:id="speichernBT" layoutX="133.0" layoutY="116.0" mnemonicParsing="false" onAction="#speichereAenderung" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
                   <Button fx:id="abbrechenBT" layoutX="376.0" layoutY="116.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />  
@@ -57,5 +57,26 @@
       <Label layoutX="47.0" layoutY="28.0" prefHeight="17.0" prefWidth="107.0" text="Suchkriterium" />
       <Label layoutX="252.0" layoutY="28.0" text="Suchbegriff" />
       <Button layoutX="583.0" layoutY="36.0" mnemonicParsing="false" onAction="#setzeSucheZurueck" prefHeight="40.0" prefWidth="147.0" text="Suche zurücksetzen" />
+      <TitledPane fx:id="paneAdresseWahl" collapsible="false" layoutX="25.0" layoutY="97.0" prefHeight="225.0" prefWidth="752.0" text="Adresse wählen" AnchorPane.bottomAnchor="281.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="100.0">
+         <content>
+            <TableView fx:id="adresseTV" layoutX="25.0" layoutY="97.0" prefHeight="226.0" prefWidth="750.0">
+               <columns>
+                  <TableColumn fx:id="tcAnschriftID" prefWidth="75.0" text="Anschrift_ID" />
+                  <TableColumn fx:id="tcAnrede" prefWidth="50.0" text="Anrede" />
+                  <TableColumn fx:id="tcName" text="Name" />
+                  <TableColumn fx:id="tcVorname" text="Vorname" />
+                  <TableColumn fx:id="tcStraße" text="Strasse" />
+                  <TableColumn fx:id="tcHausNr" prefWidth="50.0" text="HausNr." />
+                  <TableColumn fx:id="tcPLZ" prefWidth="50.0" text="PLZ" />
+                  <TableColumn fx:id="tcOrt" prefWidth="130.0" text="Ort" />
+                  <TableColumn fx:id="tcStaat" prefWidth="130.0" text="Staat" />
+                  <TableColumn fx:id="tcTel" prefWidth="100.0" text="Telefon" />
+                  <TableColumn fx:id="tcEMail" prefWidth="200.0" text="E_Mail" />
+                  <TableColumn fx:id="tcErfDatum" prefWidth="200.0" text="Erfassungsdatum" />
+                  <TableColumn fx:id="tcLKZ" prefWidth="75.0" text="LKZ" />
+               </columns>
+            </TableView>
+         </content>
+      </TitledPane>
    </children>
 </AnchorPane>

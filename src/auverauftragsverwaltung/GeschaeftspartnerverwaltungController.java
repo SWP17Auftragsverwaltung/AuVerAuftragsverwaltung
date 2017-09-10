@@ -24,9 +24,11 @@
  */
 package auverauftragsverwaltung;
 
+import Datenbank.AdresseDAO;
 import Klassen.Meldung;
 import Datenbank.GeschaeftspartnerDAO;
 import Datenbank.SucheDAO;
+import Klassen.Adresse;
 import Klassen.Geschaeftspartner;
 import java.net.URL;
 import java.sql.SQLException;
@@ -39,6 +41,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -185,6 +188,101 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     @FXML
     private TableView gpTable = new TableView<Geschaeftspartner>();
     
+    /**
+     * TableView für die Anzeige der Adressen.
+     */
+    @FXML
+    private TableView adresseTV = new TableView<Adresse>();
+
+    /**
+     * Tabellenspalte "AnschriftID".
+     */
+    @FXML
+    private TableColumn<Adresse, String> tcAnschriftID;
+
+    /**
+     * Tabellenspalte "Anrede".
+     */
+    @FXML
+    private TableColumn<Adresse, String> tcAnrede;
+
+    /**
+     * Tabellenspalte "Name".
+     */
+    @FXML
+    private TableColumn<Adresse, String> tcName;
+
+    /**
+     * Tabellenspalte "Vorname".
+     */
+    @FXML
+    private TableColumn<Adresse, String> tcVorname;
+
+    /**
+     * Tabellenspalte "Straße".
+     */
+    @FXML
+    private TableColumn<Adresse, String> tcStraße;
+
+    /**
+     * Tabellenspalte "HausNr".
+     */
+    @FXML
+    private TableColumn<Adresse, String> tcHausNr;
+
+    /**
+     * Tabellenspalte "PLZ".
+     */
+    @FXML
+    private TableColumn<Adresse, String> tcPLZ;
+
+    /**
+     * Tabellenspalte "Ort".
+     */
+    @FXML
+    private TableColumn<Adresse, String> tcOrt;
+
+    /**
+     * Tabellenspalte "Staat".
+     */
+    @FXML
+    private TableColumn<Adresse, String> tcStaat;
+
+    /**
+     * Tabellenspalte "Tel".
+     */
+    @FXML
+    private TableColumn<Adresse, String> tcTel;
+
+    /**
+     * Tabellenspalte "Email".
+     */
+    @FXML
+    private TableColumn<Adresse, String> tcEMail;
+
+    /**
+     * Tabellenspalte "erfDatum".
+     */
+    @FXML
+    private TableColumn<Adresse, String> tcErfDatum;
+
+    /**
+     * Tabellenspalte LKZ.
+     */
+    @FXML
+    private TableColumn<Adresse, String> tcLKZ;
+    
+    @FXML
+    private TitledPane paneAdresseWahl;
+
+    
+    
+    
+    
+    
+    
+    
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 15.08.17    SAM     Methode erstellt.
@@ -219,7 +317,8 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        this.paneAdresseWahl.setVisible(false);
+        
         try {
             setTableContent();
         } catch (SQLException ex) {
@@ -243,6 +342,10 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         liefID.setCellValueFactory(new PropertyValueFactory<>("lieferID"));
         kredLimit.setCellValueFactory(
                 new PropertyValueFactory<>("kreditlimit"));
+        
+        
+        
+        
 
         cbSuchfeld.getItems().addAll(
                 "Geschaeftspartner-ID",
@@ -252,6 +355,41 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
                 "Kreditlimit");
 
         cbPartnerTyp.getItems().addAll("K", "L");
+        
+        
+        // Adresse TableView -> TableColums werden geladen.
+        tcAnschriftID.setCellValueFactory(
+                new PropertyValueFactory<>("adresseID"));
+
+        tcAnrede.setCellValueFactory(new PropertyValueFactory<>("anrede"));
+
+        tcName.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        tcVorname.setCellValueFactory(new PropertyValueFactory<>("vorname"));
+
+        tcStraße.setCellValueFactory(new PropertyValueFactory<>("strasse"));
+
+        tcHausNr.setCellValueFactory(
+                new PropertyValueFactory<>("hausnummer"));
+
+        tcPLZ.setCellValueFactory(new PropertyValueFactory<>("plz"));
+
+        tcOrt.setCellValueFactory(new PropertyValueFactory<>("ort"));
+
+        tcStaat.setCellValueFactory(
+                new PropertyValueFactory<>("staat"));
+
+        tcTel.setCellValueFactory(
+                new PropertyValueFactory<>("telefon"));
+
+        tcEMail.setCellValueFactory(new PropertyValueFactory<>("Email"));
+
+        tcErfDatum.setCellValueFactory(
+                new PropertyValueFactory<>("erfassungsdatum"));
+
+        tcLKZ.setCellValueFactory(
+                new PropertyValueFactory<>("lkz"));
+        
     }
     
     
@@ -375,6 +513,18 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
 
         GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
         this.tfGeschaeftspartnerID.setText(gpDAO.generiereID());
+        
+        this.paneAdresseWahl.setVisible(true);
+        this.gpTable.setVisible(false);
+        
+        setTableContentAdresse();
+        
+        
+        
+        
+        
+      
+        
 
     }
     
@@ -392,38 +542,42 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      * @throws java.sql.SQLException SQL Exception
      */
     public void geschaeftspartnerHinzufuegen() throws SQLException {
-
-        String geschaeftspartnerID = tfGeschaeftspartnerID.getText();
-        String typ = cbPartnerTyp.getValue();
-        String adresseID = tfAnschriftID.getText();
-        String lieferID = tfLieferID.getText();
-        String kreditlimit = tfKreditlimit.getText();
-        String lkz = "N";
-        Geschaeftspartner geschaeftspartner = new Geschaeftspartner(
-                geschaeftspartnerID, typ, adresseID, lieferID,
-                kreditlimit, lkz);
-
-        GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
-        gpDAO.fuegeGeschaeftspartnerHinzu(geschaeftspartner);
-
-        clearTextFields();
-        refreshTable();
-
-        // Sperre für Bearbeitung wird deaktiviert.
-        this.pane.setDisable(false);
-        // Anlegen Button wird Sichtbar gemacht.
-        this.anlegenBT.setVisible(true);
-        // Hinzufügen -Button wird eingeblendet
-        this.hinzufuegenBT.setVisible(false);
-        // Der Anlegemodus wird dektiviert
-        this.datensatzTP.setText("Geschäftspartnerdatensatz");
-        // Anlegen-Button wird aktiviert
-        this.bearbeitenBT.setDisable(false);
-        // Löschen-Button wird aktiviert
-        this.loeschenBT.setDisable(false);
         
-        gpTable.setMouseTransparent(false);
+        if (validateFields()) {
+            
+            String geschaeftspartnerID = tfGeschaeftspartnerID.getText();
+            String typ = cbPartnerTyp.getValue();
+            String adresseID = tfAnschriftID.getText();
+            String lieferID = tfLieferID.getText();
+            String kreditlimit = tfKreditlimit.getText();
+            String lkz = "N";
+            Geschaeftspartner geschaeftspartner = new Geschaeftspartner(
+                    geschaeftspartnerID, typ, adresseID, lieferID,
+                    kreditlimit, lkz);
 
+            GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
+            gpDAO.fuegeGeschaeftspartnerHinzu(geschaeftspartner);
+
+            clearTextFields();
+            refreshTable();
+
+            // Sperre für Bearbeitung wird deaktiviert.
+            this.pane.setDisable(false);
+            // Anlegen Button wird Sichtbar gemacht.
+            this.anlegenBT.setVisible(true);
+            // Hinzufügen -Button wird eingeblendet
+            this.hinzufuegenBT.setVisible(false);
+            // Der Anlegemodus wird dektiviert
+            this.datensatzTP.setText("Geschäftspartnerdatensatz");
+            // Anlegen-Button wird aktiviert
+            this.bearbeitenBT.setDisable(false);
+            // Löschen-Button wird aktiviert
+            this.loeschenBT.setDisable(false);
+
+            gpTable.setMouseTransparent(false);
+            this.paneAdresseWahl.setVisible(false);
+            this.gpTable.setVisible(true);
+        }
     }
     
     /*------------------------------------------------------------------------*/
@@ -721,5 +875,83 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
 
         }
     }
+    
+    public void setTableContentAdresse() throws SQLException {
+        AdresseDAO gpd = new AdresseDAO();
+        ObservableList<Adresse> geschaeftspartner
+            = FXCollections.observableArrayList(
+                    gpd.gibAlleAdressenOhneLKZ());
+        adresseTV.setItems(geschaeftspartner);
+    } 
+    
+    /**
+     * Füllt das untere AdressID Feld mit einer ID, die in der 
+     * Tabelle ausgewählt wurde.
+     */
+    @FXML
+    public void waehleAnschriftID() {
+        Object geschaeftspartner 
+            = this.adresseTV.getSelectionModel().getSelectedItem();
+        Adresse a = (Adresse) geschaeftspartner;
+
+        if (a != null) {
+            this.tfAnschriftID.setText(a.getAdresseID());        
+        }
+    }
+    @FXML
+    public void waehleLieferID() {
+        Object geschaeftspartner 
+            = this.adresseTV.getSelectionModel().getSelectedItem();
+        Adresse a = (Adresse) geschaeftspartner;
+
+        if (a != null) {
+            this.tfLieferID.setText(a.getAdresseID());        
+        }
+    }
+    
+    private boolean validateFields(){
+        
+        boolean istValidiert = true;
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Fehlende Eingaben");
+
+        if (this.cbPartnerTyp.getValue().equals("Bitte wählen...")) {
+
+            alert.setContentText("Bitte wählen Sie ein Geschäftspartertyp!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfAnschriftID.getText().isEmpty()) {
+
+            alert.setContentText("Bitte wählen Sie eine Anschrift-ID!"
+                    + " \n\nMarkieren Sie eine Anschrift und klicken dann"
+                    + " in das Feld damit die ID geladen wird.");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfLieferID.getText().isEmpty()) {
+
+            alert.setContentText("Bitte wählen Sie eine Liefer-ID!"
+                    + " \n\nMarkieren Sie eine Anschrift und klicken dann"
+                    + " in das Feld damit die ID geladen wird.");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfKreditlimit.getText().isEmpty()) {
+
+            alert.setContentText("Bitte geben Sie ein Kreditlimit an!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } 
+        return istValidiert;
+        
+    }
+    
+    
 
 }

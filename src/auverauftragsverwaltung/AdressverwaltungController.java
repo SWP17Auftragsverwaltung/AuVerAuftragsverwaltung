@@ -953,8 +953,9 @@ public class AdressverwaltungController implements Initializable {
      * @return boolschen Wert ob die eingaben korrekt sind.
      */
     private boolean validateFields() {
+        
         boolean istValidiert = true;
-        Alert alert = new Alert(AlertType.WARNING);
+        Alert alert = new Alert(AlertType.WARNING);       
         alert.setTitle("Fehlende Eingaben");
 
         if (this.cbAnrede.getValue() == null) {
