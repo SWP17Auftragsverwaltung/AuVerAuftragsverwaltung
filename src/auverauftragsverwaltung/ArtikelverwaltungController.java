@@ -536,41 +536,47 @@ public class ArtikelverwaltungController implements Initializable {
      * @throws java.sql.SQLException SQL Exception
      */
     public void artikelHinzufuegen() throws SQLException {
-        String artikelID = tfMaterialNr.getText();
-        String einzelwert = tfEinzelwert.getText();
-        String artikeltext = tfArtikelbeschreibung.getText();
-        String bestellwert = tfBestellwert.getText();
-        String bestelltext = tfBestellbeschreibung.getText();
-        String steuer = cbMwstsatz.getValue();
-        String bestandsmengeFrei = tfBestandFrei.getText();
-        String bestandsmengeReserviert = tfBestandReserviert.getText();
-        String bestandsmengeZulauf = tfBestandZulauf.getText();
-        String bestandsmengeVerkauft = tfBestandVerkauft.getText();
-        String lkz = "N";
-        Artikel artikel = new Artikel(artikelID, artikeltext, bestelltext,
-                einzelwert, bestellwert, steuer, bestandsmengeFrei,
-                bestandsmengeReserviert, bestandsmengeZulauf,
-                bestandsmengeVerkauft, lkz);
+        
+        
+        if (validateFields()) {
+            
+            String artikelID = tfMaterialNr.getText();
+            String einzelwert = tfEinzelwert.getText();
+            String artikeltext = tfArtikelbeschreibung.getText();
+            String bestellwert = tfBestellwert.getText();
+            String bestelltext = tfBestellbeschreibung.getText();
+            String steuer = cbMwstsatz.getValue();
+            String bestandsmengeFrei = tfBestandFrei.getText();
+            String bestandsmengeReserviert = tfBestandReserviert.getText();
+            String bestandsmengeZulauf = tfBestandZulauf.getText();
+            String bestandsmengeVerkauft = tfBestandVerkauft.getText();
+            String lkz = "N";
+            Artikel artikel = new Artikel(artikelID, artikeltext, bestelltext,
+                    einzelwert, bestellwert, steuer, bestandsmengeFrei,
+                    bestandsmengeReserviert, bestandsmengeZulauf,
+                    bestandsmengeVerkauft, lkz);
 
-        ArtikelDAO ar = new ArtikelDAO();
-        ar.fuegeArtikelHinzu(artikel);
+            ArtikelDAO ar = new ArtikelDAO();
+            ar.fuegeArtikelHinzu(artikel);
 
-        clearTextFields();
-        refreshTable();
+            clearTextFields();
+            refreshTable();
 
-        // Textfeldbereich wird aktiviert
-        this.pane.setDisable(false);
-        // Bearbeiten-Button wird ausgeblendet
-        this.btAnlegen.setVisible(true);
-        // Speichern-Button wird eingeblendet
-        this.btHinzufuegen.setVisible(false);
-        // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-        this.artikeldatensatzPane.setText("Artikeldatensatz");
-        // Anlegen-Button wird deaktiviert
-        this.btBearbeiten.setDisable(false);
-        // Löschen-Button wird deaktiviert
-        this.btLoeschen.setDisable(false);
-        tvArtikel.setMouseTransparent(false);
+            // Textfeldbereich wird aktiviert
+            this.pane.setDisable(false);
+            // Bearbeiten-Button wird ausgeblendet
+            this.btAnlegen.setVisible(true);
+            // Speichern-Button wird eingeblendet
+            this.btHinzufuegen.setVisible(false);
+            // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
+            this.artikeldatensatzPane.setText("Artikeldatensatz");
+            // Anlegen-Button wird deaktiviert
+            this.btBearbeiten.setDisable(false);
+            // Löschen-Button wird deaktiviert
+            this.btLoeschen.setDisable(false);            
+            tvArtikel.setMouseTransparent(false);
+            
+        }
     }
 
     /*------------------------------------------------------------------------*/
@@ -643,39 +649,44 @@ public class ArtikelverwaltungController implements Initializable {
      */
     @FXML
     public void speichereAenderung() throws SQLException {
-        String artikelID = tfMaterialNr.getText();
-        String einzelwert = tfEinzelwert.getText();
-        String artikeltext = tfArtikelbeschreibung.getText();
-        String bestellwert = tfBestellwert.getText();
-        String bestelltext = tfBestellbeschreibung.getText();
-        String steuer = cbMwstsatz.getValue();
-        String bestandsmengeFrei = tfBestandFrei.getText();
-        String bestandsmengeReserviert = tfBestandReserviert.getText();
-        String bestandsmengeZulauf = tfBestandZulauf.getText();
-        String bestandsmengeVerkauft = tfBestandVerkauft.getText();
-        String lkz = "N";
-        Artikel artikel = new Artikel(artikelID, artikeltext, bestelltext,
-                einzelwert, bestellwert, steuer, bestandsmengeFrei,
-                bestandsmengeReserviert, bestandsmengeZulauf,
-                bestandsmengeVerkauft, lkz);
+        
+        if (validateFields()) {
+            
+            String artikelID = tfMaterialNr.getText();
+            String einzelwert = tfEinzelwert.getText();
+            String artikeltext = tfArtikelbeschreibung.getText();
+            String bestellwert = tfBestellwert.getText();
+            String bestelltext = tfBestellbeschreibung.getText();
+            String steuer = cbMwstsatz.getValue();
+            String bestandsmengeFrei = tfBestandFrei.getText();
+            String bestandsmengeReserviert = tfBestandReserviert.getText();
+            String bestandsmengeZulauf = tfBestandZulauf.getText();
+            String bestandsmengeVerkauft = tfBestandVerkauft.getText();
+            String lkz = "N";
+            Artikel artikel = new Artikel(artikelID, artikeltext, bestelltext,
+                    einzelwert, bestellwert, steuer, bestandsmengeFrei,
+                    bestandsmengeReserviert, bestandsmengeZulauf,
+                    bestandsmengeVerkauft, lkz);
 
-        ArtikelDAO aDAO = new ArtikelDAO();
-        aDAO.aendereArtikel(artikel);
+            ArtikelDAO aDAO = new ArtikelDAO();
+            aDAO.aendereArtikel(artikel);
 
-        refreshTable();
+            refreshTable();
 
-        // Textfeldbereich wird deaktivieren
-        this.pane.setDisable(false);
-        // Bearbeiten-Button wird ausgeblendet
-        this.btBearbeiten.setVisible(true);
-        // Speichern-Button wird eingeblendet
-        this.btSpeichern.setVisible(false);
-        // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-        this.artikeldatensatzPane.setText("Artikeldatensatz");
-        // Anlegen-Button wird deaktiviert
-        this.btAnlegen.setDisable(false);
-        // Löschen-Button wird deaktiviert
-        this.btLoeschen.setDisable(false);
+            // Textfeldbereich wird deaktivieren
+            this.pane.setDisable(false);
+            // Bearbeiten-Button wird ausgeblendet
+            this.btBearbeiten.setVisible(true);
+            // Speichern-Button wird eingeblendet
+            this.btSpeichern.setVisible(false);
+            // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
+            this.artikeldatensatzPane.setText("Artikeldatensatz");
+            // Anlegen-Button wird deaktiviert
+            this.btAnlegen.setDisable(false);
+            // Löschen-Button wird deaktiviert
+            this.btLoeschen.setDisable(false);
+        
+        }
     }
 
     /*------------------------------------------------------------------------*/
@@ -803,4 +814,77 @@ public class ArtikelverwaltungController implements Initializable {
             }
         }
     }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 08.09.2017    GET     Methode erstellt.
+    /* 08.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    /**
+     * Prüft ob alle Pflichtfelder eingegeben sind und Korrekt sind.
+     *
+     * @return boolschen Wert ob die eingaben korrekt sind.
+     */
+    private boolean validateFields() {
+        boolean istValidiert = true;
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Fehlende Eingaben");
+
+        if (this.tfEinzelwert.getText().isEmpty()) {
+
+            alert.setContentText("Es ist kein Einzelwert eingetragen!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfBestellwert.getText().isEmpty()) {
+
+            alert.setContentText("Es ist kein Bestellwert eingetragen!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.cbMwstsatz.getValue() == null) {
+
+            alert.setContentText("Bitte den Mehrwertsteuersatz wählen!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfBestandFrei.getText().isEmpty()) {
+
+            alert.setContentText("Bitte geben sie die Bestandsmenge FREI an!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfBestandReserviert.getText().isEmpty()) {
+
+            alert.setContentText("Bitte geben sie die Bestandsmenge"
+                    + " RESERVIERT an!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfBestandZulauf.getText().isEmpty()) {
+
+            alert.setContentText("Bitte geben sie die Bestandsmenge "
+                    + "ZULAUF an!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if (this.tfBestandVerkauft.getText().isEmpty()) {
+
+            alert.setContentText("Bitte geben sie die Bestandsmenge"
+                    + " VERKAUFT an!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } 
+        return istValidiert;
+    }
+    
+    
 }

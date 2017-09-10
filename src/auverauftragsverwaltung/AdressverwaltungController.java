@@ -891,7 +891,7 @@ public class AdressverwaltungController implements Initializable {
         boolean istValidiert = false;
 
         Pattern p = Pattern.compile("[a-zA-Z0-9][a-zA-Z0-9._-]*@[a-zA-Z0-9]"
-                + "+([.][a-zA-Z]+)+");
+                + "+([.][a-zA-Z-]+)+");
         Matcher m = p.matcher(tfEmail.getText());
 
         if (m.find() && m.group().equals(tfEmail.getText())) {
@@ -922,7 +922,7 @@ public class AdressverwaltungController implements Initializable {
     private boolean validateTelefon() {
         boolean istValidiert = false;
 
-        Pattern p = Pattern.compile("([0][1-9][1-9]{2,4})([0-9]{3,8})");
+        Pattern p = Pattern.compile("([0][1-9][0-9]{2,4})([0-9]{3,8})");
         Matcher m = p.matcher(this.tfTelefon.getText());
         
         if (m.find() && m.group().equals(tfTelefon.getText())) {
