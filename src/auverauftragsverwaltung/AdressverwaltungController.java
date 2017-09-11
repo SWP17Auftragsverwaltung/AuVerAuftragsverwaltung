@@ -422,7 +422,7 @@ public class AdressverwaltungController implements Initializable {
     }
 
     /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
+    /* Datum       Name    Was
     /* 10.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**

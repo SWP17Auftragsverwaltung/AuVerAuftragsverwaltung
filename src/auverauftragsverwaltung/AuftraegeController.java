@@ -48,6 +48,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -605,6 +606,24 @@ public class AuftraegeController implements Initializable {
     
     
     
+        /*------------------------------------------------------------------------*/
+ /* Datum       Name    Was
+    /* 10.08.17    GET     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    /**
+     * Begrenzte Feldeingabe.
+     *
+     * @param tf Teftfekd
+     * @param zahl Zahl
+     */
+    private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
+        tf.setTextFormatter(new TextFormatter<>(change
+                -> {
+            return change.getControlNewText().length() <= zahl ? change : null;
+        }));
+    }
+    
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 30.08.17    HEN     Methode erstellt.
@@ -617,6 +636,10 @@ public class AuftraegeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        // Name auf 20 Zeichen begrenzt
+        begrenzeTextFeldEingabe(tfMengeAPD, 3);
+        
         this.paneGP.setVisible(false);
         this.paneAuftraege.setVisible(true);
         this.btAuftragspositionen.setDisable(true);

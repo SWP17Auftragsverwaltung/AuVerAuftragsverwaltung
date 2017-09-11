@@ -126,7 +126,7 @@
                         <Button fx:id="btAbbrechenAPD" layoutX="336.0" layoutY="119.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " />
                         <TextField fx:id="tfPositionsNrAPD" editable="false" layoutX="14.0" layoutY="47.0" />
                         <TextField fx:id="tfMaterialNrAPD" editable="false" layoutX="197.0" layoutY="47.0" />
-                        <MengeTextField fx:id="tfMengeAPD" layoutX="371.0" layoutY="47.0" />
+                        <TextField fx:id="tfMengeAPD" layoutX="371.0" layoutY="47.0" />
                         <TextField fx:id="tfEinzelwertAPD" editable="false" layoutX="551.0" layoutY="47.0" />
                         <Label layoutX="18.0" layoutY="33.0" text="Positionsnummer" />
                         <Label layoutX="197.0" layoutY="33.0" text="Materialnummer" />
