@@ -606,19 +606,19 @@ public class AuftraegeController implements Initializable {
     
     
     
-        /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
-    /* 10.08.17    GET     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 30.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
      * Begrenzte Feldeingabe.
      *
-     * @param tf Teftfekd
+     * @param tf Teftfeld
      * @param zahl Zahl
      */
     private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
         tf.setTextFormatter(new TextFormatter<>(change
-                -> {
+            -> {
             return change.getControlNewText().length() <= zahl ? change : null;
         }));
     }
@@ -637,8 +637,9 @@ public class AuftraegeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        // Name auf 20 Zeichen begrenzt
+        // Menge auf 3 Zeichen begrenzt
         begrenzeTextFeldEingabe(tfMengeAPD, 3);
+
         
         this.paneGP.setVisible(false);
         this.paneAuftraege.setVisible(true);
