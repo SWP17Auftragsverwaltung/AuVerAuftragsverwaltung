@@ -99,8 +99,8 @@ public class GeschaeftspartnerDAOIT {
     @Test
     public void testFuegeGeschaeftspartnerHinzu() throws SQLException {
         System.out.println("fuegeGeschaeftspartnerHinzu");
-        Geschaeftspartner geschaeftspartner = new Geschaeftspartner("000001", 
-                "Kunde", "Anschrift", "000001", "2500", "N");
+        Geschaeftspartner geschaeftspartner = new Geschaeftspartner("999999", 
+                "K", "123456", "654321", "2500", "N");        
         GeschaeftspartnerDAO instance = new GeschaeftspartnerDAO();
         instance.fuegeGeschaeftspartnerHinzu(geschaeftspartner);
     }

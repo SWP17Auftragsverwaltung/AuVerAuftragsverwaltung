@@ -116,9 +116,9 @@ public class AuftragskopfDAOIT {
     @Test
     public void testFuegeAuftragHinzu() throws Exception {
         System.out.println("fuegeAuftragHinzu");
-        Auftragskopf auftragskopf = new Auftragskopf("000001", "000001", 
-                "Der Auftrag ... ", "01.01.2017", "02.01.2017", "03.01.2017", 
-                "Freigegeben", "Kundenauftrag", "1500", "N");
+        Auftragskopf auftragskopf = new Auftragskopf("999999", "999999", 
+                "Der Auftrag", "01.01.2017", "02.01.2017", "03.01.2017", 
+                "Freigegeben", "Kundenauftrag", "1500", "N");       
         AuftragskopfDAO instance = new AuftragskopfDAO();
         instance.fuegeAuftragHinzu(auftragskopf);
     }
@@ -135,11 +135,11 @@ public class AuftragskopfDAOIT {
         Auftragskopf a = new Auftragskopf();
         
         a.setAuftragstext(a.getAuftragstext() + "geändert");
-        a.setErfassungsdatum(a.getErfassungsdatum()+ "geändert");
-        a.setLieferdatum(a.getLieferdatum()+ "geändert");
-        a.setAbschlussDatum(a.getAbschlussDatum()+ "geändert");
-        a.setAuftragsart(a.getAuftragsart()+ "geändert");
-        a.setAuftragswert(a.getAuftragswert()+ "geändert");
+        a.setErfassungsdatum(a.getErfassungsdatum());
+        a.setLieferdatum(a.getLieferdatum());
+        a.setAbschlussDatum(a.getAbschlussDatum());
+        a.setAuftragsart(a.getAuftragsart());
+        a.setAuftragswert(a.getAuftragswert() + "1");
         
         
         

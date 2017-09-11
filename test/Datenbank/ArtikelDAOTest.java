@@ -87,12 +87,11 @@ public class ArtikelDAOTest {
     @Test
     public void testFuegeArtikelHinzu() throws SQLException {
         System.out.println("fuegeArtikelHinzu");
-        Artikel artikel = new Artikel("000001", "10,00", 
-                "Dieser Artikel...", "100,00", "Die Bestellung...", 
+        Artikel artikel = new Artikel("999999", "Artikeltext", 
+                "Bestelltext", "100", "10", 
                 "19", "1000", "150", "500", "800", "N");
         ArtikelDAO instance = new ArtikelDAO();
         instance.fuegeArtikelHinzu(artikel);
-
     }
 
     /**

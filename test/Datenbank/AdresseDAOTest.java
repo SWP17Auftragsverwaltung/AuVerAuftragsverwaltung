@@ -91,11 +91,12 @@ public class AdresseDAOTest extends Artikel{
     
         System.out.println("fuegeAdresseHinzu");
         AdresseDAO instance = new AdresseDAO();
+//        Adresse a = new Adresse();
         Adresse adresse = new Adresse("", "Herr", "Hans", "Meiser",
                 "HansMeiserstr.", "1", "12345", "Hansmeiserhausen", "HMStaat",
                 "0123456789", "Hans@Meister.de", "01.01.2017", "N");   
         instance.fuegeAdresseHinzu(adresse);
-
+//        a.setLkz("N");
                           
     }
 
