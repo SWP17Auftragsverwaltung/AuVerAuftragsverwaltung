@@ -31,6 +31,8 @@ import Datenbank.SucheDAO;
 import Klassen.Adresse;
 import Klassen.Geschaeftspartner;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -60,9 +62,9 @@ import javafx.stage.Stage;
  * @author Mudimbi
  */
 public class GeschaeftspartnerverwaltungController implements Initializable {
-
+  
     /**
-     * Der Zurück-Button der Geschäftspartnerverwaltung
+     * Der Zurück-Button der Geschäftspartnerverwaltung.
      */
     @FXML
     private Button closeGP;
@@ -272,17 +274,14 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     @FXML
     private TableColumn<Adresse, String> tcLKZ;
     
+    /**
+     * Pane für die Adresse.
+     */
     @FXML
     private TitledPane paneAdresseWahl;
 
     
-    
-    
-    
-    
-    
-    
-    
+
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 15.08.17    SAM     Methode erstellt.
@@ -307,7 +306,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
 /*------------------------------------------------------------------------*
      * Datum       Name    Was
      * 17.08.17    SAM     Methode erstellt.
-     *------------------------------------------------------------------------*/    
+*------------------------------------------------------------------------*/
     
     /**
      * Initialisiert die Controller-Klasse.
@@ -343,10 +342,6 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         kredLimit.setCellValueFactory(
                 new PropertyValueFactory<>("kreditlimit"));
         
-        
-        
-        
-
         cbSuchfeld.getItems().addAll(
                 "Geschaeftspartner-ID",
                 "Geschäftspartner-Typ",
@@ -458,8 +453,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     }
 
     
-    
-    
+
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 19.08.17    HEN     Methode erstellt und fertiggestellt. 
@@ -518,15 +512,9 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         this.gpTable.setVisible(false);
         
         setTableContentAdresse();
-        
-        
-        
-        
-        
-      
-        
-
     }
+    
+    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -580,6 +568,8 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         }
     }
     
+    
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 20.08.17    HEN     Methode erstellt und fertiggestellt. 
@@ -599,6 +589,8 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
 
     }
     
+    
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 20.08.17    HEN     Methode erstellt und fertiggestellt. 
@@ -615,6 +607,8 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         setTableContent();
     }
 
+    
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 18.08.17    CEL     Methode erstellt.
@@ -730,6 +724,8 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
 
     }
     
+    
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 22.08.17    GET     Methode erstellt.
@@ -804,6 +800,8 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         gpTable.setItems(geschaeftspartnerAusgabe);
     }
     
+    
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 22.08.17    BER     Methode erstellt.
@@ -842,27 +840,15 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
             meldung.verwerfenFenster();
 
             if (meldung.antwort()) {
-
-                // Textfeldbereich wird aktiviert
+                // Buttons aktivieren / deaktivieren
                 this.pane.setDisable(false);
-                // Bearbeiten-Button wird ausgeblendet
                 this.anlegenBT.setVisible(true);
-                // Speichern-Button wird eingeblendet
-
-                // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
                 this.datensatzTP.setText("Geschäftspartnerdatensatz");
-
-                // Anlegen-Button wird deaktiviert
                 this.bearbeitenBT.setDisable(false);
-
                 this.bearbeitenBT.setVisible(true);
-
                 this.speichernBT.setVisible(false);
-
                 this.anlegenBT.setDisable(false);
-                // Löschen-Button wird deaktiviert
                 this.loeschenBT.setDisable(false);
-
                 this.hinzufuegenBT.setVisible(false);
                 gpTable.setMouseTransparent(false);
 
@@ -872,14 +858,17 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
                 this.paneAdresseWahl.setVisible(false);
                 
             } else {
-
                 meldung.schließeFenster();
-
             }
-
         }
     }
     
+    
+    
+    /**
+     * Füllt die TableView Adresse mit Adressdaten.
+     * @throws SQLException SQLFehler
+     */
     public void setTableContentAdresse() throws SQLException {
         AdresseDAO gpd = new AdresseDAO();
         ObservableList<Adresse> geschaeftspartner
@@ -887,6 +876,8 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
                     gpd.gibAlleAdressenOhneLKZ());
         adresseTV.setItems(geschaeftspartner);
     } 
+    
+    
     
     /**
      * Füllt das untere AdressID Feld mit einer ID, die in der 
@@ -902,6 +893,12 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
             this.tfAnschriftID.setText(a.getAdresseID());        
         }
     }
+    
+    
+    
+    /**
+     * Lässt den Benutzer die LieferID auswählen.
+     */
     @FXML
     public void waehleLieferID() {
         Object geschaeftspartner 
@@ -913,49 +910,44 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         }
     }
     
-    private boolean validateFields(){
-        
+    
+    
+    /**
+     * Validiert die Adressfelder.
+     * @return True: Wenn Validierung erfolgreich, sonst False.
+     */
+    private boolean validateFields() {
         boolean istValidiert = true;
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Fehlende Eingaben");
 
         if (this.cbPartnerTyp.getValue().equals("Bitte wählen...")) {
-
             alert.setContentText("Bitte wählen Sie ein Geschäftspartertyp!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfAnschriftID.getText().isEmpty()) {
-
             alert.setContentText("Bitte wählen Sie eine Anschrift-ID!"
-                    + " \n\nMarkieren Sie eine Anschrift und klicken dann"
-                    + " in das Feld damit die ID geladen wird.");
+                + " \n\nMarkieren Sie eine Anschrift und klicken dann"
+                + " in das Feld damit die ID geladen wird.");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfLieferID.getText().isEmpty()) {
-
             alert.setContentText("Bitte wählen Sie eine Liefer-ID!"
-                    + " \n\nMarkieren Sie eine Anschrift und klicken dann"
-                    + " in das Feld damit die ID geladen wird.");
+                + " \n\nMarkieren Sie eine Anschrift und klicken dann"
+                + " in das Feld damit die ID geladen wird.");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfKreditlimit.getText().isEmpty()) {
-
             alert.setContentText("Bitte geben Sie ein Kreditlimit an!");
             alert.showAndWait();
-
             istValidiert = false;
-
-        } 
-        return istValidiert;
-        
+        }     
+        return istValidiert;  
     }
     
-    
-
+ 
+          
 }

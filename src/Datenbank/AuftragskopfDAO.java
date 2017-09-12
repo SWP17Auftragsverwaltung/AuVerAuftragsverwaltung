@@ -12,6 +12,7 @@
 package Datenbank;
 
 import Klassen.Auftragskopf;
+import Klassen.Geschaeftspartner;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,6 +37,12 @@ public class AuftragskopfDAO extends DataAccess {
      * 
      */
     private String TAB_AUFTRAGSKOPF = ddd.getTAB_AUFTRAGSKOPF();
+
+    /**
+     * 
+     */
+    private String TAB_GESCHAEFTSPARTNER = ddd.getTAB_GESCHAEFTSPARTNER();    
+    
     
     /**
      * 
@@ -49,6 +56,7 @@ public class AuftragskopfDAO extends DataAccess {
     public AuftragskopfDAO() throws SQLException {
         attribute = ddd.getTabellenAttribute();
         ddd.holeAlleAttribute(TAB_AUFTRAGSKOPF);
+        ddd.holeAlleAttribute(TAB_GESCHAEFTSPARTNER);
     }
     
     
@@ -217,9 +225,9 @@ public class AuftragskopfDAO extends DataAccess {
         }
         return auftragskopfListe;
     }
-    
-    
-    
+
+        
+                   
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
     /* 26.08.17     HEN     Erstellt.    
@@ -377,6 +385,17 @@ public class AuftragskopfDAO extends DataAccess {
             
             query
                 = "UPDATE ROOT." + ddd.getTabAuftragskopf() 
+                + " SET " + attribute.get(TAB_AUFTRAGSKOPF).get(5) 
+                + " = ? WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
+                + " = ?";
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, a.getAbschlussDatum());
+            stmt.setString(2, a.getAuftragskopfID());
+            stmt.executeUpdate();             
+            
+            
+            query
+                = "UPDATE ROOT." + ddd.getTabAuftragskopf() 
                 + " SET " + attribute.get(TAB_AUFTRAGSKOPF).get(6) 
                 + " = ? WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
                 + " = ?";
@@ -395,7 +414,6 @@ public class AuftragskopfDAO extends DataAccess {
             stmt.setString(1, a.getAuftragsart());
             stmt.setString(2, a.getAuftragskopfID());
             stmt.executeUpdate();
-   
             
             con.commit();           
      
@@ -529,5 +547,138 @@ public class AuftragskopfDAO extends DataAccess {
         }
         return status;
     }    
+  
     
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 12.09.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     *Gibt alle Geschäftspartner mit dem Typen "K" ohne Löschkennzeichen wieder.
+     * @return Gibt ArrayList aller Geschäftspartner ohne LKZ wieder.
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public ArrayList<Auftragskopf> 
+        gibAlleGeschaeftspartnerKunde() throws SQLException {
+
+        //Variablendeklaration
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Auftragskopf auftragskopf = null;
+        ArrayList<Auftragskopf> auftragskopfListe = new ArrayList<>();
+
+        String query = "SELECT " + ddd.getTabAuftragskopf() + ".*"
+            + " FROM ROOT." + ddd.getTabAuftragskopf()
+            + " JOIN ROOT." + ddd.getTabGeschaeftspartner()
+            + " ON ROOT." + ddd.getTabAuftragskopf() + "." 
+            + attribute.get(TAB_AUFTRAGSKOPF).get(1) + " = " 
+            + " ROOT." + ddd.getTabGeschaeftspartner() + "." 
+            + attribute.get(TAB_GESCHAEFTSPARTNER).get(0) 
+            + " AND ROOT." + ddd.getTabGeschaeftspartner() + "." 
+            + attribute.get(TAB_GESCHAEFTSPARTNER).get(1) + " = ?";     
+    
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "K");
+            rs = stmt.executeQuery();
+
+            con.commit();
+            while (rs.next()) {
+                auftragskopf = new Auftragskopf(rs.getString(1), 
+                        rs.getString(2), rs.getString(3), rs.getString(4), 
+                        rs.getString(5), rs.getString(6), rs.getString(7), 
+                        rs.getString(8), rs.getString(9), rs.getString(10));
+
+                auftragskopfListe.add(auftragskopf);
+            }
+            //Fehler werfen wenn Rückgabeobjekt leer ist
+            if (auftragskopfListe.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setTitle("Fehler");
+                alert.setHeaderText("Keine Geschäftspartner 'K' gefunden!");
+                alert.showAndWait();
+            }
+
+            //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+            con.rollback();
+        }
+        return auftragskopfListe;
+    }       
+    
+
+        
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 12.09.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     *Gibt alle Geschäftspartner mit dem Typen "K" ohne Löschkennzeichen wieder.
+     * @return Gibt ArrayList aller Geschäftspartner ohne LKZ wieder.
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public ArrayList<Auftragskopf> 
+        gibAlleGeschaeftspartnerLieferant() throws SQLException {
+
+        //Variablendeklaration
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Auftragskopf auftragskopf = null;
+        ArrayList<Auftragskopf> auftragskopfListe = new ArrayList<>();
+
+        String query = "SELECT " + ddd.getTabAuftragskopf() + ".*"
+            + " FROM ROOT." + ddd.getTabAuftragskopf()
+            + " JOIN ROOT." + ddd.getTabGeschaeftspartner()
+            + " ON ROOT." + ddd.getTabAuftragskopf() + "." 
+            + attribute.get(TAB_AUFTRAGSKOPF).get(1) + " = " 
+            + " ROOT." + ddd.getTabGeschaeftspartner() + "." 
+            + attribute.get(TAB_GESCHAEFTSPARTNER).get(0) 
+            + " AND ROOT." + ddd.getTabGeschaeftspartner() + "." 
+            + attribute.get(TAB_GESCHAEFTSPARTNER).get(1) + " = ?";     
+    
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "L");
+            rs = stmt.executeQuery();
+
+            con.commit();
+            while (rs.next()) {
+                auftragskopf = new Auftragskopf(rs.getString(1), 
+                        rs.getString(2), rs.getString(3), rs.getString(4), 
+                        rs.getString(5), rs.getString(6), rs.getString(7), 
+                        rs.getString(8), rs.getString(9), rs.getString(10));
+
+                auftragskopfListe.add(auftragskopf);
+            }
+            //Fehler werfen wenn Rückgabeobjekt leer ist
+            if (auftragskopfListe.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setTitle("Fehler");
+                alert.setHeaderText("Keine Geschäftspartner 'L' gefunden!");
+                alert.showAndWait();
+            }
+
+            //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+            con.rollback();
+        }
+        return auftragskopfListe;
+    }          
+        
+        
 }

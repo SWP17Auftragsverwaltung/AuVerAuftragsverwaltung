@@ -66,7 +66,6 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </TitledPane>
-            <Button layoutX="25.0" layoutY="39.0" mnemonicParsing="false" onAction="#sucheAuftrag" prefHeight="40.0" prefWidth="160.0" text="Auftrag Suchen " AnchorPane.leftAnchor="25.0" />
             <TitledPane fx:id="paneGP" collapsible="false" layoutY="54.0" prefHeight="362.0" prefWidth="974.0" text="Geschäftspartner Auswahl" visible="false" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="150.0">
                <content>
                   <TableView fx:id="tvGPAuswahl" onMouseClicked="#waehleGeschaeftspartnerID" prefHeight="321.0" prefWidth="972.0">
@@ -83,6 +82,13 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </TitledPane>
+            <Button fx:id="btAuftragSuchen" layoutX="363.0" layoutY="114.0" mnemonicParsing="false" onAction="#auftragSuchen" prefHeight="25.0" prefWidth="160.0" text="Auftrag Suchen " AnchorPane.leftAnchor="363.0" />
+            <Label layoutX="25.0" layoutY="99.0" prefHeight="17.0" prefWidth="100.0" text="Suchkriterium" />
+            <ComboBox fx:id="cbSuchfeldAuftraege" layoutX="25.0" layoutY="115.0" prefHeight="25.0" prefWidth="150.0" promptText="Bitte wählen..." />
+            <Label layoutX="192.0" layoutY="99.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
+            <TextField fx:id="tfSuchbegriff" layoutX="192.0" layoutY="115.0" />
+            <Button fx:id="btLieferanten" layoutX="25.0" layoutY="49.0" mnemonicParsing="false" onAction="#setTableContentLieferanten" prefHeight="25.0" prefWidth="160.0" text="Lieferanten anzeigen" />
+            <Button fx:id="btKunden" layoutX="25.0" layoutY="14.0" mnemonicParsing="false" onAction="#setTableContentKunden" prefHeight="25.0" prefWidth="160.0" text="Kunden anzeigen" />
          </children>
       </AnchorPane>
       <AnchorPane id="AnchorPane" fx:id="paneAuftragspositionen" layoutX="2.0" layoutY="10.0" prefHeight="768.0" prefWidth="1032.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -128,8 +134,9 @@
                         <TextField fx:id="tfMaterialNrAPD" editable="false" layoutX="197.0" layoutY="47.0" />
                         <TextField fx:id="tfMengeAPD" layoutX="371.0" layoutY="47.0" />
                         <TextField fx:id="tfEinzelwertAPD" editable="false" layoutX="551.0" layoutY="47.0" />
-                        <TextField fx:id="tfMwStAPD" editable="false" layoutX="741.0" layoutY="57.0" />
-                        <Label layoutX="18.0" layoutY="33.0" text="Positionsnummer" />
+                        <Label layoutX="731.0" layoutY="33.0" text="MwSt" />
+                        <TextField fx:id="tfMwStAPD" editable="false" layoutX="731.0" layoutY="47.0" />
+                        <Label layoutX="14.0" layoutY="33.0" text="Positionsnummer" />
                         <Label layoutX="197.0" layoutY="33.0" text="Materialnummer" />
                         <Label layoutX="371.0" layoutY="33.0" prefHeight="13.0" prefWidth="38.0" text="Menge" />
                         <Label layoutX="551.0" layoutY="33.0" text="Einzelwert" />

@@ -16,6 +16,7 @@ import Datenbank.ArtikelDAO;
 import Datenbank.AuftragskopfDAO;
 import Datenbank.AuftragspositionDAO;
 import Datenbank.GeschaeftspartnerDAO;
+import Datenbank.SucheDAO;
 import Klassen.Artikel;
 import Klassen.Auftragskopf;
 import Klassen.Auftragsposition;
@@ -57,7 +58,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
- *
  * @author Mudimbi
  */
 public class AuftraegeController implements Initializable {
@@ -184,7 +184,6 @@ public class AuftraegeController implements Initializable {
     @FXML
     private Pane pane;
     
-    
     /**
      * TableView für die Anzeige aller Auftragsköpfe.
      */
@@ -244,8 +243,7 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     private TableColumn<Auftragskopf, String> tcAbschDatum;
-    
-    
+       
     /**
      * Pane für die Anzeige der Geschäftspartner.
      */
@@ -287,8 +285,7 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     private TableColumn<Geschaeftspartner, String> tcKreditlimitGPWahl;
-    
-    
+      
     /**
      * Pane für die Auftragspositionen.
      */
@@ -308,7 +305,7 @@ public class AuftraegeController implements Initializable {
     private TableView tvArtikelauswahl = new TableView<Artikel>();
     
     /**
-     * Tabellenspalte für die ArtikelID in der Artikelauswahl
+     * Tabellenspalte für die ArtikelID in der Artikelauswahl.
      */
     @FXML
     private TableColumn<Artikel, String> tcArtikelIDArtWahl;
@@ -348,8 +345,7 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     private TableColumn<Artikel, String> tcBestandFreiArtWahl;
-    
-    
+      
     /**
      * Pane für die Auftragspositionen.
      */
@@ -392,7 +388,6 @@ public class AuftraegeController implements Initializable {
     @FXML
     private TableColumn<Auftragsposition, String> tcEinzelwertAufPos;
     
-    
     /**
      * Pane für die Auftragspositionen.
      */
@@ -430,9 +425,7 @@ public class AuftraegeController implements Initializable {
      * Button, um eine Aktion in den AuftragsPositionDatensätzen abzubrechen.
      */
     @FXML
-    private Button btAbbrechenAPD;
-    
-    
+    private Button btAbbrechenAPD; 
     
     /**
      * Textfield für die Positionsnummer in den AuftragsPositionDatensätzen.
@@ -457,7 +450,6 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     private TextField tfEinzelwertAPD;
-    
     
     /**
      * Button, um die AuftragsPositionDatensätzen zu schließen.
@@ -542,14 +534,44 @@ public class AuftraegeController implements Initializable {
      * ObseravleList für die Kombobox "Status".
      */
     private ObservableList<String> allOptions 
-            = FXCollections.observableArrayList(
-                "Erfasst", "Freigegeben", "Abgeschlossen");
+        = FXCollections.observableArrayList(
+        "Erfasst", "Freigegeben", "Abgeschlossen");
     
     /**
      * TextField für den MwSt in den AuftragsPositionDatensätzen.
      */
     @FXML
     private TextField tfMwStAPD;
+    
+    /**
+     * Button für die Suche von Aufträgen.
+     */
+    @FXML
+    private Button btAuftragSuchen;
+    
+    /**
+     * ComboBox für die Auswahl des Suchkriteriums in den Aufträgen.
+     */
+    @FXML
+    private ComboBox<String> cbSuchfeldAuftraege = new ComboBox<>();
+    
+    /**
+     * TextField für den Suchbegriff in den Aufträgen.
+     */
+    @FXML
+    private TextField tfSuchbegriff;
+    
+    /**
+     * Button, um nur Lieferanten in der TableView "Aufträge" anzuzeigen.
+     */
+    @FXML
+    private Button btLieferanten;
+    
+    /**
+     * Button, um nur Kunden in der TableView "Aufträge" anzuzeigen.
+     */
+    @FXML
+    private Button btKunden;
     
     
     
@@ -642,11 +664,9 @@ public class AuftraegeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
         // Menge auf 3 Zeichen begrenzt
         begrenzeTextFeldEingabe(tfMengeAPD, 3);
 
-        
         this.paneGP.setVisible(false);
         this.paneAuftraege.setVisible(true);
         this.btAuftragspositionen.setDisable(true);
@@ -659,8 +679,6 @@ public class AuftraegeController implements Initializable {
         this.btLoeschen.setDisable(true);
         this.btAuftragspositionen.setDisable(true);
         this.btAbbrechen.setDisable(true);
-        
-        
         
         try {   
             setTableContent();
@@ -687,8 +705,7 @@ public class AuftraegeController implements Initializable {
         tcMwStArtWahl.setCellValueFactory(
                 new PropertyValueFactory<>("steuer"));
         tcBestandFreiArtWahl.setCellValueFactory(
-                new PropertyValueFactory<>("bestandsmengeFrei"));
-        
+                new PropertyValueFactory<>("bestandsmengeFrei"));      
         
         //Auftrag Tabelle bei Auftragspositionen oben
         tcAuftragskopfIDAufPos.setCellValueFactory(
@@ -701,8 +718,7 @@ public class AuftraegeController implements Initializable {
                 new PropertyValueFactory<>("menge"));        
         tcEinzelwertAufPos.setCellValueFactory(
                 new PropertyValueFactory<>("einzelwert"));
-                
-         
+                     
         //Geschäftspartner Auswahltabelle
         tcGpIDGPWahl.setCellValueFactory(
                 new PropertyValueFactory<>("geschaeftspartnerID"));
@@ -714,8 +730,7 @@ public class AuftraegeController implements Initializable {
                 new PropertyValueFactory<>("lieferID"));
         tcKreditlimitGPWahl.setCellValueFactory(
                 new PropertyValueFactory<>("kreditlimit"));
-        
-                
+                   
         //Auftragskopf Tabelle
         tcAuftragsID.setCellValueFactory(
                 new PropertyValueFactory<>("auftragskopfID"));
@@ -744,6 +759,17 @@ public class AuftraegeController implements Initializable {
                 "Sofortauftrag", 
                 "Terminauftrag",
                 "Bestellauftrag");
+        
+        cbSuchfeldAuftraege.getItems().addAll(
+                "AuftragskopfID",
+                "GeschäftspartnerID",
+                "Auftragstext",
+                "Erfassungsdatum",
+                "Lieferdatum",
+                "Abschlussdatum",
+                "Status",
+                "Auftragsart",
+                "Auftragswert");
     }
     
   
@@ -771,7 +797,7 @@ public class AuftraegeController implements Initializable {
     
     /**
      * Aktualisiert die TableView Auftragspositionen mit aktuellem Inhalt.
-     * @throws java.sql.SQLException SQL Exception
+     * @throws java.sql.SQLException SQLFehler
     */
     public void refreshAuftragspositionTable() throws SQLException {
         tvAuftragsposition.getItems().clear();
@@ -908,6 +934,29 @@ public class AuftraegeController implements Initializable {
         setTableContentGP();
     }    
     
+
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 12.08.17    BER     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Sucht anhand eines Suchkriteriums und Suchbegriffs nach einem Auftrag.
+     * @throws java.sql.SQLException SQLFehler
+     */
+    @FXML
+    public void auftragSuchen() throws SQLException {
+        SucheDAO sd = new SucheDAO();
+        ArrayList gefundeneAuftraege;
+
+        String suchkriterium = cbSuchfeldAuftraege.getValue();
+        String suchbegriff = tfSuchbegriff.getText();
+
+        gefundeneAuftraege = sd.auftragskopfSuche(suchkriterium, suchbegriff);
+        zeigeGefundeneAuftraege(gefundeneAuftraege);
+    }
+    
     
     
     /*------------------------------------------------------------------------*/
@@ -928,7 +977,50 @@ public class AuftraegeController implements Initializable {
                     ak.gibAlleAuftragskoepfeOhneLKZ());
         tvAuftragskopf.setItems(auftragskopf);
     }
- 
+
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 11.08.17    HEN     Methode erstellt.
+    /* 12.08.17    HEN     ObservableArrayList hinzugefügt
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Erstellt ein AdressDAO Objekt und gibt eine Adress ArrayList an eine
+     * OberservableList, die dann an die TableView übergeben wird.
+     * @throws java.sql.SQLException SQLFehler
+    */
+    @FXML
+    public void setTableContentKunden() throws SQLException {
+        AuftragskopfDAO akd = new AuftragskopfDAO();
+        ObservableList<Auftragskopf> auftragskopf
+            = FXCollections.observableArrayList(
+                    akd.gibAlleGeschaeftspartnerKunde());
+        tvAuftragskopf.setItems(auftragskopf);
+    } 
+    
+
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 11.08.17    HEN     Methode erstellt.
+    /* 12.08.17    HEN     ObservableArrayList hinzugefügt
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Erstellt ein AdressDAO Objekt und gibt eine Adress ArrayList an eine
+     * OberservableList, die dann an die TableView übergeben wird.
+     * @throws java.sql.SQLException SQLFehler
+    */
+    public void setTableContentLieferanten() throws SQLException {
+        AuftragskopfDAO akp = new AuftragskopfDAO();
+        ObservableList<Auftragskopf> auftragskopf
+            = FXCollections.observableArrayList(
+                    akp.gibAlleGeschaeftspartnerLieferant());
+        tvAuftragskopf.setItems(auftragskopf);
+    }    
+    
     
     
     /*------------------------------------------------------------------------*/
@@ -1021,7 +1113,7 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * "Löscht" einen markierten Auftragskopf, in dem das LKZ auf J gesetzt wird.
+     * "Löscht" einen markierten Auftragskopf,in dem das LKZ auf J gesetzt wird.
      * Aktualisiert anschließend die TableView.
      * @throws java.sql.SQLException SQLFehler
      */
@@ -1071,10 +1163,13 @@ public class AuftraegeController implements Initializable {
 
             if (meldung.antwort()) {
                 AuftragspositionDAO apd = new AuftragspositionDAO();
-
+                String steuer = tfMwStAPD.getText();    
+              
                 double einzelwert = Double.parseDouble(ap.getEinzelwert());
                 int menge = Integer.parseInt(ap.getMenge());
-                double ergebnis = -(einzelwert * menge);
+                int steuerInt = Integer.parseInt(steuer);
+                double steuersatz = einzelwert + (einzelwert * steuerInt / 100);
+                double ergebnis = -(steuersatz * menge);
                 
                 apd.berechneAuftragswert(ergebnis, ap.getAuftragskopfID());
                 String auftragswert 
@@ -1187,10 +1282,33 @@ public class AuftraegeController implements Initializable {
         if (a != null) {
             this.tfEinzelwertAPD.setText(a.getEinzelwert());
             this.tfMaterialNrAPD.setText(a.getArtikelID());
+            this.tfMwStAPD.setText(a.getSteuer());
+            this.tfMengeAPD.requestFocus();
         }
     }      
     
 
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 12.08.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Methode bekommt eine ArrayList mit den gefundenen Aufträgen übergeben und
+     * aktualisiert damit die TableView.
+     * @param auftraege Übergebene Aufträge.
+     * @throws java.sql.SQLException SQLFehler 
+     */
+    public void zeigeGefundeneAuftraege(ArrayList auftraege) 
+        throws SQLException {
+        refreshAuftragskopfTable();
+        ObservableList<Auftragskopf> auftragskopfAusgabe
+                = FXCollections.observableArrayList(auftraege);
+        tvAuftragskopf.setItems(auftragskopfAusgabe);
+    }    
+    
+    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -1213,9 +1331,9 @@ public class AuftraegeController implements Initializable {
             this.tfMengeAPD.setText(ap.getMenge());
             this.tfEinzelwertAPD.setText(ap.getEinzelwert());
             this.tfMaterialNrAPD.setText(ap.getArtikelID());
-            this.btAbbrechenAPD.setDisable(true);
             this.tfMwStAPD.setText(ard.gibArtikelSteuer(ap.getArtikelID()));
-            
+            this.btAbbrechenAPD.setDisable(true);
+                        
             if (this.cbAuftragsstatus.getValue().equals("Abgeschlossen")) { 
                 this.btAnlegenAPD.setDisable(true);
                 this.btBearbeitenAPD.setDisable(true);
@@ -1390,7 +1508,6 @@ public class AuftraegeController implements Initializable {
      */    
     @FXML
     public void aktionAbbrechen() {
-
         if (!this.auftragskopfTP.getText().equalsIgnoreCase(
                 "Auftragskopf")) {
             Meldung meldung = new Meldung();
@@ -1450,7 +1567,7 @@ public class AuftraegeController implements Initializable {
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues 
      * Auftragsposition Objekt welches dann über die DAO in die DB geschrieben 
      * wird.
-     * @throws java.sql.SQLException SQL Exception
+     * @throws java.sql.SQLException SQLFehler
      */
     @FXML
     public void auftragspositionAnlegen() throws SQLException {   
@@ -1458,11 +1575,13 @@ public class AuftraegeController implements Initializable {
         this.paneArtikelauswahl.setVisible(true);
         this.btAnlegenAPD.setVisible(false);
         this.btHinzufuegenAPD.setVisible(true);
+        this.btAbbrechenAPD.setDisable(true);
+        this.btLoeschenAPD.setDisable(true);
         
         AuftragspositionDAO apd = new AuftragspositionDAO();
         String auftragskopfID = tfAuftragskopfIDPOS.getText();
         String positionsnummer = apd.generiereID(auftragskopfID);
-        tfPositionsNrAPD.setText(positionsnummer);
+        tfPositionsNrAPD.setText(positionsnummer);       
         tfMengeAPD.clear();
         
         setTableContentArtikel();
@@ -1532,11 +1651,9 @@ public class AuftraegeController implements Initializable {
         
         String einzelWertAPD = tfEinzelwertAPD.getText();
         double einzelwert = Double.parseDouble(einzelWertAPD);
-        double berechneteSteuer = einzelwert * steuer / 100;
-        einzelwert = einzelwert + berechneteSteuer;
-        
-        
-        double rechnung = menge * einzelwert;
+        double berechneteSteuer = einzelwert + (einzelwert * steuer / 100);
+  
+        double rechnung = menge * berechneteSteuer;
         rechnung = rechnung * 100;
         rechnung = Math.round(rechnung);
         rechnung = rechnung / 100;        
@@ -1554,11 +1671,10 @@ public class AuftraegeController implements Initializable {
     
     /**
      * Zeigt alle Auftragspositionen zu einem ausgewählten AUftragskopf an.
-     * @throws java.sql.SQLException SQL Exception
+     * @throws java.sql.SQLException SQLFehler
      */
     @FXML
     public void zeigeAuftragspositionenZuAuftrag() throws SQLException {
-        AuftragspositionDAO apd = new AuftragspositionDAO();
         //Daten aus dem Auftragskopf im oberen Abteil anzeigen.
         tfErfDatumPOS.setText(tfErfDatum.getText());    
         tfAuftragswertPOS.setText(tfAuftragswert.getText());  
@@ -1567,7 +1683,6 @@ public class AuftraegeController implements Initializable {
         tfAuftragskopfIDPOS.setText(tfAuftragskopf.getText());
         tfAbschlussdatumPOS.setText(tfAbschlussdatum.getText());
         tfLieferdatumPOS.setText(tfLieferdatum.getText());
-//        apd.gibAuftragspositionenZuAuftrag(tfAuftragskopf.getText());
         setTableContentPositionen();
         
         if (this.cbAuftragsstatus.getValue().equals("Abgeschlossen")) {
@@ -1618,10 +1733,7 @@ public class AuftraegeController implements Initializable {
     }
     
 
-    
 
-    
-     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 06.09.17    HEN     Methode erstellt.
@@ -1721,7 +1833,7 @@ public class AuftraegeController implements Initializable {
             String steuerAPD = tfMwStAPD.getText();
             int steuerAPDInt = Integer.parseInt(steuerAPD);     
             
-            double einzelwertDouble = Double.parseDouble(einzelwert);              
+            double einzelwertDouble = Double.parseDouble(einzelwert);
             double berechneteSteuer = einzelwertDouble * steuerAPDInt / 100;
             double steuerwert = einzelwertDouble + berechneteSteuer;
             
@@ -1791,12 +1903,15 @@ public class AuftraegeController implements Initializable {
         boolean istVerfuegbar; 
         String rechnung;   
         
+        //Falls Status von E nach F gewechselt wird, wird geprüft, ob der freie
+        //Bestand ausreicht. Falls JA: wird FREI und RES berechnet.
         if (statusAlt.equals("E") && statusNeu.equals("F")) {
             istVerfuegbar = bestandVerfuegbar(auftragskopfID);
             
             if (istVerfuegbar) {
                 rechnung = "addition";
                 berechneMengeFreiRes(auftragskopfID, rechnung);
+            
             } else {
                 //Buttons aktivieren / deaktivieren
                 this.pane.setVisible(true);
@@ -1812,13 +1927,18 @@ public class AuftraegeController implements Initializable {
                 
                 return;
             }
-            
+          
+        //Falls Status von F zurück nach E gewechselt wird, werden die Mengen
+        //von FREI und RES wieder zurückgerechnet.
         } else if (statusAlt.equals("F") && statusNeu.equals("E")) {
             rechnung = "subtraktion";
             berechneMengeFreiRes(auftragskopfID, rechnung);
-        
+          
+        //Falls Status von F nach A gewechsetl wird, werden die Mengen RES
+        //und VER berechnet.
         } else if (statusAlt.equals("F") && statusNeu.equals("A")) {
             berechneMengeResVer(auftragskopfID);
+            abschlussdatum = gibDatum();
         }
         
         Auftragskopf auftrag = new Auftragskopf(auftragskopfID, partnerID, 
@@ -1871,6 +1991,7 @@ public class AuftraegeController implements Initializable {
         String mengeResAlt;
         String mengeResNeu;       
         
+        //Additionsrechnung für die Mengen FREI und RES.
         if (rechnung.equals("addition")) {
             for (int i = 0; i < auftragspositionen.size(); i++) {
                 //ArtikelID und Menge des Artikels der Positionen holen
@@ -1894,7 +2015,8 @@ public class AuftraegeController implements Initializable {
             
                 artd.setzeMengeFreiRes(artikelID, mengeFreiNeu, mengeResNeu);
             }
-                    
+        
+        //Subtraktionsrechnung für die Mengen FREI und RES.
         } else if (rechnung.equals("subtraktion")) {
             for (int i = 0; i < auftragspositionen.size(); i++) {
                 //ArtikelID und Menge des Artikels der Positionen holen

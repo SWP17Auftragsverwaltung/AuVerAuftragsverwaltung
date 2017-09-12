@@ -446,6 +446,6 @@ public class GeschaeftspartnerDAO extends DataAccess {
         return neueID;
     }
 
-    
+   
 
 }

@@ -264,6 +264,11 @@ public class ArtikelverwaltungController implements Initializable {
             alert.showAndWait();
         }
 
+        //Bestandfelder deaktivieren
+        this.tfBestandReserviert.setEditable(false);
+        this.tfBestandZulauf.setEditable(false);
+        this.tfBestandVerkauft.setEditable(false);
+        
         //  MaterialNr auf 6 Zeichen begrenzt
         begrenzeTextFeldEingabe(tfMaterialNr, 6);
 
@@ -508,18 +513,12 @@ public class ArtikelverwaltungController implements Initializable {
         tvArtikel.setMouseTransparent(true);
         clearTextFields();
 
-        // Textfeldbereich wird aktiviert
+        //Buttons aktivieren / deaktivieren
         this.pane.setDisable(true);
-        // Bearbeiten-Button wird ausgeblendet
         this.btAnlegen.setVisible(false);
-        // Speichern-Button wird eingeblendet
         this.btHinzufuegen.setVisible(true);
-        // Der Anlegemodus des Adressdatensatzes wird aktiviert
-        this.artikeldatensatzPane.setText(
-                "Artikeldatensatz (Anlegemodus)");
-        // Anlegen-Button wird deaktiviert
+        this.artikeldatensatzPane.setText("Artikeldatensatz (Anlegemodus)");
         this.btBearbeiten.setDisable(true);
-        // Löschen-Button wird deaktiviert
         this.btLoeschen.setDisable(true);
         
         this.tfBestandFrei.setText("0");

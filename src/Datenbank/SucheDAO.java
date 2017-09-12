@@ -17,6 +17,7 @@ package Datenbank;
 
 import Klassen.Adresse;
 import Klassen.Artikel;
+import Klassen.Auftragskopf;
 import Klassen.Geschaeftspartner;
 import Klassen.Zahlungskonditionen;
 import java.sql.ResultSet;
@@ -994,4 +995,235 @@ public class SucheDAO extends DataAccess {
         }
         return gefundeneZK;
     }
+    
+    
+
+    /*------------------------------------------------------------------------*
+    * Datum         Name    Was
+    * 12.08.2017    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Sucht mittels eines Suchbegriffs in der Datenbank nach den passenden
+     * Aufträgen und speichert diese in einer ArrayList ab.
+     * @param suchkriterium Suchtriterium welches die Suchspalte der DB angibt.
+     * @param suchbegriff ein String nach dem in der Suchspalte gesucht wird.
+     * @return Liefert eine ArrayList mit den zu dem Suchbegriff passenden
+     * Aufträgen.
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public ArrayList<Auftragskopf> auftragskopfSuche(
+            String suchkriterium, String suchbegriff) throws SQLException {
+
+        String TAB_AUFTRAGSKOPF = ddd.getTAB_AUFTRAGSKOPF();
+        ddd.holeAlleAttribute(TAB_AUFTRAGSKOPF);
+        Statement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Auftragskopf> gefundeneAK = new ArrayList<>();
+        StringBuilder neuerSuchbegriff = new StringBuilder(suchbegriff);
+
+        for (int i = 0; i < suchbegriff.length(); i++) {
+            if (suchbegriff.charAt(i) == '*') {
+                neuerSuchbegriff.setCharAt(i, '%');
+            } else if (suchbegriff.charAt(i) == '?') {
+                neuerSuchbegriff.setCharAt(i, '_');
+            }
+        }
+
+        try {
+            if (suchkriterium.equals("AuftragskopfID")) {
+                String query
+                    = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf()
+                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
+                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
+                    + " LIKE 'N'";
+                stmt = con.createStatement();
+                rs = stmt.executeQuery(query);
+
+                while (rs.next()) {
+                    Auftragskopf ak = new Auftragskopf(
+                            rs.getString(1), rs.getString(2), rs.getString(3),
+                            rs.getString(4), rs.getString(5), rs.getString(6),
+                            rs.getString(7), rs.getString(8), rs.getString(9),
+                            rs.getString(10));
+                    gefundeneAK.add(ak);
+                }
+
+
+            } else if (suchkriterium.equals("GeschäftspartnerID")) {
+                String query
+                    = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
+                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(1) 
+                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
+                    + " LIKE 'N'";
+                stmt = con.createStatement();
+                rs = stmt.executeQuery(query);
+
+                while (rs.next()) {
+                    Auftragskopf ak = new Auftragskopf(
+                            rs.getString(1), rs.getString(2), rs.getString(3),
+                            rs.getString(4), rs.getString(5), rs.getString(6),
+                            rs.getString(7), rs.getString(8), rs.getString(9),
+                            rs.getString(10));
+                    gefundeneAK.add(ak);
+                }
+
+
+            } else if (suchkriterium.equals("Auftragstext")) {
+                String query
+                    = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
+                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(2) 
+                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
+                    + " LIKE 'N'";
+                stmt = con.createStatement();
+                rs = stmt.executeQuery(query);
+
+                while (rs.next()) {
+                    Auftragskopf ak = new Auftragskopf(
+                            rs.getString(1), rs.getString(2), rs.getString(3),
+                            rs.getString(4), rs.getString(5), rs.getString(6),
+                            rs.getString(7), rs.getString(8), rs.getString(9),
+                            rs.getString(10));
+                    gefundeneAK.add(ak);
+                }
+ 
+
+            } else if (suchkriterium.equals("Erfassungsdatum")) {
+                String query
+                    = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
+                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(3) 
+                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
+                    + " LIKE 'N'";
+                stmt = con.createStatement();
+                rs = stmt.executeQuery(query);
+
+                while (rs.next()) {
+                    Auftragskopf ak = new Auftragskopf(
+                            rs.getString(1), rs.getString(2), rs.getString(3),
+                            rs.getString(4), rs.getString(5), rs.getString(6),
+                            rs.getString(7), rs.getString(8), rs.getString(9),
+                            rs.getString(10));
+                    gefundeneAK.add(ak);
+                }
+  
+                
+            } else if (suchkriterium.equals("Lieferdatum")) {
+                String query
+                    = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
+                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(4) 
+                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
+                    + " LIKE 'N'";
+                stmt = con.createStatement();
+                rs = stmt.executeQuery(query);
+
+                while (rs.next()) {
+                    Auftragskopf ak = new Auftragskopf(
+                            rs.getString(1), rs.getString(2), rs.getString(3),
+                            rs.getString(4), rs.getString(5), rs.getString(6),
+                            rs.getString(7), rs.getString(8), rs.getString(9),
+                            rs.getString(10));
+                    gefundeneAK.add(ak);
+                }
+       
+                
+            } else if (suchkriterium.equals("Abschlussdatum")) {
+                String query
+                    = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
+                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(5) 
+                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
+                    + " LIKE 'N'";
+                stmt = con.createStatement();
+                rs = stmt.executeQuery(query);
+
+                while (rs.next()) {
+                    Auftragskopf ak = new Auftragskopf(
+                            rs.getString(1), rs.getString(2), rs.getString(3),
+                            rs.getString(4), rs.getString(5), rs.getString(6),
+                            rs.getString(7), rs.getString(8), rs.getString(9),
+                            rs.getString(10));
+                    gefundeneAK.add(ak);
+                }
+ 
+
+            } else if (suchkriterium.equals("Status")) {
+                String query
+                    = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
+                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(6) 
+                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
+                    + " LIKE 'N'";
+                stmt = con.createStatement();
+                rs = stmt.executeQuery(query);
+
+                while (rs.next()) {
+                    Auftragskopf ak = new Auftragskopf(
+                            rs.getString(1), rs.getString(2), rs.getString(3),
+                            rs.getString(4), rs.getString(5), rs.getString(6),
+                            rs.getString(7), rs.getString(8), rs.getString(9),
+                            rs.getString(10));
+                    gefundeneAK.add(ak);
+                }
+ 
+
+            } else if (suchkriterium.equals("Auftragsart")) {
+                String query
+                    = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
+                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(7) 
+                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
+                    + " LIKE 'N'";
+                stmt = con.createStatement();
+                rs = stmt.executeQuery(query);
+
+                while (rs.next()) {
+                    Auftragskopf ak = new Auftragskopf(
+                            rs.getString(1), rs.getString(2), rs.getString(3),
+                            rs.getString(4), rs.getString(5), rs.getString(6),
+                            rs.getString(7), rs.getString(8), rs.getString(9),
+                            rs.getString(10));
+                    gefundeneAK.add(ak);
+                }
+
+
+            } else if (suchkriterium.equals("Auftragswert")) {
+                String query
+                    = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
+                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(8) 
+                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
+                    + " LIKE 'N'";
+                stmt = con.createStatement();
+                rs = stmt.executeQuery(query);
+
+                while (rs.next()) {
+                    Auftragskopf ak = new Auftragskopf(
+                            rs.getString(1), rs.getString(2), rs.getString(3),
+                            rs.getString(4), rs.getString(5), rs.getString(6),
+                            rs.getString(7), rs.getString(8), rs.getString(9),
+                            rs.getString(10));
+                    gefundeneAK.add(ak);
+                }     
+            } 
+            
+            con.commit();
+            con.close();
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+            con.rollback();
+        }
+        return gefundeneAK;
+    }
+    
+    
 }

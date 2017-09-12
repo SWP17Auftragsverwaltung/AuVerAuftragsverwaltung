@@ -697,7 +697,8 @@ public class ArtikelDAO extends DataAccess {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText(e.getMessage() + "\n Die Mengen FREI und "
+                + "RESERVIERT konnten nicht aktualisiert werden!");
             alert.showAndWait();
             con.rollback();
         }

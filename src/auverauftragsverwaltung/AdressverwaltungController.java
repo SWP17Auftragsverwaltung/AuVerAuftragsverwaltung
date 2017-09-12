@@ -29,7 +29,6 @@ import Klassen.Meldung;
 import Datenbank.AdresseDAO;
 import Datenbank.SucheDAO;
 import Klassen.Adresse;
-import Klassen.MyException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DateFormat;

@@ -12,6 +12,7 @@
 package Datenbank;
 
 import Klassen.Auftragsposition;
+import Klassen.Geschaeftspartner;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,14 +46,14 @@ public class AuftragspositionDAO extends DataAccess {
      * 
      */
     private String TAB_ARTIKEL = ddd.getTAB_ARTIKEL();
-        
+
     /**
      * 
      */
     private HashMap<String, ArrayList> attribute;     
-        /**
+    
+    /**
      * Konstruktor.
-     *
      * @throws SQLException SQLException
      */
     public AuftragspositionDAO() throws SQLException {
@@ -348,7 +349,7 @@ public class AuftragspositionDAO extends DataAccess {
      * Rechnet einer bestehenden ArtikelID die eingegebene Menge hinzu.
      * @param wert Berechneter Auftrasgwert
      * @param auftragsID Auftragskopf, dessen Wert gesetzt werden soll
-     * @throws java.sql.SQLException SQLException
+     * @throws java.sql.SQLException SQLFehler
      */
     public void berechneAuftragswert(double wert, String auftragsID)
             throws SQLException {
@@ -717,5 +718,5 @@ public class AuftragspositionDAO extends DataAccess {
         }
     }
 
-    
+       
 }
