@@ -1046,7 +1046,19 @@ public class AdressverwaltungController implements Initializable {
         }
         return istValidiert;
     }
-
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 08.09.2017    GET     Methode erstellt.
+    /* 08.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    /**
+     *  Validert das Datum nach der Eingabe vor dem Hinzufügen in die Datenbank.
+     * 
+     * @return boolscher Ausdruck über den Zustand der Validierung. true oder 
+     * false.
+     */
     private boolean validateDatum() {
         boolean istValidiert = false;
         
@@ -1054,20 +1066,6 @@ public class AdressverwaltungController implements Initializable {
         Matcher m = p.matcher(tfDatum.getText());
 
         if (m.find() && m.group().equals(tfDatum.getText())) {
-
-//            if(pruefeDatumAufVergangenheit()){
-//
-//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                alert.initStyle(StageStyle.UTILITY);
-//                alert.setTitle("Information");
-//                alert.setHeaderText(
-//                        "Datum darf nicht in der Vergangenheit liegen!");
-//                alert.showAndWait();
-//
-//            } else {
-//                
-//                
-//            }
             istValidiert = true;
         } else {
 
@@ -1082,7 +1080,14 @@ public class AdressverwaltungController implements Initializable {
         return istValidiert;
 
     }
-
+    
+    
+    /**
+     * Erzeugt das Aktuelle Datum welches in das Datumfeld in der GUI gesetz 
+     * gesetzt wird.
+     * 
+     * @return 
+     */
     public String gibDatum() {
 
         GregorianCalendar cal = new GregorianCalendar();
@@ -1115,7 +1120,7 @@ public class AdressverwaltungController implements Initializable {
                     "Achtung: Das heutige Datum fällt auf ein Wochenende!!!");
             alert.showAndWait();
 
-        } else if (istFeiertag(cal)){
+        } else if (istFeiertag(cal)) {
             
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -1124,7 +1129,7 @@ public class AdressverwaltungController implements Initializable {
                     "Achtung: Das heutige Datum fällt auf einen Feiertag!");
             alert.showAndWait();
           
-            while(pruefeAufFeiertag()){
+            while(pruefeAufFeiertag()) {
                 
                 cal.add(GregorianCalendar.DATE, 1);
             }
@@ -1157,7 +1162,11 @@ public class AdressverwaltungController implements Initializable {
         return istFeiertag;
     }
     
-    private boolean pruefeAufFeiertag(){
+    /**
+     * Prüft das eingegebene Datum ob es ein Feiertag ist.
+     * @return 
+     */
+    private boolean pruefeAufFeiertag() {
         boolean istFeiertag = false;
         int year = 0;
         int month = 0;
@@ -1192,7 +1201,10 @@ public class AdressverwaltungController implements Initializable {
         
         return istFeiertag;
     }
-    
+    /**
+     * Prüft das Datuma ob es in der Vergangenheit liegt.
+     * @return true wenn es in der Vergangenheit liegt false  wenn nicht.
+     */
     private boolean pruefeDatumAufVergangenheit(){
         
         GregorianCalendar aktuellesDatum = new GregorianCalendar();
