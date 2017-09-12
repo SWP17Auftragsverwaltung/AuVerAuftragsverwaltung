@@ -545,6 +545,12 @@ public class AuftraegeController implements Initializable {
             = FXCollections.observableArrayList(
                 "Erfasst", "Freigegeben", "Abgeschlossen");
     
+    /**
+     * TextField für den MwSt in den AuftragsPositionDatensätzen.
+     */
+    @FXML
+    private TextField tfMwStAPD;
+    
     
     
     /**
@@ -883,6 +889,7 @@ public class AuftraegeController implements Initializable {
         clearAuftragskopfTextFields();
         this.tfErfDatum.setText(gibDatum());
         this.cbAuftragsstatus.setItems(komboBoxFilter(0, 1));
+        this.cbAuftragsstatus.setValue("Erfasst");
         
         this.pane.setVisible(false);
         this.auftragskopfTP.setText("Auftragskopf (Anlegemodus)");    
@@ -890,6 +897,7 @@ public class AuftraegeController implements Initializable {
         this.btHinzufuegen.setVisible(true);   
         this.btAendern.setDisable(true);
         this.btLoeschen.setDisable(true);
+        this.btAbbrechen.setDisable(false);
 
         AuftragskopfDAO akd = new AuftragskopfDAO();
         tfAuftragskopf.setText(akd.generiereID());
@@ -1151,8 +1159,8 @@ public class AuftraegeController implements Initializable {
         if (a.getStatus().equals("A")) {
             this.btAendern.setDisable(true);
             this.btLoeschen.setDisable(true);
-            this.btAuftragspositionen.setDisable(false);
-            
+            this.btAuftragspositionen.setDisable(false);        
+        
         } else {
             this.btAendern.setDisable(false);
             this.btLoeschen.setDisable(false);
@@ -1191,30 +1199,32 @@ public class AuftraegeController implements Initializable {
     
     /**
      * Zeigt die Werte einer ausgewählten Position im unteren Bereich an.
+     * @throws java.sql.SQLException SQLFehler
      */
     @FXML
-    public void zeigeWerteTvPositionen() {
+    public void zeigeWerteTvPositionen() throws SQLException {
         Object auftragsposition 
                 = tvAuftragsposition.getSelectionModel().getSelectedItem();
         Auftragsposition ap = (Auftragsposition) auftragsposition;
-
+        ArtikelDAO ard = new ArtikelDAO();
+        
         if (ap != null) {       
             this.tfPositionsNrAPD.setText(ap.getPositionsnummer());
             this.tfMengeAPD.setText(ap.getMenge());
             this.tfEinzelwertAPD.setText(ap.getEinzelwert());
             this.tfMaterialNrAPD.setText(ap.getArtikelID());
+            this.btAbbrechenAPD.setDisable(true);
+            this.tfMwStAPD.setText(ard.gibArtikelSteuer(ap.getArtikelID()));
             
             if (this.cbAuftragsstatus.getValue().equals("Abgeschlossen")) { 
                 this.btAnlegenAPD.setDisable(true);
                 this.btBearbeitenAPD.setDisable(true);
                 this.btLoeschenAPD.setDisable(true);
-                this.btAbbrechenAPD.setDisable(true);
             
             } else {            
                 this.btAnlegenAPD.setDisable(false);
-                this.btBearbeitenAPD.setDisable(true);
-                this.btLoeschenAPD.setDisable(true);
-                this.btAbbrechenAPD.setDisable(true);
+                this.btBearbeitenAPD.setDisable(false);
+                this.btLoeschenAPD.setDisable(false);
             }
         }
     }   
@@ -1346,7 +1356,7 @@ public class AuftraegeController implements Initializable {
                 break;
         }
         String auftragsArt = cbAuftragsart.getValue();
-        String auftragsWert = tfAuftragswert.getText();
+        String auftragsWert = "0";
         String lkz = "N";
         
         Auftragskopf auftragskopf = new Auftragskopf(auftragskopfID, 
@@ -1367,10 +1377,10 @@ public class AuftraegeController implements Initializable {
         this.btLoeschen.setDisable(false);
         this.paneGP.setVisible(false);
         this.auftraegeTP.setVisible(true);
+        this.btAbbrechen.setDisable(true);
         
         //Auftragskopftabelle aktualisieren
         refreshAuftragskopfTable();
-        leereAuftragspositionHinzufuegen();
     }
     
     
@@ -1388,26 +1398,20 @@ public class AuftraegeController implements Initializable {
             if (!(this.tfAuftragskopf.getText().isEmpty())) {
 
                 if (meldung.antwort()) {
-                    // Textfeldbereich wird aktiviert
+                    //Buttons aktivieren / deaktiviern
                     this.pane.setDisable(false);
-                    // Bearbeiten-Button wird ausgeblendet
                     this.btAnlegen.setVisible(true);
-                    // Speichern-Button wird eingeblendet
-
-                    //Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
-                    this.auftragskopfTP.setText(
-                            "Auftragskopf");
-
-                    //Buttons aktivieren/deaktivieren
-                    this.btAendern.setDisable(false);
+                    this.auftragskopfTP.setText("Auftragskopf");
+                    this.btAendern.setDisable(true);
                     this.btSpeichern.setVisible(false);
                     this.btSpeichern.setDisable(false);
-                    this.btLoeschen.setDisable(false);
+                    this.btLoeschen.setDisable(true);
                     this.btHinzufuegen.setVisible(false);
                     this.tvAuftragskopf.setMouseTransparent(false);
                     this.auftraegeTP.setVisible(true);
-                    
+                    this.btAbbrechen.setDisable(true);     
                     this.paneGP.setVisible(false);
+                    
                     clearAuftragskopfTextFields();
 
                 } else {
@@ -1432,6 +1436,7 @@ public class AuftraegeController implements Initializable {
         tfMaterialNrAPD.clear();
         tfMengeAPD.clear();
         tfEinzelwertAPD.clear();
+        tfMwStAPD.clear();
     }        
     
     
@@ -1521,10 +1526,15 @@ public class AuftraegeController implements Initializable {
     public void berechneAuftragswert(String auftragskopfID) 
             throws SQLException {
         String mengeAPD = tfMengeAPD.getText();
+        String steuerAPD = tfMwStAPD.getText();
         int menge =  Integer.parseInt(mengeAPD);
+        int steuer = Integer.parseInt(steuerAPD);
         
         String einzelWertAPD = tfEinzelwertAPD.getText();
         double einzelwert = Double.parseDouble(einzelWertAPD);
+        double berechneteSteuer = einzelwert * steuer / 100;
+        einzelwert = einzelwert + berechneteSteuer;
+        
         
         double rechnung = menge * einzelwert;
         rechnung = rechnung * 100;
@@ -1535,42 +1545,8 @@ public class AuftraegeController implements Initializable {
         apd.berechneAuftragswert(rechnung, auftragskopfID);          
     }
 
+    
 
-    
-    /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 27.08.17    HEN     Methode erstellt.
-    /*------------------------------------------------------------------------*/
-    
-    /**
-     * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues 
-     * Auftragsposition Objekt, welches dann über die DAO in die DB geschrieben 
-     * wird.
-     * @throws java.sql.SQLException SQL Exception
-     */
-    public void leereAuftragspositionHinzufuegen() throws SQLException {
-        AuftragskopfDAO akd = new AuftragskopfDAO();
-        ArtikelDAO ad = new ArtikelDAO();
-  
-        String auftragskopfID = akd.gibLetztID();
-        String positionsnummer = "";
-        String artikelID = "000001";
-        String menge = "";
-        String einzelwert = "";
-        String lkz = "N";
-        
-        Auftragsposition auftragsposition = new Auftragsposition(auftragskopfID,
-            positionsnummer, artikelID, menge, einzelwert, lkz);
-
-        AuftragspositionDAO apd = new AuftragspositionDAO();
-        apd.fuegeAuftragspositionHinzu(auftragsposition);
-
-        clearAuftragsPosTextFields();
-        refreshAuftragspositionTable();
-    }    
-  
-    
-    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 27.08.17    HEN     Methode erstellt.
@@ -1591,7 +1567,7 @@ public class AuftraegeController implements Initializable {
         tfAuftragskopfIDPOS.setText(tfAuftragskopf.getText());
         tfAbschlussdatumPOS.setText(tfAbschlussdatum.getText());
         tfLieferdatumPOS.setText(tfLieferdatum.getText());
-        apd.gibAuftragspositionenZuAuftrag(tfAuftragskopf.getText());
+//        apd.gibAuftragspositionenZuAuftrag(tfAuftragskopf.getText());
         setTableContentPositionen();
         
         if (this.cbAuftragsstatus.getValue().equals("Abgeschlossen")) {
@@ -1637,6 +1613,7 @@ public class AuftraegeController implements Initializable {
         this.btSpeichernAPD.setVisible(true);
         this.btAnlegenAPD.setDisable(true);
         this.btLoeschenAPD.setDisable(true);
+        this.tfMengeAPD.requestFocus();
         tvAuftragsposition.setMouseTransparent(true);
     }
     
@@ -1741,8 +1718,14 @@ public class AuftraegeController implements Initializable {
         
         } else {       
             //Menge neu berechnen.
-            double einzelwertDouble = Double.parseDouble(einzelwert);    
-            double neuerWert = x * einzelwertDouble * (-1);  
+            String steuerAPD = tfMwStAPD.getText();
+            int steuerAPDInt = Integer.parseInt(steuerAPD);     
+            
+            double einzelwertDouble = Double.parseDouble(einzelwert);              
+            double berechneteSteuer = einzelwertDouble * steuerAPDInt / 100;
+            double steuerwert = einzelwertDouble + berechneteSteuer;
+            
+            double neuerWert = x * steuerwert * (-1);
             
             auftragsposition.setMenge(menge);
             apd.aendereAuftragsposition(auftragsposition);
@@ -1758,9 +1741,10 @@ public class AuftraegeController implements Initializable {
         //Buttons und Textfelder aktivieren / deaktivieren.
         this.paneAPD.setDisable(false);
         this.btBearbeitenAPD.setVisible(true);
+        this.btBearbeitenAPD.setDisable(true);
         this.btSpeichernAPD.setVisible(false);
         this.btAnlegenAPD.setDisable(false);
-        this.btLoeschenAPD.setDisable(false); 
+        this.btLoeschenAPD.setDisable(true); 
         tvAuftragsposition.setMouseTransparent(false);
     }
     

@@ -40,7 +40,7 @@
                         <Button fx:id="btAbbrechen" disable="true" layoutX="474.0" layoutY="178.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
                         <Button fx:id="btHinzufuegen" layoutX="148.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
                         <Button fx:id="btSpeichern" layoutX="257.0" layoutY="178.0" mnemonicParsing="false" onAction="#speichereAenderungAuftragskopf" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
-                        <Pane fx:id="pane" layoutX="4.0" layoutY="19.0" prefHeight="132.0" prefWidth="947.0" />
+                        <Pane fx:id="pane" layoutX="167.0" layoutY="12.0" prefHeight="132.0" prefWidth="947.0" />
                         <Pane fx:id="paneAuftragskopfStatus" layoutX="14.0" layoutY="13.0" prefHeight="79.0" prefWidth="947.0" visible="false" />
                      </children>
                   </AnchorPane>
@@ -97,7 +97,7 @@
                         <TableColumn fx:id="tcEinzelwertArtArtWahl" prefWidth="81.0" text="Einzelwert" />
                         <TableColumn fx:id="tcBestellwertArtWahl" prefWidth="109.0" text="Bestellwert" />
                         <TableColumn fx:id="tcMwStArtWahl" prefWidth="109.0" text="MwSt." />
-                        <TableColumn fx:id="tcBestandFreiArtWahl" prefWidth="109.0" text="Bestandsmenge FREI" />
+                        <TableColumn fx:id="tcBestandFreiArtWahl" prefWidth="120.0" text="Bestandsmenge FREI" />
                      </columns>
                   </TableView>
                </content>
@@ -128,6 +128,7 @@
                         <TextField fx:id="tfMaterialNrAPD" editable="false" layoutX="197.0" layoutY="47.0" />
                         <TextField fx:id="tfMengeAPD" layoutX="371.0" layoutY="47.0" />
                         <TextField fx:id="tfEinzelwertAPD" editable="false" layoutX="551.0" layoutY="47.0" />
+                        <TextField fx:id="tfMwStAPD" editable="false" layoutX="741.0" layoutY="57.0" />
                         <Label layoutX="18.0" layoutY="33.0" text="Positionsnummer" />
                         <Label layoutX="197.0" layoutY="33.0" text="Materialnummer" />
                         <Label layoutX="371.0" layoutY="33.0" prefHeight="13.0" prefWidth="38.0" text="Menge" />

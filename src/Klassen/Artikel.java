@@ -75,7 +75,9 @@ public class Artikel {
     */
     private String lkz;   
 
-    
+    /**
+     * Konstruktor Artikel.
+     */
     public Artikel() {
         
     }

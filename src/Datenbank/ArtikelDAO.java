@@ -758,7 +758,55 @@ public class ArtikelDAO extends DataAccess {
             alert.showAndWait();
             con.rollback();
         }
-    }   
+    }
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 10.09.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Gibt den Steuersatz zu einer bestimmten ArikelID aus.
+     * @param artikelID Artikel für den die Steuer ausgegeben werden soll.
+     * @return Ausgelesener Steuersatz
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public String gibArtikelSteuer(String artikelID) 
+            throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String steuer = "";
+
+        String query = "SELECT " + attribute.get(TAB_ARTIKEL).get(5) 
+            + " FROM ROOT." + ddd.getTabArtikel()
+            + " WHERE " + attribute.get(TAB_ARTIKEL).get(10) + " = ?"
+            + " AND " + attribute.get(TAB_ARTIKEL).get(0) + " = ?";
+
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "N");
+            stmt.setString(2, artikelID);
+            rs = stmt.executeQuery();
+            con.commit();
+            
+            if (rs.next()) {
+                steuer = rs.getString(1);
+            }
+            
+        //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "\n Steuersatz konnte icht"
+                + "abgerufen werden!");
+            alert.showAndWait();
+            con.rollback();
+        }
+        return steuer;
+    }     
     
     
 }

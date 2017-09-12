@@ -521,6 +521,11 @@ public class ArtikelverwaltungController implements Initializable {
         this.btBearbeiten.setDisable(true);
         // Löschen-Button wird deaktiviert
         this.btLoeschen.setDisable(true);
+        
+        this.tfBestandFrei.setText("0");
+        this.tfBestandReserviert.setText("0");
+        this.tfBestandZulauf.setText("0");
+        this.tfBestandVerkauft.setText("0");
 
         ArtikelDAO ar = new ArtikelDAO();
         tfMaterialNr.setText(ar.generiereID());
@@ -569,17 +574,12 @@ public class ArtikelverwaltungController implements Initializable {
                 clearTextFields();
                 refreshTable();
 
-                // Textfeldbereich wird aktiviert
+                //Buttons aktivieren / deaktivieren
                 this.pane.setDisable(false);
-                // Bearbeiten-Button wird ausgeblendet
                 this.btAnlegen.setVisible(true);
-                // Speichern-Button wird eingeblendet
                 this.btHinzufuegen.setVisible(false);
-                // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
                 this.artikeldatensatzPane.setText("Artikeldatensatz");
-                // Anlegen-Button wird deaktiviert
                 this.btBearbeiten.setDisable(false);
-                // Löschen-Button wird deaktiviert
                 this.btLoeschen.setDisable(false);            
                 tvArtikel.setMouseTransparent(false);
             }

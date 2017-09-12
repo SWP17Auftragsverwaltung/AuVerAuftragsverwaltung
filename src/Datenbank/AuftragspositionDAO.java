@@ -15,7 +15,6 @@ import Klassen.Auftragsposition;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.scene.control.Alert;
@@ -45,6 +44,11 @@ public class AuftragspositionDAO extends DataAccess {
     /**
      * 
      */
+    private String TAB_ARTIKEL = ddd.getTAB_ARTIKEL();
+        
+    /**
+     * 
+     */
     private HashMap<String, ArrayList> attribute;     
         /**
      * Konstruktor.
@@ -55,6 +59,7 @@ public class AuftragspositionDAO extends DataAccess {
         attribute = ddd.getTabellenAttribute();
         ddd.holeAlleAttribute(TAB_AUFTRAGSPOSITION);
         ddd.holeAlleAttribute(TAB_AUFTRAGSKOPF);
+        ddd.holeAlleAttribute(TAB_ARTIKEL);
     }
 
 
@@ -218,23 +223,28 @@ public class AuftragspositionDAO extends DataAccess {
         String einzelwert = ap.getEinzelwert();
         String lkz = ap.getLkz();
         String query = "";
+        boolean istVorhanden = artikelVorhanden(auftragskopfID, artikelID);
                
         try {
             con.setAutoCommit(false);
 
-            if (artikelVorhanden(artikelID)) {
+            if (istVorhanden) {
                 int mengeInt = Integer.parseInt(menge);
-                menge = berechneArtikelwert(artikelID, mengeInt);
+                menge = berechneArtikelwert(
+                    auftragskopfID, artikelID, mengeInt);
                 
                 query = "UPDATE ROOT." + ddd.getTabAuftragsposition() 
                     + " SET " + attribute.get(TAB_AUFTRAGSPOSITION).get(3) 
                     + " = ?" 
                     + " WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(2)
+                    + " = ?"
+                    + " AND " + attribute.get(TAB_AUFTRAGSPOSITION).get(0)
                     + " = ?";
-                
+                        
                 stmt = con.prepareStatement(query);
                 stmt.setString(1, menge);
                 stmt.setString(2, artikelID);
+                stmt.setString(3, auftragskopfID);
                 stmt.executeUpdate();
             
             } else {
@@ -264,7 +274,8 @@ public class AuftragspositionDAO extends DataAccess {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText(e.getMessage() + "\n Auftragsposition konnte "
+                + "nicht angelegt werden!");
             alert.showAndWait();
             con.rollback();
         }
@@ -279,13 +290,16 @@ public class AuftragspositionDAO extends DataAccess {
     
     /**
      * Rechnet einer bestehenden ArtikelID die eingegebene Menge hinzu.
+     * @param auftragskopfID AuftragskopfID
      * @param artikelID Eingegebene Artikel ID
      * @param menge Zu addierende Menge
      * @return Gibt ArrayList aller Auftragspositionen ohne LKZ wieder.
      * @throws java.sql.SQLException SQLException
      */
-    public String berechneArtikelwert(String artikelID, int menge)
-            throws SQLException {
+    public String berechneArtikelwert(
+        String auftragskopfID, String artikelID, int menge) 
+        throws SQLException {
+        
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String neueMenge = "";
@@ -293,12 +307,14 @@ public class AuftragspositionDAO extends DataAccess {
 
         String query = "SELECT MENGE FROM ROOT." + ddd.getTabAuftragsposition() 
             + " WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(5) + " = ?"
-            + " AND " + attribute.get(TAB_AUFTRAGSPOSITION).get(2) + " = ?";
+            + " AND " + attribute.get(TAB_AUFTRAGSPOSITION).get(2) + " = ?"
+            + " AND " + attribute.get(TAB_AUFTRAGSPOSITION).get(0) + " = ?";
 
         try {
             stmt = con.prepareStatement(query);
             stmt.setString(1, "N");
             stmt.setString(2, artikelID);
+            stmt.setString(3, auftragskopfID);
             rs = stmt.executeQuery();
 
             con.commit();
@@ -481,7 +497,7 @@ public class AuftragspositionDAO extends DataAccess {
      * Rechnet einer bestehenden ArtikelID die eingegebene Menge hinzu.
      * @param positionsnummer PosNr
      * @return Ausgelesener Auftragswert
-     * @throws java.sql.SQLException SQLException
+     * @throws java.sql.SQLException SQLFehler
      */
     public String gibPositionsMenge(String positionsnummer) 
             throws SQLException {
@@ -517,7 +533,7 @@ public class AuftragspositionDAO extends DataAccess {
         return posMenge;
     }     
     
-    
+ 
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -528,7 +544,7 @@ public class AuftragspositionDAO extends DataAccess {
      * Gibt alle Auftragspositionen zu einem bestimmten Auftrag wieder.
      * @param auftragsID AuftragsID, zu den Positionen gesucht werden sollen.
      * @return Gibt ArrayList aller Auftragspositionen ohne LKZ wieder.
-     * @throws java.sql.SQLException SQLException
+     * @throws java.sql.SQLException SQLFehler
      */
     public ArrayList<Auftragsposition> 
         gibAuftragspositionenZuAuftrag(String auftragsID) throws SQLException {
@@ -557,16 +573,8 @@ public class AuftragspositionDAO extends DataAccess {
 
                 auftragspositionListe.add(auftragsposition);
             }
-            //Fehler werfen wenn Rückgabeobjekt leer ist
-            if (auftragspositionListe.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.initStyle(StageStyle.UTILITY);
-                alert.setTitle("Fehler");
-                alert.setHeaderText("Keine Auftragspositionen gefunden!");
-                alert.showAndWait();
-            }
 
-            //Mögliche SQL fehler fangen
+          //Mögliche SQL fehler fangen
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -587,22 +595,29 @@ public class AuftragspositionDAO extends DataAccess {
     
     /**
      * Gibt alle Auftragspositionen zu einem bestimmten Auftrag wieder.
+     * @param auftragskopfID AuftragskopfID
      * @param artikelID ArtikelID
      * @return Gibt ArrayList aller Auftragspositionen ohne LKZ wieder.
      * @throws java.sql.SQLException S
      */
-    public boolean artikelVorhanden(String artikelID) throws SQLException {
+    public boolean artikelVorhanden(String auftragskopfID, String artikelID) 
+        throws SQLException {
         boolean ergebnis = false;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         ResultSet rs = null;
         
         try {
             String query = "SELECT * FROM ROOT." + ddd.getTabAuftragsposition() 
-                + " WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(2) 
-                + " = '" + artikelID + "' AND LKZ = 'N'";
+                + " WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(0) 
+                + " = ?" 
+                + " AND " + attribute.get(TAB_AUFTRAGSPOSITION).get(2) + " = ?"
+                + " AND " + attribute.get(TAB_AUFTRAGSPOSITION).get(5) + " = ?";
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, auftragskopfID);
+            stmt.setString(2, artikelID);
+            stmt.setString(3, "N");
+            rs = stmt.executeQuery();
             
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(query);
             con.commit();
             ergebnis = rs.next();
 
@@ -610,7 +625,8 @@ public class AuftragspositionDAO extends DataAccess {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText(e.getMessage() 
+                + "\n Prüfung ergab einen Fehler.");
             alert.showAndWait();
             con.rollback();       
         }
