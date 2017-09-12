@@ -915,7 +915,7 @@ public class ArtikelverwaltungController implements Initializable {
         
         boolean istValidiert = false;
         
-        Pattern p = Pattern.compile("[1-9][0-9]+[,|.][0-9]+");
+        Pattern p = Pattern.compile("[1-9][0-9]*[,|.]?[0-9]*");
         Matcher m = p.matcher(this.tfEinzelwert.getText());
 
         if (m.find() && m.group().equals(this.tfEinzelwert.getText())) {
@@ -951,7 +951,7 @@ public class ArtikelverwaltungController implements Initializable {
         
         boolean istValidiert = false;
         
-        Pattern p = Pattern.compile("[1-9][0-9]+[,|.][0-9]+");
+        Pattern p = Pattern.compile("[1-9][0-9]*[,|.]?[0-9]*");
         Matcher m = p.matcher(this.tfBestellwert.getText());
 
         if (m.find() && m.group().equals(this.tfBestellwert.getText())) {
@@ -989,7 +989,7 @@ public class ArtikelverwaltungController implements Initializable {
         boolean istValidiert = false;
         
         
-        Pattern p = Pattern.compile("[0]|[1-9][0-9]+");
+        Pattern p = Pattern.compile("[0]|[1-9][0-9]*");
         Matcher m = p.matcher(this.tfBestandFrei.getText());
         
         if (m.find() && m.group().equals(this.tfBestandFrei.getText())) {

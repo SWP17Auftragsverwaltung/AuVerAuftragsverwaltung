@@ -29,12 +29,16 @@ import Klassen.Meldung;
 import Datenbank.AdresseDAO;
 import Datenbank.SucheDAO;
 import Klassen.Adresse;
+import de.jollyday.HolidayCalendar;
+import de.jollyday.HolidayManager;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -596,7 +600,8 @@ public class AdressverwaltungController implements Initializable {
 
         if (validateFields()) {
 
-            if (validateEmail() && validateDatum() && validateTelefon()) {
+            if (validateEmail() && validateDatum() && validateTelefon()
+                    && pruefeDatumAufVergangenheit()) {
 
                 String anschriftID = tfAnschriftID.getText();
                 String anrede = cbAnrede.getValue();
@@ -683,6 +688,8 @@ public class AdressverwaltungController implements Initializable {
      */
     @FXML
     public void bearbeiteAdresse() {
+        
+         
         // Textfeldbereich wird aktiviert
         this.pane.setDisable(true);
         // Bearbeiten-Button wird ausgeblendet
@@ -695,6 +702,8 @@ public class AdressverwaltungController implements Initializable {
         this.anlegenBT.setDisable(true);
         // Löschen-Button wird deaktiviert
         this.loeschenBT.setDisable(true);
+        
+//        this.tfDatum.setText(gibDatum());
     }
 
     /*------------------------------------------------------------------------*/
@@ -1040,14 +1049,26 @@ public class AdressverwaltungController implements Initializable {
 
     private boolean validateDatum() {
         boolean istValidiert = false;
-
-        Pattern p = Pattern.compile("[0-9][0-9][.][0-9][0-9][.][0-9][0-9][0-9][0-9]");
+        
+        Pattern p = Pattern.compile("[0-9][0-9][.][0-9][0-9][.][2-9][0-9][0-9][0-9]");
         Matcher m = p.matcher(tfDatum.getText());
 
         if (m.find() && m.group().equals(tfDatum.getText())) {
 
+//            if(pruefeDatumAufVergangenheit()){
+//
+//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                alert.initStyle(StageStyle.UTILITY);
+//                alert.setTitle("Information");
+//                alert.setHeaderText(
+//                        "Datum darf nicht in der Vergangenheit liegen!");
+//                alert.showAndWait();
+//
+//            } else {
+//                
+//                
+//            }
             istValidiert = true;
-
         } else {
 
             Alert alert = new Alert(AlertType.WARNING);
@@ -1073,7 +1094,7 @@ public class AdressverwaltungController implements Initializable {
         if (cal.get(GregorianCalendar.DAY_OF_WEEK)
                 == GregorianCalendar.SATURDAY) {
 
-            cal.add(GregorianCalendar.DATE, 1);
+            cal.add(GregorianCalendar.DATE, 2);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -1094,11 +1115,139 @@ public class AdressverwaltungController implements Initializable {
                     "Achtung: Das heutige Datum fällt auf ein Wochenende!!!");
             alert.showAndWait();
 
+        } else if (istFeiertag(cal)){
+            
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Information");
+            alert.setHeaderText(
+                    "Achtung: Das heutige Datum fällt auf einen Feiertag!");
+            alert.showAndWait();
+          
+            while(pruefeAufFeiertag()){
+                
+                cal.add(GregorianCalendar.DATE, 1);
+            }
         }
-
         datum = df.format(cal.getTime());
 
         return datum;
+    }
+    
+    public boolean istFeiertag(GregorianCalendar cal) {
+        
+        boolean istFeiertag;
+
+        int jahr = cal.get(GregorianCalendar.YEAR);
+        int monat = cal.get(GregorianCalendar.MONTH);
+        int tag = cal.get(GregorianCalendar.DATE);
+        
+        Calendar kalender = GregorianCalendar.getInstance();
+        kalender.clear();
+        kalender.setTimeZone(TimeZone.getTimeZone("CET"));
+        kalender.set(jahr, monat, tag);
+        
+        kalender.getTime();
+        
+        HolidayManager manager 
+            = HolidayManager.getInstance(HolidayCalendar.GERMANY);
+    
+        istFeiertag = manager.isHoliday(kalender);   
+        
+        return istFeiertag;
+    }
+    
+    private boolean pruefeAufFeiertag(){
+        boolean istFeiertag = false;
+        int year = 0;
+        int month = 0;
+        int day = 0;
+        
+        StringTokenizer st 
+                = new StringTokenizer(this.tfDatum.getText(), ".", false);
+        
+        //Datum in cal Objekt packen.
+        while (st.hasMoreTokens()) {
+            String tag = st.nextToken();
+            String monat = st.nextToken();
+            String jahr =  st.nextToken();
+                
+            year = Integer.parseInt(jahr);
+            month = Integer.parseInt(monat);
+            day = Integer.parseInt(tag); 
+        }
+            
+        GregorianCalendar cal = new GregorianCalendar();    
+        month = month - 1;
+        cal.clear();
+        cal.setTimeZone(TimeZone.getTimeZone("CET"));
+        cal.set(year, month, day);
+        cal.getTime();
+        
+        HolidayManager manager 
+            = HolidayManager.getInstance(HolidayCalendar.GERMANY);
+    
+        istFeiertag = manager.isHoliday(cal);       
+        
+        
+        return istFeiertag;
+    }
+    
+    private boolean pruefeDatumAufVergangenheit(){
+        
+        GregorianCalendar aktuellesDatum = new GregorianCalendar();
+        aktuellesDatum.setTimeZone(TimeZone.getTimeZone("CET"));
+        aktuellesDatum.getTime();
+
+        boolean istInVergangenheit = false;
+        int year = 0;
+        int month = 0;
+        int day = 0;
+        
+        StringTokenizer st 
+                = new StringTokenizer(this.tfDatum.getText(), ".", false);
+        
+        //Datum in cal Objekt packen.
+        while (st.hasMoreTokens()) {
+            
+            String tag = st.nextToken();
+            String monat = st.nextToken();
+            String jahr =  st.nextToken();
+                
+            year = Integer.parseInt(jahr);
+            month = Integer.parseInt(monat);
+            day = Integer.parseInt(tag); 
+            
+        }
+            
+        GregorianCalendar eingegebenesDatum = new GregorianCalendar();    
+        month = month - 1;
+        day = day + 1;
+        eingegebenesDatum.clear();
+        eingegebenesDatum.setTimeZone(TimeZone.getTimeZone("CET"));
+        eingegebenesDatum.set(year, month, day);
+        eingegebenesDatum.getTime();
+        
+        
+        if (eingegebenesDatum.before(aktuellesDatum)) {
+            
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Information");
+            alert.setHeaderText(
+                    "Datum darf nicht in der Vergangenheit liegen!");
+            alert.showAndWait();
+            
+        } else {
+            
+            istInVergangenheit  = true;
+            
+        }
+
+     
+        return istInVergangenheit;
+        
+        
     }
 
 }

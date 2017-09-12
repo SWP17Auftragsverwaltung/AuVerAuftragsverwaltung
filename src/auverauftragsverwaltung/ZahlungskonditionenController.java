@@ -529,6 +529,7 @@ public class ZahlungskonditionenController implements Initializable {
      */
     @FXML
     public void zahlungskonditionenAnlegen() throws SQLException {
+        
         zahlungskonditionenTV.setMouseTransparent(true);
         clearTextFields();
         this.pane.setDisable(true);
@@ -561,46 +562,50 @@ public class ZahlungskonditionenController implements Initializable {
      */
     @FXML
     public void zahlungskonditionenHinzufuegen() throws SQLException {
-        String zahlungskonditionsID = tfZahlungskonditionsID.getText();
-        String auftragsart = cbAuftragsart.getValue();
-        String lieferzeit = tfLieferzeitSOFORT.getText();
-        String sperrzeit = tfSperrzeitWUNSCH.getText();
-        String skontozeit1 = tfSkontozeit1.getText();
-        String skontozeit2 = tfSkontozeit2.getText();
-        String skonto1 = tfSkonto1.getText();
-        String skonto2 = tfSkonto2.getText();
-        String mahnzeit1 = tfMahnzeit1.getText();
-        String mahnzeit2 = tfMahnzeit2.getText();
-        String mahnzeit3 = tfMahnzeit3.getText();
-        String lkz = "N";
-        Zahlungskonditionen zahlungskonditionen = new Zahlungskonditionen(
-                zahlungskonditionsID, auftragsart, lieferzeit,
-                sperrzeit, skontozeit1, skontozeit2, skonto1, skonto2,
-                mahnzeit1, mahnzeit2, mahnzeit3, lkz);
+        
+        if (validateFields()){
+            
+            String zahlungskonditionsID = tfZahlungskonditionsID.getText();
+            String auftragsart = cbAuftragsart.getValue();
+            String lieferzeit = tfLieferzeitSOFORT.getText();
+            String sperrzeit = tfSperrzeitWUNSCH.getText();
+            String skontozeit1 = tfSkontozeit1.getText();
+            String skontozeit2 = tfSkontozeit2.getText();
+            String skonto1 = tfSkonto1.getText();
+            String skonto2 = tfSkonto2.getText();
+            String mahnzeit1 = tfMahnzeit1.getText();
+            String mahnzeit2 = tfMahnzeit2.getText();
+            String mahnzeit3 = tfMahnzeit3.getText();
+            String lkz = "N";
+            Zahlungskonditionen zahlungskonditionen = new Zahlungskonditionen(
+                    zahlungskonditionsID, auftragsart, lieferzeit,
+                    sperrzeit, skontozeit1, skontozeit2, skonto1, skonto2,
+                    mahnzeit1, mahnzeit2, mahnzeit3, lkz);
 
-        ZahlungskonditionenDAO ad = new ZahlungskonditionenDAO();
-        ad.fuegeZahlungskonditionenHinzu(zahlungskonditionen);
+            ZahlungskonditionenDAO ad = new ZahlungskonditionenDAO();
+            ad.fuegeZahlungskonditionenHinzu(zahlungskonditionen);
 
-        clearTextFields();
-        refreshTable();
+            clearTextFields();
+            refreshTable();
 
-        // Textfeldbereich wird aktiviert
-        this.pane.setDisable(false);
-        // Bearbeiten-Button wird ausgeblendet
-        this.anlegenBT.setVisible(true);
-        // Speichern-Button wird eingeblendet
-        this.hinzufuegenZahlungskonditionenBT.setVisible(false);
-        // Der Bearbeitungsmodus des Zahlungskonditionendatensatzes 
-        //wird aktiviert
-        this.zahlungskonditionendatensatzPane.setText(
-                "Zahlungskonditionendatensatz");
-        // Anlegen-Button wird deaktiviert
-        this.bearbeitenBT.setDisable(false);
-        // Löschen-Button wird deaktiviert
-        this.loeschenBT.setDisable(false);
+            // Textfeldbereich wird aktiviert
+            this.pane.setDisable(false);
+            // Bearbeiten-Button wird ausgeblendet
+            this.anlegenBT.setVisible(true);
+            // Speichern-Button wird eingeblendet
+            this.hinzufuegenZahlungskonditionenBT.setVisible(false);
+            // Der Bearbeitungsmodus des Zahlungskonditionendatensatzes 
+            //wird aktiviert
+            this.zahlungskonditionendatensatzPane.setText(
+                    "Zahlungskonditionendatensatz");
+            // Anlegen-Button wird deaktiviert
+            this.bearbeitenBT.setDisable(false);
+            // Löschen-Button wird deaktiviert
+            this.loeschenBT.setDisable(false);
 
-        zahlungskonditionenTV.setMouseTransparent(false);
-
+            zahlungskonditionenTV.setMouseTransparent(false);
+            
+        }
     }
 
     
@@ -683,41 +688,45 @@ public class ZahlungskonditionenController implements Initializable {
      */
     @FXML
     public void speichereAenderung() throws SQLException {
-        String zahlungskonditionsID = tfZahlungskonditionsID.getText();
-        String auftragsart = cbAuftragsart.getValue();
-        String lieferzeit = tfLieferzeitSOFORT.getText();
-        String sperrzeit = tfSperrzeitWUNSCH.getText();
-        String skontozeit1 = tfSkontozeit1.getText();
-        String skontozeit2 = tfSkontozeit2.getText();
-        String skonto1 = tfSkonto1.getText();
-        String skonto2 = tfSkonto2.getText();
-        String mahnzeit1 = tfMahnzeit1.getText();
-        String mahnzeit2 = tfMahnzeit2.getText();
-        String mahnzeit3 = tfMahnzeit3.getText();
+        
+        if (validateFields()) {
+         
+            String zahlungskonditionsID = tfZahlungskonditionsID.getText();
+            String auftragsart = cbAuftragsart.getValue();
+            String lieferzeit = tfLieferzeitSOFORT.getText();
+            String sperrzeit = tfSperrzeitWUNSCH.getText();
+            String skontozeit1 = tfSkontozeit1.getText();
+            String skontozeit2 = tfSkontozeit2.getText();
+            String skonto1 = tfSkonto1.getText();
+            String skonto2 = tfSkonto2.getText();
+            String mahnzeit1 = tfMahnzeit1.getText();
+            String mahnzeit2 = tfMahnzeit2.getText();
+            String mahnzeit3 = tfMahnzeit3.getText();
 
-        String lkz = "N";
+            String lkz = "N";
 
-        Zahlungskonditionen zahlungskonditionen = new Zahlungskonditionen(
-                zahlungskonditionsID, auftragsart, lieferzeit,
-                sperrzeit, skontozeit1, skontozeit2, skonto1, skonto2,
-                mahnzeit1, mahnzeit2, mahnzeit3, lkz);
+            Zahlungskonditionen zahlungskonditionen = new Zahlungskonditionen(
+                    zahlungskonditionsID, auftragsart, lieferzeit,
+                    sperrzeit, skontozeit1, skontozeit2, skonto1, skonto2,
+                    mahnzeit1, mahnzeit2, mahnzeit3, lkz);
 
-        ZahlungskonditionenDAO zkDAO = new ZahlungskonditionenDAO();
-        zkDAO.aendereZahlungskonditionen(zahlungskonditionen);
-        // Textfeldbereich wird aktiviert
-        this.pane.setDisable(false);
-        // Bearbeiten-Button wird ausgeblendet
-        this.bearbeitenBT.setVisible(true);
-        // Speichern-Button wird eingeblendet
-        this.speichernBT.setVisible(false);
-        //Bearbeitungsmodus des Zahlungskonditionendatensatzes wird aktiviert
-        this.zahlungskonditionendatensatzPane.setText(
-                "Zahlungskonditionendatensatz");
+            ZahlungskonditionenDAO zkDAO = new ZahlungskonditionenDAO();
+            zkDAO.aendereZahlungskonditionen(zahlungskonditionen);
+            // Textfeldbereich wird aktiviert
+            this.pane.setDisable(false);
+            // Bearbeiten-Button wird ausgeblendet
+            this.bearbeitenBT.setVisible(true);
+            // Speichern-Button wird eingeblendet
+            this.speichernBT.setVisible(false);
+            //Bearbeitungsmodus des Zahlungskonditionendatensatzes wird aktiviert
+            this.zahlungskonditionendatensatzPane.setText(
+                    "Zahlungskonditionendatensatz");
 
-        this.anlegenBT.setDisable(false);
-        this.loeschenBT.setDisable(false);
+            this.anlegenBT.setDisable(false);
+            this.loeschenBT.setDisable(false);
 
-        refreshTable();
+            refreshTable();
+        }    
     }
 
     
@@ -874,5 +883,62 @@ public class ZahlungskonditionenController implements Initializable {
                 }
             }
         }
+    }
+    
+    
+    /**
+     * Validiert die Adressfelder.
+     * @return True: Wenn Validierung erfolgreich, sonst False.
+     */
+    private boolean validateFields() {
+        boolean istValidiert = true;
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Fehlende Eingaben");
+
+        if (this.cbAuftragsart.getValue() == null) {
+            alert.setContentText("Bitte wählen Sie die Auftragsart!");
+            alert.showAndWait();
+            istValidiert = false;
+
+        } else if (this.tfLieferzeitSOFORT.getText().isEmpty()) {
+            alert.setContentText("Bitte setzen sie die Lieferzeit SOFORT.");
+            alert.showAndWait();
+            istValidiert = false;
+
+        } else if (this.tfSperrzeitWUNSCH.getText().isEmpty()) {
+            alert.setContentText("Bitte setzen sie die Sperrzeit WUNSCH.");
+            alert.showAndWait();
+            istValidiert = false;
+
+        } else if (this.tfMahnzeit1.getText().isEmpty()) {
+            alert.setContentText("Bitte setzen sie die Mahnzeit 1.");
+            alert.showAndWait();
+            istValidiert = false;
+        } else if (this.tfMahnzeit2.getText().isEmpty()) {
+            alert.setContentText("Bitte setzen sie die Mahnzeit 2.");
+            alert.showAndWait();
+            istValidiert = false;
+        } else if (this.tfMahnzeit3.getText().isEmpty()) {
+            alert.setContentText("Bitte setzen sie die Mahnzeit 3.");
+            alert.showAndWait();
+            istValidiert = false;
+        } else if (this.tfSkontozeit1.getText().isEmpty()) {
+            alert.setContentText("Bitte setzen sie die Skontozeit 1.");
+            alert.showAndWait();
+            istValidiert = false;
+        } else if (this.tfSkonto1.getText().isEmpty()) {
+            alert.setContentText("Bitte setzen sie das Skonto 1.");
+            alert.showAndWait();
+            istValidiert = false;
+        } else if (this.tfSkontozeit2.getText().isEmpty()) {
+            alert.setContentText("Bitte setzen sie die Skontozeit 2.");
+            alert.showAndWait();
+            istValidiert = false;
+        } else if (this.tfSkonto2.getText().isEmpty()) {
+            alert.setContentText("Bitte setzen sie das Skonto 2.");
+            alert.showAndWait();
+            istValidiert = false;
+        } 
+        return istValidiert;  
     }
 }
