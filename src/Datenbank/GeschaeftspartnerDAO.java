@@ -446,6 +446,95 @@ public class GeschaeftspartnerDAO extends DataAccess {
         return neueID;
     }
 
-   
 
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 13.09.17    BER     Methode Erstellt.
+    /*------------------------------------------------------------------------*/
+   
+    /**
+     * Gibt das Kreditlimit zu einem bestimten GP wieder.
+     * @param gpID Geschäftspartner ID
+     * @return Gibt Kreditlimit eines GP.
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public String gibKreditlimit(String gpID) throws SQLException {
+        //Variablendeklaration
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String kreditlimit = "";
+
+        String query = "SELECT " + attribute.get(TAB_GESCHAEFTSPARTNER).get(4) 
+            + " FROM ROOT." + ddd.getTabGeschaeftspartner() 
+            + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(0) + " = ?"
+            + " AND " + attribute.get(TAB_GESCHAEFTSPARTNER).get(5) + " = ?";
+
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, gpID);
+            stmt.setString(2, "N");
+            rs = stmt.executeQuery();
+            con.commit();
+            
+            while (rs.next()) {
+                kreditlimit = rs.getString(1);
+            }
+            
+          //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "\n Das Kreditlimit konnte"
+                + "nicht abgefragt werden.");
+            alert.showAndWait();
+            con.rollback();
+        }
+        return kreditlimit;
+    }    
+
+    
+
+    /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 13.08.17     BER     Methode erstellt.     
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Berechnet das Kreditlmit bei einem ausgewählten Geschäftspartner.
+     * @param auftragswert Auftragswert der übergeben wird
+     * @param gpID Geschäftsparter dessen Kreditlimit berechnet werden soll
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public void setzeKreditlmit(String auftragswert, String gpID) 
+        throws SQLException {
+        PreparedStatement stmt = null;   
+
+        try {
+            con.setAutoCommit(false);
+
+            String query
+                = "UPDATE ROOT." + ddd.getTabGeschaeftspartner() 
+                + " SET " + attribute.get(TAB_GESCHAEFTSPARTNER).get(4) + " = ?"
+                + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(0) 
+                + " = ?";
+
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, auftragswert);
+            stmt.setString(2, gpID);
+
+            stmt.executeUpdate();
+            con.commit();
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+            con.rollback();
+        }
+    }
+    
 }
