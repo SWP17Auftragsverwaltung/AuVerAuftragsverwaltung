@@ -1003,6 +1003,7 @@ public class AuftraegeController implements Initializable {
             = FXCollections.observableArrayList(
                     akd.gibAlleGeschaeftspartnerKunde());
         tvAuftragskopf.setItems(auftragskopf);
+        this.auftraegeTP.setText("Lieferaufträge");
     } 
     
 
@@ -1025,6 +1026,7 @@ public class AuftraegeController implements Initializable {
             = FXCollections.observableArrayList(
                     akp.gibAlleGeschaeftspartnerLieferant());
         tvAuftragskopf.setItems(auftragskopf);
+        this.auftraegeTP.setText("Bestellaufträge");
     }    
     
     
@@ -1107,6 +1109,7 @@ public class AuftraegeController implements Initializable {
     public void setzeSucheZurueck() throws SQLException {
         this.tfSuchbegriff.setText("");
         this.cbSuchfeldAuftraege.setValue(null);
+        this.auftraegeTP.setText("Aufträge");
         setTableContent();
     }
     
@@ -1899,7 +1902,6 @@ public class AuftraegeController implements Initializable {
     @FXML
     public void speichereAenderungAuftragskopf() throws SQLException { 
         AuftragskopfDAO akd = new AuftragskopfDAO();
-        
         String auftragskopfID = tfAuftragskopf.getText();
         String auftragstext = tfText.getText();
         String partnerID = tfPartnerID.getText();
@@ -1925,16 +1927,19 @@ public class AuftraegeController implements Initializable {
         String art = cbAuftragsart.getValue();
         String lkz = "N";
         boolean istVerfuegbar; 
+        boolean hatKredit;
         String rechnung;   
         
         //Falls Status von E nach F gewechselt wird, wird geprüft, ob der freie
         //Bestand ausreicht. Falls JA: wird FREI und RES berechnet.
         if (statusAlt.equals("E") && statusNeu.equals("F")) {
             istVerfuegbar = bestandVerfuegbar(auftragskopfID);
+            hatKredit = kreditVerfuegbar(auftragskopfID, partnerID);
             
-            if (istVerfuegbar) {
+            if (istVerfuegbar && hatKredit) {
                 rechnung = "addition";
                 berechneMengeFreiRes(auftragskopfID, rechnung);
+                berechneKreditlimit(auftragswert, partnerID, rechnung);
             
             } else {
                 //Buttons aktivieren / deaktivieren
@@ -1957,6 +1962,7 @@ public class AuftraegeController implements Initializable {
         } else if (statusAlt.equals("F") && statusNeu.equals("E")) {
             rechnung = "subtraktion";
             berechneMengeFreiRes(auftragskopfID, rechnung);
+            berechneKreditlimit(auftragswert, partnerID, rechnung);
           
         //Falls Status von F nach A gewechsetl wird, werden die Mengen RES
         //und VER berechnet.
@@ -2120,6 +2126,158 @@ public class AuftraegeController implements Initializable {
         }
     }
     
+
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 13.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Berechnet die Bestandsmenge ZULAUF anhand der Positionen eines Auftrags.
+     * @param auftragskopfID Auftrag, mit dessen Positionen die Bestände 
+     * berechnet werden.
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public void berechneMengeZulauf(String auftragskopfID) 
+            throws SQLException {
+        AuftragspositionDAO apd = new AuftragspositionDAO();
+        ArtikelDAO artd = new ArtikelDAO();
+        
+        ArrayList<Auftragsposition> auftragspositionen;
+        auftragspositionen 
+            = apd.gibAuftragspositionenZuAuftrag(auftragskopfID);
+        
+        String artikelID;
+        String mengeZulaufPos;
+        String mengeZulaufAlt;
+        String mengeZulaufNeu;       
+        
+        for (int i = 0; i < auftragspositionen.size(); i++) {
+            //ArtikelID und Menge des Artikels der Positionen holen
+            artikelID = auftragspositionen.get(i).getArtikelID();
+            mengeZulaufPos = auftragspositionen.get(i).getMenge();
+            mengeZulaufAlt = artd.gibMengeZulauf(artikelID);
+         
+            //Menge der Position mit alter Menge VERKAUFT in DB verrechnen
+            int mengeZulaufPosInt =  Integer.parseInt(mengeZulaufPos);
+            int mengeZulaufAltInt = Integer.parseInt(mengeZulaufAlt);
+            int mengeZulaufNeuInt = mengeZulaufPosInt + mengeZulaufAltInt;
+            mengeZulaufNeu = String.valueOf(mengeZulaufNeuInt);
+             
+            artd.setzeMengeZulauf(artikelID, mengeZulaufNeu);
+        }
+    }      
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 13.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Berechnet die Bestandsmenge RESERVIERT und VERKAUFT.
+     * @param auftragskopfID Auftrag, mit dessen Positionen die Bestände 
+     * berechnet werden.
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public void berechneMengeZulaufFrei(String auftragskopfID) 
+            throws SQLException {
+        AuftragspositionDAO apd = new AuftragspositionDAO();
+        ArtikelDAO artd = new ArtikelDAO();
+        
+        ArrayList<Auftragsposition> auftragspositionen;
+        auftragspositionen 
+            = apd.gibAuftragspositionenZuAuftrag(auftragskopfID);
+        
+        String artikelID;
+        String mengePosition;
+        String mengeZulaufAlt;
+        String mengeZulaufNeu;
+        String mengeFreiAlt;
+        String mengeFreiNeu;       
+        
+        for (int i = 0; i < auftragspositionen.size(); i++) {
+            //ArtikelID und Menge des Artikels der Positionen holen
+            artikelID = auftragspositionen.get(i).getArtikelID();
+            mengePosition = auftragspositionen.get(i).getMenge();
+            
+            //Menge FREI und RESERVIERT zu der Position aus DB holen
+            mengeZulaufAlt = artd.gibMengeZulauf(artikelID);
+            mengeFreiAlt = artd.gibMengeFrei(artikelID);
+            
+            //Menge der Position mit alter Menge VERKAUFT in DB verrechnen
+            int mengePositionInt =  Integer.parseInt(mengePosition);
+            int mengeZulaufAltInt = Integer.parseInt(mengeZulaufAlt);
+            int mengeZulaufNeuInt = mengeZulaufAltInt - mengePositionInt;
+            mengeZulaufNeu = String.valueOf(mengeZulaufNeuInt);
+            
+            //Menge der Position mit alter Menge RES verrechnen
+            int mengeFreiAltInt = Integer.parseInt(mengeFreiAlt);
+            int mengeFreiNeuInt = mengeFreiAltInt + mengePositionInt;
+            mengeFreiNeu = String.valueOf(mengeFreiNeuInt);
+            
+            artd.setzeMengeZulaufFrei(artikelID, mengeFreiNeu, mengeZulaufNeu);
+        }
+    }    
+    
+    
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 13.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Berechnet das Kreditlimit eines ausgewählten Geschäftsparnters.
+     * @param auftragswert Auftragswert der berechnet wird.
+     * @param gpID Geschäftspartner dessen Kreditlimit berechnet wird
+     * @param rechnung Gibt an ob Addition oder Subtraktion
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public void berechneKreditlimit(String auftragswert, String gpID, 
+        String rechnung) 
+        throws SQLException {
+        GeschaeftspartnerDAO gpd = new GeschaeftspartnerDAO();
+        
+        String kreditlimit; 
+        String kreditlimitNeu;    
+        kreditlimit = gpd.gibKreditlimit(gpID);
+        
+        //Additionsrechnung für das Kreditlimit.
+        if (rechnung.equals("addition")) {         
+            //Altes Kreditlimit mit neuem in DB verrechnen
+            double kreditlimitDouble =  Double.parseDouble(kreditlimit);
+            double auftragswertDouble = Double.parseDouble(auftragswert);
+            kreditlimitDouble = kreditlimitDouble - auftragswertDouble;
+            
+            kreditlimitDouble = kreditlimitDouble * 100;
+            kreditlimitDouble = Math.round(kreditlimitDouble);
+            kreditlimitDouble = kreditlimitDouble / 100;  
+            
+            kreditlimitNeu = String.valueOf(kreditlimitDouble);
+
+            gpd.setzeKreditlmit(kreditlimitNeu, gpID);
+
+        //Subtraktionsrechnung für die Mengen FREI und RES.
+        } else if (rechnung.equals("subtraktion")) {
+            //Altes Kreditlimit mit neuem in DB verrechnen
+            double kreditlimitDouble =  Double.parseDouble(kreditlimit);
+            double auftragswertDouble = Double.parseDouble(auftragswert);
+            kreditlimitDouble = kreditlimitDouble + auftragswertDouble;
+            
+            kreditlimitDouble = kreditlimitDouble * 100;
+            kreditlimitDouble = Math.round(kreditlimitDouble);
+            kreditlimitDouble = kreditlimitDouble / 100;   
+            
+            kreditlimitNeu = String.valueOf(kreditlimitDouble);
+           
+            gpd.setzeKreditlmit(kreditlimitNeu, gpID);
+        }
+        
+    }   
+    
     
     
     /*------------------------------------------------------------------------*/
@@ -2166,13 +2324,61 @@ public class AuftraegeController implements Initializable {
                 alert.initStyle(StageStyle.UTILITY);
                 alert.setTitle("Information zum Bestand");
                 alert.setHeaderText("Der Bestand des Artikels " + artikelID 
-                    + " ist zu niedrig!");
+                    + " ist zu niedrig!" + "\n\n" + mengePosition + " gewählt\n" 
+                    + mengeFreiAlt + " verfügbar");
                 alert.showAndWait();
             }      
         }
         
         return bestandVerfuegbar;
     }       
+
+
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 13.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Prüft, ob das Kreditlmit des Kunden ausreicht.
+     * @param auftragskopfID Auftrag, mit dessen Positionen das Kreditlimit
+     * geprüft wird.
+     * @param gpID GeschäftspartnerID
+     * @return True, falls Kredit ausreicht, False, wenn nicht
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public boolean kreditVerfuegbar(String auftragskopfID, String gpID) 
+            throws SQLException {
+        boolean kreditVerfuegbar = true;
+        GeschaeftspartnerDAO gpd = new GeschaeftspartnerDAO();
+        AuftragskopfDAO akd = new AuftragskopfDAO();   
+
+        String auftragswert;
+        String kreditlimit;
+        
+        auftragswert = akd.gibAuftragswert(auftragskopfID);
+        kreditlimit = gpd.gibKreditlimit(gpID);
+
+        //Wert und Limit nach INT / Double casten
+        double auftragswertDouble = Double.parseDouble(auftragswert);
+        double kreditlimitInt = Double.parseDouble(kreditlimit);
+
+        if (kreditlimitInt > auftragswertDouble) {
+            kreditVerfuegbar = true;  
+          
+        } else {
+            kreditVerfuegbar = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Information zum Bestand");
+            alert.setHeaderText("Das Kreditlimit vom Geschäftspartner" + gpID 
+                + " reicht nicht aus!");
+            alert.showAndWait();
+        }      
+         
+        return kreditVerfuegbar;
+    } 
     
     
 }

@@ -606,13 +606,58 @@ public class ArtikelDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
+    /* 06.09.17    BER     Erstellt.
+    /*------------------------------------------------------------------------*/
+     
+    /**
+     * Gibt die Menge ZULAUF zu einem bestimmten Artikel.
+     * @param artikelID Artikel dessen Menge ZULAUF wiedergegeben werden soll.
+     * @return Gibt die Menge ZULAUF wieder.
+     */
+    public String gibMengeZulauf(String artikelID) {
+        PreparedStatement  stmt = null;
+        ResultSet rs = null;  
+        String menge = "";
+        
+        String query = "SELECT " + attribute.get(TAB_ARTIKEL).get(8) 
+            + " FROM ROOT." + ddd.getTabArtikel() 
+            + " WHERE " + attribute.get(TAB_ARTIKEL).get(0) + " = ?"
+            + " AND " + attribute.get(TAB_ARTIKEL).get(10) + " = ?";
+
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, artikelID);
+            stmt.setString(2, "N");
+            rs = stmt.executeQuery();
+            con.commit();
+            
+            while (rs.next()) {
+                menge = rs.getString(1);
+            }
+        
+        //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "\n Menge ZULAUF konnte nicht"
+                + " ausgegeben werden.");
+            alert.showAndWait();
+        } 
+        return menge;
+    }   
+
+
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
     /* 07.09.17    BER     Erstellt.
     /*------------------------------------------------------------------------*/
      
     /**
      * Gibt die Menge VERKAUFT zu einem bestimmten Artikel.
-     * @param artikelID Artikel dessen Menge FREI wiedergegeben werden soll.
-     * @return Gibt die Menge RESERVIERT wieder.
+     * @param artikelID Artikel dessen Menge VERKAUFT wiedergegeben werden soll.
+     * @return Gibt die Menge VERKAUFT wieder.
      */
     public String gibMengeVerkauft(String artikelID) {
         PreparedStatement  stmt = null;
@@ -760,7 +805,110 @@ public class ArtikelDAO extends DataAccess {
             con.rollback();
         }
     }
+
+
+
+    /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 13.09.17     HEN     Erstellt.     
+    /*------------------------------------------------------------------------*/
+        
+    /**
+     * Berechnet die Menge ZULAUF eines eingegebenen Artikels 
+     * mit der eingegebenen Menge.
+     * @param artikelID Artikel dessen Bestand berechnet werden soll.
+     * @param mengeZulauf Menge, mit der der Bestand ZULAUF berechnet wird
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public void setzeMengeZulauf(
+            String artikelID, String mengeZulauf) throws SQLException {
+        PreparedStatement stmt = null;
+        String query;
+        
+        try {
+            con.setAutoCommit(false);
+            
+            query = "UPDATE ROOT." + ddd.getTabArtikel() 
+                + " SET " + attribute.get(TAB_ARTIKEL).get(8) + " = ?"
+                + " WHERE " + attribute.get(TAB_ARTIKEL).get(0) + " = ?"
+                + " AND " + attribute.get(TAB_ARTIKEL).get(10) + " = ?"; 
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, mengeZulauf);
+            stmt.setString(2, artikelID);
+            stmt.setString(3, "N");            
+            stmt.executeUpdate();
+            
+            con.commit();
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "\n Menge: ZULAUF konnte nicht"
+                + " gesetzt werden.");
+            alert.showAndWait();
+            con.rollback();
+        }
+    }    
+
     
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 13.09.17     HEN     Erstellt.     
+    /*------------------------------------------------------------------------*/
+        
+    /**
+     * Berechnet die Menge FREI und ZULAUF eines eingegebenen Artikels 
+     * mit der eingegebenen Menge.
+     * @param artikelID Artikel dessen Bestand berechnet werden soll.
+     * @param mengeFrei Menge, mit der der Bestand FREI berechnet wird
+     * @param mengeZulauf Menge, mit der der Bestand ZULAUF berechnet wird
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public void setzeMengeZulaufFrei(
+            String artikelID, String mengeFrei, String mengeZulauf) 
+            throws SQLException {
+        PreparedStatement stmt = null;
+        String query;
+        
+        try {
+            con.setAutoCommit(false);
+
+            query = "UPDATE ROOT." + ddd.getTabArtikel() 
+                + " SET " + attribute.get(TAB_ARTIKEL).get(6) + " = ?"
+                + " WHERE " + attribute.get(TAB_ARTIKEL).get(0) + " = ?"
+                + " AND " + attribute.get(TAB_ARTIKEL).get(10) + " = ?";      
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, mengeFrei);
+            stmt.setString(2, artikelID);
+            stmt.setString(3, "N");
+            stmt.executeUpdate();
+            
+            
+            query = "UPDATE ROOT." + ddd.getTabArtikel() 
+                + " SET " + attribute.get(TAB_ARTIKEL).get(8) + " = ?"
+                + " WHERE " + attribute.get(TAB_ARTIKEL).get(0) + " = ?"
+                + " AND " + attribute.get(TAB_ARTIKEL).get(10) + " = ?"; 
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, mengeZulauf);
+            stmt.setString(2, artikelID);
+            stmt.setString(3, "N");            
+            stmt.executeUpdate();
+            
+            con.commit();
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "\n Mengen: FREI und ZULAUF "
+                + " konnten nicht gesetzt werden.");
+            alert.showAndWait();
+            con.rollback();
+        }
+    }
+
     
     
     /*------------------------------------------------------------------------*/

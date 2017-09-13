@@ -87,8 +87,8 @@
             <ComboBox fx:id="cbSuchfeldAuftraege" layoutX="25.0" layoutY="115.0" prefHeight="25.0" prefWidth="150.0" promptText="Bitte wählen..." />
             <Label layoutX="192.0" layoutY="99.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
             <TextField fx:id="tfSuchbegriff" layoutX="192.0" layoutY="115.0" onAction="#auftragSuchen" />
-            <Button fx:id="btLieferanten" layoutX="25.0" layoutY="49.0" mnemonicParsing="false" onAction="#setTableContentLieferanten" prefHeight="25.0" prefWidth="160.0" text="Lieferanten anzeigen" />
-            <Button fx:id="btKunden" layoutX="25.0" layoutY="14.0" mnemonicParsing="false" onAction="#setTableContentKunden" prefHeight="25.0" prefWidth="160.0" text="Kunden anzeigen" />
+            <Button fx:id="btLieferanten" layoutX="25.0" layoutY="49.0" mnemonicParsing="false" onAction="#setTableContentLieferanten" prefHeight="25.0" prefWidth="160.0" text="Bestellaufträge anzeigen" />
+            <Button fx:id="btKunden" layoutX="25.0" layoutY="14.0" mnemonicParsing="false" onAction="#setTableContentKunden" prefHeight="25.0" prefWidth="160.0" text="Lieferaufträge anzeigen" />
             <Button fx:id="btSucheZuruecksetzen" layoutX="540.0" layoutY="114.0" mnemonicParsing="false" onAction="#setzeSucheZurueck" prefHeight="25.0" prefWidth="160.0" text="Suche Zurücksetzen" />
          </children>
       </AnchorPane>

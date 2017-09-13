@@ -541,13 +541,61 @@ public class AuftragskopfDAO extends DataAccess {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText(e.getMessage() + "\n Der Auftragssatus konnte"
+                + " nicht abgerufen werden!");
             alert.showAndWait();
             con.rollback();
         }
         return status;
     }    
-  
+ 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 13.09.17     HEN     Erstellt.    
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Gibt den Auftragswert zu einem bestimmten Auftrag.
+     * @param auftragskopfID Auftrags für den der Status ausgegeben werden soll.
+     * @return Auftragswert
+     * @throws java.sql.SQLException SQLFehler
+     */    
+    public String gibAuftragswert(String auftragskopfID) throws SQLException {
+        PreparedStatement stmt = null;
+        String wert = "";
+        ResultSet rs = null;
+        
+        String query = "SELECT " + attribute.get(TAB_AUFTRAGSKOPF).get(8) 
+            + " FROM ROOT." + ddd.getTabAuftragskopf() 
+            + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) + " = ?"
+            + " AND " + attribute.get(TAB_AUFTRAGSKOPF).get(9) + " = ?";
+        
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, auftragskopfID);
+            stmt.setString(2, "N");
+            rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                wert = rs.getString(1);           
+            }
+           
+            con.commit();
+            
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "\n Der Auftragswert konnte"
+                + " nicht abgerufen werden.");
+            alert.showAndWait();
+            con.rollback();
+        }
+        return wert;
+    }     
+    
     
     
     /*------------------------------------------------------------------------*/
