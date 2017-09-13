@@ -34,7 +34,6 @@ import de.jollyday.HolidayManager;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -1067,27 +1066,7 @@ public class AdressverwaltungController implements Initializable {
         Matcher m = p.matcher(tfDatum.getText());
 
         if (m.find() && m.group().equals(tfDatum.getText())) {
-            
-            if (pruefeAufFeiertag()) {
-                String datum = "";
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.initStyle(StageStyle.UTILITY);
-                alert.setTitle("Information");
-                alert.setHeaderText(
-                        "Achtung: Das heutige Datum fällt auf einen Feiertag!");
-                alert.showAndWait();
-                
-                datum = aktualisiereDatum();
-                  
-                this.tfDatum.setText(datum);
-                
-            } else {
-                
-                istValidiert = true;
-            }
-            
-            
-            
+            istValidiert = true;
         } else {
 
             Alert alert = new Alert(AlertType.WARNING);
@@ -1111,17 +1090,16 @@ public class AdressverwaltungController implements Initializable {
      */
     public String gibDatum() {
 
-        GregorianCalendar aktuellesDatum = new GregorianCalendar();
-        aktuellesDatum.setTimeZone(TimeZone.getTimeZone("CET"));
-        aktuellesDatum.getTime();
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTimeZone(TimeZone.getTimeZone("CET"));
+        cal.getTime();
         DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
         String datum = "";
 
-        if (aktuellesDatum.get(GregorianCalendar.DAY_OF_WEEK)
+        if (cal.get(GregorianCalendar.DAY_OF_WEEK)
                 == GregorianCalendar.SATURDAY) {
 
-            aktuellesDatum.add(GregorianCalendar.DATE, 2);
-
+            cal.add(GregorianCalendar.DATE, 2);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -1130,11 +1108,10 @@ public class AdressverwaltungController implements Initializable {
                     "Achtung: Das heutige Datum fällt auf ein Wochenende!!!");
             alert.showAndWait();
 
-        } else if (aktuellesDatum.get(GregorianCalendar.DAY_OF_WEEK)
+        } else if (cal.get(GregorianCalendar.DAY_OF_WEEK)
                 == GregorianCalendar.SUNDAY) {
 
-            aktuellesDatum.add(GregorianCalendar.DATE, 1);
-
+            cal.add(GregorianCalendar.DATE, 1);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -1142,10 +1119,8 @@ public class AdressverwaltungController implements Initializable {
             alert.setHeaderText(
                     "Achtung: Das heutige Datum fällt auf ein Wochenende!!!");
             alert.showAndWait();
-            
-            
 
-        } else if (istFeiertag(aktuellesDatum)) {
+        } else if (istFeiertag(cal)) {
             
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -1153,52 +1128,15 @@ public class AdressverwaltungController implements Initializable {
             alert.setHeaderText(
                     "Achtung: Das heutige Datum fällt auf einen Feiertag!");
             alert.showAndWait();
-            
-            aktualisiereDatum();
-            
+          
+            while(pruefeAufFeiertag()) {
+                
+                cal.add(GregorianCalendar.DATE, 1);
+            }
         }
-        datum = df.format(aktuellesDatum.getTime());
+        datum = df.format(cal.getTime());
 
         return datum;
-    }
-    
-    public String aktualisiereDatum(){
-        
-        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
-        String neuesDatum = "";
-        String datum = this.tfDatum.getText();
-        StringTokenizer st 
-                = new StringTokenizer(datum , ".", false);
-        
-        int year = 0;
-        int month = 0;
-        int day = 0;
-        
-        
-        while (st.hasMoreTokens()) {
-            
-            String tag = st.nextToken();
-            String monat = st.nextToken();
-            String jahr =  st.nextToken();
-                
-            year = Integer.parseInt(jahr);
-            month = Integer.parseInt(monat);
-            day = Integer.parseInt(tag); 
-            
-        }
-        GregorianCalendar eingegebenesDatum = new GregorianCalendar();    
-        month = month - 1;
-        
-        eingegebenesDatum.clear();
-        eingegebenesDatum.setTimeZone(TimeZone.getTimeZone("CET"));
-        eingegebenesDatum.set(year, month, day);
-        eingegebenesDatum.getTime();
-        
-        eingegebenesDatum.add(GregorianCalendar.DATE, 1);
-        
-        neuesDatum = df.format(eingegebenesDatum.getTime());
-        return neuesDatum;
-        
     }
     
     public boolean istFeiertag(GregorianCalendar cal) {
@@ -1224,20 +1162,21 @@ public class AdressverwaltungController implements Initializable {
         return istFeiertag;
     }
     
-    public boolean pruefeAufFeiertag() {
-        
-        boolean istFeiertag;
-        String datum = this.tfDatum.getText();
-        StringTokenizer st 
-                = new StringTokenizer(datum , ".", false);
-        
+    /**
+     * Prüft das eingegebene Datum ob es ein Feiertag ist.
+     * @return 
+     */
+    private boolean pruefeAufFeiertag() {
+        boolean istFeiertag = false;
         int year = 0;
         int month = 0;
         int day = 0;
         
+        StringTokenizer st 
+                = new StringTokenizer(this.tfDatum.getText(), ".", false);
         
+        //Datum in cal Objekt packen.
         while (st.hasMoreTokens()) {
-            
             String tag = st.nextToken();
             String monat = st.nextToken();
             String jahr =  st.nextToken();
@@ -1245,25 +1184,23 @@ public class AdressverwaltungController implements Initializable {
             year = Integer.parseInt(jahr);
             month = Integer.parseInt(monat);
             day = Integer.parseInt(tag); 
-            
         }
-        
-        
-        Calendar kalender = GregorianCalendar.getInstance();
-        kalender.clear();
-        kalender.setTimeZone(TimeZone.getTimeZone("CET"));
+            
+        GregorianCalendar cal = new GregorianCalendar();    
         month = month - 1;
-        kalender.set(year, month, day);
-        kalender.getTime();
+        cal.clear();
+        cal.setTimeZone(TimeZone.getTimeZone("CET"));
+        cal.set(year, month, day);
+        cal.getTime();
         
         HolidayManager manager 
             = HolidayManager.getInstance(HolidayCalendar.GERMANY);
     
-        istFeiertag = manager.isHoliday(kalender);   
+        istFeiertag = manager.isHoliday(cal);       
+        
         
         return istFeiertag;
     }
-
     /**
      * Prüft das Datuma ob es in der Vergangenheit liegt.
      * @return true wenn es in der Vergangenheit liegt false  wenn nicht.
