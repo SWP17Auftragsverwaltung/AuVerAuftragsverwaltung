@@ -1025,6 +1025,7 @@ public class SucheDAO extends DataAccess {
         for (int i = 0; i < suchbegriff.length(); i++) {
             if (suchbegriff.charAt(i) == '*') {
                 neuerSuchbegriff.setCharAt(i, '%');
+            
             } else if (suchbegriff.charAt(i) == '?') {
                 neuerSuchbegriff.setCharAt(i, '_');
             }
@@ -1034,8 +1035,8 @@ public class SucheDAO extends DataAccess {
             if (suchkriterium.equals("AuftragskopfID")) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf()
-                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
-                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
+                    + ") LIKE LOWER('%" + neuerSuchbegriff + "%') AND " 
                     + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
                     + " LIKE 'N'";
                 stmt = con.createStatement();
@@ -1054,8 +1055,8 @@ public class SucheDAO extends DataAccess {
             } else if (suchkriterium.equals("GeschäftspartnerID")) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
-                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(1) 
-                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(1) 
+                    + ") LIKE LOWER('%" + neuerSuchbegriff + "%') AND " 
                     + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
                     + " LIKE 'N'";
                 stmt = con.createStatement();
@@ -1074,8 +1075,8 @@ public class SucheDAO extends DataAccess {
             } else if (suchkriterium.equals("Auftragstext")) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
-                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(2) 
-                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(2) 
+                    + ") LIKE LOWER('%" + neuerSuchbegriff + "%') AND " 
                     + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
                     + " LIKE 'N'";
                 stmt = con.createStatement();
@@ -1094,8 +1095,8 @@ public class SucheDAO extends DataAccess {
             } else if (suchkriterium.equals("Erfassungsdatum")) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
-                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(3) 
-                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(3) 
+                    + ") LIKE LOWER('%" + neuerSuchbegriff + "%') AND "
                     + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
                     + " LIKE 'N'";
                 stmt = con.createStatement();
@@ -1114,8 +1115,8 @@ public class SucheDAO extends DataAccess {
             } else if (suchkriterium.equals("Lieferdatum")) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
-                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(4) 
-                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(4) 
+                    + ") LIKE LOWER('%" + neuerSuchbegriff + "%') AND " 
                     + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
                     + " LIKE 'N'";
                 stmt = con.createStatement();
@@ -1134,8 +1135,8 @@ public class SucheDAO extends DataAccess {
             } else if (suchkriterium.equals("Abschlussdatum")) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
-                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(5) 
-                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(5) 
+                    + ") LIKE LOWER('%" + neuerSuchbegriff + "%') AND " 
                     + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
                     + " LIKE 'N'";
                 stmt = con.createStatement();
@@ -1154,8 +1155,8 @@ public class SucheDAO extends DataAccess {
             } else if (suchkriterium.equals("Status")) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
-                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(6) 
-                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(6) 
+                    + ") LIKE LOWER('%" + neuerSuchbegriff + "%') AND " 
                     + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
                     + " LIKE 'N'";
                 stmt = con.createStatement();
@@ -1174,8 +1175,8 @@ public class SucheDAO extends DataAccess {
             } else if (suchkriterium.equals("Auftragsart")) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
-                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(7) 
-                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(7) 
+                    + ") LIKE LOWER('%" + neuerSuchbegriff + "%') AND " 
                     + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
                     + " LIKE 'N'";
                 stmt = con.createStatement();
@@ -1194,8 +1195,8 @@ public class SucheDAO extends DataAccess {
             } else if (suchkriterium.equals("Auftragswert")) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
-                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(8) 
-                    + " LIKE '" + neuerSuchbegriff + "' AND " 
+                    + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(8) 
+                    + ") LIKE LOWER('%" + neuerSuchbegriff + "%') AND " 
                     + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
                     + " LIKE 'N'";
                 stmt = con.createStatement();

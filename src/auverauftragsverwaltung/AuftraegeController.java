@@ -573,6 +573,12 @@ public class AuftraegeController implements Initializable {
     @FXML
     private Button btKunden;
     
+    /**
+     * Buttom, um die Auftragssuche zurückzusetzen.
+     */
+    @FXML
+    private Button btSucheZuruecksetzen;
+    
     
     
     /**
@@ -581,7 +587,6 @@ public class AuftraegeController implements Initializable {
      * @param event ActionEvent zur Prüfung ob der "Auftrag suchen" -
      *              Button getätigt wurde.
      */
-    @FXML
     public void sucheAuftrag(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
@@ -1013,6 +1018,7 @@ public class AuftraegeController implements Initializable {
      * OberservableList, die dann an die TableView übergeben wird.
      * @throws java.sql.SQLException SQLFehler
     */
+    @FXML
     public void setTableContentLieferanten() throws SQLException {
         AuftragskopfDAO akp = new AuftragskopfDAO();
         ObservableList<Auftragskopf> auftragskopf
@@ -1085,6 +1091,24 @@ public class AuftraegeController implements Initializable {
         tvArtikelauswahl.setItems(artikel);
     }      
     
+
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 13.09.17    HEN     Methode erstellt.
+    /* 13.09.17    HEN     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Setzt die Suche zurück.
+     * @throws java.sql.SQLException SQLFehler
+     */
+    @FXML
+    public void setzeSucheZurueck() throws SQLException {
+        this.tfSuchbegriff.setText("");
+        this.cbSuchfeldAuftraege.setValue(null);
+        setTableContent();
+    }
     
     
     /*------------------------------------------------------------------------*/
