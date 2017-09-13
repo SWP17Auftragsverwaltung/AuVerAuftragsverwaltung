@@ -655,7 +655,8 @@ public class AuftragskopfDAO extends DataAccess {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText(e.getMessage() + "\n Geschäftspartner K konnten"
+                + " nicht abgerufen werden.");
             alert.showAndWait();
             con.rollback();
         }
@@ -721,12 +722,65 @@ public class AuftragskopfDAO extends DataAccess {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText(e.getMessage() + "\n Geschäftspartner L konnten"
+                + " nicht abgerufen werden.");
             alert.showAndWait();
             con.rollback();
         }
         return auftragskopfListe;
     }          
+
+        
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 13.09.17    Hen     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Gibt den Typen der Geschäftspartner wieder.
+     * @return Typ des Geschäftspartners
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public String gibGeschaeftspartnerTyp(String gpID) throws SQLException {
+
+        //Variablendeklaration
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String typ = "";
+
+        String query = "SELECT ROOT." + ddd.getTabGeschaeftspartner() + "." 
+            + attribute.get(TAB_GESCHAEFTSPARTNER).get(1)
+            + " FROM ROOT." + ddd.getTabAuftragskopf()
+            + " JOIN ROOT." + ddd.getTabGeschaeftspartner()
+            + " ON ROOT." + ddd.getTabAuftragskopf() + "." 
+            + attribute.get(TAB_AUFTRAGSKOPF).get(1) + " = " 
+            + " ROOT." + ddd.getTabGeschaeftspartner() + "." 
+            + attribute.get(TAB_GESCHAEFTSPARTNER).get(0) 
+            + " AND ROOT." + ddd.getTabAuftragskopf() + "." 
+            + attribute.get(TAB_AUFTRAGSKOPF).get(1) + " = ?";     
+         
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, gpID);
+            rs = stmt.executeQuery();
+
+            con.commit();
+            while (rs.next()) {
+                typ = rs.getString(1);
+            }
+          //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "\n Geschäftspartnertyp konnte"
+                + " nicht abgerufen werden.");
+            alert.showAndWait();
+            con.rollback();
+        }
+        return typ;
+    }   
         
         
 }

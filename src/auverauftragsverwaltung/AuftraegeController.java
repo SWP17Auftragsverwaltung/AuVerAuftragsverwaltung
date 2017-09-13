@@ -635,6 +635,16 @@ public class AuftraegeController implements Initializable {
     public void closeAuftraegspositionAnzeigen(ActionEvent event) {
         this.paneAuftraege.setVisible(true);
         this.paneAuftragspositionen.setVisible(false);
+        this.paneGP.setVisible(false);
+        this.paneAPD.setDisable(true);
+        this.pane.setVisible(true);
+        this.btAendern.setVisible(true);
+        this.btAendern.setDisable(true);
+        this.btSpeichern.setVisible(false);
+        this.btAnlegen.setDisable(false);
+        this.btLoeschen.setDisable(true);
+        this.btAuftragspositionen.setDisable(true);
+        this.btAbbrechen.setDisable(true);
     }
     
     
@@ -1283,6 +1293,11 @@ public class AuftraegeController implements Initializable {
             this.btLoeschen.setDisable(true);
             this.btAuftragspositionen.setDisable(false);        
         
+        } else if (a.getStatus().equals("F")) {    
+            this.btAendern.setDisable(false);
+            this.btLoeschen.setDisable(true);
+            this.btAuftragspositionen.setDisable(false); 
+            
         } else {
             this.btAendern.setDisable(false);
             this.btLoeschen.setDisable(false);
@@ -1361,7 +1376,8 @@ public class AuftraegeController implements Initializable {
             this.tfMwStAPD.setText(ard.gibArtikelSteuer(ap.getArtikelID()));
             this.btAbbrechenAPD.setDisable(true);
                         
-            if (this.cbAuftragsstatus.getValue().equals("Abgeschlossen")) { 
+            if (this.cbAuftragsstatus.getValue().equals("Abgeschlossen") 
+                || this.cbAuftragsstatus.getValue().equals("Freigegeben")) { 
                 this.btAnlegenAPD.setDisable(true);
                 this.btBearbeitenAPD.setDisable(true);
                 this.btLoeschenAPD.setDisable(true);
@@ -1602,8 +1618,9 @@ public class AuftraegeController implements Initializable {
         this.paneArtikelauswahl.setVisible(true);
         this.btAnlegenAPD.setVisible(false);
         this.btHinzufuegenAPD.setVisible(true);
-        this.btAbbrechenAPD.setDisable(true);
+        this.btAbbrechenAPD.setDisable(false);
         this.btLoeschenAPD.setDisable(true);
+        this.btBearbeitenAPD.setDisable(true);
         
         AuftragspositionDAO apd = new AuftragspositionDAO();
         String auftragskopfID = tfAuftragskopfIDPOS.getText();
@@ -1654,6 +1671,8 @@ public class AuftraegeController implements Initializable {
         this.paneAuftragsposition.setVisible(true);
         this.btHinzufuegenAPD.setVisible(false);
         this.btAnlegenAPD.setVisible(true);
+        this.btBearbeitenAPD.setDisable(true);
+        this.btAbbrechenAPD.setDisable(true);
     }
 
     
@@ -1712,7 +1731,8 @@ public class AuftraegeController implements Initializable {
         tfLieferdatumPOS.setText(tfLieferdatum.getText());
         setTableContentPositionen();
         
-        if (this.cbAuftragsstatus.getValue().equals("Abgeschlossen")) {
+        if (this.cbAuftragsstatus.getValue().equals("Abgeschlossen")
+            || this.cbAuftragsstatus.getValue().equals("Freigegeben")) {
             this.paneAuftraege.setVisible(false);
             this.paneAuftragspositionen.setVisible(true);
             this.paneArtikelauswahl.setVisible(false);
@@ -1757,6 +1777,7 @@ public class AuftraegeController implements Initializable {
         this.btLoeschenAPD.setDisable(true);
         this.tfMengeAPD.requestFocus();
         tvAuftragsposition.setMouseTransparent(true);
+        this.btAbbrechenAPD.setDisable(false);
     }
     
 
@@ -1926,50 +1947,75 @@ public class AuftraegeController implements Initializable {
         }
         String art = cbAuftragsart.getValue();
         String lkz = "N";
+        
+        String partnerTyp = akd.gibGeschaeftspartnerTyp(partnerID);
         boolean istVerfuegbar; 
         boolean hatKredit;
         String rechnung;   
         
-        //Falls Status von E nach F gewechselt wird, wird geprüft, ob der freie
-        //Bestand ausreicht. Falls JA: wird FREI und RES berechnet.
-        if (statusAlt.equals("E") && statusNeu.equals("F")) {
-            istVerfuegbar = bestandVerfuegbar(auftragskopfID);
-            hatKredit = kreditVerfuegbar(auftragskopfID, partnerID);
+        if(partnerTyp.equals("K")) {
+            //Falls Status von E nach F gewechselt wird, wird geprüft, ob der 
+            //freie Bestand ausreicht. Falls JA: wird FREI und RES berechnet.
+            if (statusAlt.equals("E") && statusNeu.equals("F")) {
+                istVerfuegbar = bestandVerfuegbar(auftragskopfID);
+                hatKredit = kreditVerfuegbar(auftragskopfID, partnerID);
             
-            if (istVerfuegbar && hatKredit) {
-                rechnung = "addition";
+                if (istVerfuegbar && hatKredit) {
+                    rechnung = "addition";
+                    berechneMengeFreiRes(auftragskopfID, rechnung);
+                    berechneKreditlimit(auftragswert, partnerID, rechnung);
+            
+                } else {
+                    //Buttons aktivieren / deaktivieren
+                    this.pane.setVisible(true);
+                    this.btAendern.setVisible(true);
+                    this.btAendern.setDisable(true);
+                    this.btSpeichern.setVisible(false);
+                    this.btAnlegen.setDisable(false);
+                    this.btAbbrechen.setDisable(true);
+                    tvAuftragskopf.setMouseTransparent(false);  
+                    tvAuftragskopf.getSelectionModel().select(-1);
+                    clearAuftragskopfTextFields();
+                    refreshAuftragskopfTable();
+                
+                    return;
+                }
+          
+            //Falls Status von F zurück nach E gewechselt wird, werden die 
+            //Mengen von FREI und RES wieder zurückgerechnet.
+            } else if (statusAlt.equals("F") && statusNeu.equals("E")) {
+                rechnung = "subtraktion";
                 berechneMengeFreiRes(auftragskopfID, rechnung);
                 berechneKreditlimit(auftragswert, partnerID, rechnung);
-            
-            } else {
-                //Buttons aktivieren / deaktivieren
-                this.pane.setVisible(true);
-                this.btAendern.setVisible(true);
-                this.btAendern.setDisable(true);
-                this.btSpeichern.setVisible(false);
-                this.btAnlegen.setDisable(false);
-                this.btAbbrechen.setDisable(true);
-                tvAuftragskopf.setMouseTransparent(false);  
-                tvAuftragskopf.getSelectionModel().select(-1);
-                clearAuftragskopfTextFields();
-                refreshAuftragskopfTable();
-                
-                return;
+          
+            //Falls Status von F nach A gewechsetl wird, werden die Mengen RES
+            //und VER berechnet.
+            } else if (statusAlt.equals("F") && statusNeu.equals("A")) {
+                berechneMengeResVer(auftragskopfID);
+                abschlussdatum = gibDatum();
             }
+        
+        } else if (partnerTyp.equals("L")) {
+            //Falls Status von E nach F gewechselt wird, wird geprüft, ob der 
+            //freie Bestand ausreicht. Falls JA: wird FREI und RES berechnet.
+            if (statusAlt.equals("E") && statusNeu.equals("F")) {
+                rechnung = "addition";
+                berechneMengeZulauf(auftragskopfID, rechnung);
+                
+            //Falls Status von F zurück nach E gewechselt wird, werden die 
+            //Mengen von FREI und RES wieder zurückgerechnet.
+            } else if (statusAlt.equals("F") && statusNeu.equals("E")) {
+                rechnung = "subtraktion";
+                berechneMengeZulauf(auftragskopfID, rechnung);             
           
-        //Falls Status von F zurück nach E gewechselt wird, werden die Mengen
-        //von FREI und RES wieder zurückgerechnet.
-        } else if (statusAlt.equals("F") && statusNeu.equals("E")) {
-            rechnung = "subtraktion";
-            berechneMengeFreiRes(auftragskopfID, rechnung);
-            berechneKreditlimit(auftragswert, partnerID, rechnung);
-          
-        //Falls Status von F nach A gewechsetl wird, werden die Mengen RES
-        //und VER berechnet.
-        } else if (statusAlt.equals("F") && statusNeu.equals("A")) {
-            berechneMengeResVer(auftragskopfID);
-            abschlussdatum = gibDatum();
+            //Falls Status von F nach A gewechsetl wird, werden die Mengen RES
+            //und VER berechnet.
+            } else if (statusAlt.equals("F") && statusNeu.equals("A")) {
+                berechneMengeZulaufFrei(auftragskopfID);
+                abschlussdatum = gibDatum();  
+            }
         }
+        
         
         Auftragskopf auftrag = new Auftragskopf(auftragskopfID, partnerID, 
             auftragstext, erfassungsdatum, lieferdatum, abschlussdatum, 
@@ -2139,7 +2185,7 @@ public class AuftraegeController implements Initializable {
      * berechnet werden.
      * @throws java.sql.SQLException SQLFehler
      */
-    public void berechneMengeZulauf(String auftragskopfID) 
+    public void berechneMengeZulauf(String auftragskopfID, String rechnung) 
             throws SQLException {
         AuftragspositionDAO apd = new AuftragspositionDAO();
         ArtikelDAO artd = new ArtikelDAO();
@@ -2153,19 +2199,37 @@ public class AuftraegeController implements Initializable {
         String mengeZulaufAlt;
         String mengeZulaufNeu;       
         
-        for (int i = 0; i < auftragspositionen.size(); i++) {
-            //ArtikelID und Menge des Artikels der Positionen holen
-            artikelID = auftragspositionen.get(i).getArtikelID();
-            mengeZulaufPos = auftragspositionen.get(i).getMenge();
-            mengeZulaufAlt = artd.gibMengeZulauf(artikelID);
+        if(rechnung.equals("addition")) {
+            for (int i = 0; i < auftragspositionen.size(); i++) {
+                //ArtikelID und Menge des Artikels der Positionen holen
+                artikelID = auftragspositionen.get(i).getArtikelID();
+                mengeZulaufPos = auftragspositionen.get(i).getMenge();
+                mengeZulaufAlt = artd.gibMengeZulauf(artikelID);
          
-            //Menge der Position mit alter Menge VERKAUFT in DB verrechnen
-            int mengeZulaufPosInt =  Integer.parseInt(mengeZulaufPos);
-            int mengeZulaufAltInt = Integer.parseInt(mengeZulaufAlt);
-            int mengeZulaufNeuInt = mengeZulaufPosInt + mengeZulaufAltInt;
-            mengeZulaufNeu = String.valueOf(mengeZulaufNeuInt);
+                //Menge der Position mit alter Menge VERKAUFT in DB verrechnen
+                int mengeZulaufPosInt =  Integer.parseInt(mengeZulaufPos);
+                int mengeZulaufAltInt = Integer.parseInt(mengeZulaufAlt);
+                int mengeZulaufNeuInt = mengeZulaufPosInt + mengeZulaufAltInt;
+                mengeZulaufNeu = String.valueOf(mengeZulaufNeuInt);
              
-            artd.setzeMengeZulauf(artikelID, mengeZulaufNeu);
+                artd.setzeMengeZulauf(artikelID, mengeZulaufNeu);
+            }
+        
+        } else if (rechnung.equals("subtraktion")) {
+            for (int i = 0; i < auftragspositionen.size(); i++) {            
+                //ArtikelID und Menge des Artikels der Positionen holen
+                artikelID = auftragspositionen.get(i).getArtikelID();
+                mengeZulaufPos = auftragspositionen.get(i).getMenge();
+                mengeZulaufAlt = artd.gibMengeZulauf(artikelID);
+         
+                //Menge der Position mit alter Menge VERKAUFT in DB verrechnen
+                int mengeZulaufPosInt =  Integer.parseInt(mengeZulaufPos);
+                int mengeZulaufAltInt = Integer.parseInt(mengeZulaufAlt);
+                int mengeZulaufNeuInt = mengeZulaufAltInt - mengeZulaufPosInt;
+                mengeZulaufNeu = String.valueOf(mengeZulaufNeuInt);
+             
+                artd.setzeMengeZulauf(artikelID, mengeZulaufNeu);
+            }
         }
     }      
     
