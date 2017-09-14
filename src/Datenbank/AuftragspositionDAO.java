@@ -4,8 +4,14 @@
 * Zweck:
 * - Diese Klasse bearbeitet Queries Auftragspositionen.
 *-------------------------------------------------------------------------------
-* Datum         Name    Was
-* 27.08.2017    HEN     Erstellt.
+* Datum         Name   Was
+* 27.08.2017    HEN    Erstellt.
+* 03.09.2017    HEN    gibAuftragspositionenZuAuftrag() erstellt.
+* 04.09.2017    HEN    berechneArtikelwert(),berechneAuftragswert(),
+*                      setzeAuftragswert(),gibAuftragswert(),gibPositionsMenge()
+*                      artikelVorhanden() erstellt.
+* 05.09.2017    HEN    aendereAuftragsposition() erstellt.
+* 14.09.2017    HEN    setzeAuftragspositionLKZ() bearbeitet.
 *-------------------------------------------------------------------------------
 */
 
@@ -537,7 +543,7 @@ public class AuftragspositionDAO extends DataAccess {
    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 27.08.17    Hen     Erstellt.
+    /* 03.09.17    Hen     Erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
@@ -679,7 +685,8 @@ public class AuftragspositionDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
-    /* 04.09.17     HEN     Erstellt.   
+    /* 04.09.2017   HEN     Erstellt.
+    /* 14.09.2017   HEN     SQL Befehl bearbeitet.   
     /*------------------------------------------------------------------------*/
     
     /**

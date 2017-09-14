@@ -11,7 +11,14 @@
 * 17.08.2017    BER     setzteLKZ() erstellt.
 * 17.08.2017    BER     fuegeArtikelHinzu() erstellt.
 * 18.08.2017    BER     aendereArtikel() erstellt.
-* 19.08.2017    SEZ     generiereID(), gibLetzteID() erstellt.
+* 19.08.2017    SEZ     generiereID(), 
+*               BER     gibLetzteID() erstellt.
+* 06.09.2017    HEN     setzeMengeFreiRes(),
+*               BER     gibMengeFrei(),gibMengeRes(), gibMengeZulauf() erstellt.
+* 07.09.2017    HEN     setzeMengeResVer(),
+*               BER     gibMengeVerkauft() erstellt.
+* 10.09.2017    HEN     gibArtikelSteuer() erstellt.
+* 13.09.2017    HEN     setzeMengeZulauf(), setzeMengeZulaufFrei() erstellt.     
 *-------------------------------------------------------------------------------
 */
 package Datenbank;
@@ -38,12 +45,12 @@ public class ArtikelDAO extends DataAccess {
     private DataDictionaryDAO ddd = new DataDictionaryDAO();
     
     /**
-     * 
+     * Holt den Tabellennamen für die Artikel zur Laufzeit.
      */
     private String TAB_ARTIKEL = ddd.getTAB_ARTIKEL();
     
     /**
-     * 
+     * HashMap für die Attribute der Tabelle Artikel.
      */
     private HashMap<String, ArrayList> attribute;    
     

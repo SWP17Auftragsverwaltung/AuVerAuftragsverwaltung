@@ -12,7 +12,6 @@
 package Datenbank;
 
 import Klassen.Auftragskopf;
-import Klassen.Geschaeftspartner;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -111,7 +110,7 @@ public class AuftragskopfDAO extends DataAccess {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 07.08.17    Hen     Erstellt.
+    /* 15.08.17    BER     Erstellt.
     /*------------------------------------------------------------------------*/
     
     /**
