@@ -6,6 +6,13 @@
 *-------------------------------------------------------------------------------
 * Datum         Name    Was
 * 07.08.2017    BER     Erstellt.
+* 15.08.2017    BER     gibAlleAuftragskoepfeOhneLKZ() erstellt.
+* 26.08.2017    HEN     fuegeAuftragHinzu(), aendereAuftrag(), gibLetzteID(), 
+*                       generiereID() erstellt.
+* 07.09.2017    HEN     gibAuftragsstatus() erstellt.
+* 12.09.2017    HEN     gibAlleGeschaeftspartnerKunde(),
+*                       gibAlleGeschaeftspartnerLieferant() erstellt.
+* 13.09.2017    HEN     gibAuftragswert(),gibGeschaeftspartnerTyp() erstellt.
 *-------------------------------------------------------------------------------
 */
 
@@ -776,6 +783,7 @@ public class AuftragskopfDAO extends DataAccess {
     
     /**
      * Gibt den Typen der Geschäftspartner wieder.
+     * @param gpID Geschäftspartner ID
      * @return Typ des Geschäftspartners
      * @throws java.sql.SQLException SQLFehler
      */
