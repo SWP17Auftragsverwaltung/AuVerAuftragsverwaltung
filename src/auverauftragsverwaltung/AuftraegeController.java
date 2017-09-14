@@ -1160,15 +1160,48 @@ public class AuftraegeController implements Initializable {
                 tvAuftragskopf.getSelectionModel().getSelectedItem();
         Auftragskopf a = (Auftragskopf) auftragskopf;
         
+        AuftragskopfDAO akd = new AuftragskopfDAO();
+        AuftragspositionDAO apd = new AuftragspositionDAO();
+        
+        String auftragskopfID = a.getAuftragskopfID();
+        ArrayList<Auftragsposition> positionen;
+        positionen = apd.gibAuftragspositionenZuAuftrag(auftragskopfID);
+       
+        //Prüfen, ob Auftragskopf ausgewählt wurde
         if (!this.tfAuftragskopf.getText().isEmpty()) {
+            //Frage, ob Auftrag gelöscht werden soll
             Meldung meldung = new Meldung();
             meldung.loeschenAbfragen();
 
-            if (meldung.antwort()) {
-                AuftragskopfDAO ak = new AuftragskopfDAO();
-                ak.setzeLKZ(a);
+            //Falls JA und LETZTE position
+            if (meldung.antwort() && positionen.size() <= 1) {
+                //Frage, ob Auftrag mit letzter Position gelöscht werden soll
+                //Hinweis, dass letzte Position gelöscht wird
+                Meldung meldungLetztePos = new Meldung();
+                meldungLetztePos.loescheLetztePosAuftrag();
+                
+                //Falls JA: Letzte Psoition und Kopf löschen
+                if (meldungLetztePos.antwort()) {
+                    String posNR = positionen.get(0).getPositionsnummer();
+                    akd.setzeLkzLetztePos(auftragskopfID);
+                    apd.setzeAuftragsposLkzAuftrag(posNR);
+                    
+                    refreshAuftragspositionTable();
+                    refreshAuftragskopfTable();
+                //Falls NEIN: Meldung schließen und abbrechen
+                } else {
+                    meldung.schließeFenster();
+                    clearAuftragskopfTextFields();
+                }
+                
+            } else if (meldung.antwort() && positionen.size() > 1) {
+                //Hinweis, dass Auftrag noch Positionen enthält und nicht
+                //gelöscht werden kann
+                Meldung meldungHatPos = new Meldung();
+                meldungHatPos.loeschePosAuftrag();
 
                 refreshAuftragskopfTable();
+            
             } else {
                 meldung.schließeFenster();
                 clearAuftragskopfTextFields();
@@ -1194,12 +1227,42 @@ public class AuftraegeController implements Initializable {
                 tvAuftragsposition.getSelectionModel().getSelectedItem();
         Auftragsposition ap = (Auftragsposition) auftragsposition;
         
+        String auftragskopfID = ap.getAuftragskopfID();
+        ArrayList<Auftragsposition> positionen = new ArrayList<>();
+        AuftragspositionDAO apd = new AuftragspositionDAO();
+        AuftragskopfDAO akd = new AuftragskopfDAO();
+        positionen = apd.gibAuftragspositionenZuAuftrag(auftragskopfID);
+        
+        //Prüfen, ob eine Position ausgewählt wurde
         if (!tfPositionsNrAPD.getText().isEmpty()) {
+            //Fragen, ob Position gelöscht werden soll
             Meldung meldung = new Meldung();
             meldung.loeschenAbfragen();
-
-            if (meldung.antwort()) {
-                AuftragspositionDAO apd = new AuftragspositionDAO();
+            
+            //Wenn JA und letzte Position
+            if (meldung.antwort() && positionen.size() <= 1) {
+                //Frage, ob letzte Position gelöscht werden soll und Auskunft,
+                //dass Kopf auch gelöscht wird
+                Meldung meldungLetztePos = new Meldung();
+                meldungLetztePos.loescheLetztePos();
+                
+                //Falls JA: Position und Kopf löschen, Tabellen aktualisieren
+                if (meldungLetztePos.antwort()) {
+                    apd.setzeAuftragsposLKZ(ap);
+                    akd.setzeLkzLetztePos(auftragskopfID);
+                    
+                    refreshAuftragspositionTable();
+                    refreshAuftragskopfTable();
+                
+                //Falls NEIN: Meldung schließen und abbrechen    
+                } else {
+                    meldung.schließeFenster();
+                    clearAuftragsPosTextFields();
+                }
+            
+            //Wenn JA und NICHT letzte Position
+            //Position löschen und Wert, berechnen und Tabelle aktualisieren
+            } else if (meldung.antwort() && positionen.size() > 1) {
                 String steuer = tfMwStAPD.getText();    
               
                 double einzelwert = Double.parseDouble(ap.getEinzelwert());
@@ -1217,7 +1280,8 @@ public class AuftraegeController implements Initializable {
 
                 refreshAuftragspositionTable();
                 refreshAuftragskopfTable();
-                
+              
+            //Falls NEIN: Meldung schließen und abbrechen    
             } else {
                 meldung.schließeFenster();
                 clearAuftragsPosTextFields();

@@ -12,7 +12,6 @@
 package Datenbank;
 
 import Klassen.Auftragsposition;
-import Klassen.Geschaeftspartner;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -533,9 +532,9 @@ public class AuftragspositionDAO extends DataAccess {
         }
         return posMenge;
     }     
+
     
- 
-    
+   
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 27.08.17    Hen     Erstellt.
@@ -580,7 +579,8 @@ public class AuftragspositionDAO extends DataAccess {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText(e.getMessage() + "\n Auftragspositionen konnten"
+                + " nicht abgerufen werden.");
             alert.showAndWait();
             con.rollback();
         }
@@ -675,6 +675,48 @@ public class AuftragspositionDAO extends DataAccess {
             con.rollback();
         }
     }    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 04.09.17     HEN     Erstellt.   
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Setzt Löschkennzeichen bei einer markierten Auftragsposition.
+     * @param posNR Zu löschende Auftragsposition
+     * @throws java.sql.SQLException Fehlerhafter SQL Befehl.
+     */
+    public void setzeAuftragsposLkzAuftrag(String posNR) throws SQLException {
+        PreparedStatement stmt = null;
+
+        try {
+            con.setAutoCommit(false);
+
+            String query
+                = "UPDATE ROOT." + ddd.getTabAuftragsposition()
+                + " SET " + attribute.get(TAB_AUFTRAGSPOSITION).get(5) + " = ?"
+                + " WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(1) 
+                + " = ?";
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "J");
+            stmt.setString(2, posNR);
+            stmt.executeUpdate();
+            con.commit();
+
+            
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "Position konnte nicht"
+                + " gelöscht werden.");
+            alert.showAndWait();
+            con.rollback();
+        }
+    }        
+    
     
         
     /*------------------------------------------------------------------------*/

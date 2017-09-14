@@ -230,7 +230,7 @@ public class AuftragskopfDAO extends DataAccess {
                    
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
-    /* 26.08.17     HEN     Erstellt.    
+    /* 14.09.17     HEN     Erstellt.    
     /*------------------------------------------------------------------------*/
     
     /**
@@ -243,36 +243,74 @@ public class AuftragskopfDAO extends DataAccess {
         PreparedStatement stmt = null;
         String auftragskopfID = a.getAuftragskopfID();
 
-//        if(Auftragskopf hat noch Positionen) {
-//            Error
-//        }
-//        else {
-            try {
-                con.setAutoCommit(false);
+        try {
+            con.setAutoCommit(false);
 
-                String query
-                    = "UPDATE ROOT." + ddd.getTabAuftragskopf() 
-                    + " SET " + attribute.get(TAB_AUFTRAGSKOPF).get(9) + " = ?"
-                    + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
-                    + " = ?";
+            String query
+                = "UPDATE ROOT." + ddd.getTabAuftragskopf() 
+                + " SET " + attribute.get(TAB_AUFTRAGSKOPF).get(9) + " = ?"
+                + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
+                + " = ?";
 
-                stmt = con.prepareStatement(query);
-                stmt.setString(1, "J");
-                stmt.setString(2, auftragskopfID);
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "J");
+            stmt.setString(2, auftragskopfID);
 
-                stmt.executeUpdate();
-                con.commit();
+            stmt.executeUpdate();
+            con.commit();
 
-            } catch (SQLException e) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.initStyle(StageStyle.UTILITY);
-                alert.setTitle("Fehler");
-                alert.setHeaderText(e.getMessage());
-                alert.showAndWait();
-                con.rollback();
-            }
-//        }
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "\n Auftragskopf konnte "
+                + "nicht gelöscht werden.");
+            alert.showAndWait();
+            con.rollback();
+        }
     }
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 14.09.17     HEN     Erstellt.    
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Setzt Löschkennzeichen bei einem ausgewählten Auftrag. Wird beim Löschen
+     * der letzten Position aufgerufen.
+     * @param auftragskopfID Auftragskopf
+     * @throws java.sql.SQLException SQLException
+     */
+    public void setzeLkzLetztePos(String auftragskopfID) throws SQLException {
+        PreparedStatement stmt = null;
+
+        try {
+            con.setAutoCommit(false);
+
+            String query
+                = "UPDATE ROOT." + ddd.getTabAuftragskopf() 
+                + " SET " + attribute.get(TAB_AUFTRAGSKOPF).get(9) + " = ?"
+                + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
+                + " = ?";
+
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "J");
+            stmt.setString(2, auftragskopfID);
+
+            stmt.executeUpdate();
+            con.commit();
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "\n Letzte Position konnte"
+                + " nicht gelöscht werden.");
+            alert.showAndWait();
+            con.rollback();
+        }
+    }    
 
     
     

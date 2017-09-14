@@ -531,7 +531,8 @@ public class GeschaeftspartnerDAO extends DataAccess {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText(e.getMessage() + "\n Kreditlimit konnte nicht"
+                + " gesetzt werden.");
             alert.showAndWait();
             con.rollback();
         }

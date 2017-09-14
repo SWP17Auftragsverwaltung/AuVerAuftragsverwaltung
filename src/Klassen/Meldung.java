@@ -29,7 +29,7 @@ public class Meldung {
     /**
      * Variable für den "Verwerfen Text".
      */
-    private final String verwerfenText = "Wollen sie den Datensatz verwerfen?";
+    private final String verwerfenText = "Wollen Sie den Datensatz verwerfen?";
     
     /**
      * Variable für den "Löschen Titel".
@@ -40,8 +40,40 @@ public class Meldung {
      * Variable für den "Löschen Text".
      */
     private final String loeschenText  
-            = "Wollen sie wirklich den Datensatz löschen?";
+            = "Wollen Sie wirklich den Datensatz löschen?";
 
+    /**
+     * Variable für den "Letzte Position löschen Titel".
+     */
+    private final String loescheLetztePosTitel = "Letzte Position löschen?";    
+    
+    /**
+     * Variable für den "Letzte Position löschen Text".
+     */
+    private final String loescheLetztePosText  
+        = "Wollen Sie wirklich die letzte Position löschen? \n"
+        + "ACHTUNG: Der Auftragskopf wird zusätzlich gelöscht!";    
+
+    /**
+     * Variable für den "Auftrag mit Position löschen Titel".
+     */
+    private final String loeschePosAuftragTitel = "Auftrag enthält Positionen";
+    
+    /**
+     * Variable für den "Auftrag mit Positionen löschen Text".
+     */
+    private final String loescheLetztePosAuftragText  
+        = "Möchten Sie den Auftrag wirklich löschen? \n\n"
+        + "ACHTUNG: Der Auftragskopf enthält noch EINE letzte Position, die "
+        + "auch gelöscht wird!";   
+
+    /**
+     * Variable für den "Auftrag mit Positionen löschen Text".
+     */
+    private final String loeschePosAuftragText  
+        = "ACHTUNG: Der Auftragskopf enthält noch mehrere Positionen. \n"
+        + "Bitte erst die Positionen löschen!";  
+ 
      /**
      * Variable für den "Verwerfen Titel".
      */
@@ -261,4 +293,64 @@ public class Meldung {
         meldung.showAndWait();
     }
 
+
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 14.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Erzeugt ein Fenster das dem Benutzer die Möglichkeit bietet, seine 
+     * "Lösch Aktion" entweder zu bejaen oder zu verneinen.
+     */       
+    public void loescheLetztePos() { 
+        meldung = new Alert(Alert.AlertType.WARNING);
+        meldung.setTitle(loescheLetztePosTitel);
+        meldung.setContentText(loescheLetztePosText);
+        meldung.getButtonTypes().clear();
+        meldung.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
+        meldung.showAndWait();
+    }    
+
+
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 14.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Erzeugt ein Fenster das dem Benutzer die Möglichkeit bietet, seine 
+     * "Lösch Aktion" entweder zu bejaen oder zu verneinen.
+     */       
+    public void loescheLetztePosAuftrag() { 
+        meldung = new Alert(Alert.AlertType.WARNING);
+        meldung.setTitle(loeschePosAuftragTitel);
+        meldung.setContentText(loescheLetztePosAuftragText);
+        meldung.getButtonTypes().clear();
+        meldung.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
+        meldung.showAndWait();
+    } 
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 14.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Erzeugt ein Fenster das dem Benutzer den Hinweis gibt, dass der Auftrag
+     * noch Positionen enthäkt und nicht gelöscht werden kann.
+     */       
+    public void loeschePosAuftrag() { 
+        meldung = new Alert(Alert.AlertType.WARNING);
+        meldung.setTitle(loeschePosAuftragTitel);
+        meldung.setContentText(loeschePosAuftragText);
+        meldung.getButtonTypes().clear();
+        meldung.getButtonTypes().addAll(ButtonType.OK);
+        meldung.showAndWait();
+    }       
+    
+    
 }
