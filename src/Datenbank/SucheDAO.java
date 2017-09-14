@@ -1036,7 +1036,7 @@ public class SucheDAO extends DataAccess {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf()
                     + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
-                    + ") LIKE LOWER('%" + neuerSuchbegriff + "%') AND " 
+                    + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
                     + " LIKE 'N'";
                 stmt = con.createStatement();
@@ -1056,7 +1056,7 @@ public class SucheDAO extends DataAccess {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
                     + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(1) 
-                    + ") LIKE LOWER('%" + neuerSuchbegriff + "%') AND " 
+                    + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
                     + " LIKE 'N'";
                 stmt = con.createStatement();
@@ -1096,7 +1096,7 @@ public class SucheDAO extends DataAccess {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
                     + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(3) 
-                    + ") LIKE LOWER('%" + neuerSuchbegriff + "%') AND "
+                    + ") LIKE LOWER('" + neuerSuchbegriff + "') AND "
                     + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
                     + " LIKE 'N'";
                 stmt = con.createStatement();
@@ -1116,7 +1116,7 @@ public class SucheDAO extends DataAccess {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
                     + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(4) 
-                    + ") LIKE LOWER('%" + neuerSuchbegriff + "%') AND " 
+                    + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
                     + " LIKE 'N'";
                 stmt = con.createStatement();
@@ -1136,7 +1136,7 @@ public class SucheDAO extends DataAccess {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
                     + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(5) 
-                    + ") LIKE LOWER('%" + neuerSuchbegriff + "%') AND " 
+                    + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
                     + " LIKE 'N'";
                 stmt = con.createStatement();
@@ -1156,7 +1156,7 @@ public class SucheDAO extends DataAccess {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
                     + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(6) 
-                    + ") LIKE LOWER('%" + neuerSuchbegriff + "%') AND " 
+                    + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
                     + " LIKE 'N'";
                 stmt = con.createStatement();
@@ -1196,7 +1196,7 @@ public class SucheDAO extends DataAccess {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
                     + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(8) 
-                    + ") LIKE LOWER('%" + neuerSuchbegriff + "%') AND " 
+                    + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_AUFTRAGSKOPF).get(9) 
                     + " LIKE 'N'";
                 stmt = con.createStatement();

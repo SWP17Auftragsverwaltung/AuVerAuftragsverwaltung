@@ -136,7 +136,7 @@ public class AuftragskopfDAO extends DataAccess {
 
         String query = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
             + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(9) + " = ?"
-            + " ORDER BY " + attribute.get(TAB_AUFTRAGSKOPF).get(0) + " DESC";
+            + " ORDER BY " + attribute.get(TAB_AUFTRAGSKOPF).get(0) + " ASC";
 
         try {
             stmt = con.prepareStatement(query);

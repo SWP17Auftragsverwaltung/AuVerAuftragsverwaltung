@@ -201,7 +201,7 @@ public class Meldung {
                                 || item.isEqual(LocalDate.of(2017, Month.NOVEMBER, 1))) {
                                 setDisable(true);
                                 setStyle("-fx-background-color: #ffc0cb;");
-                            }
+                            }                          
                             if (item.isBefore(LocalDate.now())) {
                                 setDisable(true);
                             }

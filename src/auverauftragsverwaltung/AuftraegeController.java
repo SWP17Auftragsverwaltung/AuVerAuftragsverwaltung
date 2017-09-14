@@ -1372,6 +1372,7 @@ public class AuftraegeController implements Initializable {
         GregorianCalendar cal = new GregorianCalendar();
         String erfassungsDatum = "";
         boolean ergebnis = false;
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM); 
         
         while (!ergebnis) {
             StringTokenizer st 
@@ -1406,6 +1407,8 @@ public class AuftraegeController implements Initializable {
                 alert.showAndWait();
             
                 cal.add(GregorianCalendar.DATE, 2);
+                this.tfErfDatum.setText(df.format(cal.getTime()));
+                ergebnis = false;
                 
             } else if (cal.get(GregorianCalendar.DAY_OF_WEEK) 
                 == GregorianCalendar.SUNDAY) {
@@ -1418,6 +1421,8 @@ public class AuftraegeController implements Initializable {
                 alert.showAndWait();
                 
                 cal.add(GregorianCalendar.DATE, 1);
+                this.tfErfDatum.setText(df.format(cal.getTime()));
+                ergebnis = false;
         
             //Datum auf Feiertag prüfen
             } else if (istFeiertag(cal)) {        
@@ -1428,6 +1433,9 @@ public class AuftraegeController implements Initializable {
                 alert.setHeaderText(
                         "Achtung: Das heutige Datum fällt auf einen Feiertag!");
                 alert.showAndWait();
+                cal.add(GregorianCalendar.DATE, 1);
+                this.tfErfDatum.setText(df.format(cal.getTime()));
+                ergebnis = false;
                 
             } else {
                 erfassungsDatum = this.tfErfDatum.getText();
@@ -1748,6 +1756,7 @@ public class AuftraegeController implements Initializable {
         this.btLoeschen.setDisable(true);
         this.btAuftragspositionen.setDisable(true);
         this.btAbbrechen.setDisable(false);
+        this.tfErfDatum.setEditable(false);
         tvAuftragskopf.setMouseTransparent(true);
 
         if (this.cbAuftragsstatus.getValue().equals("Erfasst")) {
