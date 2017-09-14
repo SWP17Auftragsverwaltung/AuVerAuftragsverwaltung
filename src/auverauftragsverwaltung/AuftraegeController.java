@@ -496,35 +496,13 @@ public class AuftraegeController implements Initializable {
     private Button btSucheZuruecksetzen;
     
     
-    /**
-     * Mehtode die das öffnen der Suchmaske für Aufträge, durch den Button
-     * "Auftrag suchen" ermöglicht.
-     * @param event ActionEvent zur Prüfung ob der "Auftrag suchen" -
-     *              Button getätigt wurde.
-     */
-    public void sucheAuftrag(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "AuftragSuchen.fxml"));
-            Scene scene = new Scene(loader.load(), 755, 500);
-            Stage stage = new Stage();
-            stage.setTitle("Auftrag suchen");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.println("Can't load the AuftragSuchen!");
-        }
-    }
-   
-    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 30.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
      * Methode zum Abbrechen der Auftragsanzeige.
-     * @param event ActionEvent welches das Klicken des Buttons "Abbrechen" 
-     *              abfängt.
+     * @param event Fängt das Klicken des Buttons "Abbrechen" ab.
      */
     @FXML
     public void closeAuftraegeAnzeigen(ActionEvent event) {
@@ -538,9 +516,8 @@ public class AuftraegeController implements Initializable {
     /* 30.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
-     * Methode zum Abbrechen der Auftragspositionsanzeige.
-     * @param event ActionEvent welches das Klicken des Buttons "Abbrechen" 
-     *              abfängt.
+     * Methode zum Schließen der Auftragspositionsmaske.
+     * @param event Fängt das Klicken des Buttons "Zurück" ab.
      */
     @FXML
     public void closeAuftraegspositionAnzeigen(ActionEvent event) {
@@ -564,14 +541,12 @@ public class AuftraegeController implements Initializable {
     /* 30.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
-     * Begrenzte Feldeingabe.
-     *
-     * @param tf Teftfeld
-     * @param zahl Zahl
+     * Begrenzte Feldeingabe der Textfelder.
+     * @param tf Zu begrenzendes Textfeld
+     * @param zahl Zahl auf die begrenzt werden soll
      */
     private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
-        tf.setTextFormatter(new TextFormatter<>(change
-            -> {
+        tf.setTextFormatter(new TextFormatter<>(change -> {
             return change.getControlNewText().length() <= zahl ? change : null;
         }));
     }
@@ -582,8 +557,8 @@ public class AuftraegeController implements Initializable {
     /* 30.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
-     * Initialisiert die Controller-Klasse.
-     * @param url URL zur initialisierung.
+     * Initialisiert die Controller-Klasse beim ersten Start des Programms.
+     * @param url URL zur Initialisierung.
      * @param rb Resourcen die geladen werden sollen.
      */
     @Override
@@ -750,7 +725,8 @@ public class AuftraegeController implements Initializable {
     /* 02.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
-     * Prüft, ob das eingegebene Datum auf ein Wochenende fällt.
+     * Erstellt Datum mit heutigem Wert und prüft, ob das eingegebene Datum auf 
+     * ein Wochenende fällt.
      * @return Geprüftes Datum.
      */
     public String gibDatum() {
@@ -768,7 +744,7 @@ public class AuftraegeController implements Initializable {
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Information");
             alert.setHeaderText(
-                    "Achtung: Das heutige Datum fällt auf ein Wochenende!!!");
+                    "Achtung: Das heutige Datum fällt auf ein Wochenende!");
             alert.showAndWait();
             datum = df.format(cal.getTime());
 
@@ -787,7 +763,7 @@ public class AuftraegeController implements Initializable {
     /**
      * Prüft, ob das eingegebene Datum auf einen Feiertrag fällt.
      * @param cal Zu prüfendes Datum.
-     * @return Geprüftes Datum.
+     * @return True: falls ja, False: falls nein
      */
     public boolean istFeiertag(GregorianCalendar cal) {
         boolean istFeiertag;
@@ -870,8 +846,8 @@ public class AuftraegeController implements Initializable {
     /* 12.08.17    HEN     ObservableArrayList hinzugefügt
     /*------------------------------------------------------------------------*/
     /**
-     * Erstellt ein AdressDAO Objekt und gibt eine Adress ArrayList an eine
-     * OberservableList, die dann an die TableView übergeben wird.
+     * Erstellt ein AuftrgaskopfDAO Objekt und gibt eine Auftragskopf ArrayList 
+     * an eine OberservableList, die dann an die TableView übergeben wird.
      * @throws java.sql.SQLException SQLFehler
     */
     public void setTableContent() throws SQLException {
@@ -890,8 +866,9 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Erstellt ein AdressDAO Objekt und gibt eine Adress ArrayList an eine
-     * OberservableList, die dann an die TableView übergeben wird.
+     * Erstellt ein AuftrgaskopfDAO Objekt und gibt eine Auftragskopf ArrayList 
+     * an eine OberservableList, die dann an die TableView übergeben wird und
+     * nur Lieferaufträge anzeigt.
      * @throws java.sql.SQLException SQLFehler
     */
     @FXML
@@ -912,8 +889,9 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Erstellt ein AdressDAO Objekt und gibt eine Adress ArrayList an eine
-     * OberservableList, die dann an die TableView übergeben wird.
+     * Erstellt ein AuftrgaskopfDAO Objekt und gibt eine Auftragskopf ArrayList 
+     * an eine OberservableList, die dann an die TableView übergeben wird und
+     * nur Bestellaufträge anzeigt.
      * @throws java.sql.SQLException SQLFehler
     */
     @FXML
@@ -1001,25 +979,7 @@ public class AuftraegeController implements Initializable {
         this.auftraegeTP.setText("Aufträge");
         setTableContent();
     }
-    
-    
-    /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 15.08.17    HEN     Methode erstellt.
-    /*------------------------------------------------------------------------*/
-    /**
-     * Sucht nach allen Adressen mit aktivem LKZ und stellt sie in der Tabelle
-     * dar.
-     * @throws java.sql.SQLException SQL Exception
-    */
-    public void alleMitLKZ() throws SQLException {
-        AuftragskopfDAO ak = new AuftragskopfDAO();
-        ObservableList<Auftragskopf> adressen
-                = FXCollections.observableArrayList(
-                        ak.gibAlleAuftragskoepfeMitLKZ());
-        tvAuftragskopf.setItems(adressen);
-    }
-       
+         
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -1170,8 +1130,8 @@ public class AuftraegeController implements Initializable {
     /* 22.08.17    BER     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
     /**
-     * Füllt das untere GeschäftspartnerID Feld mit einer ID, die in der 
-     * Tabelle ausgewählt wurde.
+     * Füllt beim Anlegen eines neuen Auftrags das untere GeschäftspartnerID 
+     * Feld mit einer ID, die in der Tabelle ausgewählt wurde.
      */
     @FXML
     public void waehleGeschaeftspartnerID() {
@@ -1197,7 +1157,7 @@ public class AuftraegeController implements Initializable {
         Object auftragskopf 
                 = tvAuftragskopf.getSelectionModel().getSelectedItem();
         Auftragskopf a = (Auftragskopf) auftragskopf;
-
+      
         if (a != null) {
             this.tfAuftragskopf.setText(a.getAuftragskopfID());
             this.tfPartnerID.setText(a.getGeschaeftspartnerID());
@@ -1525,9 +1485,7 @@ public class AuftraegeController implements Initializable {
     /* 27.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
-     * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues 
-     * Auftragsposition Objekt welches dann über die DAO in die DB geschrieben 
-     * wird.
+     * Gibt die unteren Eingabefelder für das Anlegen einer Position frei.
      * @throws java.sql.SQLException SQLFehler
      */
     @FXML
@@ -1628,7 +1586,7 @@ public class AuftraegeController implements Initializable {
     /* 27.08.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
-     * Zeigt alle Auftragspositionen zu einem ausgewählten AUftragskopf an.
+     * Zeigt alle Auftragspositionen zu einem ausgewählten Auftragskopf an.
      * @throws java.sql.SQLException SQLFehler
      */
     @FXML
@@ -1696,7 +1654,7 @@ public class AuftraegeController implements Initializable {
     /* 06.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
-     * Lässt das Bearbeiten einer ausgewählten Adresse zu.
+     * Erstellt einen Filter für die Kombobox "Status".
      * @param start Filter Start
      * @param end Filter Ende
      * @return Gefilterte Items für die Kombobox
@@ -1708,13 +1666,15 @@ public class AuftraegeController implements Initializable {
         anzuzeigendeItems.addAll(allOptions.subList(start, end));
         return anzuzeigendeItems;
     }
-     
+   
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 06.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
-     * Lässt das Bearbeiten einer ausgewählten Adresse zu.
+     * Lässt das Bearbeiten eines ausgewählten Auftrages zu. Es können nur 
+     * Aufträge im Status "Erfasst" bearbeitet werden.
      */
     @FXML
     public void bearbeiteAuftragskopf() {
@@ -1740,7 +1700,7 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 16.08.17    GET     Methode erstellt.
-    /* 22.08.17    HEN     Exceptions eingefügt. Getestet & Freigegeben.
+    /* 22.08.17    HEN     Mengenrechnung hinzugefügt. Getestet & Freigegeben.
     /*------------------------------------------------------------------------*/
     /**
      * Speichert die gemachten Änderungen an einer Auftragsposition in die 
@@ -1818,8 +1778,8 @@ public class AuftraegeController implements Initializable {
     /* 06.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
-     * Speichert die gemachten Änderungen in die Datenbank und aktualisiert die
-     * TableView mit den neuen Werten.
+     * Speichert die gemachten Änderungen eines Auftragskopfes in die Datenbank 
+     * und aktualisiert die TableView mit den neuen Werten.
      * @throws java.sql.SQLException SQLFehler
      */
     @FXML
@@ -2327,7 +2287,5 @@ public class AuftraegeController implements Initializable {
         }      
          
         return kreditVerfuegbar;
-    } 
-    
-    
+    }    
 }
