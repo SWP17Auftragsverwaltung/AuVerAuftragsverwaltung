@@ -456,7 +456,8 @@ public class AdressverwaltungController implements Initializable {
     public void setTableContent() throws SQLException {
         AdresseDAO ad = new AdresseDAO();
         ObservableList<Adresse> adressen
-                = FXCollections.observableArrayList(ad.gibAlleAdressenOhneLKZ());
+                = FXCollections.observableArrayList(
+                        ad.gibAlleAdressenOhneLKZ());
         adresseTV.setItems(adressen);
     }
 
@@ -532,6 +533,7 @@ public class AdressverwaltungController implements Initializable {
         adresseTV.setItems(adressen);
     }
 
+    
     /*------------------------------------------------------------------------*/
  /* Datum       Name    Was
     /* 14.08.17    HEN     Methode erstellt.
@@ -617,8 +619,9 @@ public class AdressverwaltungController implements Initializable {
                 String email = tfEmail.getText();
                 String erfdatum = tfDatum.getText();
                 String lkz = "N";
-                Adresse adresse = new Adresse(anschriftID, anrede, name, vorname,
-                        strasse, hausnr, plz, ort, staat, tel, email, erfdatum, lkz);
+                Adresse adresse = new Adresse(anschriftID, anrede, name,
+                        vorname, strasse, hausnr, plz, ort, staat, tel, email,
+                        erfdatum, lkz);
 
                 AdresseDAO ad = new AdresseDAO();
                 ad.fuegeAdresseHinzu(adresse);

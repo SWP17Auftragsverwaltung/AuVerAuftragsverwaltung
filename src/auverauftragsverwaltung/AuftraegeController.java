@@ -765,22 +765,45 @@ public class AuftraegeController implements Initializable {
         DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM); 
         String datum = "";
         
-        if (cal.get(GregorianCalendar.DAY_OF_WEEK) == GregorianCalendar.SATURDAY
-            || cal.get(GregorianCalendar.DAY_OF_WEEK) 
-            == GregorianCalendar.SUNDAY) {   
-            
+        //Datum auf Wochenende prüfen
+        if (cal.get(GregorianCalendar.DAY_OF_WEEK) 
+            == GregorianCalendar.SATURDAY) {
+                
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Information");
             alert.setHeaderText(
                     "Achtung: Das heutige Datum fällt auf ein Wochenende!");
             alert.showAndWait();
-            datum = df.format(cal.getTime());
-
-        } else {
-            datum = df.format(cal.getTime());
-           
-        }
+            
+            cal.add(GregorianCalendar.DATE, 2);
+                
+        } else if (cal.get(GregorianCalendar.DAY_OF_WEEK) 
+            == GregorianCalendar.SUNDAY) {
+                
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Information");
+            alert.setHeaderText(
+                    "Achtung: Das heutige Datum fällt auf ein Wochenende!");
+            alert.showAndWait();
+                
+            cal.add(GregorianCalendar.DATE, 1);
+        
+        //Datum auf Feiertag prüfen
+        } else if (istFeiertag(cal)) {        
+               
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Information");
+            alert.setHeaderText(
+                    "Achtung: Das heutige Datum fällt auf einen Feiertag!");
+            alert.showAndWait();
+                
+        } 
+       
+        datum = df.format(cal.getTime());
+      
         return datum;
     }
     
@@ -1373,37 +1396,38 @@ public class AuftraegeController implements Initializable {
         
             //Datum auf Wochenende prüfen
             if (cal.get(GregorianCalendar.DAY_OF_WEEK) 
-                == GregorianCalendar.SATURDAY
-                || cal.get(GregorianCalendar.DAY_OF_WEEK) 
+                == GregorianCalendar.SATURDAY) {
+                
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setTitle("Information");
+                alert.setHeaderText(
+                        "Achtung: Das heutige Datum fällt auf ein Wochenende!");
+                alert.showAndWait();
+            
+                cal.add(GregorianCalendar.DATE, 2);
+                
+            } else if (cal.get(GregorianCalendar.DAY_OF_WEEK) 
                 == GregorianCalendar.SUNDAY) {
                 
-                Meldung meldung = new Meldung();
-                meldung.dialogDatumWochenende();
-            
-                //Benutzer entscheiden lasen, ob Auftrag anlegen oder nicht.
-                if (meldung.antwort()) {
-                    erfassungsDatum = this.tfErfDatum.getText();
-                    ergebnis = true;
-
-                } else {
-                    datumAendern();                   
-                    ergebnis = false;
-                } 
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setTitle("Information");
+                alert.setHeaderText(
+                        "Achtung: Das heutige Datum fällt auf ein Wochenende!");
+                alert.showAndWait();
+                
+                cal.add(GregorianCalendar.DATE, 1);
         
             //Datum auf Feiertag prüfen
             } else if (istFeiertag(cal)) {        
-                Meldung meldung = new Meldung();
-                meldung.dialogDatumFeiertag();
-            
-                //Benutzer entscheiden lasen, ob Auftrag anlegen oder nicht.
-                if (meldung.antwort()) {
-                    erfassungsDatum = this.tfErfDatum.getText();
-                    ergebnis = true;
-
-                } else {
-                    datumAendern();                   
-                    ergebnis = false;
-                } 
+               
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setTitle("Information");
+                alert.setHeaderText(
+                        "Achtung: Das heutige Datum fällt auf einen Feiertag!");
+                alert.showAndWait();
                 
             } else {
                 erfassungsDatum = this.tfErfDatum.getText();
@@ -1551,33 +1575,39 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     public void auftragspositionHinzufuegen() throws SQLException {
-        AuftragspositionDAO apd = new AuftragspositionDAO();
-  
-        String auftragskopfID = tfAuftragskopfIDPOS.getText();
-        String positionsnummer = tfPositionsNrAPD.getText();
-        String artikelID = tfMaterialNrAPD.getText();
-        String menge = tfMengeAPD.getText();
-        String einzelwert = tfEinzelwertAPD.getText();
-        String lkz = "N";
         
-        Auftragsposition auftragsposition = new Auftragsposition(auftragskopfID,
-            positionsnummer, artikelID, menge, einzelwert, lkz);
-    
-        apd.fuegeAuftragspositionHinzu(auftragsposition);
-        
-        berechneAuftragswert(auftragskopfID);
-        tfAuftragswertPOS.setText(apd.gibAuftragswert(auftragskopfID));
+        if (validateMenge()) {
+          
+      
+            AuftragspositionDAO apd = new AuftragspositionDAO();
 
-        refreshAuftragspositionTable();
-        refreshAuftragskopfTable();
-        clearAuftragsPosTextFields();
+            String auftragskopfID = tfAuftragskopfIDPOS.getText();
+            String positionsnummer = tfPositionsNrAPD.getText();
+            String artikelID = tfMaterialNrAPD.getText();
+            String menge = tfMengeAPD.getText();
+            String einzelwert = tfEinzelwertAPD.getText();
+            String lkz = "N";
+
+            Auftragsposition auftragsposition = new Auftragsposition(auftragskopfID,
+                positionsnummer, artikelID, menge, einzelwert, lkz);
+
+            apd.fuegeAuftragspositionHinzu(auftragsposition);
+
+            berechneAuftragswert(auftragskopfID);
+            tfAuftragswertPOS.setText(apd.gibAuftragswert(auftragskopfID));
+
+            refreshAuftragspositionTable();
+            refreshAuftragskopfTable();
+            clearAuftragsPosTextFields();
+
+            this.paneArtikelauswahl.setVisible(false);
+            this.paneAuftragsposition.setVisible(true);
+            this.btHinzufuegenAPD.setVisible(false);
+            this.btAnlegenAPD.setVisible(true);
+            this.btBearbeitenAPD.setDisable(true);
+            this.btAbbrechenAPD.setDisable(true);
         
-        this.paneArtikelauswahl.setVisible(false);
-        this.paneAuftragsposition.setVisible(true);
-        this.btHinzufuegenAPD.setVisible(false);
-        this.btAnlegenAPD.setVisible(true);
-        this.btBearbeitenAPD.setDisable(true);
-        this.btAbbrechenAPD.setDisable(true);
+        }
     }
  
     
@@ -2334,22 +2364,33 @@ public class AuftraegeController implements Initializable {
     private boolean validateMenge() {
         boolean istValidiert = false;
 
-        Pattern p = Pattern.compile("([0][1-9][0-9]{2,4})([0-9]{3,8})");
+        Pattern p = Pattern.compile("[1-9][0-9]*");
         Matcher m = p.matcher(this.tfMengeAPD.getText());
         
-        if (m.find() && m.group().equals(tfMengeAPD.getText())) {
+        if (this.tfMengeAPD.getText().isEmpty()) {
             
-            istValidiert = true;
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Fehlende Eingabe!");
+            alert.setContentText("Bitte tragen sie die Menge ein!");
+            alert.showAndWait();
             
         } else {
+            
+            if (m.find() && m.group().equals(tfMengeAPD.getText())) {
+            
+                istValidiert = true;
+            
+            } else {
 
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Fehlerhafte Mengen Eingabe!");
-            alert.setContentText("Telefonnumer ist nicht dem entsprechendem"
-                    + " Muster (0123456789)!");
-            alert.showAndWait();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Fehlerhafte Mengen Eingabe!");
+                alert.setContentText("Die Menge darf nicht Null sein!");
+                alert.showAndWait();
 
-        }
+            }
+            
+        }  
+        
         return istValidiert;
     }    
 }
