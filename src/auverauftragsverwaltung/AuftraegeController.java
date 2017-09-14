@@ -5,9 +5,37 @@
 * - FXML Controller-Klasse.
 *-------------------------------------------------------------------------------
 * Historie:
-* 2017-06-15 SAM Angelegt.
-* 2017-06-26 GET Checkstyleprüfung.
-* 2017-07-27 BER Kommentarlayout angepasst.
+* 15.06.2017 SAM Angelegt.
+* 26.06.2017 GET Checkstyleprüfung.
+* 27.07.2017 BER Kommentarlayout angepasst.
+* 11.08.2017 HEN setTableContent(), setTableContentGP erstellt. 
+* 12.08.2017 BER auftragSuchen() erstellt. 
+* 15.08.2017 HEN refreshAuftragskopfTable(),
+*                clearAuftragskopfTextFiels()erstellt.
+* 16.08.2017 GET speichereAenderungPosition() erstellt. 
+* 17.08.2017 GET waehleGeschaeftspartnerID() erstellt.
+*            HEN zeigeWerteAn() erstellt.
+* 22.08.2017 HEN speichereAnderungPosition() bearbeitet.
+* 26.08.2017 HEN auftragHinzufuegen() erstellt. 
+* 27.08.2017 HEN auftragAnlegen(), setTableContentArtikel(), 
+*                setTableContenPosition(),zeigeTvArtikel(),zeigeTvPositionen(),
+*                clearAuftragspositionsText(),auftragsPositionAnlegen(),
+*                auftragsPositionHinzufuegen(),berechneAuftragswert(),
+*                zeigeAuftragspositionenZuAuftrag() erstellt.
+* 02.09.2017 HEN gibDatum(), istFeiertag() erstellt. 
+* 06.06.2017 HEN speichereAenderungAuftragskopf() erstellt,
+*                berechneMengeFreiRes(), bestandVerfuegbar() erstellt.
+* 07.06.2017 HEN berechneMengeResVer() erstellt. 
+* 13.09.2017 HEN datumAendern(),berechneMengeResVer(),berechneMengeZulauf(),
+*                berechneMengeZulaufFrei(),berechneKreditlimit(),
+*                kreditVerfuegbar() erstellt,
+*                auftragHinzufuegen(), berechneAuftragwert() bearbeitet.
+* 04.09.2017 HEN refreshPositionTable() erstellt. 
+* 12.09.2017 HEN setTableContentKunde(),setTableContentLieferant(),
+*                zeigeGefundeneAuftraege() erstellt,
+*                zeigeWerte() bearbeitet.
+* 13.09.2017 HEN setzeSucheZurueck() erstellt.
+* 14.09.2017 HEN auftragskopfLoeschen(), auftragsPositionLoeschen() bearbeitet.
 *-------------------------------------------------------------------------------
 */
 package auverauftragsverwaltung;
@@ -24,7 +52,6 @@ import Klassen.Geschaeftspartner;
 import Klassen.Meldung;
 import de.jollyday.HolidayCalendar;
 import de.jollyday.HolidayManager;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -39,9 +66,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -861,8 +886,8 @@ public class AuftraegeController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 11.08.17    HEN     Methode erstellt.
-    /* 12.08.17    HEN     ObservableArrayList hinzugefügt
+    /* 12.09.17    HEN     Methode erstellt.
+    /* 12.09.17    HEN     ObservableArrayList hinzugefügt
     /*------------------------------------------------------------------------*/
     
     /**
@@ -884,8 +909,8 @@ public class AuftraegeController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 11.08.17    HEN     Methode erstellt.
-    /* 12.08.17    HEN     ObservableArrayList hinzugefügt
+    /* 12.09.17    HEN     Methode erstellt.
+    /* 12.09.17    HEN     ObservableArrayList hinzugefügt
     /*------------------------------------------------------------------------*/
     
     /**
@@ -983,7 +1008,7 @@ public class AuftraegeController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 15.08.17    HEN     Methode erstellt.
+    /* 15.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
      * "Löscht" einen markierten Auftragskopf,in dem das LKZ auf J gesetzt wird.
@@ -1048,7 +1073,7 @@ public class AuftraegeController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 04.09.17    HEN     Methode erstellt.
+    /* 14.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
      * "Löscht" eine markierte Auftragsposition, in dem das LKZ auf J gesetzt 
@@ -1147,7 +1172,8 @@ public class AuftraegeController implements Initializable {
 
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 27.08.17    HEN     Methode erstellt.
+    /* 17.08.17    HEN     Methode erstellt.
+    /* 12.09.17    HEN     Prüfung des Auftragsstatus ergänzt.
     /*------------------------------------------------------------------------*/
     /**
      * Zeigt die Werte eines ausgewählten Auftrags im unteren Bereich an.
@@ -1224,7 +1250,7 @@ public class AuftraegeController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 12.08.17    HEN     Methode erstellt.
+    /* 12.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
      * Methode bekommt eine ArrayList mit den gefundenen Aufträgen übergeben und
@@ -1281,7 +1307,7 @@ public class AuftraegeController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 03.08.17    HEN     Methode erstellt.
+    /* 03.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
      * Füllt das untere Datumsfeld mit dem Datum, das im DatePicker ausgewählt
@@ -1301,6 +1327,7 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 26.08.17    HEN     Methode erstellt.
+    /* 03.09.17    HEN     Prüfung auf Datun erstellt.
     /*------------------------------------------------------------------------*/
     /**
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues.
@@ -1553,6 +1580,7 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 27.08.17    HEN     Methode erstellt.
+    /* 03.09.17    HEN     Runden auf 2 Nachkommastellen ergänzt.
     /*------------------------------------------------------------------------*/
     /**
      * Berechnet den Auftragswert anhand der angegebenen Menge und füllt
