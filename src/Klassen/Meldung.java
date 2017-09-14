@@ -2,6 +2,7 @@ package Klassen;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Month;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -188,7 +189,16 @@ public class Meldung {
                         public void updateItem(LocalDate item, boolean empty) {
                             super.updateItem(item, empty);
                             if (item.getDayOfWeek() == DayOfWeek.SATURDAY
-                                || item.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                                || item.getDayOfWeek() == DayOfWeek.SUNDAY
+                                || item.isEqual(LocalDate.of(2017, Month.DECEMBER, 25))
+                                || item.isEqual(LocalDate.of(2017, Month.DECEMBER, 26))
+                                || item.isEqual(LocalDate.of(2017, Month.OCTOBER, 3))
+                                || item.isEqual(LocalDate.of(2017, Month.JANUARY, 1))
+                                || item.isEqual(LocalDate.of(2017, Month.JANUARY, 6))
+                                || item.isEqual(LocalDate.of(2017, Month.AUGUST, 8))
+                                || item.isEqual(LocalDate.of(2017, Month.AUGUST, 15))
+                                || item.isEqual(LocalDate.of(2017, Month.OCTOBER, 31))
+                                || item.isEqual(LocalDate.of(2017, Month.NOVEMBER, 1))) {
                                 setDisable(true);
                                 setStyle("-fx-background-color: #ffc0cb;");
                             }
