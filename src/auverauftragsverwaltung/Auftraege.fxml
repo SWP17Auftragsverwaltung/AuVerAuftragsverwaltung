@@ -17,7 +17,6 @@
                         <Label layoutX="16.0" layoutY="22.0" text="Auftragskopf" />
                         <TextField fx:id="tfAuftragskopf" editable="false" layoutX="14.0" layoutY="38.0" prefHeight="25.0" prefWidth="89.0" />
                         <Label layoutX="121.0" layoutY="22.0" text="Text zum Auftrag" />
-                        <TextArea fx:id="tfText" layoutX="121.0" layoutY="38.0" prefHeight="40.0" prefWidth="123.0" />
                         <TextField fx:id="tfPartnerID" editable="false" layoutX="258.0" layoutY="38.0" prefHeight="25.0" prefWidth="98.0" />
                         <Label layoutX="258.0" layoutY="22.0" text="Partner-ID" />
                         <Label layoutX="17.0" layoutY="98.0" text="Auftragswert" />
@@ -42,6 +41,7 @@
                         <Button fx:id="btSpeichern" layoutX="257.0" layoutY="178.0" mnemonicParsing="false" onAction="#speichereAenderungAuftragskopf" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
                         <Pane fx:id="pane" layoutX="167.0" layoutY="12.0" prefHeight="132.0" prefWidth="947.0" />
                         <Pane fx:id="paneAuftragskopfStatus" layoutX="14.0" layoutY="13.0" prefHeight="79.0" prefWidth="947.0" visible="false" />
+                        <TextField fx:id="tfText" layoutX="118.0" layoutY="38.0" prefHeight="25.0" prefWidth="117.0" />
                      </children>
                   </AnchorPane>
               </content>
@@ -133,7 +133,7 @@
                         <Button fx:id="btAbbrechenAPD" layoutX="336.0" layoutY="119.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " />
                         <TextField fx:id="tfPositionsNrAPD" editable="false" layoutX="14.0" layoutY="47.0" />
                         <TextField fx:id="tfMaterialNrAPD" editable="false" layoutX="197.0" layoutY="47.0" />
-                        <TextField fx:id="tfMengeAPD" layoutX="371.0" layoutY="47.0" />
+                        <NumberTextField fx:id="tfMengeAPD" layoutX="371.0" layoutY="47.0" />
                         <TextField fx:id="tfEinzelwertAPD" editable="false" layoutX="551.0" layoutY="47.0" />
                         <Label layoutX="731.0" layoutY="33.0" text="MwSt" />
                         <TextField fx:id="tfMwStAPD" editable="false" layoutX="731.0" layoutY="47.0" />

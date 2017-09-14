@@ -106,7 +106,7 @@ public class AuftraegeController implements Initializable {
      * Textfield für den Auftragstext in der Auftragskopfmaske.
      */
     @FXML
-    private TextArea tfText;
+    private TextField tfText;
     /**
      * Textfield für die GeschäftspartnerID in der Auftragskopfmaske.
      */
@@ -590,6 +590,8 @@ public class AuftraegeController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // Menge auf 3 Zeichen begrenzt
         begrenzeTextFeldEingabe(tfMengeAPD, 3);
+        // Menge auf 30 Zeichen begrenzt
+        begrenzeTextFeldEingabe(tfText, 30);
 
         this.paneGP.setVisible(false);
         this.paneAuftraege.setVisible(true);
