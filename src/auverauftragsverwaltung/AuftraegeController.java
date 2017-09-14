@@ -62,6 +62,8 @@ import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -2317,5 +2319,37 @@ public class AuftraegeController implements Initializable {
         }      
          
         return kreditVerfuegbar;
+    }
+
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 09.09.2017    GET     Methode erstellt.
+    /* 10.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    /**
+     * Methode prüft vor dem Hinzufügen, ob die Menge korrekt ist.
+     * 
+     * @return  true bei korrekter Eingabe und fals bei falscher Eingabe.
+     */
+    private boolean validateMenge() {
+        boolean istValidiert = false;
+
+        Pattern p = Pattern.compile("([0][1-9][0-9]{2,4})([0-9]{3,8})");
+        Matcher m = p.matcher(this.tfMengeAPD.getText());
+        
+        if (m.find() && m.group().equals(tfMengeAPD.getText())) {
+            
+            istValidiert = true;
+            
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Fehlerhafte Mengen Eingabe!");
+            alert.setContentText("Telefonnumer ist nicht dem entsprechendem"
+                    + " Muster (0123456789)!");
+            alert.showAndWait();
+
+        }
+        return istValidiert;
     }    
 }
