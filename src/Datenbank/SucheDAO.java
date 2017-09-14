@@ -90,7 +90,7 @@ public class SucheDAO extends DataAccess {
         }
 
         try {
-            if (suchkriterium.equals("AnschriftID")) {
+            if ("AnschriftID".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAdresse() + " WHERE " 
                     + attribute.get(TAB_ADRESSE).get(0) + " LIKE '"
@@ -110,7 +110,7 @@ public class SucheDAO extends DataAccess {
                 }
 
                 
-            } else if (suchkriterium.equals("Anrede")) {
+            } else if ("Anrede".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAdresse() 
                     + " WHERE " + attribute.get(TAB_ADRESSE).get(1) + " LIKE '"
@@ -130,7 +130,7 @@ public class SucheDAO extends DataAccess {
                 }
 
                 
-            } else if (suchkriterium.equals("Name")) {
+            } else if ("Name".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAdresse() 
                     + " WHERE " + attribute.get(TAB_ADRESSE).get(2) 
@@ -150,7 +150,7 @@ public class SucheDAO extends DataAccess {
                 }
 
                 
-            } else if (suchkriterium.equals("Vorname")) {
+            } else if ("Vorname".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAdresse() 
                     + " WHERE " + attribute.get(TAB_ADRESSE).get(3) + " LIKE '"
@@ -170,7 +170,7 @@ public class SucheDAO extends DataAccess {
                 }
 
                 
-            } else if (suchkriterium.equals("Straße")) {
+            } else if ("Straße".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAdresse() 
                     + " WHERE " + attribute.get(TAB_ADRESSE).get(4) + " LIKE '"
@@ -190,7 +190,7 @@ public class SucheDAO extends DataAccess {
                 }
 
                 
-            } else if (suchkriterium.equals("HausNr")) {
+            } else if ("HausNr".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAdresse() 
                     + " WHERE " + attribute.get(TAB_ADRESSE).get(5) + " LIKE '"
@@ -210,7 +210,7 @@ public class SucheDAO extends DataAccess {
                 }
 
                 
-            } else if (suchkriterium.equals("PLZ")) {
+            } else if ("PLZ".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAdresse() 
                     + " WHERE " + attribute.get(TAB_ADRESSE).get(6) + " LIKE '"
@@ -230,7 +230,7 @@ public class SucheDAO extends DataAccess {
                 }
 
                 
-            } else if (suchkriterium.equals("Ort")) {
+            } else if ("Ort".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAdresse() 
                     + " WHERE " + attribute.get(TAB_ADRESSE).get(7) + " LIKE '"
@@ -250,7 +250,7 @@ public class SucheDAO extends DataAccess {
                 }
 
                 
-            } else if (suchkriterium.equals("Staat")) {
+            } else if ("Staat".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAdresse() 
                     + " WHERE " + attribute.get(TAB_ADRESSE).get(8) + " LIKE '"
@@ -270,7 +270,7 @@ public class SucheDAO extends DataAccess {
                 }
 
                 
-            } else if (suchkriterium.equals("Tel")) {
+            } else if ("Tel".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAdresse() 
                     + " WHERE " + attribute.get(TAB_ADRESSE).get(9) + " LIKE '"
@@ -290,7 +290,7 @@ public class SucheDAO extends DataAccess {
                 }
 
                 
-            } else if (suchkriterium.equals("Email")) {
+            } else if ("Email".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAdresse() 
                     + " WHERE " + attribute.get(TAB_ADRESSE).get(10) + " LIKE '"
@@ -310,7 +310,7 @@ public class SucheDAO extends DataAccess {
                 }
 
                 
-            } else if (suchkriterium.equals("ErfDatum")) {
+            } else if ("ErfDatum".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAdresse() 
                     + " WHERE " + attribute.get(TAB_ADRESSE).get(11) + " LIKE '"
@@ -379,7 +379,7 @@ public class SucheDAO extends DataAccess {
         }
 
         try {
-            if (suchkriterium.equals("MaterialNr")) {
+            if ("MaterialNr".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabArtikel() 
                     + " WHERE " + attribute.get(TAB_ARTIKEL).get(0) + " LIKE '"
@@ -398,7 +398,7 @@ public class SucheDAO extends DataAccess {
                 }
 
                 
-            } else if (suchkriterium.equals("Artikelbeschreibung")) {
+            } else if ("Artikelbeschreibung".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabArtikel() 
                     + " WHERE " + attribute.get(TAB_ARTIKEL).get(1) + " LIKE '"
@@ -417,7 +417,7 @@ public class SucheDAO extends DataAccess {
                 }
 
                 
-            } else if (suchkriterium.equals("Einzelwert")) {
+            } else if ("Einzelwert".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabArtikel() 
                     + " WHERE " + attribute.get(TAB_ARTIKEL).get(2) + " LIKE '"
@@ -436,7 +436,7 @@ public class SucheDAO extends DataAccess {
                 }
 
                 
-            } else if (suchkriterium.equals("Bestellbeschreibung")) {
+            } else if ("Bestellbeschreibung".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabArtikel() 
                     + " WHERE " + attribute.get(TAB_ARTIKEL).get(3) + " LIKE '"
@@ -455,7 +455,7 @@ public class SucheDAO extends DataAccess {
                 }
 
                 
-            } else if (suchkriterium.equals("Bestellwert")) {
+            } else if ("Bestellwert".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabArtikel() 
                     + " WHERE " + attribute.get(TAB_ARTIKEL).get(4) + " LIKE '"
@@ -474,7 +474,7 @@ public class SucheDAO extends DataAccess {
                 }
 
                 
-            } else if (suchkriterium.equals("MwSt. Satz")) {
+            } else if ("MwSt. Satz".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabArtikel() 
                     + " WHERE " + attribute.get(TAB_ARTIKEL).get(5) + " LIKE '"
@@ -493,7 +493,7 @@ public class SucheDAO extends DataAccess {
                 }
 
 
-            } else if (suchkriterium.equals("Bestand Frei")) {
+            } else if ("Bestand Frei".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabArtikel() 
                     + " WHERE " + attribute.get(TAB_ARTIKEL).get(6) + " LIKE '"
@@ -512,7 +512,7 @@ public class SucheDAO extends DataAccess {
                 }
 
 
-            } else if (suchkriterium.equals("Bestand Reserviert")) {
+            } else if ("Bestand Reserviert".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabArtikel() 
                     + " WHERE " + attribute.get(TAB_ARTIKEL).get(7) + " LIKE '"
@@ -531,7 +531,7 @@ public class SucheDAO extends DataAccess {
                 }
 
 
-            } else if (suchkriterium.equals("Bestand Zulauf")) {
+            } else if ("Bestand Zulauf".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabArtikel() 
                     + " WHERE " + attribute.get(TAB_ARTIKEL).get(8) + " LIKE '"
@@ -550,7 +550,7 @@ public class SucheDAO extends DataAccess {
                 }
 
 
-            } else if (suchkriterium.equals("Bestand Verkauft")) {
+            } else if ("Bestand Verkauft".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabArtikel() 
                     + " WHERE " + attribute.get(TAB_ARTIKEL).get(9) + " LIKE '"
@@ -617,7 +617,7 @@ public class SucheDAO extends DataAccess {
         }
 
         try {
-            if (suchkriterium.equals("Geschaeftspartner-ID")) {
+            if ("Geschaeftspartner-ID".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabGeschaeftspartner()
                     + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(0) 
@@ -634,7 +634,7 @@ public class SucheDAO extends DataAccess {
                 }
 
 
-            } else if (suchkriterium.equals("Geschäftspartner-Typ")) {
+            } else if ("Geschäftspartner-Typ".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabGeschaeftspartner()
                     + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(1) 
@@ -651,7 +651,7 @@ public class SucheDAO extends DataAccess {
                 }
 
                 
-            } else if (suchkriterium.equals("Anschrift-ID")) {
+            } else if ("Anschrift-ID".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabGeschaeftspartner()
                     + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(2) 
@@ -668,7 +668,7 @@ public class SucheDAO extends DataAccess {
                 }
  
                 
-            } else if (suchkriterium.equals("Liefer-ID")) {
+            } else if ("Liefer-ID".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabGeschaeftspartner()
                     + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(3) 
@@ -685,7 +685,7 @@ public class SucheDAO extends DataAccess {
                 }
  
                 
-            } else if (suchkriterium.equals("Kreditlimit")) {
+            } else if ("Kreditlimit".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabGeschaeftspartner()
                     + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(4) 
@@ -752,7 +752,7 @@ public class SucheDAO extends DataAccess {
         }
 
         try {
-            if (suchkriterium.equals("Konditionen-ID")) {
+            if ("Konditionen-ID".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
                     + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
@@ -773,7 +773,7 @@ public class SucheDAO extends DataAccess {
                 }
 
 
-            } else if (suchkriterium.equals("Auftragsart")) {
+            } else if ("Auftragsart".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
                     + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(1) 
@@ -794,7 +794,7 @@ public class SucheDAO extends DataAccess {
                 }
 
 
-            } else if (suchkriterium.equals("LieferzeitSOFORT")) {
+            } else if ("LieferzeitSOFORT".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
                     + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(2) 
@@ -815,7 +815,7 @@ public class SucheDAO extends DataAccess {
                 }
  
 
-            } else if (suchkriterium.equals("SperrzeitWUNSCH")) {
+            } else if ("SperrzeitWUNSCH".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
                     + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(3) 
@@ -836,7 +836,7 @@ public class SucheDAO extends DataAccess {
                 }
   
 
-            } else if (suchkriterium.equals("Skontozeit 1")) {
+            } else if ("Skontozeit 1".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
                     + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(4) 
@@ -857,7 +857,7 @@ public class SucheDAO extends DataAccess {
                 }
  
 
-            } else if (suchkriterium.equals("Skonto 1")) {
+            } else if ("Skonto 1".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
                     + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(5) 
@@ -878,7 +878,7 @@ public class SucheDAO extends DataAccess {
                 }
  
 
-            } else if (suchkriterium.equals("Skontozeit 2")) {
+            } else if ("Skontozeit 2".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
                     + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(6) 
@@ -899,7 +899,7 @@ public class SucheDAO extends DataAccess {
                 }
 
 
-            } else if (suchkriterium.equals("Skonto 2")) {
+            } else if ("Skonto 2".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
                     + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(7) 
@@ -920,7 +920,7 @@ public class SucheDAO extends DataAccess {
                 }
  
                 
-            } else if (suchkriterium.equals("Mahnzeit 1")) {
+            } else if ("Mahnzeit 1".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
                     + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(8) 
@@ -941,7 +941,7 @@ public class SucheDAO extends DataAccess {
                 }
  
 
-            } else if (suchkriterium.equals("Mahnzeit 2")) {
+            } else if ("Mahnzeit 2".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
                     + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(9) 
@@ -962,10 +962,10 @@ public class SucheDAO extends DataAccess {
                 }
  
 
-            } else if (suchkriterium.equals("Mahnzeit 3")) {
+            } else if ("Mahnzeit 3".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
-                    + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(10) 
+                    + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(10)
                     + " LIKE '" + neuerSuchbegriff + "' AND " 
                     + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
                     + " LIKE 'N'";
@@ -1032,7 +1032,7 @@ public class SucheDAO extends DataAccess {
         }
 
         try {
-            if (suchkriterium.equals("AuftragskopfID")) {
+            if ("AuftragskopfID".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf()
                     + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(0) 
@@ -1052,7 +1052,7 @@ public class SucheDAO extends DataAccess {
                 }
 
 
-            } else if (suchkriterium.equals("GeschäftspartnerID")) {
+            } else if ("GeschäftspartnerID".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
                     + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(1) 
@@ -1072,7 +1072,7 @@ public class SucheDAO extends DataAccess {
                 }
 
 
-            } else if (suchkriterium.equals("Auftragstext")) {
+            } else if ("Auftragstext".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
                     + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(2) 
@@ -1092,7 +1092,7 @@ public class SucheDAO extends DataAccess {
                 }
  
 
-            } else if (suchkriterium.equals("Erfassungsdatum")) {
+            } else if ("Erfassungsdatum".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
                     + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(3) 
@@ -1112,7 +1112,7 @@ public class SucheDAO extends DataAccess {
                 }
   
                 
-            } else if (suchkriterium.equals("Lieferdatum")) {
+            } else if ("Lieferdatum".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
                     + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(4) 
@@ -1132,7 +1132,7 @@ public class SucheDAO extends DataAccess {
                 }
        
                 
-            } else if (suchkriterium.equals("Abschlussdatum")) {
+            } else if ("Abschlussdatum".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
                     + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(5) 
@@ -1152,7 +1152,7 @@ public class SucheDAO extends DataAccess {
                 }
  
 
-            } else if (suchkriterium.equals("Status")) {
+            } else if ("Status".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
                     + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(6) 
@@ -1172,7 +1172,7 @@ public class SucheDAO extends DataAccess {
                 }
  
 
-            } else if (suchkriterium.equals("Auftragsart")) {
+            } else if ("Auftragsart".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
                     + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(7) 
@@ -1192,7 +1192,7 @@ public class SucheDAO extends DataAccess {
                 }
 
 
-            } else if (suchkriterium.equals("Auftragswert")) {
+            } else if ("Auftragswert".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
                     + " WHERE LOWER(" + attribute.get(TAB_AUFTRAGSKOPF).get(8) 
