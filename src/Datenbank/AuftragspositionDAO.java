@@ -746,13 +746,17 @@ public class AuftragspositionDAO extends DataAccess {
 
             query
                 = "UPDATE ROOT." + ddd.getTabAuftragsposition()
-                + " SET " + attribute.get(TAB_AUFTRAGSPOSITION).get(3) 
-                + " = ? WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(1) 
-                + " = ?";
+                + " SET " + attribute.get(TAB_AUFTRAGSPOSITION).get(3) + " = ?" 
+                + ", " + attribute.get(TAB_AUFTRAGSPOSITION).get(4) + " = ?"
+                + " WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(1) 
+                + " = ?"
+                + " AND " + attribute.get(TAB_AUFTRAGSPOSITION).get(5) + " = ?";
             
             stmt = con.prepareStatement(query);
             stmt.setString(1, ap.getMenge());
-            stmt.setString(2, ap.getPositionsnummer());
+            stmt.setString(2, ap.getEinzelwert());
+            stmt.setString(3, ap.getPositionsnummer());
+            stmt.setString(4, "N");
             stmt.executeUpdate();
  
             con.commit();
@@ -761,7 +765,8 @@ public class AuftragspositionDAO extends DataAccess {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText(e.getMessage() + "\n Auftragsposition konnte"
+                + " nicht bearbeitet werden.");
             alert.showAndWait();
             con.rollback();
         }

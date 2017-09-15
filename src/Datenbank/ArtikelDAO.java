@@ -963,6 +963,52 @@ public class ArtikelDAO extends DataAccess {
         }
         return steuer;
     }     
+
     
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.09.17    BER     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Gibt den Bestellwert zu einer bestimmten ArikelID aus.
+     * @param artikelID Artikel für den die Steuer ausgegeben werden soll.
+     * @return Ausgelesener Bestellwert
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public String gibArtikelBestellwert(String artikelID) 
+            throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String bestellwert = "";
+
+        String query = "SELECT " + attribute.get(TAB_ARTIKEL).get(4) 
+            + " FROM ROOT." + ddd.getTabArtikel()
+            + " WHERE " + attribute.get(TAB_ARTIKEL).get(10) + " = ?"
+            + " AND " + attribute.get(TAB_ARTIKEL).get(0) + " = ?";
+
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "N");
+            stmt.setString(2, artikelID);
+            rs = stmt.executeQuery();
+            con.commit();
+            
+            if (rs.next()) {
+                bestellwert = rs.getString(1);
+            }
+            
+        //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "\n Bestellwert konnte icht"
+                + "abgerufen werden!");
+            alert.showAndWait();
+            con.rollback();
+        }
+        return bestellwert;
+    }      
     
 }

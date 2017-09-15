@@ -13,6 +13,7 @@
 * 12.09.2017    HEN     gibAlleGeschaeftspartnerKunde(),
 *                       gibAlleGeschaeftspartnerLieferant() erstellt.
 * 13.09.2017    HEN     gibAuftragswert(),gibGeschaeftspartnerTyp() erstellt.
+* 15.09.2017    BER     gibGeschaeftsparterID() erstellt.
 *-------------------------------------------------------------------------------
 */
 
@@ -826,6 +827,54 @@ public class AuftragskopfDAO extends DataAccess {
         }
         return typ;
     }   
-        
+
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.09.17    BER     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Gibt die ID der Geschäftspartner eines Auftrages wieder.
+     * @param auftragskopfID Geschäftspartner ID
+     * @return Typ des Geschäftspartners
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public String gibGeschaeftspartnerID(String auftragskopfID) 
+        throws SQLException {
+
+        //Variablendeklaration
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String gpID = "";
+
+        String query = "SELECT " + attribute.get(TAB_AUFTRAGSKOPF).get(1)
+            + " FROM ROOT." + ddd.getTabAuftragskopf()
+            + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(0) + " = ?"
+            + " AND " + attribute.get(TAB_AUFTRAGSKOPF).get(9) + " = ?";    
+         
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, auftragskopfID);
+            stmt.setString(2, "N");
+            rs = stmt.executeQuery();
+
+            con.commit();
+            while (rs.next()) {
+                gpID = rs.getString(1);
+            }
+          //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "\n GeschäftspartnerID konnte"
+                + " nicht abgerufen werden.");
+            alert.showAndWait();
+            con.rollback();
+        }
+        return gpID;
+    }     
+    
         
 }
