@@ -124,20 +124,6 @@ public class Geschaeftspartner {
                 && this.geschaeftspartnerID.equals(gp.geschaeftspartnerID);
     }
 
-    /*--------------------------------------------------------------------------
-     * Datum     Name    Kommentar
-     * 26.07.17  Hen     Erstellt.
-     *--------------------------------------------------------------------------
-    */
-    
-    /**
-     * toString Methode für Geschaeftspartnerobjekte.
-     * @return Id vom Geschaeftspartnerobjekt
-    */
-    @Override
-    public String toString() {
-        return "ID: " + geschaeftspartnerID;
-    }
 
     /*--------------------------------------------------------------------------
      *                       Generierter Code Anfang

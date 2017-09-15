@@ -156,20 +156,6 @@ public class Artikel {
                 && this.artikelID.equals(a.artikelID);
     }
 
-    /*--------------------------------------------------------------------------
-     * Datum     Name    Kommentar
-     * 26.07.17  Hen     Erstellt.
-     *--------------------------------------------------------------------------
-    */
-    
-    /**
-     * toString Methode für Artikel Objekte.
-     * @return String Wert mit ArtikelID.
-     */
-    @Override
-    public String toString() {
-        return "ID: " + artikelID;
-    }
 
     /*--------------------------------------------------------------------------
      *                       Generierter Code Anfang

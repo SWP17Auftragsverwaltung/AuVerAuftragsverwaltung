@@ -69,26 +69,6 @@ public class GeschaeftspartnerDAOIT {
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of gibAlleGeschaeftspartnerMitLKZ method, of class
-     * GeschaeftspartnerDAO.
-     *
-     * @throws java.sql.SQLException SQLException  
-     *   Diese Testmethode vergleicht die vorhandenen Geschäftspartner
-     *   der Tableview mit denen in der Datenbank. In diesem Fall 
-     *   MIT gesetztem LKZ.
-     */
-    @Test
-    public void testGibAlleGeschaeftspartnerMitLKZ() throws SQLException {
-        System.out.println("gibAlleGeschaeftspartnerMitLKZ");
-        GeschaeftspartnerDAO instance = new GeschaeftspartnerDAO();
-        ObservableList<Geschaeftspartner> expResult
-                = FXCollections.observableArrayList(
-                        instance.gibAlleGeschaeftspartnerMitLKZ());
-        ArrayList<Geschaeftspartner> result = 
-                instance.gibAlleGeschaeftspartnerMitLKZ();
-        assertEquals(expResult, result);
-    }
 
     /**
      * Test of fuegeGeschaeftspartnerHinzu method, of class

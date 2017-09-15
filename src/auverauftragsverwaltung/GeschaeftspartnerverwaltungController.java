@@ -31,8 +31,6 @@ import Datenbank.SucheDAO;
 import Klassen.Adresse;
 import Klassen.Geschaeftspartner;
 import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -452,30 +450,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         gpTable.setItems(geschaeftspartner);
     }
 
-    
 
-    /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 19.08.17    HEN     Methode erstellt und fertiggestellt. 
-    /*                     Getestet & freigegeben.
-    /*------------------------------------------------------------------------*/
-    
-    /**
-     * Sucht nach allen Geschätspartnern mit aktivem LKZ und stellt sie in der
-     * Tabelle dar.
-     *
-     * @throws java.sql.SQLException SQL Exception
-     */
-    public void alleMitLKZ() throws SQLException {
-        GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();
-        ObservableList<Geschaeftspartner> geschaeftspartner
-                = FXCollections.observableArrayList(
-                        gp.gibAlleGeschaeftspartnerMitLKZ());
-        gpTable.setItems(geschaeftspartner);
-    }
-
-    
-    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 20.08.17    HEN     Methode erstellt und fertiggestellt. 

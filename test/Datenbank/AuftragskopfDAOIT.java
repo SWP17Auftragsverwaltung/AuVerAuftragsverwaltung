@@ -71,27 +71,6 @@ public class AuftragskopfDAOIT {
     }
 
     /**
-     * Test of gibAlleAuftragskoepfeMitLKZ method, of class AuftragskopfDAO.
-     * @throws java.lang.Exception Exception
-     */
-    
-    /*  
-    *   Diese Testmethode vergleicht die vorhandenen Auftragsköpfe der Tableview
-    *   mit denen in der Datenbank. In diesem Fall MIT gesetztem LKZ.
-    */
-    @Test
-    public void testGibAlleAuftragskoepfeMitLKZ() throws Exception {
-        System.out.println("gibAlleAuftragskoepfeMitLKZ");
-        AuftragskopfDAO instance = new AuftragskopfDAO();
-        ObservableList<Auftragskopf> expResult
-            = FXCollections.observableArrayList(
-                    instance.gibAlleAuftragskoepfeMitLKZ());
-        ArrayList<Auftragskopf> result = 
-                instance.gibAlleAuftragskoepfeMitLKZ();
-        assertEquals(expResult, result);
-    }
-
-    /**
      * Test of setzeLKZ method, of class AuftragskopfDAO.
      * @throws java.lang.Exception Exception
      */

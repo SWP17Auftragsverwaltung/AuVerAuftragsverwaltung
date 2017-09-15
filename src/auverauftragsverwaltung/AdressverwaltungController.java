@@ -515,24 +515,6 @@ public class AdressverwaltungController implements Initializable {
         tfDatum.clear();
     }
 
-    /*------------------------------------------------------------------------*/
- /* Datum       Name    Was
-    /* 14.08.17    HEN     Methode erstellt.
-    /* 16.08.17    HEN     Getestet & freigegeben.
-    /*------------------------------------------------------------------------*/
-    /**
-     * Sucht nach allen Adressen mit aktivem LKZ und stellt sie in der Tabelle
-     * dar.
-     *
-     * @throws java.sql.SQLException SQL Exception
-     */
-    public void alleMitLKZ() throws SQLException {
-        AdresseDAO ad = new AdresseDAO();
-        ObservableList<Adresse> adressen
-                = FXCollections.observableArrayList(ad.gibAlleAdressenMitLKZ());
-        adresseTV.setItems(adressen);
-    }
-
     
     /*------------------------------------------------------------------------*/
  /* Datum       Name    Was

@@ -18,7 +18,7 @@
 * 07.09.2017    HEN     setzeMengeResVer(),
 *               BER     gibMengeVerkauft() erstellt.
 * 10.09.2017    HEN     gibArtikelSteuer() erstellt.
-* 13.09.2017    HEN     setzeMengeZulauf(), setzeMengeZulaufFrei() erstellt.     
+* 13.09.2017    HEN     setzeMengeZulauf(), setzeMengeZulaufFrei() erstellt. 
 *-------------------------------------------------------------------------------
 */
 package Datenbank;

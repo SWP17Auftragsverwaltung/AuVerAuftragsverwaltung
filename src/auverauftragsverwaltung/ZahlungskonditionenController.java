@@ -480,27 +480,6 @@ public class ZahlungskonditionenController implements Initializable {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Sucht nach allen Zahlungskonditionen mit aktivem LKZ und stellt sie in
-     * der Tabelle dar.
-     * @throws java.sql.SQLException SQL Exception
-     */
-    @FXML
-    public void alleMitLKZ() throws SQLException {
-        ZahlungskonditionenDAO zk = new ZahlungskonditionenDAO();
-        ObservableList<Zahlungskonditionen> zahlungskonditionen 
-                = FXCollections.observableArrayList(
-                zk.gibAlleZahlungskonditionenMitLKZ());
-        zahlungskonditionenTV.setItems(zahlungskonditionen);
-    }
-
-    
-    
-    /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 16.08.17    HEN     Methode erstellt.
-    /*------------------------------------------------------------------------*/
-    
-    /**
      * Sucht nach allen Zahlungskonditionen ohne LKZ und stellt sie in der
      * Tabelle dar.
      * @throws java.sql.SQLException SQL Exception

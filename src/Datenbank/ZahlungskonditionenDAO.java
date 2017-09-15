@@ -167,75 +167,14 @@ public class ZahlungskonditionenDAO extends DataAccess {
     }
     
     
-    
-    /*------------------------------------------------------------------------*
-    * Datum         Name    Was
-    * 20.08.2017    CEL     Erstellt.
-    /*------------------------------------------------------------------------*/
-
-    /**
-     * Gibt alle Zahlungskonditionen mit Löschkennzeichen wieder.
-     * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
-     */
-    public ArrayList<Zahlungskonditionen> gibAlleZahlungskonditionenMitLKZ() {
-
-        //Variablendeklaration
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        Zahlungskonditionen zahlungskonditionen = null;
-        ArrayList<Zahlungskonditionen> zahlungskonditionenListe
-                = new ArrayList<>();
-
-        String query = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
-            + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
-            + " = ?";
-
-        try {
-            stmt = con.prepareStatement(query);
-            stmt.setString(1, "J");
-            rs = stmt.executeQuery();
-            con.commit();
-            
-            while (rs.next()) {
-                zahlungskonditionen = new Zahlungskonditionen(
-                        rs.getString(1),
-                        rs.getString(2),
-                        rs.getString(3), rs.getString(4), rs.getString(5),
-                        rs.getString(6), rs.getString(7), rs.getString(8),
-                        rs.getString(9), rs.getString(10), rs.getString(11),
-                        rs.getString(12));
-
-                zahlungskonditionenListe.add(zahlungskonditionen);
-            }
-            //Fehler werfen wenn Rückgabeobjekt leer ist
-            if (zahlungskonditionenListe.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.initStyle(StageStyle.UTILITY);
-                alert.setTitle("Fehler");
-                alert.setHeaderText("Keine Zahlungskonditionen gefunden!");
-                alert.showAndWait();
-            }
-
-            //Mögliche SQL fehler fangen
-        } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.initStyle(StageStyle.UTILITY);
-            alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
-            alert.showAndWait();
-        }
-        return zahlungskonditionenListe;
-    }
-    
+      
     /*------------------------------------------------------------------------*
     * Datum         Name    Was
     * 20.08.2017    CEL     Querys erstellt und Methode fertiggestellt.
-    *
     /*------------------------------------------------------------------------*/
 
     /**
      * Fügt Zahlungskonditionen der Datenbank hinzu.
-     *
      * @param z Zahlungskonditionsobjekt
      */
     public void fuegeZahlungskonditionenHinzu(Zahlungskonditionen z) {

@@ -173,20 +173,6 @@ public class Adresse {
                 && this.adresseID.equals(a.adresseID);
     }
 
-    /*--------------------------------------------------------------------------
-     * Datum     Name    Kommentar
-     * 26.07.17  Hen     Erstellt.
-     *--------------------------------------------------------------------------
-    */
-    
-    /**
-     * toString Methode für Adresse Objekte.
-     * @return String Wert mit AdresseID.
-     */
-    @Override
-    public String toString() {
-        return "ID: " + adresseID;
-    }
 
     /*--------------------------------------------------------------------------
      *                       Generierter Code Anfang

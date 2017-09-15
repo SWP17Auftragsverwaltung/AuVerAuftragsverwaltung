@@ -69,25 +69,6 @@ public class ZahlungskonditionenDAOIT {
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of gibAlleZahlungskonditionenMitLKZ method, of class
-     * ZahlungskonditionenDAO.
-     *
-     * @throws java.sql.SQLException SQLException Diese Testmethode vergleicht
-     * die vorhandenen Zahlungskonditionen der Tableview mit denen der
-     * Datenbank(ohne LKZ). In diesem Fall MIT gesetztem LKZ.
-     */
-    @Test
-    public void testGibAlleZahlungskonditionenMitLKZ() throws SQLException {
-        System.out.println("gibAlleZahlungskonditionenMitLKZ");
-        ZahlungskonditionenDAO instance = new ZahlungskonditionenDAO();
-        ObservableList<Zahlungskonditionen> expResult
-                = FXCollections.observableArrayList(
-                        instance.gibAlleZahlungskonditionenMitLKZ());
-        ArrayList<Zahlungskonditionen> result
-                = instance.gibAlleZahlungskonditionenMitLKZ();
-        assertEquals(expResult, result);
-    }
 
     /**
      * Test of fuegeZahlungskonditionenHinzu method, of class

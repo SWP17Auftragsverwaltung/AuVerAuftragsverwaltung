@@ -65,22 +65,6 @@ public class AdresseDAOTest extends Artikel{
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of gibAlleAdressenMitLKZ method, of class AdresseDAO.
-     * @throws java.sql.SQLException SQLException
-     *   Diese Testmethode vergleicht die vorhandenen Adressen der Tableview
-     *   mit denen in der Datenbank. In diesem Fall MIT gesetztem LKZ.
-    */
-    @Test
-    public void testGibAlleAdressenMitLKZ() throws SQLException {
-        System.out.println("gibAlleAdressenMitLKZ");
-        AdresseDAO instance = new AdresseDAO();
-        ObservableList<Adresse> expResult
-            = FXCollections.observableArrayList(
-                    instance.gibAlleAdressenMitLKZ());
-        ArrayList<Adresse> result = instance.gibAlleAdressenMitLKZ();
-        assertEquals(expResult, result);     
-    }
 
     /**
      * Test of fuegeAdresseHinzu method, of class AdresseDAO.

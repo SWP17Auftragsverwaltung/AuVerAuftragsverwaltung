@@ -174,67 +174,7 @@ public class AuftragskopfDAO extends DataAccess {
         return auftragskopfListe;
     }
     
-    
-    
-    /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 15.08.17    BER     Erstellt.
-    /*------------------------------------------------------------------------*/
-    
-    /**
-     * Gibt alle Adressen mit Löschkennzeichen wieder.
-     * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
-     * @throws java.sql.SQLException SQLException
-     */
-    public ArrayList<Auftragskopf> 
-        gibAlleAuftragskoepfeMitLKZ() throws SQLException {
-
-        //Variablendeklaration
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        Auftragskopf auftragskopf = null;
-        ArrayList<Auftragskopf> auftragskopfListe = new ArrayList<>();
-
-        String query = "SELECT * FROM ROOT." + ddd.getTabAuftragskopf() 
-            + " WHERE " + attribute.get(TAB_AUFTRAGSKOPF).get(9) + " = ?";
-
-        try {
-            stmt = con.prepareStatement(query);
-            stmt.setString(1, "J");
-            rs = stmt.executeQuery();
-
-            con.commit();
-            while (rs.next()) {
-                auftragskopf = new Auftragskopf(rs.getString(1), 
-                        rs.getString(2), rs.getString(3), rs.getString(4),
-                        rs.getString(5), rs.getString(6), rs.getString(7), 
-                        rs.getString(8), rs.getString(9), rs.getString(10));
-
-                auftragskopfListe.add(auftragskopf);
-            }
-            //Fehler werfen wenn Rückgabeobjekt leer ist
-            if (auftragskopfListe.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.initStyle(StageStyle.UTILITY);
-                alert.setTitle("Fehler");
-                alert.setHeaderText("Keine Auftragsköpfe gefunden!");
-                alert.showAndWait();
-            }
-
-            //Mögliche SQL fehler fangen
-        } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.initStyle(StageStyle.UTILITY);
-            alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
-            alert.showAndWait();
-            con.rollback();
-        }
-        return auftragskopfListe;
-    }
-
-        
-                   
+                  
     /*------------------------------------------------------------------------*/
     /* Datum        Name    Was
     /* 14.09.17     HEN     Erstellt.    

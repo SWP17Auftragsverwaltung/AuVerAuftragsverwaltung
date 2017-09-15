@@ -167,20 +167,6 @@ public class Zahlungskonditionen {
                 && this.zahlungskonditionsID.equals(b.zahlungskonditionsID);
     }
 
-    /*--------------------------------------------------------------------------
-     * Datum     Name    Kommentar
-     * 26.07.17  Hen     Erstellt.
-     *--------------------------------------------------------------------------
-    */
-    
-    /**
-     * toString Methode für Zahlungskonditionenobjekte.
-     * @return Id vom Zahlungskonditionenobjekt
-    */
-    @Override
-    public String toString() {
-        return "ID: " + zahlungskonditionsID;
-    }
 
     /*--------------------------------------------------------------------------
      *                       Generierter Code Anfang

@@ -171,66 +171,6 @@ public class AdresseDAO extends DataAccess {
     }
 
     
-    
-    /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 07.08.17    Hen     Erstellt.
-    /*------------------------------------------------------------------------*/
-    
-    /**
-     * Gibt alle Adressen mit Löschkennzeichen wieder.
-     * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
-     * @throws java.sql.SQLException SQLException.
-     */
-    public ArrayList<Adresse> gibAlleAdressenMitLKZ() throws SQLException {
-
-        //Variablendeklaration
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        Adresse adresse = null;
-        ArrayList<Adresse> adressListe = new ArrayList<>();
-
-        String query = "SELECT * FROM ROOT." + ddd.getTabAdresse() 
-                + " WHERE " + attribute.get(TAB_ADRESSE).get(12) + " = ?";
-
-        try {
-            stmt = con.prepareStatement(query);
-            stmt.setString(1, "J");
-            rs = stmt.executeQuery();
-
-            con.commit();
-            while (rs.next()) {
-                adresse = new Adresse(rs.getString(1), rs.getString(2),
-                        rs.getString(3), rs.getString(4), rs.getString(5),
-                        rs.getString(6), rs.getString(7), rs.getString(8),
-                        rs.getString(9), rs.getString(10), rs.getString(11),
-                        rs.getString(12), rs.getString(13));
-
-                adressListe.add(adresse);
-            }
-            //Fehler werfen wenn Rückgabeobjekt leer ist
-            if (adressListe.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.initStyle(StageStyle.UTILITY);
-                alert.setTitle("Fehler");
-                alert.setHeaderText("Keine Adressen gefunden!");
-                alert.showAndWait();
-            }
-
-            //Mögliche SQL fehler fangen
-        } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.initStyle(StageStyle.UTILITY);
-            alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
-            alert.showAndWait();
-            con.rollback();
-        }
-        return adressListe;
-    }
-
-    
-
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 15.08.17    Hen     Erstellt.

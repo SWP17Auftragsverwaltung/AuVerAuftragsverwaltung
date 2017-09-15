@@ -144,22 +144,6 @@ public class Auftragskopf {
     */
 
     /**
-     * toString Methode für Auftragskopf Objekte.
-     * @return String Wert mit Auftragskopf-ID.
-    */
-    @Override
-    public String toString() {
-        return "ID: " + auftragskopfID + "STATUS" + status + " ERFASSUNG " 
-                + erfassungsdatum; 
-    }
-    
-    /*--------------------------------------------------------------------------
-     * Datum     Name    Kommentar
-     * 26.07.17  Hen     Erstellt.
-     *--------------------------------------------------------------------------
-    */
-
-    /**
      * hashCode Methode für Auftragskopf Objekte.
      * @return HashCode für Auftragskopfobjekte.
     */

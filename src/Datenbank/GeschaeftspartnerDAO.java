@@ -156,59 +156,6 @@ public class GeschaeftspartnerDAO extends DataAccess {
         return geschaeftspartnerListe;
     }
 
-    /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 15.08.17    CEL     Erstellt und getestet.
-    /*------------------------------------------------------------------------*/
-    /**
-     * Gibt alle Geschaeftspartner ohne Löschkennzeichen wieder.
-     *
-     * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
-     */
-    public ArrayList<Geschaeftspartner> gibAlleGeschaeftspartnerMitLKZ() {
-
-        //Variablendeklaration
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        Geschaeftspartner geschaeftspartner = null;
-        ArrayList<Geschaeftspartner> geschaeftspartnerListe = new ArrayList<>();
-
-        String query = "SELECT * FROM ROOT." + ddd.getTabGeschaeftspartner() 
-            + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(5) + " = ?";
-
-        try {
-            stmt = con.prepareStatement(query);
-            stmt.setString(1, "J");
-            rs = stmt.executeQuery();
-            con.commit();
-            
-            while (rs.next()) {
-                geschaeftspartner = new Geschaeftspartner(rs.getString(1), 
-                        rs.getString(2), rs.getString(3), rs.getString(4),
-                        rs.getString(5), rs.getString(6));
-
-                geschaeftspartnerListe.add(geschaeftspartner);
-            }
-            //Fehler werfen wenn Rückgabeobjekt leer ist
-            if (geschaeftspartnerListe.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.initStyle(StageStyle.UTILITY);
-                alert.setTitle("Fehler");
-                alert.setHeaderText("Keine Geschaeftspartner gefunden!");
-                alert.showAndWait();
-            }
-            //Mögliche SQL fehler fangen
-        } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.initStyle(StageStyle.UTILITY);
-            alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
-            alert.showAndWait();
-        }
-        return geschaeftspartnerListe;
-    }
-
-    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
