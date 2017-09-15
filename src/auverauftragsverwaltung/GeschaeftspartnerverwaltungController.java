@@ -52,6 +52,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import validierung.NumberTextField;
 
 /**
  * Controller der Geschäftspartner die für die Darstellung der FXML Datei 
@@ -582,6 +583,22 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         setTableContent();
     }
 
+    @FXML
+    public void pruefePartnertyp(){
+        
+       if (this.cbPartnerTyp.getValue().equals("L"))
+       {
+
+          this.tfKreditlimit.setText("0");
+          this.tfKreditlimit.setEditable(false);
+          
+       } else {
+        
+          this.tfKreditlimit.setText("");
+          this.tfKreditlimit.setEditable(true);
+       }
+    }
+    
     
     
     /*------------------------------------------------------------------------*/

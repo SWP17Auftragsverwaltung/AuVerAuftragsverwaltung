@@ -25,7 +25,7 @@
                   <Label layoutX="14.0" layoutY="17.0" text="Geschäftspartner-ID" />
                   <TextField fx:id="tfGeschaeftspartnerID" editable="false" layoutX="14.0" layoutY="34.0" prefHeight="25.0" prefWidth="119.0" />
                   <Label layoutX="147.0" layoutY="17.0" text="Geschäftspartner - Typ" />
-                  <ComboBox fx:id="cbPartnerTyp" layoutX="144.0" layoutY="34.0" prefHeight="25.0" prefWidth="139.0" promptText="Bitte wählen..." />
+                  <ComboBox fx:id="cbPartnerTyp" layoutX="144.0" layoutY="34.0" onAction="#pruefePartnertyp" prefHeight="25.0" prefWidth="139.0" promptText="Bitte wählen..." />
                   <Label layoutX="298.0" layoutY="17.0" text="Anschrift-ID" />
                   <TextField fx:id="tfAnschriftID" layoutX="298.0" layoutY="34.0" onMouseClicked="#waehleAnschriftID" prefWidth="112.0" />
                   <Label layoutX="441.0" layoutY="17.0" text="Liefer-ID" />

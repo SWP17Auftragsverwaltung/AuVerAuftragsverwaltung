@@ -954,6 +954,7 @@ public class AuftraegeController implements Initializable {
     */
     @FXML
     public void setTableContentLieferanten() throws SQLException {
+        
         AuftragskopfDAO akp = new AuftragskopfDAO();
         ObservableList<Auftragskopf> auftragskopf
             = FXCollections.observableArrayList(
@@ -1453,53 +1454,57 @@ public class AuftraegeController implements Initializable {
                 ergebnis = true;
             }
         }
-           
-        String auftragskopfID = tfAuftragskopf.getText();
-        String geschaeftspartnerID = tfPartnerID.getText();
-        String auftragsText = tfText.getText();
-        String lieferDatum = this.tfLieferdatum.getText();
-        String abschlussDatum = this.tfAbschlussdatum.getText();  
-        String status = "";
-        switch (cbAuftragsstatus.getValue()) {
-            case "Erfasst":
-                status = "E";
-                break;
-            case "Freigegeben":
-                status = "F";
-                break;
-            case "Abgeschlossen":
-                status = "A";
-                break;
-            default:
-                break;
-        }
-        String auftragsArt = cbAuftragsart.getValue();
-        String auftragsWert = "0";
-        String lkz = "N";
+     
         
-        Auftragskopf auftragskopf = new Auftragskopf(auftragskopfID, 
-                geschaeftspartnerID, auftragsText, erfassungsDatum, lieferDatum,
-                abschlussDatum, status, auftragsArt, auftragsWert, lkz);
+        if (validateFields()){
+            String auftragskopfID = tfAuftragskopf.getText();
+            String geschaeftspartnerID = tfPartnerID.getText();
+            String auftragsText = tfText.getText();
+            String lieferDatum = this.tfLieferdatum.getText();
+            String abschlussDatum = this.tfAbschlussdatum.getText();  
+            String status = "";
+            switch (cbAuftragsstatus.getValue()) {
+                case "Erfasst":
+                    status = "E";
+                    break;
+                case "Freigegeben":
+                    status = "F";
+                    break;
+                case "Abgeschlossen":
+                    status = "A";
+                    break;
+                default:
+                    break;
+            }
+            String auftragsArt = cbAuftragsart.getValue();
+            String auftragsWert = "0";
+            String lkz = "N";
 
-        AuftragskopfDAO akd = new AuftragskopfDAO();
-        akd.fuegeAuftragHinzu(auftragskopf);
+            Auftragskopf auftragskopf = new Auftragskopf(auftragskopfID, 
+                    geschaeftspartnerID, auftragsText, erfassungsDatum, lieferDatum,
+                    abschlussDatum, status, auftragsArt, auftragsWert, lkz);
+
+            AuftragskopfDAO akd = new AuftragskopfDAO();
+            akd.fuegeAuftragHinzu(auftragskopf);
+
+            clearAuftragskopfTextFields();
+
+            //Buttons setzen
+            this.pane.setVisible(true);      
+            this.auftragskopfTP.setText("Auftragskopf");
+            this.btAnlegen.setVisible(true);
+            this.btHinzufuegen.setVisible(false);
+            this.btAendern.setDisable(false);
+            this.btLoeschen.setDisable(false);
+            this.paneGP.setVisible(false);
+            this.auftraegeTP.setVisible(true);
+            this.btAbbrechen.setDisable(true);
+            this.btAuftragspositionen.setDisable(false);
+
+            //Auftragskopftabelle aktualisieren
+            refreshAuftragskopfTable();
         
-        clearAuftragskopfTextFields();
-             
-        //Buttons setzen
-        this.pane.setVisible(true);      
-        this.auftragskopfTP.setText("Auftragskopf");
-        this.btAnlegen.setVisible(true);
-        this.btHinzufuegen.setVisible(false);
-        this.btAendern.setDisable(false);
-        this.btLoeschen.setDisable(false);
-        this.paneGP.setVisible(false);
-        this.auftraegeTP.setVisible(true);
-        this.btAbbrechen.setDisable(true);
-        this.btAuftragspositionen.setDisable(false);
-        
-        //Auftragskopftabelle aktualisieren
-        refreshAuftragskopfTable();
+        }
     }
        
     
@@ -2496,6 +2501,7 @@ public class AuftraegeController implements Initializable {
         Pattern p = Pattern.compile("[1-9][0-9]*");
         Matcher m = p.matcher(this.tfMengeAPD.getText());
         
+        
         if (this.tfMengeAPD.getText().isEmpty()) {
             
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -2521,5 +2527,80 @@ public class AuftraegeController implements Initializable {
         }  
         
         return istValidiert;
-    }    
+    } 
+    
+    public boolean validateFields() {
+        
+        boolean istValidiert = true;
+        Alert alert = new Alert(Alert.AlertType.WARNING);       
+        alert.setTitle("Fehlende Eingaben");
+
+        if (this.cbAuftragsart.getValue() == null) {
+
+            alert.setContentText("Bitte wählen Sie die Auftragsart!");
+            alert.showAndWait();
+
+            istValidiert = false;
+            
+        } else if (this.tfPartnerID.getText().isEmpty()) {
+
+            alert.setContentText("Bitte wählen Sie einen Geschäftspartner "
+                    + "aus der Liste!");
+            alert.showAndWait();
+
+            istValidiert = false;    
+
+        } else if (this.tfErfDatum.getText().isEmpty()) {
+
+            alert.setContentText("Bitte geben sie das Erfassungsdatum ein!");
+            alert.showAndWait();
+
+            istValidiert = false;
+
+        } else if ((this.cbAuftragsart.getValue() == "Terminauftrag" 
+                || this.cbAuftragsart.getValue() == null)
+                && this.tfLieferdatum.getText().isEmpty()) {
+
+            alert.setContentText("Bitte geben Sie das Lieferdatum ein!"
+                    + " \n\n(Nur möglich wenn Auftragsart Terminauftrag ist.)");
+            alert.showAndWait();
+
+            istValidiert = false;
+        }
+        
+        return istValidiert;
+    }
+    
+    @FXML
+    public void zeigeLieferanten() throws SQLException{
+        
+        
+       if (this.cbAuftragsart.getValue() == "Bestellauftrag") {
+           
+            GeschaeftspartnerDAO gpd = new GeschaeftspartnerDAO();
+
+            ObservableList<Geschaeftspartner> geschaeftspartner
+                = FXCollections.observableArrayList(
+                        gpd.gibAlleLieferanten());
+
+            tvGPAuswahl.setItems(geschaeftspartner);
+          
+       } else {
+        
+             setTableContentGPKunden();
+         
+       }
+    }
+    
+    
+    public void setTableContentGPKunden() throws SQLException{
+ 
+        GeschaeftspartnerDAO gpd = new GeschaeftspartnerDAO();
+        ObservableList<Geschaeftspartner> geschaeftspartner
+            = FXCollections.observableArrayList(
+                    gpd.gibAlleKunden());
+        tvGPAuswahl.setItems(geschaeftspartner);
+        
+    }
+  
 }

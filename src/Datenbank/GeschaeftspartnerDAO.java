@@ -102,6 +102,90 @@ public class GeschaeftspartnerDAO extends DataAccess {
         }
         return geschaeftspartnerListe;
     }
+    
+    
+    /**
+     * Liefert allle Lieferanten. Geschäftspartner mit dem Partnerttyp "L".
+     * @return 
+     */
+    public ArrayList<Geschaeftspartner> gibAlleLieferanten() {
+
+        //Variablendeklaration.
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Geschaeftspartner geschaeftspartner = null;
+        ArrayList<Geschaeftspartner> geschaeftspartnerListe = new ArrayList<>();
+        
+        String query = "SELECT * FROM ROOT." + ddd.getTabGeschaeftspartner() 
+            + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(5) + " = ?"
+            + " AND " + attribute.get(TAB_GESCHAEFTSPARTNER).get(1) + " = ?"    ;
+
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "N");
+            stmt.setString(2, "L");
+            rs = stmt.executeQuery();
+            con.commit();
+            
+            while (rs.next()) {
+                geschaeftspartner = new Geschaeftspartner(rs.getString(1),
+                        rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getString(5), rs.getString(6));
+
+                geschaeftspartnerListe.add(geschaeftspartner);
+            }
+            con.close();
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+        }
+        return geschaeftspartnerListe;
+    }
+    /**
+     * Liefert allle Kunden. Geschäftspartner mit dem Partnerttyp "K".
+     * @return 
+     */
+    public ArrayList<Geschaeftspartner> gibAlleKunden() {
+
+        //Variablendeklaration.
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Geschaeftspartner geschaeftspartner = null;
+        ArrayList<Geschaeftspartner> geschaeftspartnerListe = new ArrayList<>();
+        
+        String query = "SELECT * FROM ROOT." + ddd.getTabGeschaeftspartner() 
+            + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(5) + " = ?"
+            + " AND " + attribute.get(TAB_GESCHAEFTSPARTNER).get(1) + " = ?"    ;
+
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "N");
+            stmt.setString(2, "K");
+            rs = stmt.executeQuery();
+            con.commit();
+            
+            while (rs.next()) {
+                geschaeftspartner = new Geschaeftspartner(rs.getString(1),
+                        rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getString(5), rs.getString(6));
+
+                geschaeftspartnerListe.add(geschaeftspartner);
+            }
+            con.close();
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+        }
+        return geschaeftspartnerListe;
+    }
 
     
     
