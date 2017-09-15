@@ -57,28 +57,12 @@ public class ArtikelDAOTest {
         System.out.println("gibAlleArtikelOhneLKZ");
         ArtikelDAO instance = new ArtikelDAO();
         ObservableList<Artikel> expResult
-            = FXCollections.observableArrayList
-        (instance.gibAlleArtikelOhneLKZ());
+            = FXCollections.observableArrayList(
+                instance.gibAlleArtikelOhneLKZ());
         ArrayList<Artikel> result = instance.gibAlleArtikelOhneLKZ();
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of gibAlleArtikelMitLKZ method, of class ArtikelDAO.
-     * @throws java.sql.SQLException SQLException 
-     *   Diese Testmethode vergleicht die vorhandenen Artikel der Tableview
-     *   mit denen in der Datenbank. In diesem Fall MIT gesetztem LKZ.
-    */
-    @Test
-    public void testGibAlleArtikelMitLKZ() throws SQLException {
-        System.out.println("gibAlleAdressenMitLKZ");
-        ArtikelDAO instance = new ArtikelDAO();
-        ObservableList<Artikel> expResult
-            = FXCollections.observableArrayList(
-                    instance.gibAlleArtikelMitLKZ());
-        ArrayList<Artikel> result = instance.gibAlleArtikelMitLKZ();
-        assertEquals(expResult, result);     
-    }
 
     /**
      * Test of fuegeArtikelHinzu method, of class ArtikelDAO.

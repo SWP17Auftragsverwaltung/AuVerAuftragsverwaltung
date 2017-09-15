@@ -19,6 +19,7 @@
 *               BER     gibMengeVerkauft() erstellt.
 * 10.09.2017    HEN     gibArtikelSteuer() erstellt.
 * 13.09.2017    HEN     setzeMengeZulauf(), setzeMengeZulaufFrei() erstellt. 
+* 15.09.2017    BER     gibArtikelEinzelwert(),gibArtikelBestellwert() erstellt.
 *-------------------------------------------------------------------------------
 */
 package Datenbank;
@@ -165,61 +166,6 @@ public class ArtikelDAO extends DataAccess {
     }
 
 
-    
-    /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 15.08.17    BER     Erstellt.
-    /*------------------------------------------------------------------------*/
-     /**
-     * Gibt alle Artikel ohne Löschkennzeichen wieder.
-     * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
-     */
-    public ArrayList<Artikel> gibAlleArtikelMitLKZ() {
-        
-        //Variablendeklaration
-        PreparedStatement  stmt = null;
-        ResultSet rs = null;
-        Artikel artikel = null;  
-        ArrayList<Artikel> artikelListe = new ArrayList<>();
-        
-        String query = "SELECT * FROM ROOT." + ddd.getTabArtikel() + " WHERE " 
-            + attribute.get(TAB_ARTIKEL).get(12) + " = ?";
-
-        try {
-            stmt = con.prepareStatement(query);
-            stmt.setString(1, "J");
-            rs = stmt.executeQuery();
-            con.commit();
-            
-            while (rs.next()) {
-                artikel = new Artikel(rs.getString(1), rs.getString(2),
-                        rs.getString(3), rs.getString(4), rs.getString(5),
-                        rs.getString(6), rs.getString(7), rs.getString(8),
-                        rs.getString(9), rs.getString(10), rs.getString(11));
-                
-                artikelListe.add(artikel);
-            }
-            //Fehler werfen wenn Rückgabeobjekt leer ist
-            if (artikelListe.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.initStyle(StageStyle.UTILITY);
-                alert.setTitle("Fehler");
-                alert.setHeaderText("Keine Artikel gefunden!");
-                alert.showAndWait();
-            }
-            //Mögliche SQL fehler fangen
-        } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.initStyle(StageStyle.UTILITY);
-            alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
-            alert.showAndWait();
-        } 
-        return artikelListe;
-    }
-    
-    
-    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    BER     Erstellt.
@@ -1009,6 +955,52 @@ public class ArtikelDAO extends DataAccess {
             con.rollback();
         }
         return bestellwert;
-    }      
+    }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.09.17    BER     Erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Gibt den Bestellwert zu einer bestimmten ArikelID aus.
+     * @param artikelID Artikel für den die Steuer ausgegeben werden soll.
+     * @return Ausgelesener Bestellwert
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public String gibArtikelEinzelwert(String artikelID) 
+            throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String einzelwert = "";
+
+        String query = "SELECT " + attribute.get(TAB_ARTIKEL).get(3) 
+            + " FROM ROOT." + ddd.getTabArtikel()
+            + " WHERE " + attribute.get(TAB_ARTIKEL).get(10) + " = ?"
+            + " AND " + attribute.get(TAB_ARTIKEL).get(0) + " = ?";
+
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "N");
+            stmt.setString(2, artikelID);
+            rs = stmt.executeQuery();
+            con.commit();
+            
+            if (rs.next()) {
+                einzelwert = rs.getString(1);
+            }
+            
+        //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "\n Einzelwert konnte icht"
+                + "abgerufen werden!");
+            alert.showAndWait();
+            con.rollback();
+        }
+        return einzelwert;
+    }     
     
 }

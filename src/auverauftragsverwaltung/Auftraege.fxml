@@ -130,7 +130,7 @@
                         <Button fx:id="btAnlegenAPD" layoutX="14.0" layoutY="119.0" mnemonicParsing="false" onAction="#auftragspositionAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
                         <Button fx:id="btLoeschenAPD" layoutX="228.0" layoutY="119.0" mnemonicParsing="false" onAction="#auftragspositionLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
                         <Button fx:id="btBearbeitenAPD" layoutX="121.0" layoutY="119.0" mnemonicParsing="false" onAction="#bearbeitePosition" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
-                        <Button fx:id="btAbbrechenAPD" layoutX="336.0" layoutY="119.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " />
+                        <Button fx:id="btAbbrechenAPD" layoutX="336.0" layoutY="119.0" mnemonicParsing="false" onAction="#aktionAbbrechenPositionen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " />
                         <TextField fx:id="tfPositionsNrAPD" editable="false" layoutX="14.0" layoutY="47.0" />
                         <TextField fx:id="tfMaterialNrAPD" editable="false" layoutX="197.0" layoutY="47.0" />
                         <NumberTextField fx:id="tfMengeAPD" layoutX="371.0" layoutY="47.0" />

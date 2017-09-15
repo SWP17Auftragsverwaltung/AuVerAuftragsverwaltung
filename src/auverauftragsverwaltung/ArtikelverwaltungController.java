@@ -460,25 +460,7 @@ public class ArtikelverwaltungController implements Initializable {
         cbMwstsatz.valueProperty().set(null);
     }
 
-    /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 15.08.17    BER     Methode erstellt.
-    /*------------------------------------------------------------------------*/
     
-    /**
-     * Sucht nach allen Artikeln mit aktivem LKZ und stellt sie in der Tabelle
-     * dar.
-     *
-     * @throws java.sql.SQLException SQL Exception
-     */
-    public void alleMitLKZ() throws SQLException {
-        ArtikelDAO ar = new ArtikelDAO();
-        ObservableList<Artikel> artikel
-                = FXCollections.observableArrayList(
-                        ar.gibAlleArtikelMitLKZ());
-        tvArtikel.setItems(artikel);
-    }
-
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 15.08.17    BER     Methode erstellt.
@@ -561,7 +543,7 @@ public class ArtikelverwaltungController implements Initializable {
                 String bestandsmengeReserviert = tfBestandReserviert.getText();
                 String bestandsmengeZulauf = tfBestandZulauf.getText();
                 String bestandsmengeVerkauft = tfBestandVerkauft.getText();
-                String lkz = "N";
+                String lkz = "N";             
                 Artikel artikel = new Artikel(artikelID, artikeltext, 
                         bestelltext, einzelwert, bestellwert, steuer,
                         bestandsmengeFrei, bestandsmengeReserviert, 
