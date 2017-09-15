@@ -1,14 +1,13 @@
-Sat Aug 19 04:55:03 CEST 2017 : Apache Derby Network Server 10.11.1.2 - (1629631) wurde gestartet und ist bereit, Verbindungen auf Port 1527 zu akzeptieren.
 ----------------------------------------------------------------
-Sat Aug 19 04:55:06 CEST 2017:
-Booten von Derby-Version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): Instanz a816c00e-015d-f86a-4cdb-000002322fd8
-für Datenbankverzeichnis C:\Users\Chakir\Documents\NetBeansProjects\AuVerAuftragsverwaltung\SWPWI2017 mit Class Loader sun.misc.Launcher$AppClassLoader@1d44bcfa
-Geladen aus file:/C:/Program%20Files/Java/jdk1.8.0_91/db/lib/derby.jar
+Fri Sep 15 19:43:14 CEST 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-015e-86a3-2eb9-000008151c10 
+on database directory C:\Users\Andre\Documents\NetBeansProjects\AuVerAuftragsverwaltung\SWPWI2017 with class loader sun.misc.Launcher$AppClassLoader@42a57993 
+Loaded from file:/C:/Users/Andre/Documents/NetBeansProjects/AuVerAuftragsverwaltung/dist/run755225831/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_141-b15
-user.dir=C:\Program Files\Java\jdk1.8.0_91\db
-os.name=Windows 7
+java.runtime.version=1.8.0_112-b15
+user.dir=C:\Users\Andre\Documents\NetBeansProjects\AuVerAuftragsverwaltung
+os.name=Windows 8.1
 os.arch=amd64
-os.version=6.1
-derby.system.home=C:\Users\Chakir\Documents\NetBeansProjects\AuVerAuftragsverwaltung
-Datenbank-Class Loader wurde gestartet - derby.database.classpath=''
+os.version=6.3
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

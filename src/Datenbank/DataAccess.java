@@ -13,6 +13,8 @@
 */
 package Datenbank;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -44,7 +46,8 @@ public class DataAccess {
      *Variable für die Datenbank URL. Wird in einer Methode dynamisch erzeugt.
      */
     private String datenbankURL = "jdbc:derby://localhost:1527/SWPWI2017";
-
+//    private String datenbankURL = erzeugeDatenbankPfad();
+    String relativerPfad;
 
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -82,9 +85,9 @@ public class DataAccess {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText(e.getMessage() + "\nDie Datenbankverbindung "
+                + "konnte nicht hergestellt werden.");
             alert.showAndWait();
-            throw new SQLException("NEIN");
         }
         return con;
     }
@@ -108,7 +111,6 @@ public class DataAccess {
                 DriverManager.getConnection(datenbankURL + ";shutdown=true",
                         benutzername, passwort);
 
-                /*Fehler beim Verbindungsabbau wird hier gefangen */
             } catch (SQLException e) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.initStyle(StageStyle.UTILITY);
@@ -119,5 +121,33 @@ public class DataAccess {
         }
     }
     
-    
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 15.09.17    Hen     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    /**
+     * Gib den Pfad, wo das Programm ausgeführt wird, an.
+     * @return Datenbankpfad der Datenbank
+     */
+    public String erzeugeDatenbankPfad() {
+        //holt den Datenbankpfad zur Laufzeit
+        try {
+            this.relativerPfad = new File(".").getCanonicalPath();
+            //Fehler wird gefangen
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "\n Datenbankpfad konnte nicht"
+                + " erzeugt werden.");
+            alert.showAndWait();
+        }
+
+        datenbankURL 
+            = "jdbc:derby:" + relativerPfad + "/SWPWI2017";
+        
+        return datenbankURL;
+    }
+  
 }
