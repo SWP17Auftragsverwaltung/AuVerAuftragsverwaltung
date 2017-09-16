@@ -52,6 +52,7 @@ import Klassen.Geschaeftspartner;
 import Klassen.Meldung;
 import de.jollyday.HolidayCalendar;
 import de.jollyday.HolidayManager;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -68,7 +69,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -553,6 +556,9 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     public void closeAuftraegspositionAnzeigen(ActionEvent event) {
+        
+        
+        
         this.paneAuftraege.setVisible(true);
         this.paneAuftragspositionen.setVisible(false);
         this.paneGP.setVisible(false);
@@ -2601,6 +2607,24 @@ public class AuftraegeController implements Initializable {
                     gpd.gibAlleKunden());
         tvGPAuswahl.setItems(geschaeftspartner);
         
+    }
+    
+    @FXML
+    public void zeigeAuftragskonditionen(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "Auftragskonditionen.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Auftragskonditionen");
+            stage.setScene(scene);
+//            stage.setMaximized(true);
+            stage.show();
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            System.out.println("Can't load the Auftragskonditionen!");
+        }
     }
   
 }

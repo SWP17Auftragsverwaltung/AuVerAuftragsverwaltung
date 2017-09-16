@@ -29,19 +29,20 @@
                         <ComboBox fx:id="cbAuftragsart" layoutX="248.0" layoutY="37.0" onAction="#zeigeLieferanten" prefHeight="25.0" prefWidth="139.0" promptText="Bitte wählen..." />
                         <TextField fx:id="tfAuftragswert" editable="false" layoutX="13.0" layoutY="117.0" prefHeight="25.0" prefWidth="91.0" />
                         <Button fx:id="btAuftragspositionen" disable="true" layoutX="18.0" layoutY="178.0" mnemonicParsing="false" onAction="#zeigeAuftragspositionenZuAuftrag" prefHeight="40.0" prefWidth="120.0" text="Auftragspositionen" />
-                        <Button fx:id="btAnlegen" layoutX="148.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
-                        <Button fx:id="btAendern" disable="true" layoutX="257.0" layoutY="178.0" mnemonicParsing="false" onAction="#bearbeiteAuftragskopf" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
-                        <Button fx:id="btLoeschen" disable="true" layoutX="366.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragskopfLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
+                        <Button fx:id="btAnlegen" layoutX="302.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
+                        <Button fx:id="btAendern" disable="true" layoutX="411.0" layoutY="178.0" mnemonicParsing="false" onAction="#bearbeiteAuftragskopf" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
+                        <Button fx:id="btLoeschen" disable="true" layoutX="520.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragskopfLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
                         <Button fx:id="closeAA" layoutX="847.0" layoutY="178.0" mnemonicParsing="false" onAction="#closeAuftraegeAnzeigen" prefHeight="40.0" prefWidth="100.0" text="Zurück" AnchorPane.rightAnchor="35.0" />
                         <TextField fx:id="tfErfDatum" editable="false" layoutX="525.0" layoutY="37.0" onMouseClicked="#datumAendern" prefHeight="25.0" prefWidth="98.0" />
                         <TextField fx:id="tfLieferdatum" layoutX="646.0" layoutY="37.0" prefHeight="25.0" prefWidth="98.0" />
                         <TextField fx:id="tfAbschlussdatum" layoutX="767.0" layoutY="37.0" prefHeight="25.0" prefWidth="98.0" />
-                        <Button fx:id="btAbbrechen" disable="true" layoutX="474.0" layoutY="178.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
-                        <Button fx:id="btHinzufuegen" layoutX="148.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
-                        <Button fx:id="btSpeichern" layoutX="257.0" layoutY="178.0" mnemonicParsing="false" onAction="#speichereAenderungAuftragskopf" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
+                        <Button fx:id="btAbbrechen" disable="true" layoutX="628.0" layoutY="178.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
+                        <Button fx:id="btHinzufuegen" layoutX="302.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
+                        <Button fx:id="btSpeichern" layoutX="411.0" layoutY="178.0" mnemonicParsing="false" onAction="#speichereAenderungAuftragskopf" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
                         <Pane fx:id="paneAuftragskopfStatus" layoutX="14.0" layoutY="13.0" prefHeight="79.0" prefWidth="947.0" visible="false" />
                         <TextField fx:id="tfText" layoutX="118.0" layoutY="38.0" prefHeight="25.0" prefWidth="117.0" />
                         <Pane fx:id="pane" layoutX="14.0" layoutY="13.0" prefHeight="132.0" prefWidth="947.0" />
+                        <Button fx:id="btAuftragskonditionen" layoutX="148.0" layoutY="178.0" mnemonicParsing="false" onAction="#zeigeAuftragskonditionen" prefHeight="40.0" prefWidth="140.0" text="Auftragskonditionen" />
                      </children>
                   </AnchorPane>
               </content>
