@@ -2655,9 +2655,24 @@ public class AuftraegeController implements Initializable {
     @FXML
     public void zeigeAuftragskonditionen() throws SQLException {
         
-        this.zahlungskonditionendatensatzPane.setVisible(true);
-        gibKonditionen();
+        String auftragskopfID;
+        auftragskopfID = this.tfAuftragskopf.getText();
         
+        if (auftragskopfID.isEmpty()){
+            
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Auftrag nicht ausgewählt!");
+            alert.setContentText("Bitte wählen sie einen Auftrag \n"
+                    + "zu dem Sie sich die Zahlungskonditionen anschauen "
+                    + "wollen!");
+            alert.showAndWait();
+        
+            
+        } else {
+            this.zahlungskonditionendatensatzPane.setVisible(true);
+
+            gibKonditionen(auftragskopfID);
+        }
 
     }
     
@@ -2672,25 +2687,28 @@ public class AuftraegeController implements Initializable {
      * @throws SQLException SQLFehler
      * @throws java.io.IOException IOFehler
      */
-    public void gibKonditionen() throws SQLException{
+    public void gibKonditionen(String auftragskopfID) throws SQLException{
+       
         AuftragskonditionsDAO akd = new AuftragskonditionsDAO();
         Zahlungskonditionen zk;
-        String auftragskopfID;   
 
-        auftragskopfID = this.tfAuftragskopf.getText();
-        
         zk = akd.gibKonditionZuAuftrag(auftragskopfID); 
-        
+
+        this.tfZahlungskonditionsID.setText(zk.getZahlungskonditionenID());
+        this.tfAuftragsart.setText(zk.getAuftragsart());
         this.tfLieferzeitSOFORT.setText(zk.getLieferzeitSOFORT());
+        this.tfSperrzeitWUNSCH.setText(zk.getSperrzeitWUNSCH());
         this.tfMahnzeit1.setText(zk.getMahnzeit1());
         this.tfMahnzeit2.setText(zk.getMahnzeit2());
         this.tfMahnzeit3.setText(zk.getMahnzeit3());
+        this.tfSkontozeit1.setText(zk.getSkontozeit1());
         this.tfSkonto1.setText(zk.getSkonto1());
+        this.tfSkontozeit2.setText(zk.getSkontozeit2());
         this.tfSkonto2.setText(zk.getSkonto2());
-        this.tfSperrzeitWUNSCH.setText(zk.getSperrzeitWUNSCH());
-        this.tfZahlungskonditionsID.setText(zk.getZahlungskonditionenID());
-        this.tfAuftragsart.setText(zk.getAuftragsart());
-           
+        
+       
+        
+        
     }
 
       

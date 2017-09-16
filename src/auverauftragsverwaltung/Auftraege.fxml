@@ -175,42 +175,42 @@
             </TitledPane>
          </children>
       </AnchorPane>
-      <TitledPane fx:id="zahlungskonditionendatensatzPane" animated="false" collapsible="false" layoutX="45.0" layoutY="471.0" prefHeight="243.0" prefWidth="1024.0" text="Auftragskonditionen" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="250.0">
+      <TitledPane fx:id="zahlungskonditionendatensatzPane" animated="false" collapsible="false" layoutX="45.0" layoutY="471.0" prefHeight="251.0" prefWidth="974.0" text="Auftragskonditionen" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="188.0" prefWidth="1022.0">
                <children>
                   <Label layoutX="14.0" layoutY="23.0" text="Konditionen-ID" />
                   <TextField fx:id="tfZahlungskonditionsID" editable="false" layoutX="14.0" layoutY="40.0" prefHeight="25.0" prefWidth="100.0" />
                   <Label layoutX="127.0" layoutY="23.0" prefHeight="17.0" prefWidth="78.0" text="Auftragsart" />
-                  <Label layoutX="290.0" layoutY="23.0" text="Lieferzeit SOFORT" />
-                  <Label layoutX="481.0" layoutY="23.0" text="Sperrzeit WUNSCH" />
-                  <Label layoutX="696.0" layoutY="23.0" text="Mahnzeit 1" />
-                  <Label layoutX="800.0" layoutY="23.0" text="Mahnzeit 2" />
-                  <Label layoutX="907.0" layoutY="23.0" text="Mahnzeit 3" />
+                  <Label layoutX="265.0" layoutY="23.0" text="Lieferzeit SOFORT" />
+                  <Label layoutX="436.0" layoutY="23.0" text="Sperrzeit WUNSCH" />
+                  <Label layoutX="615.0" layoutY="24.0" text="Mahnzeit 1" />
+                  <Label layoutX="724.0" layoutY="24.0" text="Mahnzeit 2" />
+                  <Label layoutX="834.0" layoutY="24.0" text="Mahnzeit 3" />
                   <Label layoutX="14.0" layoutY="95.0" text="Skontozeit 1" />
                   <Label layoutX="152.0" layoutY="95.0" text="Skonto 1" />
                   <Label layoutX="274.0" layoutY="95.0" text="Skontozeit 2" />
                   <Label layoutX="413.0" layoutY="95.0" text="Skonto 2" />
                   <Label layoutX="252.0" layoutY="116.0" text="\%" />
                   <Label layoutX="506.0" layoutY="115.0" text="\%" />
-                  <Label layoutX="411.0" layoutY="44.0" text="Tage" />
-                  <Label layoutX="757.0" layoutY="44.0" text="Tage" />
-                  <Label layoutX="859.0" layoutY="44.0" text="Tage" />
-                  <Label layoutX="966.0" layoutY="45.0" text="Tage" />
-                  <Label layoutX="615.0" layoutY="43.0" text="Tage" />
+                  <Label layoutX="391.0" layoutY="44.0" text="Tage" />
+                  <Label layoutX="687.0" layoutY="44.0" text="Tage" />
+                  <Label layoutX="796.0" layoutY="44.0" text="Tage" />
+                  <Label layoutX="906.0" layoutY="44.0" text="Tage" />
+                  <Label layoutX="569.0" layoutY="44.0" text="Tage" />
                   <Label layoutX="114.0" layoutY="116.0" text="Tage" />
                   <Label layoutX="365.0" layoutY="115.0" text="Tage" />
-                  <TextField fx:id="tfLieferzeitSOFORT" layoutX="285.0" layoutY="39.0" prefHeight="27.0" prefWidth="126.0" />
-                  <TextField fx:id="tfSperrzeitWUNSCH" layoutX="481.0" layoutY="40.0" prefHeight="27.0" prefWidth="133.0" />
-                  <TextField fx:id="tfMahnzeit1" layoutX="685.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
-                  <TextField fx:id="tfMahnzeit2" layoutX="788.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
+                  <TextField fx:id="tfLieferzeitSOFORT" layoutX="265.0" layoutY="40.0" prefHeight="27.0" prefWidth="126.0" />
+                  <TextField fx:id="tfSperrzeitWUNSCH" layoutX="436.0" layoutY="39.0" prefHeight="27.0" prefWidth="133.0" />
+                  <TextField fx:id="tfMahnzeit1" layoutX="615.0" layoutY="40.0" prefHeight="17.0" prefWidth="72.0" />
+                  <TextField fx:id="tfMahnzeit2" layoutX="724.0" layoutY="40.0" prefHeight="17.0" prefWidth="72.0" />
                   <TextField fx:id="tfAuftragsart" editable="false" layoutX="126.0" layoutY="41.0" prefHeight="25.0" prefWidth="126.0" />
-                  <TextField fx:id="tfMahnzeit3" layoutX="894.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" />
+                  <TextField fx:id="tfMahnzeit3" layoutX="834.0" layoutY="40.0" prefHeight="17.0" prefWidth="72.0" />
                   <TextField fx:id="tfSkontozeit1" layoutX="11.0" layoutY="111.0" prefHeight="25.0" prefWidth="100.0" />
                   <TextField fx:id="tfSkonto1" layoutX="157.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
                   <TextField fx:id="tfSkontozeit2" layoutX="274.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
                   <TextField fx:id="tfSkonto2" layoutX="411.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
-                  <Pane fx:id="paneAuftragskonditionen" layoutX="11.0" layoutY="13.0" prefHeight="135.0" prefWidth="991.0" />
+                  <Pane fx:id="paneAuftragskonditionen" layoutX="-25.0" layoutY="119.0" prefHeight="135.0" prefWidth="991.0" />
                   <Button fx:id="closeZK" layoutX="907.0" layoutY="166.0" mnemonicParsing="false" onAction="#closeAuftragskonditionen" prefHeight="40.0" prefWidth="100.0" text="Schließen" AnchorPane.rightAnchor="35.0" />
                </children>
             </AnchorPane>
