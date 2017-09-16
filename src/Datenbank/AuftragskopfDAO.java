@@ -776,7 +776,7 @@ public class AuftragskopfDAO extends DataAccess {
     
     /**
      * Gibt die ID der Geschäftspartner eines Auftrages wieder.
-     * @param auftragskopfID Geschäftspartner ID
+     * @param auftragskopfID Auftragskopf ID
      * @return Typ des Geschäftspartners
      * @throws java.sql.SQLException SQLFehler
      */
@@ -814,7 +814,7 @@ public class AuftragskopfDAO extends DataAccess {
             con.rollback();
         }
         return gpID;
-    }     
+    }
     
-        
+             
 }
