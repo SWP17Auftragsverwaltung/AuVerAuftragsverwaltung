@@ -36,6 +36,9 @@
 *                zeigeWerte() bearbeitet.
 * 13.09.2017 HEN setzeSucheZurueck() erstellt.
 * 14.09.2017 HEN auftragskopfLoeschen(), auftragsPositionLoeschen() bearbeitet.
+* 16.09.2017 GET validateMenge(),validateFields(),zeigeLieferanten(),
+*                zeigeAuftragspositionen(), 
+*            HEN gibKonditionen() erstellt.
 *-------------------------------------------------------------------------------
 */
 package auverauftragsverwaltung;
@@ -54,7 +57,6 @@ import Klassen.Meldung;
 import Klassen.Zahlungskonditionen;
 import de.jollyday.HolidayCalendar;
 import de.jollyday.HolidayManager;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -71,10 +73,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
