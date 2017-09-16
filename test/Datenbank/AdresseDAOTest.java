@@ -8,6 +8,7 @@
 * Datum         Name    Was
 * 23.08.2017    CEL     Erstellt.
 * 26.08.2017    CEL     Fertiggestellt.
+* 26.08.2017    CEL     Getestet und freigegeben.
 *-------------------------------------------------------------------------------
 */
 package Datenbank;
@@ -31,23 +32,6 @@ public class AdresseDAOTest extends Artikel{
     public AdresseDAOTest() {
     }
     
-    /**
-     * Test of gibAlleAdressen method, of class AdresseDAO.
-     * @throws java.sql.SQLException  SQLException
-     *   Diese Testmethode vergleicht die vorhandenen Adressen der Tableview
-     *   mit denen der Datenbank(ohne LKZ).
-    */
-    @Test
-    public void testGibAlleAdressen() throws SQLException {
-        System.out.println("gibAlleAdressen");
-        AdresseDAO instance = new AdresseDAO();
-        ObservableList<Adresse> expResult
-            = FXCollections.observableArrayList(
-                    instance.gibAlleAdressenOhneLKZ());
-        ArrayList<Adresse> result = instance.gibAlleAdressenOhneLKZ();
-        assertEquals(expResult, result);       
-    }
-
     /**
      * Test of gibAlleAdressenOhneLKZ method, of class AdresseDAO.
      * @throws java.sql.SQLException SQLException 

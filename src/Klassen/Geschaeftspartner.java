@@ -66,7 +66,7 @@ public class Geschaeftspartner {
     /*--------------------------------------------------------------------------
      * Datum     Name    Kommentar
      * 26.07.17  Hen     Erstellt.
-     * 01.08.17  CEL     Anpassungen - neue DB-Struktur
+     * 01.08.17  CEL     Konstruktor hinzugefügt.
      *--------------------------------------------------------------------------
     */
     
