@@ -9,7 +9,7 @@
    <children>
       <AnchorPane layoutX="25.0" minHeight="0.0" minWidth="0.0" prefHeight="419.0" prefWidth="1024.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <children>
-            <TableView fx:id="zahlungskonditionenTV" layoutY="88.0" onMouseClicked="#zeigeWerteAn" prefHeight="355.0" prefWidth="1024.0" AnchorPane.bottomAnchor="-24.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="80.0">
+            <TableView fx:id="zahlungskonditionenTV" layoutY="88.0" onMouseClicked="#zeigeWerteAn" prefHeight="359.0" prefWidth="1013.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="80.0">
                <columns>
                   <TableColumn fx:id="tcKonditionenID" prefWidth="96.0" text="Konditionen-ID" />
                   <TableColumn fx:id="tcAuftragsart" prefWidth="95.0" text="Auftragsart" />
