@@ -563,6 +563,8 @@ public class AuftraegeController implements Initializable {
     private Button closeZK;
     @FXML
     private TextField tfAuftragsart;
+    @FXML
+    private Button btAuftragskonditionen;
     
     
     
@@ -604,6 +606,7 @@ public class AuftraegeController implements Initializable {
         this.btSpeichern.setVisible(false);
         this.btAnlegen.setDisable(false);
         this.btLoeschen.setDisable(true);
+        this.btAuftragskonditionen.setDisable(true);
         this.btAuftragspositionen.setDisable(true);
         this.btAbbrechen.setDisable(true);
     }
@@ -653,6 +656,7 @@ public class AuftraegeController implements Initializable {
         this.btLoeschen.setDisable(true);
         this.btAuftragspositionen.setDisable(true);
         this.btAbbrechen.setDisable(true);
+        this.btAuftragskonditionen.setDisable(true);
         this.zahlungskonditionendatensatzPane.setVisible(false);
         
         
@@ -1270,6 +1274,7 @@ public class AuftraegeController implements Initializable {
             this.tfAbschlussdatum.setText(a.getAbschlussDatum());
             this.btAnlegen.setVisible(true);
             this.btAnlegen.setDisable(false);
+            this.btAuftragskonditionen.setDisable(false);
             switch (a.getStatus()) {
                 case "E":
                     this.cbAuftragsstatus.setValue("Erfasst");
@@ -2528,6 +2533,7 @@ public class AuftraegeController implements Initializable {
         return kreditVerfuegbar;
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum         Name    Was
     /* 09.09.2017    GET     Methode erstellt.
@@ -2535,160 +2541,169 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     /**
      * Methode prüft vor dem Hinzufügen, ob die Menge korrekt ist.
-     * 
      * @return  true bei korrekter Eingabe und fals bei falscher Eingabe.
      */
     private boolean validateMenge() {
         boolean istValidiert = false;
-
         Pattern p = Pattern.compile("[1-9][0-9]*");
         Matcher m = p.matcher(this.tfMengeAPD.getText());
-        
-        
-        if (this.tfMengeAPD.getText().isEmpty()) {
-            
+              
+        if (this.tfMengeAPD.getText().isEmpty()) {           
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fehlende Eingabe!");
             alert.setContentText("Bitte tragen sie die Menge ein!");
             alert.showAndWait();
             
-        } else {
-            
-            if (m.find() && m.group().equals(tfMengeAPD.getText())) {
-            
+        } else {           
+            if (m.find() && m.group().equals(tfMengeAPD.getText())) {         
                 istValidiert = true;
             
             } else {
-
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Fehlerhafte Mengen Eingabe!");
                 alert.setContentText("Die Menge darf nicht Null sein!");
                 alert.showAndWait();
-
-            }
-            
+            }       
         }  
         
         return istValidiert;
     } 
     
-    public boolean validateFields() {
-        
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 16.09.2017    GET     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    /**
+     * Validiert die Kombobost "Auftragsart".
+     * @return True: Falls Eingaben korrekt, False: wenn nicht.
+     */
+    public boolean validateFields() {       
         boolean istValidiert = true;
         Alert alert = new Alert(Alert.AlertType.WARNING);       
         alert.setTitle("Fehlende Eingaben");
 
         if (this.cbAuftragsart.getValue() == null) {
-
             alert.setContentText("Bitte wählen Sie die Auftragsart!");
             alert.showAndWait();
-
             istValidiert = false;
             
         } else if (this.tfPartnerID.getText().isEmpty()) {
-
             alert.setContentText("Bitte wählen Sie einen Geschäftspartner "
-                    + "aus der Liste!");
+                + "aus der Liste!");
             alert.showAndWait();
-
             istValidiert = false;    
 
         } else if (this.tfErfDatum.getText().isEmpty()) {
-
             alert.setContentText("Bitte geben sie das Erfassungsdatum ein!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if ((this.cbAuftragsart.getValue() == "Terminauftrag" 
                 || this.cbAuftragsart.getValue() == null)
                 && this.tfLieferdatum.getText().isEmpty()) {
-
             alert.setContentText("Bitte geben Sie das Lieferdatum ein!"
-                    + " \n\n(Nur möglich wenn Auftragsart Terminauftrag ist.)");
+                + " \n\n(Nur möglich wenn Auftragsart Terminauftrag ist.)");
             alert.showAndWait();
-
             istValidiert = false;
         }
         
         return istValidiert;
     }
     
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 16.09.2017    GET     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    /**
+     * Füllt die TableView mit GP Lieferanten.
+     * @throws SQLException SQLFehler
+     */
     @FXML
-    public void zeigeLieferanten() throws SQLException{
-        
-        
-       if (this.cbAuftragsart.getValue() == "Bestellauftrag") {
-           
+    public void zeigeLieferanten() throws SQLException {      
+        if (this.cbAuftragsart.getValue() == "Bestellauftrag") {          
             GeschaeftspartnerDAO gpd = new GeschaeftspartnerDAO();
-
             ObservableList<Geschaeftspartner> geschaeftspartner
                 = FXCollections.observableArrayList(
                         gpd.gibAlleLieferanten());
-
             tvGPAuswahl.setItems(geschaeftspartner);
           
-       } else {
-        
-             setTableContentGPKunden();
-         
-       }
+        } else {     
+            setTableContentGPKunden();     
+        }
     }
     
     
-    public void setTableContentGPKunden() throws SQLException{
- 
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 16.09.2017    GET     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    /**
+     * Füllt die TableView mit GP Kunden.
+     * @throws SQLException SQLFehler
+     */
+    public void setTableContentGPKunden() throws SQLException {
         GeschaeftspartnerDAO gpd = new GeschaeftspartnerDAO();
         ObservableList<Geschaeftspartner> geschaeftspartner
             = FXCollections.observableArrayList(
-                    gpd.gibAlleKunden());
-        tvGPAuswahl.setItems(geschaeftspartner);
-        
+                gpd.gibAlleKunden());
+        tvGPAuswahl.setItems(geschaeftspartner);       
     }
     
     
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 16.09.2017    GET     Methode erstellt.
+    /*------------------------------------------------------------------------*/
     /**
-     * 
-     * @param event 
-     * @throws java.io.IOException 
+     * Zeigt die Zahlungskondtionen zu einem bestimmten Auftrag.
+     * @throws java.sql.SQLException SQLFehler
      */
     @FXML
-    public void zeigeAuftragskonditionen() throws SQLException {
-        
+    public void zeigeAuftragskonditionen() throws SQLException {       
         String auftragskopfID;
         auftragskopfID = this.tfAuftragskopf.getText();
         
-        if (auftragskopfID.isEmpty()){
-            
+        if (auftragskopfID.isEmpty()) {        
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Auftrag nicht ausgewählt!");
             alert.setContentText("Bitte wählen sie einen Auftrag \n"
-                    + "zu dem Sie sich die Zahlungskonditionen anschauen "
-                    + "wollen!");
+                + "zu dem Sie sich die Zahlungskonditionen anschauen "
+                + "wollen!");
             alert.showAndWait();
-        
-            
+                
         } else {
             this.zahlungskonditionendatensatzPane.setVisible(true);
-
             gibKonditionen(auftragskopfID);
         }
-
     }
     
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 16.09.2017    GET     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    /**
+     * Schließt das untere Feld für die Anzeige der Konditionen.
+     * @param event Fängt das Klicken des Buttons "Schließen" ab.
+     */
     @FXML
     private void closeAuftragskonditionen(ActionEvent event) {
         this.zahlungskonditionendatensatzPane.setVisible(false);
     }
     
-    
+
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 16.09.2017    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
     /**
      * Gibt die Zahlungskonditionen zu einem bestimmten Auftrag wieder.
+     * @param auftragskopfID AuftragskopfID
      * @throws SQLException SQLFehler
-     * @throws java.io.IOException IOFehler
      */
-    public void gibKonditionen(String auftragskopfID) throws SQLException{
-       
+    public void gibKonditionen(String auftragskopfID) throws SQLException {    
         AuftragskonditionsDAO akd = new AuftragskonditionsDAO();
         Zahlungskonditionen zk;
 
@@ -2704,12 +2719,6 @@ public class AuftraegeController implements Initializable {
         this.tfSkontozeit1.setText(zk.getSkontozeit1());
         this.tfSkonto1.setText(zk.getSkonto1());
         this.tfSkontozeit2.setText(zk.getSkontozeit2());
-        this.tfSkonto2.setText(zk.getSkonto2());
-        
-       
-        
-        
-    }
-
-      
+        this.tfSkonto2.setText(zk.getSkonto2());      
+    }      
 }
