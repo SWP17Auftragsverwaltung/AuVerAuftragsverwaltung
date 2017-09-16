@@ -236,12 +236,6 @@ public class AdressverwaltungController implements Initializable {
     private TableColumn<Adresse, String> tcErfDatum;
 
     /**
-     * Tabellenspalte LKZ.
-     */
-    @FXML
-    private TableColumn<Adresse, String> tcLKZ;
-
-    /**
      * Unsichtbares Pane, um die Eingabe zu verhindern.
      */
     @FXML
@@ -386,9 +380,6 @@ public class AdressverwaltungController implements Initializable {
 
         tcErfDatum.setCellValueFactory(
                 new PropertyValueFactory<>("erfassungsdatum"));
-
-        tcLKZ.setCellValueFactory(
-                new PropertyValueFactory<>("lkz"));
 
         cbSuchfeld.getItems().addAll(
                 "AnschriftID",

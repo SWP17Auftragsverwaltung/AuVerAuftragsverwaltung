@@ -13,7 +13,7 @@
       <Label layoutX="246.0" layoutY="20.0" prefHeight="17.0" prefWidth="72.0" text="Suchbegriff" />
       <SuchTextField fx:id="tfSuchbegriff" layoutX="246.0" layoutY="37.0" onAction="#artikelSuchen" prefHeight="25.0" prefWidth="199.0" />
       <Button layoutX="468.0" layoutY="20.0" mnemonicParsing="false" onAction="#artikelSuchen" prefHeight="40.0" prefWidth="160.0" text="Artikel suchen " AnchorPane.leftAnchor="468.0" />
-      <TableView fx:id="tvArtikel" onMouseClicked="#zeigeWerteAn" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="80.0">
+      <TableView fx:id="tvArtikel" onMouseClicked="#zeigeWerteAn" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="80.0">
         <columns>
           <TableColumn fx:id="tcMaterialNr" prefWidth="97.0" text="MaterialNr" />
           <TableColumn fx:id="tcArtikelbeschreibung" prefWidth="136.0" text="Artikelbeschreibung" />
@@ -27,7 +27,7 @@
             <TableColumn fx:id="tcBestandVerkauft" prefWidth="139.0" text="VERKAUFT" />
         </columns>
       </TableView>
-      <TitledPane fx:id="artikeldatensatzPane" collapsible="false" prefHeight="264.0" prefWidth="1045.0" text="Artikeldatensatz" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+      <TitledPane fx:id="artikeldatensatzPane" collapsible="false" prefHeight="264.0" prefWidth="1045.0" text="Artikeldatensatz" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <content>
             <AnchorPane prefWidth="1044.0">
                <children>

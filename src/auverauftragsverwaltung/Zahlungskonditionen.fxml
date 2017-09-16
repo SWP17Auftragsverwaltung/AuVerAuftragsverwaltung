@@ -9,7 +9,7 @@
    <children>
       <AnchorPane layoutX="25.0" minHeight="0.0" minWidth="0.0" prefHeight="419.0" prefWidth="1024.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <children>
-            <TableView fx:id="zahlungskonditionenTV" layoutY="88.0" onMouseClicked="#zeigeWerteAn" prefHeight="355.0" prefWidth="1024.0" AnchorPane.bottomAnchor="-24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="88.0">
+            <TableView fx:id="zahlungskonditionenTV" layoutY="88.0" onMouseClicked="#zeigeWerteAn" prefHeight="355.0" prefWidth="1024.0" AnchorPane.bottomAnchor="-24.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="80.0">
                <columns>
                   <TableColumn fx:id="tcKonditionenID" prefWidth="96.0" text="Konditionen-ID" />
                   <TableColumn fx:id="tcAuftragsart" prefWidth="95.0" text="Auftragsart" />
@@ -32,7 +32,7 @@
             <Button fx:id="sucheZuruecksetzenBT" layoutX="671.0" layoutY="22.0" mnemonicParsing="false" onAction="#setzeSucheZurueck" prefHeight="40.0" prefWidth="199.0" text="Suche zurücksetzen" />
          </children>
       </AnchorPane>
-      <TitledPane fx:id="zahlungskonditionendatensatzPane" animated="false" collapsible="false" layoutX="25.0" layoutY="451.0" prefHeight="243.0" prefWidth="1024.0" text="Zahlungskonditionendatensatz" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+      <TitledPane fx:id="zahlungskonditionendatensatzPane" animated="false" collapsible="false" layoutX="25.0" layoutY="451.0" prefHeight="243.0" prefWidth="1024.0" text="Zahlungskonditionendatensatz" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="188.0" prefWidth="1022.0">
                <children>

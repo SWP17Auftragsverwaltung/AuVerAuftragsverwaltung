@@ -10,7 +10,7 @@
         <Label layoutX="25.0" />
         <AnchorPane layoutX="25.0" minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="1013.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
             <children>
-                <TableView fx:id="adresseTV" layoutY="95.0" onMouseClicked="#zeigeWerteAn" prefHeight="359.0" prefWidth="1013.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="95.0">
+                <TableView fx:id="adresseTV" layoutY="95.0" onMouseClicked="#zeigeWerteAn" prefHeight="359.0" prefWidth="1013.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="80.0">
                     <columns>
                         <TableColumn fx:id="tcAnschriftID" prefWidth="75.0" text="Anschrift_ID" />
                         <TableColumn fx:id="tcAnrede" prefWidth="50.0" text="Anrede" />
@@ -24,7 +24,6 @@
                         <TableColumn fx:id="tcTel" prefWidth="100.0" text="Telefon" />
                         <TableColumn fx:id="tcEMail" prefWidth="200.0" text="E_Mail" />
                         <TableColumn fx:id="tcErfDatum" prefWidth="200.0" text="Erfassungsdatum" />
-                        <TableColumn fx:id="tcLKZ" prefWidth="75.0" text="LKZ" />
                     </columns>
                 </TableView>
                 <ComboBox fx:id="cbSuchfeld" layoutX="25.0" layoutY="41.0" prefHeight="25.0" prefWidth="150.0" promptText="Bitte wählen..." />  
