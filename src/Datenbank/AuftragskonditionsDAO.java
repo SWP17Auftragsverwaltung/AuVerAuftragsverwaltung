@@ -33,6 +33,11 @@ public class AuftragskonditionsDAO extends DataAccess {
     private String TAB_AUFTRAGSKONDITIONEN = ddd.getTAB_AUFTRAGSKONDITIONEN();
     
     /**
+     * Holt den Tabellennamen für die Artikel zur Laufzeit.
+     */
+    private String TAB_ZAHLUNGSKONDITIONEN = ddd.getTAB_ZAHLUNGSKONDITIONEN();
+    
+    /**
      * HashMap für die Attribute der Tabelle Artikel.
      */
     private HashMap<String, ArrayList> attribute;    
@@ -44,6 +49,7 @@ public class AuftragskonditionsDAO extends DataAccess {
     public AuftragskonditionsDAO() throws SQLException {
         attribute = ddd.getTabellenAttribute();
         ddd.holeAlleAttribute(TAB_AUFTRAGSKONDITIONEN);
+        ddd.holeAlleAttribute(TAB_ZAHLUNGSKONDITIONEN);
     }
         
     
@@ -67,17 +73,17 @@ public class AuftragskonditionsDAO extends DataAccess {
         ResultSet rs = null;
         Zahlungskonditionen zahlungskondition = null;
         
-        String query = "SELECT * "
-            + "FROM ROOT." + ddd.getTabAuftragskonditionen()
+        String query = "SELECT ROOT." + ddd.getTabZahlungskonditionen() + ".*"
+            + " FROM ROOT." + ddd.getTabAuftragskonditionen()
             + " JOIN ROOT." + ddd.getTabZahlungskonditionen()
             + " ON ROOT." + ddd.getTabAuftragskonditionen() + "." 
             + attribute.get(TAB_AUFTRAGSKONDITIONEN).get(1) + " = ROOT." 
             + ddd.getTabZahlungskonditionen() + "."
-            + attribute.get(TAB_AUFTRAGSKONDITIONEN).get(0)      
+            + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0)      
             + " AND ROOT." + ddd.getTabAuftragskonditionen() 
             + "." + attribute.get(TAB_AUFTRAGSKONDITIONEN).get(0) 
             + " = ?";
-      
+              
         try {
             stmt = con.prepareStatement(query);
             stmt.setString(1, auftragskopfID);
