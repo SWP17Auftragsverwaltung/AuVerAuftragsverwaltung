@@ -188,22 +188,43 @@ public class Meldung {
                         @Override
                         public void updateItem(LocalDate item, boolean empty) {
                             super.updateItem(item, empty);
-                            if (item.getDayOfWeek() == DayOfWeek.SATURDAY
-                                || item.getDayOfWeek() == DayOfWeek.SUNDAY
-                                || item.isEqual(LocalDate.of(2017, Month.DECEMBER, 25))
-                                || item.isEqual(LocalDate.of(2017, Month.DECEMBER, 26))
-                                || item.isEqual(LocalDate.of(2017, Month.OCTOBER, 3))
-                                || item.isEqual(LocalDate.of(2017, Month.JANUARY, 1))
-                                || item.isEqual(LocalDate.of(2017, Month.JANUARY, 6))
-                                || item.isEqual(LocalDate.of(2017, Month.AUGUST, 8))
-                                || item.isEqual(LocalDate.of(2017, Month.AUGUST, 15))
-                                || item.isEqual(LocalDate.of(2017, Month.OCTOBER, 31))
-                                || item.isEqual(LocalDate.of(2017, Month.NOVEMBER, 1))) {
-                                setDisable(true);
-                                setStyle("-fx-background-color: #ffc0cb;");
-                            }                          
                             if (item.isBefore(LocalDate.now())) {
                                 setDisable(true);
+                            }
+                            
+                            if (item.isAfter(LocalDate.now())) {
+                                if (item.getDayOfWeek() == DayOfWeek.SATURDAY
+                                    || item.getDayOfWeek() == DayOfWeek.SUNDAY
+                                       
+                                    || (item.getMonth() == Month.DECEMBER 
+                                            && item.getDayOfMonth() == 25)
+                                       
+                                    || (item.getMonth() == Month.DECEMBER 
+                                            && item.getDayOfMonth() == 26) 
+                                       
+                                    || (item.getMonth() == Month.OCTOBER 
+                                            && item.getDayOfMonth() == 3)
+                                       
+                                    || (item.getMonth() == Month.OCTOBER 
+                                            && item.getDayOfMonth() == 31)
+                                       
+                                    || (item.getMonth() == Month.JANUARY 
+                                            && item.getDayOfMonth() == 1)   
+                                       
+                                    || (item.getMonth() == Month.JANUARY 
+                                            && item.getDayOfMonth() == 6)  
+                                       
+                                    || (item.getMonth() == Month.AUGUST 
+                                            && item.getDayOfMonth() == 8)  
+                                       
+                                    || (item.getMonth() == Month.AUGUST 
+                                            && item.getDayOfMonth() == 15)  
+                                       
+                                    || (item.getMonth() == Month.NOVEMBER 
+                                            && item.getDayOfMonth() == 1)) {
+                                    setDisable(true);
+                                    setStyle("-fx-background-color: #ffc0cb;");
+                                }
                             }
                         }
                     };
