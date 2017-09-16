@@ -1456,7 +1456,7 @@ public class AuftraegeController implements Initializable {
         }
      
         
-        if (validateFields()){
+        if (validateFields()) {
             String auftragskopfID = tfAuftragskopf.getText();
             String geschaeftspartnerID = tfPartnerID.getText();
             String auftragsText = tfText.getText();
@@ -1475,14 +1475,15 @@ public class AuftraegeController implements Initializable {
                     break;
                 default:
                     break;
-            }
+            }          
             String auftragsArt = cbAuftragsart.getValue();
             String auftragsWert = "0";
             String lkz = "N";
 
             Auftragskopf auftragskopf = new Auftragskopf(auftragskopfID, 
-                    geschaeftspartnerID, auftragsText, erfassungsDatum, lieferDatum,
-                    abschlussDatum, status, auftragsArt, auftragsWert, lkz);
+                    geschaeftspartnerID, auftragsText, erfassungsDatum, 
+                    lieferDatum, abschlussDatum, status, auftragsArt, 
+                    auftragsWert, lkz);
 
             AuftragskopfDAO akd = new AuftragskopfDAO();
             akd.fuegeAuftragHinzu(auftragskopf);
@@ -1521,7 +1522,7 @@ public class AuftraegeController implements Initializable {
 
                 if (meldung.antwort()) {
                     //Buttons aktivieren / deaktiviern
-                    this.pane.setDisable(false);
+                    this.pane.setVisible(true);
                     this.btAnlegen.setVisible(true);
                     this.btAnlegen.setDisable(false);
                     this.auftragskopfTP.setText("Auftragskopf");
@@ -2571,24 +2572,33 @@ public class AuftraegeController implements Initializable {
         return istValidiert;
     }
     
+    
+    /**
+     * 
+     * @throws SQLException 
+     */
     @FXML
     public void zeigeLieferanten() throws SQLException{
-        
-        
-       if (this.cbAuftragsart.getValue() == "Bestellauftrag") {
-           
+            
+       if (this.cbAuftragsart.getValue() == "Bestellauftrag") {         
             GeschaeftspartnerDAO gpd = new GeschaeftspartnerDAO();
-
             ObservableList<Geschaeftspartner> geschaeftspartner
                 = FXCollections.observableArrayList(
                         gpd.gibAlleLieferanten());
-
             tvGPAuswahl.setItems(geschaeftspartner);
           
-       } else {
-        
-             setTableContentGPKunden();
-         
+       } else {   
+            setTableContentGPKunden();
+            if (this.cbAuftragsart.getValue() == "Barauftrag") {
+                this.tfLieferdatum.setText(this.tfErfDatum.getText());
+                this.tfLieferdatum.setEditable(false);
+            
+            } else if (this.cbAuftragsart.getValue() == "Sofortauftrag") {
+                
+            
+            } else if (this.cbAuftragsart.getValue() == "Terminauftrag") {
+                
+            }     
        }
     }
     
