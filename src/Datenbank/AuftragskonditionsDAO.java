@@ -9,7 +9,6 @@ import Klassen.Zahlungskonditionen;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.scene.control.Alert;
@@ -109,5 +108,93 @@ public class AuftragskonditionsDAO extends DataAccess {
             con.rollback();
         }
         return zahlungskondition;
-    }      
+    } 
+    
+    
+    
+    /*------------------------------------------------------------------------*
+    * Datum         Name    Was
+    * 16.08.2017    HEN     Erstellt.
+    /*------------------------------------------------------------------------*/
+
+    /**
+     * Verknüpft eine Zahlungskondition mit einem Auftrag anhand der IDs.
+     * @param autragskopfID Auftrag zu dem eine Kondition angelegt wird.
+     * @param konID KonditionsID dir zu einem Auftrag angelegt wird.
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public void setzeAuftragKondition(String autragskopfID, String konID) 
+        throws SQLException {
+        PreparedStatement stmt = null;
+
+        try {
+            con.setAutoCommit(false);
+
+            String query = "INSERT INTO ROOT." + ddd.getTabAuftragskonditionen()
+                + "(" + attribute.get(TAB_AUFTRAGSKONDITIONEN).get(0) + ", "
+                + attribute.get(TAB_AUFTRAGSKONDITIONEN).get(1) + ")"
+                + "VALUES (?,?)";
+
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, autragskopfID);
+            stmt.setString(2, konID);
+            stmt.executeUpdate();
+            con.commit();
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "\n Auftragskondition konnte"
+                + " nicht hinzugefügt werden.");
+            alert.showAndWait();
+            con.rollback();
+        }
+    }    
+
+    /*------------------------------------------------------------------------*/
+    /* Datum        Name    Was
+    /* 16.09.17     HEN     Erstellt.     
+    /*------------------------------------------------------------------------*/
+        
+    /**
+     * Ändert die Kondition eines Auftrages. 
+     * mit der eingegebenen Menge.
+     * @param auftragskopfID Auftrags dessen Kondition geändert werden soll
+     * @param konID ID der Kondition
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public void aendereAuftragskondition(String auftragskopfID, String konID) 
+            throws SQLException {
+        PreparedStatement stmt = null;
+        String query;
+        
+        try {
+            con.setAutoCommit(false);
+
+            query = "UPDATE ROOT." + ddd.getTabAuftragskonditionen()
+                + " SET " + attribute.get(TAB_AUFTRAGSKONDITIONEN).get(1) 
+                + " = ?"
+                + " WHERE " + attribute.get(TAB_AUFTRAGSKONDITIONEN).get(0) 
+                + " = ?"; 
+            
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, konID);
+            stmt.setString(2, auftragskopfID);
+            stmt.executeUpdate();       
+            
+            con.commit();
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "\n Die Auftragskondition von "
+                + "Auftrag " + auftragskopfID + " konnte nicht geändert "
+                + "werden.");
+            alert.showAndWait();
+            con.rollback();
+        }
+    }
+    
 }

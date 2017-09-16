@@ -1,13 +1,22 @@
 package Klassen;
 
+import Datenbank.ZahlungskonditionenDAO;
+import auverauftragsverwaltung.ZahlungskonditionenController;
+import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 
@@ -103,6 +112,12 @@ public class Meldung {
      * Variable für den "Verwerfen Titel".
      */
     private final String datumDatepickerTitel = "Bitte Datum wählen:";
+    
+        /**
+     * Variable für den "Zahlungskonditions Titel".
+     */
+    private final String datumZahlungskonditionTitel 
+        = "Bitte Zahlungskondition wählen:";
     
 
     
@@ -241,8 +256,7 @@ public class Meldung {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Erzeugt ein Fenster das dem Benutzer ermöglicht, seine Aktion zu
-     * verwerfen.
+     * Erzeugt ein Fenster das dem Benutzer ermöglicht, ein Datum zu wählen
      * @return Ausgewähltes Datum.
      */        
     public String dialogDatepicker() {       
@@ -273,7 +287,102 @@ public class Meldung {
         String datum = tag + "." + monat + "." + jahr;
         
         return datum;
-    }    
+    }
+
+
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 03.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Erzeugt ein Fenster das dem Benutzer ermöglicht, eine Auftragskondition
+     * zu wählen.
+     * @return Ausgewählte Auftragskondition.
+     * @throws java.sql.SQLException SQLFehler
+     */        
+    public String dialogAuftragskondition() throws SQLException {       
+
+     TableView tv = new TableView<Zahlungskonditionen>();
+     
+        String zkID = "";
+  
+        TableColumn tcKonditionenID = new TableColumn("ZahlungskonditionenID");
+        tcKonditionenID.setCellValueFactory(
+                new PropertyValueFactory<>("ZahlungskonditionenID"));
+        
+        TableColumn tcAuftragsart = new TableColumn("Auftragsart");
+        tcAuftragsart.setCellValueFactory(
+                new PropertyValueFactory<>("Auftragsart"));
+        
+        TableColumn tcLieferzeitSOFORT = new TableColumn("LieferzeitSOFORT");
+        tcLieferzeitSOFORT.setCellValueFactory(
+                new PropertyValueFactory<>("LieferzeitSOFORT"));
+        
+        TableColumn tcSperrzeitWUNSCH = new TableColumn("SperrzeitWUNSCH");
+        tcSperrzeitWUNSCH.setCellValueFactory(
+                new PropertyValueFactory<>("SperrzeitWUNSCH"));
+        
+        TableColumn tcSkontozeit1 = new TableColumn("Skontozeit1");
+        tcSkontozeit1.setCellValueFactory(
+                new PropertyValueFactory<>("Skontozeit1"));
+        
+        TableColumn tcSkonto1 = new TableColumn("Skonto1");
+        tcSkonto1.setCellValueFactory(
+                new PropertyValueFactory<>("Skonto1"));
+        
+        TableColumn tcSkontozeit2 = new TableColumn("Skontozeit2");
+        tcSkontozeit2.setCellValueFactory(
+                new PropertyValueFactory<>("Skontozeit2"));
+        
+        TableColumn tcSkonto2 = new TableColumn("Skonto2");
+        tcSkonto2.setCellValueFactory(
+                new PropertyValueFactory<>("Skonto2"));
+        
+        TableColumn tcMahnzeit1 = new TableColumn("Mahnzeit1");
+        tcMahnzeit1.setCellValueFactory(
+                new PropertyValueFactory<>("Mahnzeit1"));
+        
+        TableColumn tcMahnzeit2 = new TableColumn("Mahnzeit2");
+        tcMahnzeit2.setCellValueFactory(
+                new PropertyValueFactory<>("Mahnzeit2"));
+        
+        TableColumn tcMahnzeit3 = new TableColumn("Mahnzeit3");
+        tcMahnzeit3.setCellValueFactory(
+                new PropertyValueFactory<>("Mahnzeit3"));
+           
+        tv.getColumns().setAll(tcKonditionenID, tcAuftragsart, 
+            tcLieferzeitSOFORT, tcSperrzeitWUNSCH, tcSkontozeit1, tcSkonto1, 
+            tcSkontozeit2, tcSkonto2, tcMahnzeit1, tcMahnzeit2, tcMahnzeit3);
+        
+        ZahlungskonditionenDAO zkd = new ZahlungskonditionenDAO();
+        
+        ObservableList<Zahlungskonditionen> zahlungskonditionen
+            = FXCollections.observableArrayList(
+                zkd.gibAlleZahlungskonditionenOhneLKZ());
+        tv.setItems(zahlungskonditionen);
+        
+        GridPane grid = new GridPane();
+        
+        meldung = new Alert(Alert.AlertType.NONE);
+        meldung.setTitle(datumZahlungskonditionTitel);
+        meldung.getButtonTypes().clear();
+
+        grid.getChildren().addAll(tv);
+        GridPane.setConstraints(tv, 0, 0);
+        
+        meldung.getDialogPane().setContent(grid);       
+        meldung.getButtonTypes().addAll(ButtonType.APPLY, ButtonType.CANCEL);
+        meldung.showAndWait();
+        
+        if (antwort()) {
+            Object zk = tv.getSelectionModel().getSelectedItem();
+            Zahlungskonditionen z = (Zahlungskonditionen) zk;
+            zkID = z.getZahlungskonditionenID(); 
+        }
+   
+        return zkID;
+    }      
     
     
     
@@ -287,7 +396,8 @@ public class Meldung {
      * @return Positiver Button.
      */   
     public boolean antwort() {
-        return (this.meldung.getResult() == ButtonType.YES);
+        return (this.meldung.getResult() == ButtonType.YES 
+            || this.meldung.getResult() == ButtonType.APPLY);
     }
 
     

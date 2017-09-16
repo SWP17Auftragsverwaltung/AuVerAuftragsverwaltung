@@ -1143,7 +1143,7 @@ public class AdressverwaltungController implements Initializable {
         String neuesDatum = "";
         String datum = this.tfDatum.getText();
         StringTokenizer st 
-                = new StringTokenizer(datum , ".", false);
+                = new StringTokenizer(datum, ".", false);
         
         int year = 0;
         int month = 0;

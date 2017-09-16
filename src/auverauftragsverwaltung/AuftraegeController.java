@@ -606,6 +606,8 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     private Button btAuftragskonditionen;
+    @FXML
+    private TextField tfZahlungskondID;
     
     
     
@@ -695,7 +697,6 @@ public class AuftraegeController implements Initializable {
         this.btSpeichern.setVisible(false);
         this.btAnlegen.setDisable(false);
         this.btLoeschen.setDisable(true);
-        this.btAuftragspositionen.setDisable(true);
         this.btAbbrechen.setDisable(true);
         this.btAuftragskonditionen.setDisable(true);
         this.zahlungskonditionendatensatzPane.setVisible(false);
@@ -837,6 +838,7 @@ public class AuftraegeController implements Initializable {
         cbAuftragsart.valueProperty().set(null);
         cbAuftragsstatus.valueProperty().set(null);
         tfAbschlussdatum.clear();
+        tfZahlungskondID.clear();
         cbAuftragsstatus.valueProperty().set(null);
         cbAuftragsart.valueProperty().set(null);
     }    
@@ -866,7 +868,8 @@ public class AuftraegeController implements Initializable {
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Information");
             alert.setHeaderText(
-                    "Achtung: Das heutige Datum fällt auf ein Wochenende!");
+                    "Achtung: Das heutige Datum fällt auf einen Samstag und"
+                        + "wird auf Montag verlegt!");
             alert.showAndWait();
             
             cal.add(GregorianCalendar.DATE, 2);
@@ -878,7 +881,8 @@ public class AuftraegeController implements Initializable {
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Information");
             alert.setHeaderText(
-                    "Achtung: Das heutige Datum fällt auf ein Wochenende!");
+                    "Achtung: Das heutige Datum fällt auf einen Sonntag und "
+                        + "wird auf Montag verlegt!");
             alert.showAndWait();
                 
             cal.add(GregorianCalendar.DATE, 1);
@@ -890,7 +894,8 @@ public class AuftraegeController implements Initializable {
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Information");
             alert.setHeaderText(
-                    "Achtung: Das heutige Datum fällt auf einen Feiertag!");
+                    "Achtung: Das heutige Datum fällt auf einen Feiertag und "
+                    + "wird auf den nächsten Werktag verlegt!");
             alert.showAndWait();
                 
         } 
@@ -1299,13 +1304,14 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     /**
      * Zeigt die Werte eines ausgewählten Auftrags im unteren Bereich an.
+     * @throws java.sql.SQLException SQLFehler
      */
     @FXML
-    public void zeigeWerteAn() {
+    public void zeigeWerteAn() throws SQLException {
         Object auftragskopf 
                 = tvAuftragskopf.getSelectionModel().getSelectedItem();
         Auftragskopf a = (Auftragskopf) auftragskopf;
-      
+
         if (a != null) {
             this.tfAuftragskopf.setText(a.getAuftragskopfID());
             this.tfPartnerID.setText(a.getGeschaeftspartnerID());
@@ -1313,6 +1319,8 @@ public class AuftraegeController implements Initializable {
             this.tfErfDatum.setText(a.getErfassungsdatum());
             this.tfLieferdatum.setText(a.getLieferdatum());
             this.tfAbschlussdatum.setText(a.getAbschlussDatum());
+            this.tfZahlungskondID.setText(
+                gibKonditionen(a.getAuftragskopfID()));
             this.btAnlegen.setVisible(true);
             this.btAnlegen.setDisable(false);
             this.btAuftragskonditionen.setDisable(false);
@@ -1565,17 +1573,20 @@ public class AuftraegeController implements Initializable {
                 default:
                     break;
             }
-            String auftragsArt = cbAuftragsart.getValue();
+            String auftragsArt = cbAuftragsart.getValue();           
             String auftragsWert = "0";
             String lkz = "N";
 
             Auftragskopf auftragskopf = new Auftragskopf(auftragskopfID, 
-                    geschaeftspartnerID, auftragsText, erfassungsDatum, lieferDatum,
-                    abschlussDatum, status, auftragsArt, auftragsWert, lkz);
+                geschaeftspartnerID, auftragsText, erfassungsDatum, lieferDatum,
+                abschlussDatum, status, auftragsArt, auftragsWert, lkz);
 
             AuftragskopfDAO akd = new AuftragskopfDAO();
             akd.fuegeAuftragHinzu(auftragskopf);
-
+            AuftragskonditionsDAO akond = new AuftragskonditionsDAO();
+            akond.setzeAuftragKondition(
+                auftragskopfID, tfZahlungskondID.getText());
+            
             clearAuftragskopfTextFields();
 
             //Buttons setzen
@@ -1611,6 +1622,7 @@ public class AuftraegeController implements Initializable {
                 if (meldung.antwort()) {
                     //Buttons aktivieren / deaktiviern
                     this.pane.setDisable(false);
+                    this.pane.setVisible(true);
                     this.btAnlegen.setVisible(true);
                     this.btAnlegen.setDisable(false);
                     this.auftragskopfTP.setText("Auftragskopf");
@@ -1622,9 +1634,10 @@ public class AuftraegeController implements Initializable {
                     this.btHinzufuegen.setVisible(false);
                     this.tvAuftragskopf.setMouseTransparent(false);
                     this.auftraegeTP.setVisible(true);
-                    this.btAbbrechen.setDisable(true);     
+                    this.btAbbrechen.setDisable(true);                    
                     this.paneGP.setVisible(false);
-                    
+                    this.btAnlegen.requestFocus();
+                                    
                     clearAuftragskopfTextFields();
 
                 } else {
@@ -2069,11 +2082,12 @@ public class AuftraegeController implements Initializable {
     @FXML
     public void speichereAenderungAuftragskopf() throws SQLException { 
         AuftragskopfDAO akd = new AuftragskopfDAO();
+        AuftragskonditionsDAO akond = new AuftragskonditionsDAO();
         String auftragskopfID = tfAuftragskopf.getText();
         String auftragstext = tfText.getText();
         String partnerID = tfPartnerID.getText();
         String erfassungsdatum = tfErfDatum.getText();
-        String lieferdatum = tfLieferdatum.getText();
+        String lieferdatum = this.tfLieferdatum.getText();
         String abschlussdatum = tfAbschlussdatum.getText();
         String auftragswert = tfAuftragswert.getText();
         String statusNeu = cbAuftragsstatus.getValue();
@@ -2094,6 +2108,8 @@ public class AuftraegeController implements Initializable {
         String art = cbAuftragsart.getValue();
         String lkz = "N";
         
+        akond.aendereAuftragskondition(
+            auftragskopfID, this.tfZahlungskondID.getText());
         String partnerTyp = akd.gibGeschaeftspartnerTyp(partnerID);
         boolean istVerfuegbar; 
         boolean hatKredit;
@@ -2663,16 +2679,34 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     public void zeigeLieferanten() throws SQLException {      
+        AuftragskonditionsDAO akon = new AuftragskonditionsDAO();
+        Zahlungskonditionen zk = new Zahlungskonditionen();
+        String auftragskopfID = this.tfAuftragskopf.getText();
+        zk = akon.gibKonditionZuAuftrag(auftragskopfID);
+        
         if (this.cbAuftragsart.getValue() == "Bestellauftrag") {          
             GeschaeftspartnerDAO gpd = new GeschaeftspartnerDAO();
             ObservableList<Geschaeftspartner> geschaeftspartner
                 = FXCollections.observableArrayList(
                         gpd.gibAlleLieferanten());
             tvGPAuswahl.setItems(geschaeftspartner);
-          
-        } else {     
+     
+        } else if (this.cbAuftragsart.getValue() == "Barauftrag") {   
+            this.tfLieferdatum.setText(this.tfErfDatum.getText());
+            this.tfZahlungskondID.setDisable(true);
             setTableContentGPKunden();     
+        
+        } else if (this.cbAuftragsart.getValue() == "Sofortauftrag") {
+            this.tfLieferdatum.setText(addiereDatum(this.tfErfDatum.getText(), 
+                Integer.parseInt(zk.getLieferzeitSOFORT())));
+            setTableContentGPKunden();
+            
+        } else if (this.cbAuftragsart.getValue() == "Terminauftrag") {
+            this.tfLieferdatum.setText("NEIN");
+            setTableContentGPKunden();
         }
+        
+        this.tfZahlungskondID.setDisable(false);
     }
     
     
@@ -2723,6 +2757,21 @@ public class AuftraegeController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum         Name    Was
+    /* 16.09.2017    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    /**
+     * Zeigt die Zahlungskondtionen beim Anlegen eines Auftrags.
+     * @throws java.sql.SQLException SQLFehler
+     */
+    @FXML
+    public void zeigeZahlungskonditionen() throws SQLException {       
+        Meldung meldung = new Meldung();
+        this.tfZahlungskondID.setText(meldung.dialogAuftragskondition());
+    }    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
     /* 16.09.2017    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**
@@ -2742,9 +2791,10 @@ public class AuftraegeController implements Initializable {
     /**
      * Gibt die Zahlungskonditionen zu einem bestimmten Auftrag wieder.
      * @param auftragskopfID AuftragskopfID
+     * @return ZahlungskonditionsID
      * @throws SQLException SQLFehler
      */
-    public void gibKonditionen(String auftragskopfID) throws SQLException {    
+    public String gibKonditionen(String auftragskopfID) throws SQLException {
         AuftragskonditionsDAO akd = new AuftragskonditionsDAO();
         Zahlungskonditionen zk;
 
@@ -2760,6 +2810,43 @@ public class AuftraegeController implements Initializable {
         this.tfSkontozeit1.setText(zk.getSkontozeit1());
         this.tfSkonto1.setText(zk.getSkonto1());
         this.tfSkontozeit2.setText(zk.getSkontozeit2());
-        this.tfSkonto2.setText(zk.getSkonto2());      
-    }      
+        this.tfSkonto2.setText(zk.getSkonto2());  
+        
+        return zk.getZahlungskonditionenID();
+    }
+    
+    
+    public String addiereDatum(String datum, int lieferzeit){   
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        String neuesDatum = "";
+        StringTokenizer st = new StringTokenizer(datum, ".", false);
+        
+        int year = 0;
+        int month = 0;
+        int day = 0;
+  
+        while (st.hasMoreTokens()) {   
+            String tag = st.nextToken();
+            String monat = st.nextToken();
+            String jahr =  st.nextToken();
+                
+            year = Integer.parseInt(jahr);
+            month = Integer.parseInt(monat);
+            day = Integer.parseInt(tag);         
+        }
+        
+        GregorianCalendar eingegebenesDatum = new GregorianCalendar();    
+        month = month - 1;
+        
+        eingegebenesDatum.clear();
+        eingegebenesDatum.setTimeZone(TimeZone.getTimeZone("CET"));
+        eingegebenesDatum.set(year, month, day);
+        eingegebenesDatum.getTime();
+        
+        eingegebenesDatum.add(GregorianCalendar.DATE, lieferzeit);
+        
+        neuesDatum = df.format(eingegebenesDatum.getTime());
+        return neuesDatum;  
+    }    
+    
 }

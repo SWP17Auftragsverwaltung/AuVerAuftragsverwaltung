@@ -95,7 +95,6 @@ public class ZahlungskonditionenDAO extends DataAccess {
 
                 zahlungskonditionenListe.add(zahlungskonditionen);
             }
-            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
