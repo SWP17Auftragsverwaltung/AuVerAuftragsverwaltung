@@ -33,7 +33,7 @@ public class AuftragskonditionenController implements Initializable {
     private TitledPane zahlungskonditionendatensatzPane;
     @FXML
     private TextField tfZahlungskonditionsID;
-    private ComboBox<?> cbAuftragsart;
+   
     @FXML
     private TextField tfLieferzeitSOFORT;
     @FXML
@@ -107,7 +107,7 @@ public class AuftragskonditionenController implements Initializable {
             = fxmlLoader.<AuftraegeController>getController();
         
         
-        auftragskopfID = controller.gibAuftragskopfID();
+        auftragskopfID ="";
         
         zk = akd.gibKonditionZuAuftrag(auftragskopfID); 
         

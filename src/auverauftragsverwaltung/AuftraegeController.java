@@ -41,6 +41,7 @@
 package auverauftragsverwaltung;
 
 import Datenbank.ArtikelDAO;
+import Datenbank.AuftragskonditionsDAO;
 import Datenbank.AuftragskopfDAO;
 import Datenbank.AuftragspositionDAO;
 import Datenbank.GeschaeftspartnerDAO;
@@ -50,6 +51,7 @@ import Klassen.Auftragskopf;
 import Klassen.Auftragsposition;
 import Klassen.Geschaeftspartner;
 import Klassen.Meldung;
+import Klassen.Zahlungskonditionen;
 import de.jollyday.HolidayCalendar;
 import de.jollyday.HolidayManager;
 import java.io.IOException;
@@ -531,6 +533,41 @@ public class AuftraegeController implements Initializable {
     @FXML
     private TextField tfBestellwertAPD;
     
+    ///********** Auftrakskonditionen Variablen ***********///
+    @FXML
+    private TitledPane zahlungskonditionendatensatzPane;
+    @FXML
+    private TextField tfZahlungskonditionsID;
+   
+    @FXML
+    private TextField tfLieferzeitSOFORT;
+    @FXML
+    private TextField tfSperrzeitWUNSCH;
+    @FXML
+    private TextField tfMahnzeit1;
+    @FXML
+    private TextField tfMahnzeit2;
+    @FXML
+    private TextField tfMahnzeit3;
+    @FXML
+    private TextField tfSkontozeit1;
+    @FXML
+    private TextField tfSkonto1;
+    @FXML
+    private TextField tfSkontozeit2;
+    @FXML
+    private TextField tfSkonto2;
+    @FXML
+    private Pane paneAuftragskonditionen;
+    @FXML
+    private Button closeZK;
+    @FXML
+    private TextField tfAuftragsart;
+    
+    
+    
+    
+    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -616,6 +653,8 @@ public class AuftraegeController implements Initializable {
         this.btLoeschen.setDisable(true);
         this.btAuftragspositionen.setDisable(true);
         this.btAbbrechen.setDisable(true);
+        this.zahlungskonditionendatensatzPane.setVisible(false);
+        
         
         try {   
             setTableContent();          
@@ -2614,19 +2653,45 @@ public class AuftraegeController implements Initializable {
      * @throws java.io.IOException 
      */
     @FXML
-    public void zeigeAuftragskonditionen(ActionEvent event) throws IOException {
-        Stage stage = new Stage();
-   
-        Parent root = FXMLLoader.load(getClass().getResource(
-            "Auftragskonditionen.fxml"));
+    public void zeigeAuftragskonditionen() throws SQLException {
         
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        this.zahlungskonditionendatensatzPane.setVisible(true);
+        gibKonditionen();
+        
+
     }
     
-    public String gibAuftragskopfID() {
-        return this.tfAuftragskopf.getText();
+    @FXML
+    private void closeAuftragskonditionen(ActionEvent event) {
+        this.zahlungskonditionendatensatzPane.setVisible(false);
     }
+    
+    
+    /**
+     * Gibt die Zahlungskonditionen zu einem bestimmten Auftrag wieder.
+     * @throws SQLException SQLFehler
+     * @throws java.io.IOException IOFehler
+     */
+    public void gibKonditionen() throws SQLException{
+        AuftragskonditionsDAO akd = new AuftragskonditionsDAO();
+        Zahlungskonditionen zk;
+        String auftragskopfID;   
+
+        auftragskopfID = this.tfAuftragskopf.getText();
+        
+        zk = akd.gibKonditionZuAuftrag(auftragskopfID); 
+        
+        this.tfLieferzeitSOFORT.setText(zk.getLieferzeitSOFORT());
+        this.tfMahnzeit1.setText(zk.getMahnzeit1());
+        this.tfMahnzeit2.setText(zk.getMahnzeit2());
+        this.tfMahnzeit3.setText(zk.getMahnzeit3());
+        this.tfSkonto1.setText(zk.getSkonto1());
+        this.tfSkonto2.setText(zk.getSkonto2());
+        this.tfSperrzeitWUNSCH.setText(zk.getSperrzeitWUNSCH());
+        this.tfZahlungskonditionsID.setText(zk.getZahlungskonditionenID());
+        this.tfAuftragsart.setText(zk.getAuftragsart());
+           
+    }
+
       
 }

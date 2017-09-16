@@ -172,7 +172,7 @@ public class StartController implements Initializable {
             stage.setMaximized(true);
             stage.show();
         } catch (IOException e) {
-
+            e.printStackTrace();
             System.out.println("Can't load the Auftraege!");
         }
     }
