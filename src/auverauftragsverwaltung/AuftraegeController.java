@@ -530,38 +530,80 @@ public class AuftraegeController implements Initializable {
      * TextField für den Bestellwert in dem Auftragspositionsdatensatz.
      */
     @FXML
-    private TextField tfBestellwertAPD;
-    
-    ///********** Auftrakskonditionen Variablen ***********///
+    private TextField tfBestellwertAPD;   
+    /**
+     * TitlePane für die Auftragskonditionen im unteren Bereich.
+     */
     @FXML
-    private TitledPane zahlungskonditionendatensatzPane;
+    private TitledPane zahlungskonditionendatensatzPane;   
+    /**
+     * TextField für die ZahlungskonditionsID.
+     */
     @FXML
     private TextField tfZahlungskonditionsID;
-   
+    /**
+     * TextField für Lieferzeit SOFORT.
+     */
     @FXML
     private TextField tfLieferzeitSOFORT;
+    /**
+     * TextField für SperrzeitWUNSCH.
+     */
     @FXML
     private TextField tfSperrzeitWUNSCH;
+    /**
+     * TextField für Mahnzeit1.
+     */
     @FXML
     private TextField tfMahnzeit1;
+    /**
+     * TextField für Mahnzeit2.
+     */
     @FXML
     private TextField tfMahnzeit2;
+    /**
+     * TextField für Mahnzeit 3.
+     */
     @FXML
     private TextField tfMahnzeit3;
+    /**
+     * TextField für Skontozeit1.
+     */
     @FXML
     private TextField tfSkontozeit1;
+    /**
+     * TextField für Skonto1.
+     */
     @FXML
     private TextField tfSkonto1;
+    /**
+     * TextField für Skontozeit2.
+     */
     @FXML
     private TextField tfSkontozeit2;
+    /**
+     * TextField für Skonto2.
+     */
     @FXML
     private TextField tfSkonto2;
+    /**
+     * Pane für Auftragskonditionen im unteren Bereich.
+     */
     @FXML
     private Pane paneAuftragskonditionen;
+    /**
+     * Button um die Zahlungskinditionen zu schließen.
+     */
     @FXML
     private Button closeZK;
+    /**
+     * TextField für Auftragsart.
+     */
     @FXML
     private TextField tfAuftragsart;
+    /**
+     * Button um die Auftragskonditionen anzuzeigen.
+     */
     @FXML
     private Button btAuftragskonditionen;
     
