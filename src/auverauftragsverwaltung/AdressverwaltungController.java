@@ -1088,8 +1088,6 @@ public class AdressverwaltungController implements Initializable {
     }
     
     
-    
-    
     /**
      * Erzeugt das Aktuelle Datum welches in das Datumfeld in der GUI gesetz 
      * gesetzt wird.
