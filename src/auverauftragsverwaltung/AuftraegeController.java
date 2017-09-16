@@ -71,6 +71,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -2606,19 +2607,26 @@ public class AuftraegeController implements Initializable {
         
     }
     
-     @FXML
-    public void zeigeAuftragskonditionen(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "Auftragskonditionen.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = new Stage();
-            stage.setTitle("Auftragskonditionen");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.println("Can't load the Auftragskonditionen anlegen!");
-        }
+    
+    /**
+     * 
+     * @param event 
+     * @throws java.io.IOException 
+     */
+    @FXML
+    public void zeigeAuftragskonditionen(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
+   
+        Parent root = FXMLLoader.load(getClass().getResource(
+            "Auftragskonditionen.fxml"));
+        
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
-  
+    
+    public String gibAuftragskopfID() {
+        return this.tfAuftragskopf.getText();
+    }
+      
 }
