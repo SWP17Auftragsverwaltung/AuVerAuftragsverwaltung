@@ -921,14 +921,16 @@ public class ZahlungskonditionenController implements Initializable {
         return istValidiert;  
     }
     
-        /*------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 20.08.17    GET     Methode erstellt und fertiggestellt. 
     /*                     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
 
     /**
-     *  
+     *  Prüft welche Auftragsart gesetzt ist. Um die Werte der Auftragsart 
+     * anzupassen.
+     * 
      */
     @FXML
     public void pruefePruefeAufAuftragsart() {
