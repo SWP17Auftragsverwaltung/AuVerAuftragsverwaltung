@@ -29,12 +29,11 @@
             </Menu>
          </menus>
       </MenuBar>
-      <TitledPane animated="false" collapsible="false" layoutX="44.0" layoutY="64.0" prefHeight="213.0" prefWidth="202.0" text="Auftragsverwaltung" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="70.0">
+      <TitledPane animated="false" collapsible="false" layoutX="44.0" layoutY="64.0" prefHeight="155.0" prefWidth="202.0" text="Auftragsverwaltung" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="70.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="282.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="btnAuftragSuchen" layoutX="33.0" layoutY="93.0" mnemonicParsing="false" onAction="#sucheAuftrag" prefHeight="40.0" prefWidth="135.0" text="Auftrag suchen " AnchorPane.topAnchor="93.0" />
-                  <Button fx:id="btnAuftragAnzeigen" layoutX="33.0" layoutY="40.0" mnemonicParsing="false" onAction="#zeigeAuftragAn" prefHeight="40.0" prefWidth="135.0" text="Aufträge" AnchorPane.topAnchor="40.0" />
+                  <Button fx:id="btnAuftragAnzeigen" layoutX="33.0" layoutY="38.0" mnemonicParsing="false" onAction="#zeigeAuftragAn" prefHeight="40.0" prefWidth="135.0" text="Aufträge" AnchorPane.topAnchor="38.0" />
                </children>
             </AnchorPane>
         </content>
