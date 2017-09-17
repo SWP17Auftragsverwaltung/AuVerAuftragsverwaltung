@@ -79,7 +79,7 @@ public class AdresseDAOTest extends Artikel{
     public void testGibLetztID() throws SQLException {
         System.out.println("gibLetztID");
         AdresseDAO instance = new AdresseDAO();
-        String expResult = instance.generiereID();
+        String expResult = "000024";
         String result = instance.gibLetztID();
         assertEquals(expResult, result);
     }
@@ -98,14 +98,11 @@ public class AdresseDAOTest extends Artikel{
         a.setName(a.getName() + "geändert");
         a.setVorname(a.getVorname() + "geändert");
         a.setStrasse(a.getStrasse() + "geändert");
-        a.setHausnummer(a.getHausnummer() + "geändert");
-        a.setPLZ(a.getPlz() + "geändert");
-        a.setOrt(a.getOrt() + "geändert");
-        a.setStaat(a.getStaat() + "geändert");
-        a.setTelefon(a.getTelefon() + "geändert");
-        a.setEmail(a.getEmail() + "geändert");
-        a.setErfassungsdatum(a.getErfassungsdatum() + "geändert");
-        
+        a.setHausnummer("54321");
+        a.setOrt("NewOrt");
+        a.setStaat("neuerStaat");
+        a.setTelefon(a.getTelefon() + "9");
+        a.setEmail("test@test.com");        
         
         AdresseDAO instance = new AdresseDAO();
         instance.aendereAdresse(a);
@@ -122,7 +119,7 @@ public class AdresseDAOTest extends Artikel{
     public void testSetzeLKZ() throws SQLException {
         System.out.println("setzeLKZ");
         Adresse a = new Adresse();
-        a.setLkz(a.getLkz());
+        a.setLkz("N");
         AdresseDAO instance = new AdresseDAO();
         instance.setzeLKZ(a);
        
@@ -140,7 +137,7 @@ public class AdresseDAOTest extends Artikel{
         System.out.println("generiereID");
 //        String alteID = ;
         AdresseDAO instance = new AdresseDAO();
-        String expResult = instance.gibLetztID();
+        String expResult = "000025";
         String result = instance.generiereID();
         assertEquals(expResult, result);
     }

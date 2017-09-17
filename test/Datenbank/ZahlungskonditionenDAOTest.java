@@ -7,7 +7,7 @@
 *-------------------------------------------------------------------------------
 * Datum         Name    Was
 * 20.08.2017    SAM     Erstellt.
-* 26.08.2017    SAM     Fertiggestellt.
+* 26.08.2017    CEL     Fertiggestellt.
 * 06.09.2017    CEL     testFuegeZahlungskonditionenHinzu() korrigiert.
                         Getestet und freigegeben.
 *-------------------------------------------------------------------------------

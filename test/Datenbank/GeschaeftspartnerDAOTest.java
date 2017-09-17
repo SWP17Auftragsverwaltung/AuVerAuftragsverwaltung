@@ -8,6 +8,8 @@
 * Datum         Name    Was
 * 18.08.2017    CEL     Erstellt.
 * 26.08.2017    CEL     Fertiggestellt.
+* 06.09.2017    CEL     TestGibKreditlimit() & TestSetzeKreditlimit() 
+                        hinzugefügt, getestet und freigegeben.
 *-------------------------------------------------------------------------------
  */
 package Datenbank;
@@ -137,9 +139,9 @@ public class GeschaeftspartnerDAOTest {
     @Test
     public void testGibKreditlimit() throws Exception {
         System.out.println("gibKreditlimit");
-        String gpID = "000003";
+        String gpID = "000002";
         GeschaeftspartnerDAO instance = new GeschaeftspartnerDAO();
-        String expResult = "1000";
+        String expResult = "2500";
         String result = instance.gibKreditlimit(gpID);
         assertEquals(expResult, result);
     }
