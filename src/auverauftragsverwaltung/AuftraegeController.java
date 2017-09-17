@@ -1313,14 +1313,13 @@ public class AuftraegeController implements Initializable {
         Auftragskopf a = (Auftragskopf) auftragskopf;
 
         if (a != null) {
-            this.tfAuftragskopf.setText(a.getAuftragskopfID());
+            String auftragskopfID = a.getAuftragskopfID();
+            this.tfAuftragskopf.setText(auftragskopfID);
             this.tfPartnerID.setText(a.getGeschaeftspartnerID());
             this.tfText.setText(a.getAuftragstext());
             this.tfErfDatum.setText(a.getErfassungsdatum());
             this.tfLieferdatum.setText(a.getLieferdatum());
             this.tfAbschlussdatum.setText(a.getAbschlussDatum());
-            this.tfZahlungskondID.setText(
-                gibKonditionen(a.getAuftragskopfID()));
             this.btAnlegen.setVisible(true);
             this.btAnlegen.setDisable(false);
             this.btAuftragskonditionen.setDisable(false);
@@ -1338,6 +1337,13 @@ public class AuftraegeController implements Initializable {
                     break;
             }
             this.cbAuftragsart.setValue(a.getAuftragsart());
+            if (a.getAuftragsart().equals("Barauftrag")) {
+                this.tfZahlungskondID.setText("");
+            
+            } else {
+                this.tfZahlungskondID.setText(gibKonditionen(auftragskopfID));
+            }
+            
             this.tfAuftragswert.setText(a.getAuftragswert());          
         }   
         
@@ -1551,9 +1557,8 @@ public class AuftraegeController implements Initializable {
                 ergebnis = true;
             }
         }
-     
-        
-        if (validateFields()){
+            
+        if (validateFields()) {
             String auftragskopfID = tfAuftragskopf.getText();
             String geschaeftspartnerID = tfPartnerID.getText();
             String auftragsText = tfText.getText();
@@ -1583,15 +1588,19 @@ public class AuftraegeController implements Initializable {
 
             AuftragskopfDAO akd = new AuftragskopfDAO();
             akd.fuegeAuftragHinzu(auftragskopf);
-            AuftragskonditionsDAO akond = new AuftragskonditionsDAO();
-            akond.setzeAuftragKondition(
-                auftragskopfID, tfZahlungskondID.getText());
+            
+            if (!auftragsArt.equals("Barauftrag")) {
+                AuftragskonditionsDAO akond = new AuftragskonditionsDAO();
+                akond.setzeAuftragKondition(
+                    auftragskopfID, tfZahlungskondID.getText());
+            }
             
             clearAuftragskopfTextFields();
 
             //Buttons setzen
             this.pane.setVisible(true);      
             this.auftragskopfTP.setText("Auftragskopf");
+            this.btAnlegen.requestFocus();
             this.btAnlegen.setVisible(true);
             this.btHinzufuegen.setVisible(false);
             this.btAendern.setDisable(false);
@@ -2818,6 +2827,16 @@ public class AuftraegeController implements Initializable {
     }
     
     
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 17.09.2017    GET     Methode erstellt.
+    /*------------------------------------------------------------------------*/    
+    /**
+     * Addiert zu einem eingegebenen Datum eine eingegebene Lieferzeit.
+     * @param datum Übergebenes Datum
+     * @param lieferzeit Übergebene Lieferzeit
+     * @return Addiertes Datum
+     */
     public String addiereDatum(String datum, int lieferzeit){   
         DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
         String neuesDatum = "";

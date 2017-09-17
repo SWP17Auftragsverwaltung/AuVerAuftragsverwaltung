@@ -145,7 +145,7 @@ public class DataAccess {
         }
 
         datenbankURL 
-            = "jdbc:derby:" + relativerPfad + "/SWPWI2017";
+            = "jdbc:derby:" + relativerPfad + "/DBTobi";
         
         return datenbankURL;
     }
