@@ -3,9 +3,15 @@ package Klassen;
 import Datenbank.ZahlungskonditionenDAO;
 import auverauftragsverwaltung.ZahlungskonditionenController;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,6 +25,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
+import javax.swing.text.DateFormatter;
+import org.apache.derby.client.am.DateTime;
 
 /**
  *
@@ -256,7 +264,7 @@ public class Meldung {
     /*------------------------------------------------------------------------*/
     
     /**
-     * Erzeugt ein Fenster das dem Benutzer ermöglicht, ein Datum zu wählen
+     * Erzeugt ein Fenster das dem Benutzer ermöglicht, ein Datum zu wählen.
      * @return Ausgewähltes Datum.
      */        
     public String dialogDatepicker() {       
@@ -276,7 +284,7 @@ public class Meldung {
         GridPane.setConstraints(datepicker, 0, 0);
         
         meldung.getDialogPane().setContent(grid);       
-        meldung.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
+        meldung.getButtonTypes().addAll(ButtonType.APPLY);
         meldung.showAndWait();
         
         LocalDate ld = datepicker.getValue();
@@ -288,6 +296,123 @@ public class Meldung {
         
         return datum;
     }
+    
+   
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 02.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Erzeugt einen angepassten Datepicker, der die Auswahl von Wochenendtagen
+     * nicht zulässt.
+     * @return Datepicker
+     */   
+    private Callback<DatePicker, DateCell> 
+        getDayCellFactoryLiefer(LocalDate ld) {
+ 
+        final Callback<DatePicker, DateCell> dayCellFactory 
+            = new Callback<DatePicker, DateCell>() {
+ 
+                @Override
+                public DateCell call(final DatePicker datePicker) {
+                    return new DateCell() {
+                        
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item.isBefore(ld)) {
+                                setDisable(true);
+                            }
+                            
+                            if (item.isAfter(ld)) {
+                                if (item.getDayOfWeek() == DayOfWeek.SATURDAY
+                                    || item.getDayOfWeek() == DayOfWeek.SUNDAY
+                                       
+                                    || (item.getMonth() == Month.DECEMBER 
+                                            && item.getDayOfMonth() == 25)
+                                       
+                                    || (item.getMonth() == Month.DECEMBER 
+                                            && item.getDayOfMonth() == 26) 
+                                       
+                                    || (item.getMonth() == Month.OCTOBER 
+                                            && item.getDayOfMonth() == 3)
+                                       
+                                    || (item.getMonth() == Month.OCTOBER 
+                                            && item.getDayOfMonth() == 31)
+                                       
+                                    || (item.getMonth() == Month.JANUARY 
+                                            && item.getDayOfMonth() == 1)   
+                                       
+                                    || (item.getMonth() == Month.JANUARY 
+                                            && item.getDayOfMonth() == 6)  
+                                       
+                                    || (item.getMonth() == Month.AUGUST 
+                                            && item.getDayOfMonth() == 8)  
+                                       
+                                    || (item.getMonth() == Month.AUGUST 
+                                            && item.getDayOfMonth() == 15)  
+                                       
+                                    || (item.getMonth() == Month.NOVEMBER 
+                                            && item.getDayOfMonth() == 1)) {
+                                    setDisable(true);
+                                    setStyle("-fx-background-color: #ffc0cb;");
+                                }
+                            }
+                        }
+                    };
+                }
+            };
+        return dayCellFactory;
+    }     
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 17.09.17    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Erzeugt ein Fenster das dem Benutzer ermöglicht, ein Datum zu wählen. Die
+     * Sperrzeit wird auf das Erfassungsdatum gerechnet.
+     * @param datumLiefer Übergebenes Lieferdatum
+     * @return Ausgewähltes Datum.
+     * @throws java.text.ParseException ParceException
+     */        
+    public String dialogDatepickerLieferdatum(String datumLiefer) 
+        throws ParseException {       
+        DatePicker datepicker = new DatePicker();
+        GridPane grid = new GridPane();
+        
+        meldung = new Alert(Alert.AlertType.CONFIRMATION);
+        meldung.setTitle(datumDatepickerTitel);
+        meldung.getButtonTypes().clear();
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDate localDate = LocalDate.parse(datumLiefer, formatter);
+        
+        Callback<DatePicker, DateCell> dayCellFactory 
+            = this.getDayCellFactoryLiefer(localDate);
+        datepicker.setDayCellFactory(dayCellFactory); 
+        datepicker.setValue(localDate);
+        
+        grid.getChildren().addAll(datepicker);
+        GridPane.setConstraints(datepicker, 0, 0);
+        
+        meldung.getDialogPane().setContent(grid);       
+        meldung.getButtonTypes().addAll(ButtonType.APPLY);
+        meldung.showAndWait();
+        
+        LocalDate ld = datepicker.getValue();
+        String jahr = String.valueOf(ld.getYear()); 
+        String monat = String.valueOf(ld.getMonthValue()); 
+        String tag = String.valueOf(ld.getDayOfMonth());
+        
+        String datum = tag + "." + monat + "." + jahr;
+        
+        return datum;
+    }    
 
 
     /*------------------------------------------------------------------------*/
@@ -298,15 +423,15 @@ public class Meldung {
     /**
      * Erzeugt ein Fenster das dem Benutzer ermöglicht, eine Auftragskondition
      * zu wählen.
+     * @param auftragsart Zeigt Konditionen zu dieser Auftragsart.
      * @return Ausgewählte Auftragskondition.
      * @throws java.sql.SQLException SQLFehler
      */        
-    public String dialogAuftragskondition() throws SQLException {       
+    public String[] dialogAuftragskondition(String auftragsart) 
+        throws SQLException {       
 
-     TableView tv = new TableView<Zahlungskonditionen>();
+        TableView tv = new TableView<Zahlungskonditionen>();
      
-        String zkID = "";
-  
         TableColumn tcKonditionenID = new TableColumn("ZahlungskonditionenID");
         tcKonditionenID.setCellValueFactory(
                 new PropertyValueFactory<>("ZahlungskonditionenID"));
@@ -356,13 +481,27 @@ public class Meldung {
             tcSkontozeit2, tcSkonto2, tcMahnzeit1, tcMahnzeit2, tcMahnzeit3);
         
         ZahlungskonditionenDAO zkd = new ZahlungskonditionenDAO();
-        
-        ObservableList<Zahlungskonditionen> zahlungskonditionen
-            = FXCollections.observableArrayList(
-                zkd.gibAlleZahlungskonditionenOhneLKZ());
-        tv.setItems(zahlungskonditionen);
-        
+    
         GridPane grid = new GridPane();
+
+        if (auftragsart.equals("Sofortauftrag")) {
+            ObservableList<Zahlungskonditionen> zahlungskonditionen
+                = FXCollections.observableArrayList(
+                zkd.gibZahlungskonditionenZuArt(auftragsart));
+            tv.setItems(zahlungskonditionen);           
+            
+        } else if (auftragsart.equals("Terminauftrag")) {
+            ObservableList<Zahlungskonditionen> zahlungskonditionen
+                = FXCollections.observableArrayList(
+                zkd.gibZahlungskonditionenZuArt(auftragsart));
+            tv.setItems(zahlungskonditionen);          
+        
+        } else if (auftragsart.equals("Bestellauftrag")) {
+            ObservableList<Zahlungskonditionen> zahlungskonditionen
+                = FXCollections.observableArrayList(
+                zkd.gibZahlungskonditionenZuArt(auftragsart));
+            tv.setItems(zahlungskonditionen);           
+        } 
         
         meldung = new Alert(Alert.AlertType.NONE);
         meldung.setTitle(datumZahlungskonditionTitel);
@@ -375,13 +514,23 @@ public class Meldung {
         meldung.getButtonTypes().addAll(ButtonType.APPLY, ButtonType.CANCEL);
         meldung.showAndWait();
         
-        if (antwort()) {
+              String[] ausgabe = null;
+        if (antwort()) {         
+            String zeit = "";
+            String zkID = "";
             Object zk = tv.getSelectionModel().getSelectedItem();
             Zahlungskonditionen z = (Zahlungskonditionen) zk;
-            zkID = z.getZahlungskonditionenID(); 
-        }
-   
-        return zkID;
+            zkID = z.getZahlungskonditionenID();
+            if (auftragsart.equals("Sofortauftrag")) {
+                zeit = z.getLieferzeitSOFORT();
+            
+            } else if (auftragsart.equals("Terminauftrag")) {
+                zeit = z.getSperrzeitWUNSCH();
+            }
+                    
+            ausgabe = new String[] {zkID, zeit};        
+        } 
+        return ausgabe;
     }      
     
     

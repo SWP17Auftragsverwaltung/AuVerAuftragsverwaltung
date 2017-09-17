@@ -166,7 +166,160 @@ public class ZahlungskonditionenDAO extends DataAccess {
     }
     
     
-      
+    /*------------------------------------------------------------------------*
+    * Datum         Name    Was
+    * 20.08.2017    HEN     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Gibt alle Zahlungskonditionen zu einer Auftragsart wieder.
+     * @param auftragsart Auftragsart
+     * @return Gibt ArrayList aller zu einer Auftragsart wieder.
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public ArrayList<Zahlungskonditionen> 
+        gibZahlungskonditionenZuArt(String auftragsart) throws SQLException {
+        //Variablendeklaration
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Zahlungskonditionen zahlungskonditionen = null;
+        ArrayList<Zahlungskonditionen> 
+                zahlungskonditionenListe = new ArrayList<>();
+
+        String query = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
+            + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
+            + " = ?"
+            + " AND " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(1) 
+            + " = ?";
+        
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, "N");
+            stmt.setString(2, auftragsart);
+            rs = stmt.executeQuery();
+            con.commit();
+            
+            while (rs.next()) {
+                zahlungskonditionen = new Zahlungskonditionen(rs.getString(1),
+                        rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getString(5), rs.getString(6), rs.getString(7), 
+                        rs.getString(8), rs.getString(9), rs.getString(10), 
+                        rs.getString(11), rs.getString(12));
+
+                zahlungskonditionenListe.add(zahlungskonditionen);
+            }
+
+            //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage());
+            alert.showAndWait();
+            con.rollback();
+        }
+        return zahlungskonditionenListe;
+    }
+        
+   
+    /*------------------------------------------------------------------------*
+    * Datum         Name    Was
+    * 17.09.2017    BER     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     *Gibt die Lieferzeit SOFORT zu einer bestimmten  Zahlungskonditione wieder.
+     * @param zkID ZahlungskonditionsID
+     * @return Lieferzeit SOFORT zu zkID.
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public String gibLieferzeitSofort(String zkID) throws SQLException {
+        //Variablendeklaration
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String lieferzeitSofort = "";
+
+        String query = "SELECT " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(2)
+            + " FROM ROOT." + ddd.getTabZahlungskonditionen() 
+            + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
+            + " = ?"
+            + " AND " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
+            + " = ?";
+   
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, zkID);
+            stmt.setString(2, "N");
+            rs = stmt.executeQuery();
+            con.commit();
+            
+            while (rs.next()) {
+                lieferzeitSofort = rs.getString(1);
+            }
+
+            //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "\n Lieferzeit SOFORT konnte"
+                + " nicht abgerufen werden.");
+            alert.showAndWait();
+            con.rollback();
+        }
+        return lieferzeitSofort;
+    }
+    
+    
+    /*------------------------------------------------------------------------*
+    * Datum         Name    Was
+    * 17.09.2017    GET     Methode erstellt.
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     *Gibt die Lieferzeit WUNSCH zu einer bestimmten  Zahlungskonditione wieder.
+     * @param zkID ZahlungskonditionsID
+     * @return Lieferzeit WUNSCH zu zkID.
+     * @throws java.sql.SQLException SQLFehler
+     */
+    public String gibLieferzeitWunsch(String zkID) throws SQLException {
+        //Variablendeklaration
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String lieferzeitWunsch = "";
+
+        String query = "SELECT " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(3)
+            + " FROM ROOT." + ddd.getTabZahlungskonditionen() 
+            + " WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
+            + " = ?"
+            + " AND " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
+            + " = ?";
+        
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, zkID);
+            stmt.setString(2, "N");
+            rs = stmt.executeQuery();
+            con.commit();
+            
+            while (rs.next()) {
+                lieferzeitWunsch = rs.getString(1);
+            }
+
+            //Mögliche SQL fehler fangen
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText(e.getMessage() + "\n Lieferzeit WUNSCH konnte"
+                + " nicht abgerufen werden.");
+            alert.showAndWait();
+            con.rollback();
+        }
+        return lieferzeitWunsch;
+    }     
+    
+          
     /*------------------------------------------------------------------------*
     * Datum         Name    Was
     * 20.08.2017    CEL     Querys erstellt und Methode fertiggestellt.
@@ -321,7 +474,8 @@ public class ZahlungskonditionenDAO extends DataAccess {
      * Änderd den Datensatz einer Zahlungskonditione in der Datenbank.
      * @param zk Zahlungskonditionen die geändert werden.
      */
-    public void aendereZahlungskonditionen(Zahlungskonditionen zk) {
+    public void aendereZahlungskonditionen(Zahlungskonditionen zk) 
+        throws SQLException {
         PreparedStatement stmt = null;
         String query = "";
 
@@ -371,7 +525,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
                 + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
                 + " = ?";
             stmt = con.prepareStatement(query);
-            stmt.setString(1, zk.getMahnzeit1());
+            stmt.setString(1, zk.getSkontozeit1());
             stmt.setString(2, zk.getZahlungskonditionenID());
             stmt.executeUpdate();
 
@@ -383,7 +537,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
                 + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
                 + " = ?";
             stmt = con.prepareStatement(query);
-            stmt.setString(1, zk.getMahnzeit2());
+            stmt.setString(1, zk.getSkontozeit2());
             stmt.setString(2, zk.getZahlungskonditionenID());
             stmt.executeUpdate();
  
@@ -395,7 +549,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
                 + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
                 + " = ?";
             stmt = con.prepareStatement(query);
-            stmt.setString(1, zk.getMahnzeit3());
+            stmt.setString(1, zk.getSkonto1());
             stmt.setString(2, zk.getZahlungskonditionenID());
             stmt.executeUpdate();
  
@@ -407,7 +561,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
                 + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
                 + " = ?";
             stmt = con.prepareStatement(query);
-            stmt.setString(1, zk.getSkontozeit1());
+            stmt.setString(1, zk.getSkonto2());
             stmt.setString(2, zk.getZahlungskonditionenID());
             stmt.executeUpdate();
  
@@ -419,7 +573,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
                 + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
                 + " = ?";
             stmt = con.prepareStatement(query);
-            stmt.setString(1, zk.getSkonto1());
+            stmt.setString(1, zk.getMahnzeit1());
             stmt.setString(2, zk.getZahlungskonditionenID());
             stmt.executeUpdate();
  
@@ -431,7 +585,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
                 + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
                 + " = ?";
             stmt = con.prepareStatement(query);
-            stmt.setString(1, zk.getSkontozeit2());
+            stmt.setString(1, zk.getMahnzeit2());
             stmt.setString(2, zk.getZahlungskonditionenID());
             stmt.executeUpdate();
 
@@ -443,20 +597,21 @@ public class ZahlungskonditionenDAO extends DataAccess {
                 + "WHERE " + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
                 + " = ?";
             stmt = con.prepareStatement(query);
-            stmt.setString(1, zk.getSkonto2());
+            stmt.setString(1, zk.getMahnzeit3());
             stmt.setString(2, zk.getZahlungskonditionenID());
             stmt.executeUpdate();
             
             
             con.commit();
-            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText(e.getMessage() + "\n Zahlungskondition konnte "
+                + "nicht bearbeitet werden.");
             alert.showAndWait();
+            con.rollback();
         }
     }
     

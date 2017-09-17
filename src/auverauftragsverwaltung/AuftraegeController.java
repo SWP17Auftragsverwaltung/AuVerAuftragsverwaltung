@@ -2678,12 +2678,7 @@ public class AuftraegeController implements Initializable {
      * @throws SQLException SQLFehler
      */
     @FXML
-    public void zeigeLieferanten() throws SQLException {      
-        AuftragskonditionsDAO akon = new AuftragskonditionsDAO();
-        Zahlungskonditionen zk = new Zahlungskonditionen();
-        String auftragskopfID = this.tfAuftragskopf.getText();
-        zk = akon.gibKonditionZuAuftrag(auftragskopfID);
-        
+    public void zeigeLieferanten() throws SQLException {            
         if (this.cbAuftragsart.getValue() == "Bestellauftrag") {          
             GeschaeftspartnerDAO gpd = new GeschaeftspartnerDAO();
             ObservableList<Geschaeftspartner> geschaeftspartner
@@ -2696,13 +2691,7 @@ public class AuftraegeController implements Initializable {
             this.tfZahlungskondID.setDisable(true);
             setTableContentGPKunden();     
         
-        } else if (this.cbAuftragsart.getValue() == "Sofortauftrag") {
-            this.tfLieferdatum.setText(addiereDatum(this.tfErfDatum.getText(), 
-                Integer.parseInt(zk.getLieferzeitSOFORT())));
-            setTableContentGPKunden();
-            
-        } else if (this.cbAuftragsart.getValue() == "Terminauftrag") {
-            this.tfLieferdatum.setText("NEIN");
+        } else {
             setTableContentGPKunden();
         }
         
@@ -2764,10 +2753,23 @@ public class AuftraegeController implements Initializable {
      * @throws java.sql.SQLException SQLFehler
      */
     @FXML
-    public void zeigeZahlungskonditionen() throws SQLException {       
+    public void zeigeZahlungskonditionen() throws SQLException, ParseException {       
         Meldung meldung = new Meldung();
-        this.tfZahlungskondID.setText(meldung.dialogAuftragskondition());
-    }    
+        String auftragsart = this.cbAuftragsart.getValue();
+        String[] array = meldung.dialogAuftragskondition(auftragsart);
+        this.tfZahlungskondID.setText(array[0]);
+        int zeit = Integer.parseInt(array[1]);    
+        
+        if (auftragsart.equals("Sofortauftrag")) {
+            this.tfLieferdatum.setText(
+            addiereDatum(this.tfErfDatum.getText(), zeit));
+        
+        } else if (auftragsart.equals("Terminauftrag")){
+            String addiertesDatum = addiereDatum(this.tfErfDatum.getText(), zeit);
+            String date = meldung.dialogDatepickerLieferdatum(addiertesDatum);
+            this.tfLieferdatum.setText(date);
+        }       
+    }
     
     
     /*------------------------------------------------------------------------*/
