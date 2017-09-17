@@ -61,7 +61,7 @@ public class ZahlungskonditionenDAOTest {
     public void testFuegeZahlungskonditionenHinzu() throws SQLException {
         System.out.println("fuegeZahlungskonditionenHinzu");
         Zahlungskonditionen zahlungskonditionen
-                = new Zahlungskonditionen("000006", "Barzahlung", "4",
+                = new Zahlungskonditionen("000008", "Barzahlung", "4",
                         "1", "12", "21", "10", "10", "12", "13",
                         "14", "N");
         ZahlungskonditionenDAO instance = new ZahlungskonditionenDAO();
@@ -79,7 +79,7 @@ public class ZahlungskonditionenDAOTest {
     public void testGibLetztID() throws SQLException {
         System.out.println("gibLetztID");
         ZahlungskonditionenDAO instance = new ZahlungskonditionenDAO();
-        String expResult = instance.generiereID();
+        String expResult = "000007";
         String result = instance.gibLetztID();
         assertEquals(expResult, result);
     }
@@ -95,7 +95,7 @@ public class ZahlungskonditionenDAOTest {
     public void testGeneriereID() throws SQLException {
         System.out.println("generiereID");
         ZahlungskonditionenDAO instance = new ZahlungskonditionenDAO();
-        String expResult = instance.gibLetztID();
+        String expResult = "000008";
         String result = instance.generiereID();
         assertEquals(expResult, result);
     }
