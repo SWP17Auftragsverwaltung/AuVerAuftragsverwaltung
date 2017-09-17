@@ -96,7 +96,7 @@ public class AdresseDAO extends DataAccess {
 
                 adressListe.add(adresse);
             }
-            con.close();
+            con.commit(); 
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -234,7 +234,7 @@ public class AdresseDAO extends DataAccess {
 
             stmt.executeUpdate();
             con.commit();
-            con.close();
+ 
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -378,7 +378,6 @@ public class AdresseDAO extends DataAccess {
             
             
             con.commit();
-            con.close();
      
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

@@ -74,8 +74,9 @@ public class ArtikelDAO extends DataAccess {
     /**
      * Gibt alle Artikel wieder die sich in der Datenbank befinden.
      * @return Gibt Arraylist aller Adressen wieder
+     * @throws java.sql.SQLException SQLFehler
     */
-    public ArrayList<Artikel> gibAlleArtikel() {
+    public ArrayList<Artikel> gibAlleArtikel() throws SQLException {
         
         //Variablendeklaration
         Statement stmt = null;
@@ -98,7 +99,6 @@ public class ArtikelDAO extends DataAccess {
             
                 artikelListe.add(artikel);
             }
-            con.close();
                  
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -106,6 +106,7 @@ public class ArtikelDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
         return artikelListe;
     }  
@@ -120,8 +121,9 @@ public class ArtikelDAO extends DataAccess {
      /**
      * Gibt alle Artikel ohne Löschkennzeichen wieder.
      * @return Gibt ArrayList aller Artikel ohne LKZ wieder.
+     * @throws java.sql.SQLException SQLFehler
      */
-    public ArrayList<Artikel> gibAlleArtikelOhneLKZ() {
+    public ArrayList<Artikel> gibAlleArtikelOhneLKZ() throws SQLException {
         
         //Variablendeklaration
         PreparedStatement  stmt = null;
@@ -161,6 +163,7 @@ public class ArtikelDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         } 
         return artikelListe;
     }
@@ -174,9 +177,10 @@ public class ArtikelDAO extends DataAccess {
      /**
      * Fügt Artikel der Datenbank hinzu.
      * @param a Artikelobjekt
+     * @throws java.sql.SQLException SQLFehler
     */
     
-    public void fuegeArtikelHinzu(Artikel a) {
+    public void fuegeArtikelHinzu(Artikel a) throws SQLException {
         
         //Variablendeklaration
         PreparedStatement stmt = null;
@@ -224,14 +228,14 @@ public class ArtikelDAO extends DataAccess {
             
             stmt.executeUpdate();
             con.commit();
-            con.close();
             
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
-            alert.showAndWait();        
+            alert.showAndWait();  
+            con.rollback();
         }
     }
     
@@ -245,8 +249,9 @@ public class ArtikelDAO extends DataAccess {
     /**
      * Ändern der Artikel in der Datenbank.
      * @param a Artikelobjekt
+     * @throws java.sql.SQLException SQLFehler
     */
-    public void aendereArtikel(Artikel a) {
+    public void aendereArtikel(Artikel a) throws SQLException {
         PreparedStatement stmt = null;
         String query = "";
 
@@ -343,14 +348,15 @@ public class ArtikelDAO extends DataAccess {
             stmt.executeUpdate();
             
             con.commit();
-            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText(e.getMessage() + "\n Artikel konnte nicht "
+                + "bearbeitet werden.");
             alert.showAndWait();
+            con.rollback();
         }
     }
     
@@ -364,8 +370,9 @@ public class ArtikelDAO extends DataAccess {
     /**
      * Setzt Löschkennzeichen bei einem ausgewählten Artikel.
      * @return neue ID aufgezählt.
+     * @throws java.sql.SQLException SQLFehler
      */    
-    public String gibLetztID() {
+    public String gibLetztID() throws SQLException {
         Statement stmt = null;
         String value = "";
         ResultSet rs = null;
@@ -387,6 +394,7 @@ public class ArtikelDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
         return value;
     }
@@ -401,8 +409,9 @@ public class ArtikelDAO extends DataAccess {
     /**
      * Liest die letzte ArtikelID aus, erhöht sie um 1 und gibt sie wieder.
      * @return neue ArtikelID aufgezählt.
+     * @throws java.sql.SQLException SQLFehler
      */    
-    public String generiereID() {
+    public String generiereID() throws SQLException {
    
         //Holt sich die aktuell maximale ID.
         String alteIDString = gibLetztID();
@@ -435,8 +444,9 @@ public class ArtikelDAO extends DataAccess {
     /**
      * Setzt Löschkennzeichen bei einem ausgewählten Artikel.
      * @param a Artikel
+     * @throws java.sql.SQLException SQLFehler
      */
-    public void setzeLKZ(Artikel a) {
+    public void setzeLKZ(Artikel a) throws SQLException {
 
         PreparedStatement stmt = null;
         String artikelID = a.getArtikelID();
@@ -460,8 +470,10 @@ public class ArtikelDAO extends DataAccess {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText(e.getMessage() + "\n LKZ konnte nicht gesetzt "
+                + "werden.");
             alert.showAndWait();
+            con.rollback();
         }
     }
     
@@ -476,8 +488,9 @@ public class ArtikelDAO extends DataAccess {
      * Gibt die Menge FREI zu einem bestimmten Artikel.
      * @param artikelID Artikel dessen Menge FREI wiedergegeben werden soll.
      * @return Gibt die Menge FREI wieder.
+     * @throws java.sql.SQLException SQLFehler
      */
-    public String gibMengeFrei(String artikelID) {
+    public String gibMengeFrei(String artikelID) throws SQLException {
         
         //Variablendeklaration
         PreparedStatement  stmt = null;
@@ -505,8 +518,10 @@ public class ArtikelDAO extends DataAccess {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText(e.getMessage() + "\n Menge FREI konnte nicht "
+                + "abgerufen werden.");
             alert.showAndWait();
+            con.rollback();
         } 
         return menge;
     }
@@ -522,8 +537,9 @@ public class ArtikelDAO extends DataAccess {
      * Gibt die Menge RESERVIERT zu einem bestimmten Artikel.
      * @param artikelID Artikel dessen Menge FREI wiedergegeben werden soll.
      * @return Gibt die Menge RESERVIERT wieder.
+     * @throws java.sql.SQLException SQLFehler
      */
-    public String gibMengeReserviert(String artikelID) {
+    public String gibMengeReserviert(String artikelID) throws SQLException {
         PreparedStatement  stmt = null;
         ResultSet rs = null;  
         String menge = "";
@@ -549,8 +565,10 @@ public class ArtikelDAO extends DataAccess {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText(e.getMessage() + "\n Menge RESERVIERT konnte "
+                + "nicht abgerufen werden.");
             alert.showAndWait();
+            con.rollback();
         } 
         return menge;
     }    
@@ -566,8 +584,9 @@ public class ArtikelDAO extends DataAccess {
      * Gibt die Menge ZULAUF zu einem bestimmten Artikel.
      * @param artikelID Artikel dessen Menge ZULAUF wiedergegeben werden soll.
      * @return Gibt die Menge ZULAUF wieder.
+     * @throws java.sql.SQLException SQLFehler
      */
-    public String gibMengeZulauf(String artikelID) {
+    public String gibMengeZulauf(String artikelID) throws SQLException {
         PreparedStatement  stmt = null;
         ResultSet rs = null;  
         String menge = "";
@@ -596,6 +615,7 @@ public class ArtikelDAO extends DataAccess {
             alert.setHeaderText(e.getMessage() + "\n Menge ZULAUF konnte nicht"
                 + " ausgegeben werden.");
             alert.showAndWait();
+            con.rollback();
         } 
         return menge;
     }   
@@ -611,8 +631,9 @@ public class ArtikelDAO extends DataAccess {
      * Gibt die Menge VERKAUFT zu einem bestimmten Artikel.
      * @param artikelID Artikel dessen Menge VERKAUFT wiedergegeben werden soll.
      * @return Gibt die Menge VERKAUFT wieder.
+     * @throws java.sql.SQLException SQLFehler
      */
-    public String gibMengeVerkauft(String artikelID) {
+    public String gibMengeVerkauft(String artikelID) throws SQLException {
         PreparedStatement  stmt = null;
         ResultSet rs = null;  
         String mengeVerkauft = "";
@@ -638,8 +659,10 @@ public class ArtikelDAO extends DataAccess {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText(e.getMessage() + "\n Menge VERKAUFT konnte "
+                + " nicht abgerufen werden.");
             alert.showAndWait();
+            con.rollback();
         } 
         return mengeVerkauft;
     }       

@@ -101,7 +101,6 @@ public class AuftragskopfDAO extends DataAccess {
             }
             
             con.commit();
-            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -315,7 +314,6 @@ public class AuftragskopfDAO extends DataAccess {
 
             stmt.executeUpdate();
             con.commit();
-            con.close();
             
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

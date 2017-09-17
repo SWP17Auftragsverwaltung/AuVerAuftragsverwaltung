@@ -68,8 +68,10 @@ public class GeschaeftspartnerDAO extends DataAccess {
      * Gibt alle Geschäftspartner wieder, die sich in der Datenbank befinden.
      *
      * @return Gibt Arraylist aller Zahlungskonditionen wieder
+     * @throws java.sql.SQLException SQLFehler
      */
-    public ArrayList<Geschaeftspartner> gibAlleGeschaeftspartner() {
+    public ArrayList<Geschaeftspartner> gibAlleGeschaeftspartner() 
+        throws SQLException {
 
         //Variablendeklaration.
         Statement stmt = null;
@@ -91,7 +93,6 @@ public class GeschaeftspartnerDAO extends DataAccess {
 
                 geschaeftspartnerListe.add(geschaeftspartner);
             }
-            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -99,6 +100,7 @@ public class GeschaeftspartnerDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
         return geschaeftspartnerListe;
     }
@@ -106,10 +108,11 @@ public class GeschaeftspartnerDAO extends DataAccess {
     
     /**
      * Liefert allle Lieferanten. Geschäftspartner mit dem Partnerttyp "L".
-     * @return 
+     * @return Alle Lieferanten L
+     * @throws java.sql.SQLException SQLFehler
      */
-    public ArrayList<Geschaeftspartner> gibAlleLieferanten() {
-
+    public ArrayList<Geschaeftspartner> gibAlleLieferanten() 
+        throws SQLException {
         //Variablendeklaration.
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -118,7 +121,7 @@ public class GeschaeftspartnerDAO extends DataAccess {
         
         String query = "SELECT * FROM ROOT." + ddd.getTabGeschaeftspartner() 
             + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(5) + " = ?"
-            + " AND " + attribute.get(TAB_GESCHAEFTSPARTNER).get(1) + " = ?"    ;
+            + " AND " + attribute.get(TAB_GESCHAEFTSPARTNER).get(1) + " = ?";
 
         try {
             stmt = con.prepareStatement(query);
@@ -134,7 +137,6 @@ public class GeschaeftspartnerDAO extends DataAccess {
 
                 geschaeftspartnerListe.add(geschaeftspartner);
             }
-            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -142,15 +144,18 @@ public class GeschaeftspartnerDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
         return geschaeftspartnerListe;
     }
+    
+    
     /**
      * Liefert allle Kunden. Geschäftspartner mit dem Partnerttyp "K".
-     * @return 
+     * @return Alle Lieferanten K
+     * @throws java.sql.SQLException SQLFehler
      */
-    public ArrayList<Geschaeftspartner> gibAlleKunden() {
-
+    public ArrayList<Geschaeftspartner> gibAlleKunden() throws SQLException {
         //Variablendeklaration.
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -159,7 +164,7 @@ public class GeschaeftspartnerDAO extends DataAccess {
         
         String query = "SELECT * FROM ROOT." + ddd.getTabGeschaeftspartner() 
             + " WHERE " + attribute.get(TAB_GESCHAEFTSPARTNER).get(5) + " = ?"
-            + " AND " + attribute.get(TAB_GESCHAEFTSPARTNER).get(1) + " = ?"    ;
+            + " AND " + attribute.get(TAB_GESCHAEFTSPARTNER).get(1) + " = ?";
 
         try {
             stmt = con.prepareStatement(query);
@@ -175,7 +180,6 @@ public class GeschaeftspartnerDAO extends DataAccess {
 
                 geschaeftspartnerListe.add(geschaeftspartner);
             }
-            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -183,6 +187,7 @@ public class GeschaeftspartnerDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
         return geschaeftspartnerListe;
     }
@@ -197,8 +202,10 @@ public class GeschaeftspartnerDAO extends DataAccess {
     /**
      * Gibt alle Geschäftspartner ohne Löschkennzeichen wieder.
      * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
+     * @throws java.sql.SQLException SQLFehler
      */
-    public ArrayList<Geschaeftspartner> gibAlleGeschaeftspartnerOhneLKZ() {
+    public ArrayList<Geschaeftspartner> gibAlleGeschaeftspartnerOhneLKZ() 
+        throws SQLException {
         //Variablendeklaration
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -236,6 +243,7 @@ public class GeschaeftspartnerDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
         return geschaeftspartnerListe;
     }
@@ -249,8 +257,10 @@ public class GeschaeftspartnerDAO extends DataAccess {
     /**
      * Fügt einen Geschäftspartner der Datenbank hinzu.
      * @param gp Geschäftspartnerobjekt
+     * @throws java.sql.SQLException SQLFehler
      */
-    public void fuegeGeschaeftspartnerHinzu(Geschaeftspartner gp) {
+    public void fuegeGeschaeftspartnerHinzu(Geschaeftspartner gp) 
+        throws SQLException {
         PreparedStatement stmt = null;
         String geschaeftspartnerID = generiereID();
         String typ = gp.getTyp();
@@ -281,7 +291,6 @@ public class GeschaeftspartnerDAO extends DataAccess {
 
             stmt.executeUpdate();
             con.commit();
-            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -289,6 +298,7 @@ public class GeschaeftspartnerDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
     }
 
@@ -302,9 +312,10 @@ public class GeschaeftspartnerDAO extends DataAccess {
     /**
      * Ändern der Geschäftspartner in der DB.
      * @param a Geschäftspartnerobjekt
+     * @throws java.sql.SQLException SQLFehler
      */
-    public void aendernGeschaeftspartner(Geschaeftspartner a) {
-
+    public void aendernGeschaeftspartner(Geschaeftspartner a) 
+        throws SQLException {
         //Variablendeklaration
         PreparedStatement stmt = null;
         String query = "";
@@ -350,17 +361,17 @@ public class GeschaeftspartnerDAO extends DataAccess {
             stmt.setString(1, a.getKreditlimit());
             stmt.setString(2, a.getGeschaeftspartnerID());
             stmt.executeUpdate();
-            
-            
+    
             con.commit();
-            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText(e.getMessage() + "\n Geschäftspartner konnte "
+                + "nicht bearbeitet werden.");
             alert.showAndWait();
+            con.rollback();
         }
     }
 
@@ -374,8 +385,9 @@ public class GeschaeftspartnerDAO extends DataAccess {
     /**
      * Setzt Löschkennzeichen bei einem ausgewählten Geschäftspartner.
      * @param g Geschäftspartner
+     * @throws java.sql.SQLException SQLFehler
      */
-    public void setzeLKZ(Geschaeftspartner g) {
+    public void setzeLKZ(Geschaeftspartner g) throws SQLException {
 
         PreparedStatement stmt = null;
         String geschaeftspartnerID = g.getGeschaeftspartnerID();
@@ -395,7 +407,6 @@ public class GeschaeftspartnerDAO extends DataAccess {
 
             stmt.executeUpdate();
             con.commit();
-            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -403,6 +414,7 @@ public class GeschaeftspartnerDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
     }
 
@@ -416,8 +428,9 @@ public class GeschaeftspartnerDAO extends DataAccess {
     /**
      * Gibt die letzte PartnerID aus der Tabelle aus.
      * @return gibt neue PartnerID aufgezählt.
+     * @throws java.sql.SQLException SQLFehler
      */
-    public String gibLetztID() {
+    public String gibLetztID() throws SQLException {
         Statement stmt = null;
         String value = "";
         ResultSet rs = null;
@@ -440,6 +453,7 @@ public class GeschaeftspartnerDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
         return value;
     }
@@ -454,8 +468,9 @@ public class GeschaeftspartnerDAO extends DataAccess {
     /**
      * Liest die letzte PartnerID aus, erhöht sie um 1 und gibt sie wieder.
      * @return neue PartnerID aufgezählt.
+     * @throws java.sql.SQLException SQLfehler
      */
-    public String generiereID() {
+    public String generiereID() throws SQLException {
         //Holt sich die aktuell maximale ID.
         String alteIDString = gibLetztID();
         String neueID;

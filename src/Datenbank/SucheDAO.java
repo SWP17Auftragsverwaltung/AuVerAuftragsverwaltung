@@ -330,7 +330,6 @@ public class SucheDAO extends DataAccess {
             }
             
             con.commit();
-            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -570,7 +569,6 @@ public class SucheDAO extends DataAccess {
             }
             
             con.commit();
-            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -578,6 +576,7 @@ public class SucheDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
         return gefundenerArtikel;
     }
@@ -704,7 +703,6 @@ public class SucheDAO extends DataAccess {
             }
             
             con.commit();
-            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -712,6 +710,7 @@ public class SucheDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
         return gefundeneGP;
     }
@@ -984,7 +983,6 @@ public class SucheDAO extends DataAccess {
             }
             
             con.commit();
-            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -992,6 +990,7 @@ public class SucheDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
         return gefundeneZK;
     }
@@ -1213,7 +1212,6 @@ public class SucheDAO extends DataAccess {
             } 
             
             con.commit();
-            con.close();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

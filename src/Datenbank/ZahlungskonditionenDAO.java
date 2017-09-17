@@ -70,8 +70,10 @@ public class ZahlungskonditionenDAO extends DataAccess {
      * Gibt alle Zahlungskonditionen wieder, die sich in der Datenbank befinden.
      *
      * @return Gibt Arraylist aller Zahlungskonditionen wieder
+     * @throws java.sql.SQLException SQLFehler
      */
-    public ArrayList<Zahlungskonditionen> gibAlleZahlungskonditionen() {
+    public ArrayList<Zahlungskonditionen> gibAlleZahlungskonditionen() 
+        throws SQLException {
 
         //Variablendeklaration
         Statement stmt = null;
@@ -95,6 +97,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
 
                 zahlungskonditionenListe.add(zahlungskonditionen);
             }
+            con.commit();
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -102,6 +105,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
         return zahlungskonditionenListe;
     }
@@ -116,8 +120,10 @@ public class ZahlungskonditionenDAO extends DataAccess {
     /**
      * Gibt alle Zahlungskonditionen ohne Löschkennzeichen wieder.
      * @return Gibt ArrayList aller Adressen ohne LKZ wieder.
+     * @throws java.sql.SQLException SQLFehler
      */
-    public ArrayList<Zahlungskonditionen> gibAlleZahlungskonditionenOhneLKZ() {
+    public ArrayList<Zahlungskonditionen> gibAlleZahlungskonditionenOhneLKZ() 
+        throws SQLException {
 
         //Variablendeklaration
         PreparedStatement stmt = null;
@@ -161,6 +167,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
         return zahlungskonditionenListe;
     }
@@ -328,8 +335,10 @@ public class ZahlungskonditionenDAO extends DataAccess {
     /**
      * Fügt Zahlungskonditionen der Datenbank hinzu.
      * @param z Zahlungskonditionsobjekt
+     * @throws java.sql.SQLException SQLFehler
      */
-    public void fuegeZahlungskonditionenHinzu(Zahlungskonditionen z) {
+    public void fuegeZahlungskonditionenHinzu(Zahlungskonditionen z) 
+        throws SQLException {
 
         //Variablendeklaration
         PreparedStatement stmt = null;
@@ -387,6 +396,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
     }
 
@@ -400,8 +410,9 @@ public class ZahlungskonditionenDAO extends DataAccess {
     /**
      * Setzt Löschkennzeichen bei einer ausgewählten Zahlungskondition.
      * @return neue ID aufgezählt.
+     * @throws java.sql.SQLException SQLFehler
      */ 
-    public String gibLetztID() {
+    public String gibLetztID() throws SQLException {
 
         Statement stmt = null;
         String value = "";
@@ -425,6 +436,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
         return value;
     }
@@ -439,8 +451,9 @@ public class ZahlungskonditionenDAO extends DataAccess {
     /**
      * Liest die letzte KonditionenID aus, erhöht sie um 1 und gibt sie wieder.
      * @return gibt neue KonditionenID aufgezählt.
+     * @throws java.sql.SQLException SQLFehler
      */ 
-    public String generiereID() {
+    public String generiereID() throws SQLException {
         //Holt sich die aktuell maximale ID.
         String alteIDString = gibLetztID();
         String neueID;
@@ -473,6 +486,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
     /**
      * Änderd den Datensatz einer Zahlungskonditione in der Datenbank.
      * @param zk Zahlungskonditionen die geändert werden.
+     * @throws java.sql.SQLException SQLFehler
      */
     public void aendereZahlungskonditionen(Zahlungskonditionen zk) 
         throws SQLException {
@@ -600,8 +614,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
             stmt.setString(1, zk.getMahnzeit3());
             stmt.setString(2, zk.getZahlungskonditionenID());
             stmt.executeUpdate();
-            
-            
+    
             con.commit();
 
         } catch (SQLException e) {
@@ -626,8 +639,9 @@ public class ZahlungskonditionenDAO extends DataAccess {
     /**
      * Setzt Löschkennzeichen bei einer ausgewählten Zahlungskonditionen.
      * @param zk Zahlungskonditionen
+     * @throws java.sql.SQLException SQLFehler
      */
-    public void setzeLKZ(Zahlungskonditionen zk) {
+    public void setzeLKZ(Zahlungskonditionen zk) throws SQLException {
 
         PreparedStatement stmt = null;
         String zkID = zk.getZahlungskonditionenID();
@@ -654,6 +668,7 @@ public class ZahlungskonditionenDAO extends DataAccess {
             alert.setTitle("Fehler");
             alert.setHeaderText(e.getMessage());
             alert.showAndWait();
+            con.rollback();
         }
     }
 
