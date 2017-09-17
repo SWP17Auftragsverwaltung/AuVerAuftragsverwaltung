@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -331,7 +333,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         //Die Liefer-Id enthält max. 6 Zeichen.
         begrenzeTextFeldEingabe(tfLieferID, 6);
         //Das Kreditlimit enthält max. 6 Zeichen.
-        begrenzeTextFeldEingabe(tfKreditlimit, 6);
+        begrenzeTextFeldEingabe(tfKreditlimit, 10);
 
         gpID.setCellValueFactory(
                 new PropertyValueFactory<>("geschaeftspartnerID"));
@@ -509,42 +511,44 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         
         if (validateFields()) {
             
-            String geschaeftspartnerID = tfGeschaeftspartnerID.getText();
-            String typ = cbPartnerTyp.getValue();
-            String adresseID = tfAnschriftID.getText();
-            String lieferID = tfLieferID.getText();
-            String kreditlimit = tfKreditlimit.getText();
-            String lkz = "N";
-            Geschaeftspartner geschaeftspartner = new Geschaeftspartner(
+            if (validateKreditlimit()) {
+            
+                String geschaeftspartnerID = tfGeschaeftspartnerID.getText();
+                String typ = cbPartnerTyp.getValue();
+                String adresseID = tfAnschriftID.getText();
+                String lieferID = tfLieferID.getText();
+                String kreditlimit = tfKreditlimit.getText();
+                String lkz = "N";
+                Geschaeftspartner geschaeftspartner = new Geschaeftspartner(
                     geschaeftspartnerID, typ, adresseID, lieferID,
                     kreditlimit, lkz);
 
-            GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
-            gpDAO.fuegeGeschaeftspartnerHinzu(geschaeftspartner);
+                GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
+                gpDAO.fuegeGeschaeftspartnerHinzu(geschaeftspartner);
 
-            clearTextFields();
-            refreshTable();
+                clearTextFields();
+                refreshTable();
 
-            // Sperre für Bearbeitung wird deaktiviert.
-            this.pane.setDisable(false);
-            // Anlegen Button wird Sichtbar gemacht.
-            this.anlegenBT.setVisible(true);
-            // Hinzufügen -Button wird eingeblendet
-            this.hinzufuegenBT.setVisible(false);
-            // Der Anlegemodus wird dektiviert
-            this.datensatzTP.setText("Geschäftspartnerdatensatz");
-            // Anlegen-Button wird aktiviert
-            this.bearbeitenBT.setDisable(false);
-            // Löschen-Button wird aktiviert
-            this.loeschenBT.setDisable(false);
+                // Sperre für Bearbeitung wird deaktiviert.
+                this.pane.setDisable(false);
+                // Anlegen Button wird Sichtbar gemacht.
+                this.anlegenBT.setVisible(true);
+                // Hinzufügen -Button wird eingeblendet
+                this.hinzufuegenBT.setVisible(false);
+                // Der Anlegemodus wird dektiviert
+                this.datensatzTP.setText("Geschäftspartnerdatensatz");
+                // Anlegen-Button wird aktiviert
+                this.bearbeitenBT.setDisable(false);
+                // Löschen-Button wird aktiviert
+                this.loeschenBT.setDisable(false);
 
-            gpTable.setMouseTransparent(false);
-            this.paneAdresseWahl.setVisible(false);
-            this.gpTable.setVisible(true);
+                gpTable.setMouseTransparent(false);
+                this.paneAdresseWahl.setVisible(false);
+                this.gpTable.setVisible(true);
+            }
         }
+    
     }
-    
-    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -909,6 +913,40 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
             this.tfLieferID.setText(a.getAdresseID());        
         }
     }
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 09.09.2017    GET     Methode erstellt.
+    /* 10.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    /**
+     * Methode prüft vor dem Hinzufügen, ob das Kreditlimit korrekt ist.
+     * @return  true bei korrekter Eingabe und false bei falscher Eingabe.
+     */
+    private boolean validateKreditlimit() {
+        boolean istValidiert = false;
+        
+        
+        Pattern p = Pattern.compile("[0-9]+([,.][0-9]{1,2})?");
+        Matcher m =  p.matcher(this.tfKreditlimit.getText());
+        
+        if (m.find() && m.group().equals(this.tfKreditlimit.getText())) {
+            
+            istValidiert = true;
+            
+        } else {
+            
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Fehlerhafte Bestandsangabe!");
+            alert.setContentText("Das Kreditlimit entspricht nicht "
+                    + "dem Format (z.B.: 9999999.99)");
+            alert.showAndWait();
+        }
+        
+        return istValidiert;
+    }   
     
     
     
