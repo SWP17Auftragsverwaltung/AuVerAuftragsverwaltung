@@ -1349,21 +1349,26 @@ public class AuftraegeController implements Initializable {
             this.tfAuftragswert.setText(a.getAuftragswert());          
         }   
         
-        if (a.getStatus().equals("A")) {
-            this.btAendern.setDisable(true);
-            this.btLoeschen.setDisable(true);
-            this.btAuftragspositionen.setDisable(false);        
+        try {
+            if (a.getStatus().equals("A") || a.getStatus() == null) {
+                this.btAendern.setDisable(true);
+                this.btLoeschen.setDisable(true);
+                this.btAuftragspositionen.setDisable(false);        
         
-        } else if (a.getStatus().equals("F")) {    
-            this.btAendern.setDisable(false);
-            this.btLoeschen.setDisable(true);
-            this.btAuftragspositionen.setDisable(false); 
+            } else if (a.getStatus().equals("F")) {    
+                this.btAendern.setDisable(false);
+                this.btLoeschen.setDisable(true);
+                this.btAuftragspositionen.setDisable(false); 
             
-        } else {
-            this.btAendern.setDisable(false);
-            this.btLoeschen.setDisable(false);
-            this.btAuftragspositionen.setDisable(false);      
-        }
+            } else {
+                this.btAendern.setDisable(false);
+                this.btLoeschen.setDisable(false);
+                this.btAuftragspositionen.setDisable(false);      
+            }
+                 
+        } catch (NullPointerException e) {
+            
+        }    
     }    
  
     
