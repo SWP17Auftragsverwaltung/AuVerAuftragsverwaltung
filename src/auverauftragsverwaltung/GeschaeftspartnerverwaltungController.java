@@ -937,7 +937,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         boolean istValidiert = false;
         
         
-        Pattern p = Pattern.compile("[0-9]+([,.][0-9]{1,2})?");
+        Pattern p = Pattern.compile("[0-9]{1,7}([,.][0-9]{1,2})?");
         Matcher m =  p.matcher(this.tfKreditlimit.getText());
         
         if (m.find() && m.group().equals(this.tfKreditlimit.getText())) {
