@@ -7,25 +7,24 @@
 
 <AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.AdressverwaltungController">
     <children>
-        <Label layoutX="25.0" />
-        <AnchorPane layoutX="25.0" minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="1013.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+          <TableView fx:id="adresseTV" onMouseClicked="#zeigeWerteAn" prefHeight="359.0" prefWidth="1013.0" AnchorPane.bottomAnchor="290.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="95.0">
+              <columns>
+                  <TableColumn fx:id="tcAnschriftID" prefWidth="75.0" text="Anschrift_ID" />
+                  <TableColumn fx:id="tcAnrede" prefWidth="50.0" text="Anrede" />
+                  <TableColumn fx:id="tcName" text="Name" />
+                  <TableColumn fx:id="tcVorname" text="Vorname" />
+                  <TableColumn fx:id="tcStraße" text="Strasse" />
+                  <TableColumn fx:id="tcHausNr" prefWidth="50.0" text="HausNr." />
+                  <TableColumn fx:id="tcPLZ" prefWidth="50.0" text="PLZ" />
+                  <TableColumn fx:id="tcOrt" prefWidth="130.0" text="Ort" />
+                  <TableColumn fx:id="tcStaat" prefWidth="130.0" text="Staat" />
+                  <TableColumn fx:id="tcTel" prefWidth="100.0" text="Telefon" />
+                  <TableColumn fx:id="tcEMail" prefWidth="200.0" text="E_Mail" />
+                  <TableColumn fx:id="tcErfDatum" prefWidth="200.0" text="Erfassungsdatum" />
+              </columns>
+          </TableView>
+        <AnchorPane layoutX="25.0" layoutY="14.0" minHeight="0.0" minWidth="0.0" prefHeight="70.0" prefWidth="1018.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
             <children>
-                <TableView fx:id="adresseTV" layoutY="95.0" onMouseClicked="#zeigeWerteAn" prefHeight="359.0" prefWidth="1013.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="80.0">
-                    <columns>
-                        <TableColumn fx:id="tcAnschriftID" prefWidth="75.0" text="Anschrift_ID" />
-                        <TableColumn fx:id="tcAnrede" prefWidth="50.0" text="Anrede" />
-                        <TableColumn fx:id="tcName" text="Name" />
-                        <TableColumn fx:id="tcVorname" text="Vorname" />
-                        <TableColumn fx:id="tcStraße" text="Strasse" />
-                        <TableColumn fx:id="tcHausNr" prefWidth="50.0" text="HausNr." />
-                        <TableColumn fx:id="tcPLZ" prefWidth="50.0" text="PLZ" />
-                        <TableColumn fx:id="tcOrt" prefWidth="130.0" text="Ort" />
-                        <TableColumn fx:id="tcStaat" prefWidth="130.0" text="Staat" />
-                        <TableColumn fx:id="tcTel" prefWidth="100.0" text="Telefon" />
-                        <TableColumn fx:id="tcEMail" prefWidth="200.0" text="E_Mail" />
-                        <TableColumn fx:id="tcErfDatum" prefWidth="200.0" text="Erfassungsdatum" />
-                    </columns>
-                </TableView>
                 <ComboBox fx:id="cbSuchfeld" layoutX="25.0" layoutY="41.0" prefHeight="25.0" prefWidth="150.0" promptText="Bitte wählen..." />  
                 <Label layoutX="25.0" layoutY="24.0" prefHeight="17.0" prefWidth="100.0" text="Suchkriterium" />
                 <SuchTextField fx:id="tfSuchbegriff" layoutX="246.0" layoutY="41.0" onAction="#adresseSuchen" prefHeight="25.0" prefWidth="199.0" />
