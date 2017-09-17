@@ -74,7 +74,7 @@
                   <Button fx:id="closeZK" layoutX="907.0" layoutY="166.0" mnemonicParsing="false" onAction="#closeZahlungskondition" prefHeight="40.0" prefWidth="100.0" text="Zurück" AnchorPane.rightAnchor="35.0" />
                   <Button fx:id="hinzufuegenZahlungskonditionenBT" layoutX="37.0" layoutY="166.0" mnemonicParsing="false" onAction="#zahlungskonditionenHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
                   <Button fx:id="speichernBT" layoutX="150.0" layoutY="166.0" mnemonicParsing="false" onAction="#speichereAenderung" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" wrapText="true" />
-                  <Button layoutX="378.0" layoutY="166.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
+                  <Button fx:id="abbrechenBT" layoutX="378.0" layoutY="166.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
                </children>
             </AnchorPane>
          </content>

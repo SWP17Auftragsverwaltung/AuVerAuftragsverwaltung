@@ -514,7 +514,7 @@ public class Meldung {
         meldung.getButtonTypes().addAll(ButtonType.APPLY, ButtonType.CANCEL);
         meldung.showAndWait();
         
-              String[] ausgabe = null;
+        String[] ausgabe = null;
         if (antwort()) {         
             String zeit = "";
             String zkID = "";

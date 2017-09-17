@@ -269,6 +269,8 @@ public class ZahlungskonditionenController implements Initializable {
      */
     @FXML
     private Button hinzufuegenZahlungskonditionenBT;
+    @FXML
+    private Button abbrechenBT;
 
     
     
@@ -308,6 +310,9 @@ public class ZahlungskonditionenController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             setTableContent();
+            this.bearbeitenBT.setDisable(true);
+            this.loeschenBT.setDisable(true);
+            this.abbrechenBT.setDisable(true);
 
         } catch (SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -441,7 +446,6 @@ public class ZahlungskonditionenController implements Initializable {
      * Aktualisiert die TableView mit aktuellem Inhalt.
      * @throws java.sql.SQLException SQL Exception
      */
-    @FXML
     public void refreshTable() throws SQLException {
         zahlungskonditionenTV.getItems().clear();
         setTableContent();
@@ -457,7 +461,6 @@ public class ZahlungskonditionenController implements Initializable {
     /**
      * Entfernt alle Eingaben in den Textfeldern.
      */
-    @FXML
     public void clearTextFields() {
         tfZahlungskonditionsID.clear();
         cbAuftragsart.valueProperty().set(null);
@@ -484,7 +487,6 @@ public class ZahlungskonditionenController implements Initializable {
      * Tabelle dar.
      * @throws java.sql.SQLException SQL Exception
      */
-    @FXML
     public void alleOhneLKZ() throws SQLException {
         ZahlungskonditionenDAO ad = new ZahlungskonditionenDAO();
         ObservableList<Zahlungskonditionen> zahlungskonditionen
@@ -507,20 +509,19 @@ public class ZahlungskonditionenController implements Initializable {
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
-    public void zahlungskonditionenAnlegen() throws SQLException {
-        
+    public void zahlungskonditionenAnlegen() throws SQLException {      
         zahlungskonditionenTV.setMouseTransparent(true);
         clearTextFields();
         this.pane.setDisable(true);
-        // Bearbeiten-Button wird ausgeblendet
         this.anlegenBT.setVisible(false);
-        // Speichern-Button wird eingeblendet
         this.hinzufuegenZahlungskonditionenBT.setVisible(true);
         this.zahlungskonditionendatensatzPane.setText(""
                 + "Zahlungskonditionendatensatz (Anlegemodus)");
         this.bearbeitenBT.setDisable(true);
         this.loeschenBT.setDisable(true);
+        this.abbrechenBT.setDisable(false);
 
+        
         ZahlungskonditionenDAO zk = new ZahlungskonditionenDAO();
         this.tfZahlungskonditionsID.setText(zk.generiereID());
     }
@@ -636,20 +637,14 @@ public class ZahlungskonditionenController implements Initializable {
      */
     @FXML
     public void bearbeiteZahlungskonditionen() {
-        // Textfeldbereich wird aktiviert
         this.pane.setDisable(true);
-        // Bearbeiten-Button wird ausgeblendet
         this.anlegenBT.setDisable(true);
-
-        // Der Speichern Button wird auf Sichtbar gesetzt.
         this.speichernBT.setVisible(true);
-
-        //Bearbeitungsmodus des Zahlungskonditionendatensatzes wird aktiviert
         this.zahlungskonditionendatensatzPane.setText(
                 "Zahlungskonditionendatensatz (Bearbeitungsmodus)");
-
-        // Löschen-Button wird deaktiviert
-        this.loeschenBT.setDisable(true);
+        this.loeschenBT.setDisable(true);   
+        this.bearbeitenBT.setDisable(true);
+        this.abbrechenBT.setDisable(false);
     }
 
     
@@ -691,18 +686,16 @@ public class ZahlungskonditionenController implements Initializable {
 
             ZahlungskonditionenDAO zkDAO = new ZahlungskonditionenDAO();
             zkDAO.aendereZahlungskonditionen(zahlungskonditionen);
+            
             // Textfeldbereich wird aktiviert
             this.pane.setDisable(false);
-            // Bearbeiten-Button wird ausgeblendet
-            this.bearbeitenBT.setVisible(true);
-            // Speichern-Button wird eingeblendet
+            this.bearbeitenBT.setDisable(true);
             this.speichernBT.setVisible(false);
-            //Bearbeitungsmodus des Zahlungskonditionendatensatzes wird aktiviert
             this.zahlungskonditionendatensatzPane.setText(
                     "Zahlungskonditionendatensatz");
-
             this.anlegenBT.setDisable(false);
-            this.loeschenBT.setDisable(false);
+            this.loeschenBT.setDisable(true);
+            this.abbrechenBT.setDisable(true);
 
             refreshTable();
         }    
@@ -739,6 +732,10 @@ public class ZahlungskonditionenController implements Initializable {
             this.tfMahnzeit1.setText(b.getMahnzeit1());
             this.tfMahnzeit2.setText(b.getMahnzeit2());
             this.tfMahnzeit3.setText(b.getMahnzeit3());
+            
+            this.bearbeitenBT.setDisable(false);
+            this.loeschenBT.setDisable(false);
+            this.abbrechenBT.setDisable(true);
         }
     }
 
@@ -756,7 +753,6 @@ public class ZahlungskonditionenController implements Initializable {
      * @param zahlungskonditionen Übergebene Zahlungskondition.
      * @throws java.sql.SQLException SQL Exception
      */
-    @FXML
     public void zeigeGefundeneZahlungskonditionen(
             ArrayList zahlungskonditionen) throws SQLException {
         refreshTable();
@@ -830,35 +826,22 @@ public class ZahlungskonditionenController implements Initializable {
                 if (meldung.antwort()) {
                     // Textfeldbereich wird aktiviert
                     this.pane.setDisable(false);
-                    // Bearbeiten-Button wird ausgeblendet
                     this.anlegenBT.setVisible(true);
-                    // Speichern-Button wird eingeblendet
-
-                    //Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
                     this.zahlungskonditionendatensatzPane.setText(
-                            "Zahlungskonditionendatensatz");
-
-                    // Anlegen-Button wird deaktiviert
-                    this.bearbeitenBT.setDisable(false);
-
+                        "Zahlungskonditionendatensatz");
+                    this.bearbeitenBT.setDisable(true);
                     this.bearbeitenBT.setVisible(true);
-
                     this.speichernBT.setVisible(false);
-
                     this.anlegenBT.setDisable(false);
-                    // Löschen-Button wird deaktiviert
-                    this.loeschenBT.setDisable(false);
-
+                    this.loeschenBT.setDisable(true);
                     this.hinzufuegenZahlungskonditionenBT.setVisible(false);
-
                     this.zahlungskonditionenTV.setMouseTransparent(false);
+                    this.abbrechenBT.setDisable(true);
 
                     clearTextFields();
 
                 } else {
-
                     meldung.schließeFenster();
-
                 }
             }
         }

@@ -2767,11 +2767,13 @@ public class AuftraegeController implements Initializable {
     /**
      * Zeigt die Zahlungskondtionen beim Anlegen eines Auftrags.
      * @throws java.sql.SQLException SQLFehler
+     * @throws java.text.ParseException
      */
     @FXML
     public void zeigeZahlungskonditionen() throws SQLException, ParseException {       
         Meldung meldung = new Meldung();
         String auftragsart = this.cbAuftragsart.getValue();
+        //Exception
         String[] array = meldung.dialogAuftragskondition(auftragsart);
         this.tfZahlungskondID.setText(array[0]);
         int zeit = Integer.parseInt(array[1]);    

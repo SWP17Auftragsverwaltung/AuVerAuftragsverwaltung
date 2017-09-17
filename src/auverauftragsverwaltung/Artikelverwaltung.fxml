@@ -55,7 +55,7 @@
                   <ComboBox fx:id="cbMwstsatz" layoutX="623.0" layoutY="94.0" prefHeight="25.0" prefWidth="100.0" promptText="MwSt. Satz" />
                   <Button fx:id="btSpeichern" layoutX="142.0" layoutY="179.0" mnemonicParsing="false" onAction="#speichereAenderung" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
                   <Button fx:id="btHinzufuegen" layoutX="20.0" layoutY="179.0" mnemonicParsing="false" onAction="#artikelHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" AnchorPane.leftAnchor="20.0" />
-                  <Button layoutX="387.0" layoutY="179.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " />
+                  <Button fx:id="btAbbrechen" layoutX="387.0" layoutY="179.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen " />
                   <Button fx:id="closeArW" alignment="CENTER" layoutX="898.0" layoutY="179.0" mnemonicParsing="false" onAction="#closeArtikelverwaltung" prefHeight="40.0" prefWidth="100.0" text="Zurück" AnchorPane.rightAnchor="45.0">
                      <opaqueInsets>
                         <Insets />

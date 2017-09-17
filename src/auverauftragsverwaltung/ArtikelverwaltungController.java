@@ -242,6 +242,10 @@ public class ArtikelverwaltungController implements Initializable {
      */
     @FXML
     private TitledPane artikeldatensatzPane;
+    @FXML
+    private Button btAbbrechen;
+    @FXML
+    private Button btZurueckSetzen;
 
 
     /**
@@ -255,6 +259,9 @@ public class ArtikelverwaltungController implements Initializable {
 
         try {
             setTableContent();
+            this.btBearbeiten.setDisable(true);
+            this.btLoeschen.setDisable(true);
+            this.btAbbrechen.setDisable(true);
 
         } catch (SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -391,7 +398,6 @@ public class ArtikelverwaltungController implements Initializable {
      * OberservableList, die dann an die TableView übergeben wird.
      * @throws java.sql.SQLException SQL Exception
      */
-    @FXML
     public void setTableContent() throws SQLException {
         ArtikelDAO ar = new ArtikelDAO();
         ObservableList<Artikel> artikel
@@ -431,7 +437,6 @@ public class ArtikelverwaltungController implements Initializable {
      *
      * @throws java.sql.SQLException SQL Exception
      */
-    @FXML
     public void refreshTable() throws SQLException {
         tvArtikel.getItems().clear();
         setTableContent();
@@ -445,7 +450,6 @@ public class ArtikelverwaltungController implements Initializable {
     /**
      * Löscht alle Eingaben in den Textfeldern.
      */
-    @FXML
     public void clearTextFields() {
 
         tfMaterialNr.clear();
@@ -502,7 +506,8 @@ public class ArtikelverwaltungController implements Initializable {
         this.artikeldatensatzPane.setText("Artikeldatensatz (Anlegemodus)");
         this.btBearbeiten.setDisable(true);
         this.btLoeschen.setDisable(true);
-        
+        this.btAbbrechen.setDisable(false);
+              
         this.tfBestandFrei.setText("0");
         this.tfBestandReserviert.setText("0");
         this.tfBestandZulauf.setText("0");
@@ -523,17 +528,15 @@ public class ArtikelverwaltungController implements Initializable {
      *
      * @throws java.sql.SQLException SQL Exception
      */
+    @FXML
     public void artikelHinzufuegen() throws SQLException {
-        
-        
-        if (validateFields()) {
             
+        if (validateFields()) {   
             if (validateEinzelwert() && validateBestellwert()
-                     && validateBestandFREI() && validateBestandRESERVIERT()
-                     && validateBestandZULAUF() && validateBestandVERKAUFT()) {
+                && validateBestandFREI() && validateBestandRESERVIERT()
+                && validateBestandZULAUF() && validateBestandVERKAUFT()) {
                  
-             
-                String artikelID = tfMaterialNr.getText();
+            String artikelID = tfMaterialNr.getText();
                 String einzelwert = tfEinzelwert.getText().replace(',', '.');
                 String artikeltext = tfArtikelbeschreibung.getText();
                 String bestellwert = tfBestellwert.getText().replace(',', '.');
@@ -560,9 +563,10 @@ public class ArtikelverwaltungController implements Initializable {
                 this.btAnlegen.setVisible(true);
                 this.btHinzufuegen.setVisible(false);
                 this.artikeldatensatzPane.setText("Artikeldatensatz");
-                this.btBearbeiten.setDisable(false);
-                this.btLoeschen.setDisable(false);            
+                this.btBearbeiten.setDisable(true);
+                this.btLoeschen.setDisable(true);            
                 tvArtikel.setMouseTransparent(false);
+                this.btAbbrechen.setDisable(true);              
             }
         }
     }
@@ -611,17 +615,13 @@ public class ArtikelverwaltungController implements Initializable {
     public void bearbeiteArtikel() {
         // Textfeldbereich wird aktiviert
         this.pane.setDisable(true);
-        // Bearbeiten-Button wird ausgeblendet
         this.btBearbeiten.setVisible(false);
-        // Speichern-Button wird eingeblendet
         this.btSpeichern.setVisible(true);
-        // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
         this.artikeldatensatzPane.setText(
                 "Artikeldatensatz (Bearbeitungsmodus)");
-        // Anlegen-Button wird deaktiviert
         this.btAnlegen.setDisable(true);
-        // Löschen-Button wird deaktiviert
         this.btLoeschen.setDisable(true);
+        this.btAbbrechen.setDisable(false);
     }
 
     /*------------------------------------------------------------------------*/
@@ -667,22 +667,18 @@ public class ArtikelverwaltungController implements Initializable {
 
                 // Textfeldbereich wird deaktivieren
                 this.pane.setDisable(false);
-                // Bearbeiten-Button wird ausgeblendet
                 this.btBearbeiten.setVisible(true);
-                // Speichern-Button wird eingeblendet
                 this.btSpeichern.setVisible(false);
-                // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
                 this.artikeldatensatzPane.setText("Artikeldatensatz");
-                // Anlegen-Button wird deaktiviert
-                this.btAnlegen.setDisable(false);
-                // Löschen-Button wird deaktiviert
-                this.btLoeschen.setDisable(false);
-            
-            }
-        
+                this.btAnlegen.setDisable(false);            
+                this.btBearbeiten.setDisable(true);
+                this.btLoeschen.setDisable(true);
+                this.btAbbrechen.setDisable(true);         
+            }      
         }
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
@@ -707,9 +703,14 @@ public class ArtikelverwaltungController implements Initializable {
             this.tfBestandReserviert.setText(b.getBestandsmengeReserviert());
             this.tfBestandZulauf.setText(b.getBestandsmengeZulauf());
             this.tfBestandVerkauft.setText(b.getBestandsmengeVerkauft());
+            
+            this.btBearbeiten.setDisable(false);
+            this.btLoeschen.setDisable(false);
+            this.btAbbrechen.setDisable(true);
         }
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 19.08.17    HEN     Methode erstellt.
@@ -767,7 +768,6 @@ public class ArtikelverwaltungController implements Initializable {
      */
     @FXML
     public void aktionAbbrechen() {
-
         if (!this.artikeldatensatzPane.getText().equalsIgnoreCase(""
                 + "Artikeldatensatz")) {
 
@@ -775,36 +775,23 @@ public class ArtikelverwaltungController implements Initializable {
             meldung.verwerfenFenster();
 
             if (meldung.antwort()) {
-
                 // Textfeldbereich wird aktiviert
                 this.pane.setDisable(false);
-                // Bearbeiten-Button wird ausgeblendet
                 this.btAnlegen.setVisible(true);
-                // Speichern-Button wird eingeblendet
-
-                // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
                 this.artikeldatensatzPane.setText("Artikeldatensatz");
-
-                // Anlegen-Button wird deaktiviert
-                this.btBearbeiten.setDisable(false);
-
+                this.btBearbeiten.setDisable(true);
                 this.btBearbeiten.setVisible(true);
-
                 this.btSpeichern.setVisible(false);
-
                 this.btAnlegen.setDisable(false);
-                // Löschen-Button wird deaktiviert
-                this.btLoeschen.setDisable(false);
-
+                this.btLoeschen.setDisable(true);
                 this.btHinzufuegen.setVisible(false);
-
-                this.tvArtikel.setMouseTransparent(false);
+                this.tvArtikel.setMouseTransparent(false);             
+                this.btAbbrechen.setDisable(true);
 
                 clearTextFields();
+            
             } else {
-
                 meldung.schließeFenster();
-
             }
         }
     }
@@ -1061,14 +1048,13 @@ public class ArtikelverwaltungController implements Initializable {
     }    
     
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+    /* Datum         Name    Was
     /* 10.09.2017    GET     Methode erstellt.
     /* 10.09.2017    GET     Getestet & freigegeben 
     /*------------------------------------------------------------------------*/
     
     /**
      * Prüft ob der verkaufte Bestand korrekt eingegeben wurde.
-     *
      * @return boolschen Wert ob die eingaben korrekt sind.
      */
     private boolean validateBestandVERKAUFT() {
@@ -1093,6 +1079,6 @@ public class ArtikelverwaltungController implements Initializable {
         
         return istValidiert;
     }
-  
+
 }
     
