@@ -29,24 +29,24 @@
          <content>
             <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TextField fx:id="tfEinzelwert" layoutX="313.0" layoutY="43.0" prefHeight="25.0" prefWidth="85.0" />
+                  <SkontoTextField fx:id="tfEinzelwert" layoutX="313.0" layoutY="43.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="434.0" layoutY="26.0" text="Bestellbeschreibung" />
                   <TextArea fx:id="tfBestellbeschreibung" layoutX="435.0" layoutY="44.0" prefHeight="65.0" prefWidth="173.0" />
                   <Label layoutX="623.0" layoutY="25.0" text="Bestellwert" />
-                  <TextField fx:id="tfBestellwert" layoutX="623.0" layoutY="42.0" prefHeight="25.0" prefWidth="85.0" />
+                  <SkontoTextField fx:id="tfBestellwert" layoutX="623.0" layoutY="42.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="851.0" layoutY="34.0" prefHeight="17.0" prefWidth="61.0" text="Bestand" />
                   <Label layoutX="853.0" layoutY="68.0" text="FREI" />
-                  <TextField fx:id="tfBestandFrei" layoutX="914.0" layoutY="63.0" prefHeight="25.0" prefWidth="85.0" />
+                  <NumberTextField fx:id="tfBestandFrei" layoutX="914.0" layoutY="63.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="850.0" layoutY="94.0" text="RESERVIERT" />
-                  <TextField fx:id="tfBestandReserviert" layoutX="914.0" layoutY="90.0" prefHeight="25.0" prefWidth="85.0">
+                  <NumberTextField fx:id="tfBestandReserviert" layoutX="914.0" layoutY="90.0" prefHeight="25.0" prefWidth="85.0">
                      <padding>
                         <Insets left="5.0" />
                      </padding>
-                  </TextField>
-                  <TextField fx:id="tfBestandZulauf" layoutX="914.0" layoutY="117.0" prefHeight="25.0" prefWidth="85.0" />
+                  </NumberTextField>
+                  <NumberTextField fx:id="tfBestandZulauf" layoutX="914.0" layoutY="117.0" prefHeight="25.0" prefWidth="85.0" />
                   <Label layoutX="851.0" layoutY="121.0" text="ZULAUF" />
                   <Label layoutX="851.0" layoutY="148.0" text="VERKAUFT" />
-                  <TextField fx:id="tfBestandVerkauft" layoutX="914.0" layoutY="144.0" prefHeight="25.0" prefWidth="85.0" />
+                  <NumberTextField fx:id="tfBestandVerkauft" layoutX="914.0" layoutY="144.0" prefHeight="25.0" prefWidth="85.0" />
                   <Button fx:id="btLoeschen" layoutX="263.0" layoutY="179.0" mnemonicParsing="false" onAction="#artikelLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
                   <Button fx:id="btAnlegen" layoutX="20.0" layoutY="179.0" mnemonicParsing="false" onAction="#artikelAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen " />
                   <Button fx:id="btBearbeiten" layoutX="142.0" layoutY="179.0" mnemonicParsing="false" onAction="#bearbeiteArtikel" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />

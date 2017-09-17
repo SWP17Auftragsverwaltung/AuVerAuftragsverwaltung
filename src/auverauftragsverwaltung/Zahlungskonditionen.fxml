@@ -7,23 +7,8 @@
 
 <AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="auverauftragsverwaltung.ZahlungskonditionenController">
    <children>
-      <AnchorPane layoutX="25.0" minHeight="0.0" minWidth="0.0" prefHeight="419.0" prefWidth="1024.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+      <AnchorPane layoutX="25.0" layoutY="14.0" minHeight="0.0" minWidth="0.0" prefHeight="82.0" prefWidth="1024.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <children>
-            <TableView fx:id="zahlungskonditionenTV" layoutY="88.0" onMouseClicked="#zeigeWerteAn" prefHeight="359.0" prefWidth="1013.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="80.0">
-               <columns>
-                  <TableColumn fx:id="tcKonditionenID" prefWidth="96.0" text="Konditionen-ID" />
-                  <TableColumn fx:id="tcAuftragsart" prefWidth="95.0" text="Auftragsart" />
-                  <TableColumn fx:id="tcLieferzeitSOFORT" minWidth="9.0" prefWidth="115.0" text="Lieferzeit SOFORT" />
-                  <TableColumn fx:id="tcSperrzeitWUNSCH" minWidth="0.0" prefWidth="129.0" text="Sperrzeit WUNSCH" />
-                  <TableColumn fx:id="tcSkontozeit1" prefWidth="86.0" text="Skontozeit 1" />
-                  <TableColumn fx:id="tcSkonto1" prefWidth="69.0" text="Skonto 1" />
-                  <TableColumn fx:id="tcSkontozeit2" prefWidth="91.0" text="Skontozeit 2" />
-                  <TableColumn fx:id="tcSkonto2" prefWidth="104.0" text="Skonto 2" />
-                  <TableColumn fx:id="tcMahnzeit1" prefWidth="77.0" text="Mahnzeit 1" />
-                  <TableColumn fx:id="tcMahnzeit2" prefWidth="72.0" text="Mahnzeit 2" />
-                  <TableColumn fx:id="tcMahnzeit3" prefWidth="87.0" text="Mahnzeit 3" />
-               </columns>
-            </TableView>
             <ComboBox fx:id="cbSuchfeld" layoutX="14.0" layoutY="39.0" prefHeight="25.0" prefWidth="150.0" promptText="Bitte wählen..." />
             <Label layoutX="14.0" layoutY="22.0" prefHeight="17.0" prefWidth="106.0" text="Suchkriterium" />
             <SuchTextField fx:id="tfSuchbegriff" layoutX="227.0" layoutY="38.0" onAction="#zahlungskonditionenSuchen" prefHeight="25.0" prefWidth="199.0" />
@@ -32,6 +17,21 @@
             <Button fx:id="sucheZuruecksetzenBT" layoutX="671.0" layoutY="22.0" mnemonicParsing="false" onAction="#setzeSucheZurueck" prefHeight="40.0" prefWidth="199.0" text="Suche zurücksetzen" />
          </children>
       </AnchorPane>
+      <TableView fx:id="zahlungskonditionenTV" onMouseClicked="#zeigeWerteAn" prefHeight="359.0" prefWidth="1013.0" AnchorPane.bottomAnchor="280.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="100.0">
+         <columns>
+            <TableColumn fx:id="tcKonditionenID" prefWidth="96.0" text="Konditionen-ID" />
+            <TableColumn fx:id="tcAuftragsart" prefWidth="95.0" text="Auftragsart" />
+            <TableColumn fx:id="tcLieferzeitSOFORT" minWidth="9.0" prefWidth="115.0" text="Lieferzeit SOFORT" />
+            <TableColumn fx:id="tcSperrzeitWUNSCH" minWidth="0.0" prefWidth="129.0" text="Sperrzeit WUNSCH" />
+            <TableColumn fx:id="tcSkontozeit1" prefWidth="86.0" text="Skontozeit 1" />
+            <TableColumn fx:id="tcSkonto1" prefWidth="69.0" text="Skonto 1" />
+            <TableColumn fx:id="tcSkontozeit2" prefWidth="91.0" text="Skontozeit 2" />
+            <TableColumn fx:id="tcSkonto2" prefWidth="104.0" text="Skonto 2" />
+            <TableColumn fx:id="tcMahnzeit1" prefWidth="77.0" text="Mahnzeit 1" />
+            <TableColumn fx:id="tcMahnzeit2" prefWidth="72.0" text="Mahnzeit 2" />
+            <TableColumn fx:id="tcMahnzeit3" prefWidth="87.0" text="Mahnzeit 3" />
+         </columns>
+      </TableView>
       <TitledPane fx:id="zahlungskonditionendatensatzPane" animated="false" collapsible="false" layoutX="25.0" layoutY="451.0" prefHeight="243.0" prefWidth="1024.0" text="Zahlungskonditionendatensatz" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="188.0" prefWidth="1022.0">
