@@ -31,6 +31,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -269,6 +271,10 @@ public class ZahlungskonditionenController implements Initializable {
      */
     @FXML
     private Button hinzufuegenZahlungskonditionenBT;
+    
+     /**
+     * Abbrechen Button.
+     */
     @FXML
     private Button abbrechenBT;
 
@@ -543,52 +549,54 @@ public class ZahlungskonditionenController implements Initializable {
     @FXML
     public void zahlungskonditionenHinzufuegen() throws SQLException {
         
-        if (validateFields()){
+        if (validateFields()) {
             
-            String zahlungskonditionsID = tfZahlungskonditionsID.getText();
-            String auftragsart = cbAuftragsart.getValue();
-            String lieferzeit = tfLieferzeitSOFORT.getText();
-            String sperrzeit = tfSperrzeitWUNSCH.getText();
-            String skontozeit1 = tfSkontozeit1.getText();
-            String skontozeit2 = tfSkontozeit2.getText();
-            String skonto1 = tfSkonto1.getText();
-            String skonto2 = tfSkonto2.getText();
-            String mahnzeit1 = tfMahnzeit1.getText();
-            String mahnzeit2 = tfMahnzeit2.getText();
-            String mahnzeit3 = tfMahnzeit3.getText();
-            String lkz = "N";
-            Zahlungskonditionen zahlungskonditionen = new Zahlungskonditionen(
-                    zahlungskonditionsID, auftragsart, lieferzeit,
-                    sperrzeit, skontozeit1, skontozeit2, skonto1, skonto2,
-                    mahnzeit1, mahnzeit2, mahnzeit3, lkz);
+            if (validateSkonto1() && validateSkonto2()) {
+            
+                String zahlungskonditionsID = tfZahlungskonditionsID.getText();
+                String auftragsart = cbAuftragsart.getValue();
+                String lieferzeit = tfLieferzeitSOFORT.getText();
+                String sperrzeit = tfSperrzeitWUNSCH.getText();
+                String skontozeit1 = tfSkontozeit1.getText();
+                String skontozeit2 = tfSkontozeit2.getText();
+                String skonto1 = tfSkonto1.getText();
+                String skonto2 = tfSkonto2.getText();
+                String mahnzeit1 = tfMahnzeit1.getText();
+                String mahnzeit2 = tfMahnzeit2.getText();
+                String mahnzeit3 = tfMahnzeit3.getText();
+                String lkz = "N";
+                Zahlungskonditionen zahlungskonditionen = 
+                        new Zahlungskonditionen(zahlungskonditionsID, 
+                            auftragsart, lieferzeit, sperrzeit, skontozeit1, 
+                            skontozeit2, skonto1, skonto2, mahnzeit1, mahnzeit2,
+                            mahnzeit3, lkz);
 
-            ZahlungskonditionenDAO ad = new ZahlungskonditionenDAO();
-            ad.fuegeZahlungskonditionenHinzu(zahlungskonditionen);
+                ZahlungskonditionenDAO ad = new ZahlungskonditionenDAO();
+                ad.fuegeZahlungskonditionenHinzu(zahlungskonditionen);
 
-            clearTextFields();
-            refreshTable();
+                clearTextFields();
+                refreshTable();
 
-            // Textfeldbereich wird aktiviert
-            this.pane.setDisable(false);
-            // Bearbeiten-Button wird ausgeblendet
-            this.anlegenBT.setVisible(true);
-            // Speichern-Button wird eingeblendet
-            this.hinzufuegenZahlungskonditionenBT.setVisible(false);
-            // Der Bearbeitungsmodus des Zahlungskonditionendatensatzes 
-            //wird aktiviert
-            this.zahlungskonditionendatensatzPane.setText(
+                // Textfeldbereich wird aktiviert
+                this.pane.setDisable(false);
+                // Bearbeiten-Button wird ausgeblendet
+                this.anlegenBT.setVisible(true);
+                // Speichern-Button wird eingeblendet
+                this.hinzufuegenZahlungskonditionenBT.setVisible(false);
+                // Der Bearbeitungsmodus des Zahlungskonditionendatensatzes 
+                //wird aktiviert
+                this.zahlungskonditionendatensatzPane.setText(
                     "Zahlungskonditionendatensatz");
-            // Anlegen-Button wird deaktiviert
-            this.bearbeitenBT.setDisable(false);
-            // Löschen-Button wird deaktiviert
-            this.loeschenBT.setDisable(false);
+                // Anlegen-Button wird deaktiviert
+                this.bearbeitenBT.setDisable(false);
+                // Löschen-Button wird deaktiviert
+                this.loeschenBT.setDisable(false);
 
-            zahlungskonditionenTV.setMouseTransparent(false);
+                zahlungskonditionenTV.setMouseTransparent(false);
             
+            }
         }
     }
-
-    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -664,44 +672,46 @@ public class ZahlungskonditionenController implements Initializable {
     public void speichereAenderung() throws SQLException {
         
         if (validateFields()) {
-         
-            String zahlungskonditionsID = tfZahlungskonditionsID.getText();
-            String auftragsart = cbAuftragsart.getValue();
-            String lieferzeit = tfLieferzeitSOFORT.getText();
-            String sperrzeit = tfSperrzeitWUNSCH.getText();
-            String skontozeit1 = tfSkontozeit1.getText();
-            String skontozeit2 = tfSkontozeit2.getText();
-            String skonto1 = tfSkonto1.getText();
-            String skonto2 = tfSkonto2.getText();
-            String mahnzeit1 = tfMahnzeit1.getText();
-            String mahnzeit2 = tfMahnzeit2.getText();
-            String mahnzeit3 = tfMahnzeit3.getText();
-
-            String lkz = "N";
-
-            Zahlungskonditionen zahlungskonditionen = new Zahlungskonditionen(
-                    zahlungskonditionsID, auftragsart, lieferzeit,
-                    sperrzeit, skontozeit1, skontozeit2, skonto1, skonto2,
-                    mahnzeit1, mahnzeit2, mahnzeit3, lkz);
-
-            ZahlungskonditionenDAO zkDAO = new ZahlungskonditionenDAO();
-            zkDAO.aendereZahlungskonditionen(zahlungskonditionen);
             
-            // Textfeldbereich wird aktiviert
-            this.pane.setDisable(false);
-            this.bearbeitenBT.setDisable(true);
-            this.speichernBT.setVisible(false);
-            this.zahlungskonditionendatensatzPane.setText(
+            if (validateSkonto1() && validateSkonto2()) {
+         
+                String zahlungskonditionsID = tfZahlungskonditionsID.getText();
+                String auftragsart = cbAuftragsart.getValue();
+                String lieferzeit = tfLieferzeitSOFORT.getText();
+                String sperrzeit = tfSperrzeitWUNSCH.getText();
+                String skontozeit1 = tfSkontozeit1.getText();
+                String skontozeit2 = tfSkontozeit2.getText();
+                String skonto1 = tfSkonto1.getText();
+                String skonto2 = tfSkonto2.getText();
+                String mahnzeit1 = tfMahnzeit1.getText();
+                String mahnzeit2 = tfMahnzeit2.getText();
+                String mahnzeit3 = tfMahnzeit3.getText();
+
+                String lkz = "N";
+
+                Zahlungskonditionen zahlungskonditionen = 
+                    new Zahlungskonditionen(zahlungskonditionsID, auftragsart, 
+                    lieferzeit, sperrzeit, skontozeit1, skontozeit2, skonto1, 
+                    skonto2, mahnzeit1, mahnzeit2, mahnzeit3, lkz);
+
+                ZahlungskonditionenDAO zkDAO = new ZahlungskonditionenDAO();
+                zkDAO.aendereZahlungskonditionen(zahlungskonditionen);
+            
+                // Textfeldbereich wird aktiviert
+                this.pane.setDisable(false);
+                this.bearbeitenBT.setDisable(true);
+                this.speichernBT.setVisible(false);
+                this.zahlungskonditionendatensatzPane.setText(
                     "Zahlungskonditionendatensatz");
-            this.anlegenBT.setDisable(false);
-            this.loeschenBT.setDisable(true);
-            this.abbrechenBT.setDisable(true);
+                this.anlegenBT.setDisable(false);
+                this.loeschenBT.setDisable(true);
+                this.abbrechenBT.setDisable(true);
 
-            refreshTable();
-        }    
+                refreshTable();
+            }    
+        }
+
     }
-
-    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -848,8 +858,85 @@ public class ZahlungskonditionenController implements Initializable {
     }
     
     
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 10.09.2017    GET     Methode erstellt.
+    /* 10.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    
     /**
-     * Validiert die Adressfelder.
+     * Prüft ob das Skonto1 korrekt eingegeben wurde.
+     *
+     * @return boolschen Wert ob die eingaben korrekt sind.
+     */
+    private boolean validateSkonto1() {
+        
+        boolean istValidiert = false;
+        
+        Pattern p = Pattern.compile("[0-9][,.][0-9]?");
+        Matcher m = p.matcher(this.tfSkonto1.getText());
+
+        if (m.find() && m.group().equals(this.tfSkonto1.getText())) {
+            
+            istValidiert = true;
+            
+        } else {
+            
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Fehlerhafter Skontolwert!");
+            alert.setContentText("Das Skonto2 entspricht nicht dem Format "
+                    + "(z.B.: 9.9)");
+            alert.showAndWait();
+        }
+        
+        
+        return istValidiert;
+        
+    }
+    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 10.09.2017    GET     Methode erstellt.
+    /* 10.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    
+    /**
+     * Prüft ob das Skonto2 korrekt eingegeben wurde.
+     *
+     * @return boolschen Wert ob die eingaben korrekt sind.
+     */
+    private boolean validateSkonto2() {
+        
+        boolean istValidiert = false;
+        
+        Pattern p = Pattern.compile("[0-9][,.][0-9]?");
+        Matcher m = p.matcher(this.tfSkonto2.getText());
+
+        if (m.find() && m.group().equals(this.tfSkonto2.getText())) {
+            
+            istValidiert = true;
+            
+        } else {
+            
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Fehlerhafter Skontowert!");
+            alert.setContentText("Das Skonto2 entspricht nicht dem Format "
+                    + "(z.B.: 9.9)");
+            alert.showAndWait();
+        }
+        
+        
+        return istValidiert;
+        
+    }
+    
+    
+    
+    /**
+     * Validiert die Zahlungskonditionsfelder.
      * @return True: Wenn Validierung erfolgreich, sonst False.
      */
     private boolean validateFields() {

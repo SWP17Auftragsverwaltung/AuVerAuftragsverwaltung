@@ -696,32 +696,39 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      */
     @FXML
     public void speichereAenderung() throws SQLException {
+        
+        if (validateFields()) {
+            
+            if (validateKreditlimit()) {
 
-        String geschaeftspartnerID = this.tfGeschaeftspartnerID.getText();
-        String typ = this.cbPartnerTyp.getValue();
-        String anschriftID = this.tfAnschriftID.getText();
-        String lieferID = this.tfLieferID.getText();
-        String kreditlimit = this.tfKreditlimit.getText();
-        String lkz = "N";
+                String geschaeftspartnerID = 
+                        this.tfGeschaeftspartnerID.getText();
+                String typ = this.cbPartnerTyp.getValue();
+                String anschriftID = this.tfAnschriftID.getText();
+                String lieferID = this.tfLieferID.getText();
+                String kreditlimit = this.tfKreditlimit.getText();
+                String lkz = "N";
 
-        Geschaeftspartner gp = new Geschaeftspartner(
-                geschaeftspartnerID, typ, anschriftID, lieferID, 
-                kreditlimit, lkz);
+                Geschaeftspartner gp = new Geschaeftspartner(
+                    geschaeftspartnerID, typ, anschriftID, lieferID, 
+                    kreditlimit, lkz);
 
-        GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
-        gpDAO.aendernGeschaeftspartner(gp);
+                GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
+                gpDAO.aendernGeschaeftspartner(gp);
 
-        refreshTable();
+                refreshTable();
 
-        // Textfeldbereich wird deaktivieren
-        this.pane.setDisable(false);
-        this.bearbeitenBT.setVisible(true);
-        this.speichernBT.setVisible(false);
-        this.datensatzTP.setText("Geschäftspartnerdatensatz");
-        this.anlegenBT.setDisable(false);
-        this.loeschenBT.setDisable(true);    
-        this.bearbeitenBT.setDisable(true);
-        this.abbrechenBT.setDisable(true);
+                // Textfeldbereich wird deaktivieren
+                this.pane.setDisable(false);
+                this.bearbeitenBT.setVisible(true);
+                this.speichernBT.setVisible(false);
+                this.datensatzTP.setText("Geschäftspartnerdatensatz");
+                this.anlegenBT.setDisable(false);
+                this.loeschenBT.setDisable(true);    
+                this.bearbeitenBT.setDisable(true);
+                this.abbrechenBT.setDisable(true);
+            }
+        }
     }
     
     
@@ -940,7 +947,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         } else {
             
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Fehlerhafte Bestandsangabe!");
+            alert.setTitle("Fehlerhaftes Kreditlimit!");
             alert.setContentText("Das Kreditlimit entspricht nicht "
                     + "dem Format (z.B.: 9999999.99)");
             alert.showAndWait();
@@ -952,7 +959,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     
     
     /**
-     * Validiert die Adressfelder.
+     * Validiert die Geschäftspartnerfelder.
      * @return True: Wenn Validierung erfolgreich, sonst False.
      */
     private boolean validateFields() {
