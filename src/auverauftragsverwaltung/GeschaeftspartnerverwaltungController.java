@@ -52,9 +52,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import validierung.NumberTextField;
+import javafx.stage.StageStyle;
 
 /**
  * Controller der Geschäftspartner die für die Darstellung der FXML Datei 
@@ -280,6 +281,10 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      */
     @FXML
     private TitledPane paneAdresseWahl;
+    @FXML
+    private AnchorPane tf_partnerID;
+    @FXML
+    private Button abbrechenBT;
 
     
 
@@ -304,10 +309,10 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
     
 
 
-/*------------------------------------------------------------------------*
+    /*------------------------------------------------------------------------*
      * Datum       Name    Was
      * 17.08.17    SAM     Methode erstellt.
-*------------------------------------------------------------------------*/
+    *------------------------------------------------------------------------*/
     
     /**
      * Initialisiert die Controller-Klasse.
@@ -321,9 +326,16 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         
         try {
             setTableContent();
+            this.bearbeitenBT.setDisable(true);
+            this.loeschenBT.setDisable(true);
+            this.abbrechenBT.setDisable(true);
+            
         } catch (SQLException ex) {
-            Logger.getLogger(AdressverwaltungController.class.getName()).log(
-                    Level.SEVERE, null, ex);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("Fehler");
+            alert.setHeaderText("Keine Geschäftspartner gefunden!");
+            alert.showAndWait();
         }
 
         //Die Geschäftspartner-ID enthält max. 6 Zeichen.        
@@ -466,23 +478,20 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      *
      * @throws java.sql.SQLException SQLException
      */
+    @FXML
     public void geschaeftspartnerAnlegen() throws SQLException {
 
         gpTable.setMouseTransparent(true);
         clearTextFields();
 
         this.pane.setDisable(true);
-
         this.anlegenBT.setVisible(false);
-
         this.hinzufuegenBT.setVisible(true);
-
         this.datensatzTP.setText("Geschäftspartnerdatensatz (Anlegemodus)");
-
         this.bearbeitenBT.setDisable(true);
-
         this.loeschenBT.setDisable(true);
-
+        this.abbrechenBT.setDisable(false);
+        
         GeschaeftspartnerDAO gpDAO = new GeschaeftspartnerDAO();
         this.tfGeschaeftspartnerID.setText(gpDAO.generiereID());
         
@@ -507,6 +516,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      *
      * @throws java.sql.SQLException SQL Exception
      */
+    @FXML
     public void geschaeftspartnerHinzufuegen() throws SQLException {
         
         if (validateFields()) {
@@ -531,16 +541,12 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
 
                 // Sperre für Bearbeitung wird deaktiviert.
                 this.pane.setDisable(false);
-                // Anlegen Button wird Sichtbar gemacht.
                 this.anlegenBT.setVisible(true);
-                // Hinzufügen -Button wird eingeblendet
                 this.hinzufuegenBT.setVisible(false);
-                // Der Anlegemodus wird dektiviert
                 this.datensatzTP.setText("Geschäftspartnerdatensatz");
-                // Anlegen-Button wird aktiviert
-                this.bearbeitenBT.setDisable(false);
-                // Löschen-Button wird aktiviert
-                this.loeschenBT.setDisable(false);
+                this.bearbeitenBT.setDisable(true);
+                this.loeschenBT.setDisable(true);              
+                this.abbrechenBT.setDisable(true);
 
                 gpTable.setMouseTransparent(false);
                 this.paneAdresseWahl.setVisible(false);
@@ -662,22 +668,16 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
      */
     @FXML
     public void bearbeiteGeschaeftspartner() throws SQLException {
-
         if (!this.tfGeschaeftspartnerID.getText().isEmpty()) {
             // Textfeldbereich wird aktiviert
             this.pane.setDisable(true);
-            // Bearbeiten-Button wird ausgeblendet
             this.bearbeitenBT.setVisible(false);
-            // Speichern-Button wird eingeblendet
             this.speichernBT.setVisible(true);
-            // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
             this.datensatzTP.setText("Geschäftspartnerdatensatz"
                     + " (Bearbeitungsmodus)");
-            // Anlegen-Button wird deaktiviert
             this.anlegenBT.setDisable(true);
-            // Löschen-Button wird deaktiviert
             this.loeschenBT.setDisable(true);
-
+            this.abbrechenBT.setDisable(false);
         }
     }
 
@@ -715,17 +715,13 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
 
         // Textfeldbereich wird deaktivieren
         this.pane.setDisable(false);
-        // Bearbeiten-Button wird ausgeblendet
         this.bearbeitenBT.setVisible(true);
-        // Speichern-Button wird eingeblendet
         this.speichernBT.setVisible(false);
-        // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
         this.datensatzTP.setText("Geschäftspartnerdatensatz");
-        // Anlegen-Button wird deaktiviert
         this.anlegenBT.setDisable(false);
-        // Löschen-Button wird deaktiviert
-        this.loeschenBT.setDisable(false);
-
+        this.loeschenBT.setDisable(true);    
+        this.bearbeitenBT.setDisable(true);
+        this.abbrechenBT.setDisable(true);
     }
     
     
@@ -751,6 +747,10 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
             this.tfAnschriftID.setText(b.getAdresseID());
             this.tfLieferID.setText(b.getLieferID());
             this.tfKreditlimit.setText(b.getKreditlimit());
+            
+            this.bearbeitenBT.setDisable(false);
+            this.loeschenBT.setDisable(false);
+            this.abbrechenBT.setDisable(true);
         }
     }
 
@@ -848,13 +848,14 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
                 this.pane.setDisable(false);
                 this.anlegenBT.setVisible(true);
                 this.datensatzTP.setText("Geschäftspartnerdatensatz");
-                this.bearbeitenBT.setDisable(false);
+                this.bearbeitenBT.setDisable(true);
                 this.bearbeitenBT.setVisible(true);
                 this.speichernBT.setVisible(false);
                 this.anlegenBT.setDisable(false);
-                this.loeschenBT.setDisable(false);
+                this.loeschenBT.setDisable(true);
                 this.hinzufuegenBT.setVisible(false);
-                gpTable.setMouseTransparent(false);
+                gpTable.setMouseTransparent(false);              
+                this.abbrechenBT.setDisable(true);
 
                 clearTextFields();
                 

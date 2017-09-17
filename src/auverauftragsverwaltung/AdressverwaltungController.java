@@ -310,6 +310,9 @@ public class AdressverwaltungController implements Initializable {
 
         try {
             setTableContent();
+            this.abbrechenBT.setDisable(true);
+            this.bearbeitenBT.setDisable(true);
+            this.loeschenBT.setDisable(true);
 
         } catch (SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -540,20 +543,15 @@ public class AdressverwaltungController implements Initializable {
         clearTextFields();
 
         this.tfDatum.setText(gibDatum());
-        // Textfeldbereich wird aktiviert
         this.pane.setDisable(true);
-        // Bearbeiten-Button wird ausgeblendet
         this.anlegenBT.setVisible(false);
-        // Speichern-Button wird eingeblendet
         this.hinzufuegenAdresseBT.setVisible(true);
-        // Der Anlegemodus des Adressdatensatzes wird aktiviert
         this.adressdatensatzPane.setText(
                 "Adressdatensatz (Anlegemodus)");
-        // Anlegen-Button wird deaktiviert
         this.bearbeitenBT.setDisable(true);
-        // Löschen-Button wird deaktiviert
-        this.loeschenBT.setDisable(true);
-
+        this.loeschenBT.setDisable(true);     
+        this.abbrechenBT.setDisable(false);
+ 
         AdresseDAO ad = new AdresseDAO();
         tfAnschriftID.setText(ad.generiereID());
     }
@@ -603,22 +601,15 @@ public class AdressverwaltungController implements Initializable {
 
                 // Textfeldbereich wird aktiviert
                 this.pane.setDisable(false);
-                // Bearbeiten-Button wird ausgeblendet
                 this.anlegenBT.setVisible(true);
-                // Speichern-Button wird eingeblendet
                 this.hinzufuegenAdresseBT.setVisible(false);
-                // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
                 this.adressdatensatzPane.setText("Adressdatensatz");
-                // Anlegen-Button wird deaktiviert
-                this.bearbeitenBT.setDisable(false);
-                // Löschen-Button wird deaktiviert
-                this.loeschenBT.setDisable(false);
-                adresseTV.setMouseTransparent(false);
-
+                this.bearbeitenBT.setDisable(true);
+                this.loeschenBT.setDisable(true);
+                adresseTV.setMouseTransparent(false);              
+                this.abbrechenBT.setDisable(true);
             }
-
         }
-
     }
 
     /*------------------------------------------------------------------------*/
@@ -664,24 +655,18 @@ public class AdressverwaltungController implements Initializable {
      */
     @FXML
     public void bearbeiteAdresse() {
-        
-         
         // Textfeldbereich wird aktiviert
         this.pane.setDisable(true);
-        // Bearbeiten-Button wird ausgeblendet
         this.bearbeitenBT.setVisible(false);
-        // Speichern-Button wird eingeblendet
         this.speichernBT.setVisible(true);
-        // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
         this.adressdatensatzPane.setText("Adressdatensatz (Bearbeitungsmodus)");
-        // Anlegen-Button wird deaktiviert
         this.anlegenBT.setDisable(true);
-        // Löschen-Button wird deaktiviert
         this.loeschenBT.setDisable(true);
-        
-//        this.tfDatum.setText(gibDatum());
+        this.abbrechenBT.setDisable(false);
+        this.bearbeitenBT.setDisable(true);
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 16.08.17    GET     Methode erstellt.
@@ -714,8 +699,9 @@ public class AdressverwaltungController implements Initializable {
                 String erfdatum = tfDatum.getText();
 
                 String lkz = "N";
-                Adresse adresse = new Adresse(anschriftID, anrede, name, vorname,
-                        strasse, hausnr, plz, ort, staat, tel, email, erfdatum, lkz);
+                Adresse adresse = new Adresse(anschriftID, anrede, name, 
+                    vorname, strasse, hausnr, plz, ort, staat, tel, email, 
+                    erfdatum, lkz);
 
                 AdresseDAO aDAO = new AdresseDAO();
                 aDAO.aendereAdresse(adresse);
@@ -724,16 +710,14 @@ public class AdressverwaltungController implements Initializable {
 
                 // Textfeldbereich wird deaktivieren
                 this.pane.setDisable(false);
-                // Bearbeiten-Button wird ausgeblendet
                 this.bearbeitenBT.setVisible(true);
-                // Speichern-Button wird eingeblendet
                 this.speichernBT.setVisible(false);
-                // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
                 this.adressdatensatzPane.setText("Adressdatensatz");
-                // Anlegen-Button wird deaktiviert
                 this.anlegenBT.setDisable(false);
-                // Löschen-Button wird deaktiviert
-                this.loeschenBT.setDisable(false);
+                this.loeschenBT.setDisable(true);             
+                this.abbrechenBT.setDisable(true);
+                this.bearbeitenBT.setDisable(true);
+                this.anlegenBT.requestFocus();
             }
         }
     }
@@ -763,8 +747,11 @@ public class AdressverwaltungController implements Initializable {
             this.tfPlz.setText(b.getPlz());
             this.tfOrt.setText(b.getOrt());
             this.tfStaat.setText(b.getStaat());
-
             this.tfDatum.setText(b.getErfassungsdatum());
+            
+            this.abbrechenBT.setDisable(true);
+            this.bearbeitenBT.setDisable(false);
+            this.loeschenBT.setDisable(false);
         }
     }
 
@@ -829,28 +816,17 @@ public class AdressverwaltungController implements Initializable {
 
                 // Textfeldbereich wird aktiviert
                 this.pane.setDisable(false);
-                // Bearbeiten-Button wird ausgeblendet
                 this.anlegenBT.setVisible(true);
-                // Speichern-Button wird eingeblendet
-
-                // Der Bearbeitungsmodus des Adressdatensatzes wird aktiviert
                 this.adressdatensatzPane.setText("Adressdatensatz");
-
-                // Anlegen-Button wird deaktiviert
-                this.bearbeitenBT.setDisable(false);
-
+                this.bearbeitenBT.setDisable(true);
                 this.bearbeitenBT.setVisible(true);
-
                 this.speichernBT.setVisible(false);
-
                 this.anlegenBT.setDisable(false);
-                // Löschen-Button wird deaktiviert
-                this.loeschenBT.setDisable(false);
-
+                this.loeschenBT.setDisable(true);
                 this.hinzufuegenAdresseBT.setVisible(false);
-
-                this.adresseTV.setMouseTransparent(false);
-
+                this.adresseTV.setMouseTransparent(false);              
+                this.abbrechenBT.setDisable(true);
+           
                 clearTextFields();
 
             } else {
