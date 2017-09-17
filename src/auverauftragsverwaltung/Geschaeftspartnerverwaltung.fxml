@@ -32,19 +32,19 @@
                   <TextField fx:id="tfLieferID" layoutX="441.0" layoutY="34.0" onMouseClicked="#waehleLieferID" prefWidth="112.0" />
                   <Label layoutX="579.0" layoutY="17.0" text="Kreditlimit" />
                   <Label layoutX="690.0" layoutY="38.0" text="Euro" />
-                  <Button fx:id="anlegenBT" layoutX="12.0" layoutY="163.0" mnemonicParsing="false" onAction="#geschaeftspartnerAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen">
+                  <Button fx:id="anlegenBT" layoutX="12.0" layoutY="163.0" mnemonicParsing="false" onAction="#geschaeftspartnerAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" AnchorPane.leftAnchor="20.0">
                      <tooltip>
                         <Tooltip text="Ermöglicht das Anlegen eines Geschäftspartners" />
                      </tooltip>
                   </Button>
-                  <Button fx:id="bearbeitenBT" layoutX="131.0" layoutY="163.0" mnemonicParsing="false" onAction="#bearbeiteGeschaeftspartner" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten " />
+                  <Button fx:id="bearbeitenBT" layoutX="144.0" layoutY="163.0" mnemonicParsing="false" onAction="#bearbeiteGeschaeftspartner" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten " />
                   <Button fx:id="loeschenBT" layoutX="252.0" layoutY="163.0" mnemonicParsing="false" onAction="#geschaeftspartnerLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
-                  <Button fx:id="closeGP" layoutX="612.0" layoutY="163.0" mnemonicParsing="false" onAction="#closeGeschaeftspartner" prefHeight="40.0" prefWidth="100.0" text="Zurück" AnchorPane.rightAnchor="47.0" />
+                  <Button fx:id="closeGP" layoutX="612.0" layoutY="163.0" mnemonicParsing="false" onAction="#closeGeschaeftspartner" prefHeight="40.0" prefWidth="100.0" text="Zurück" AnchorPane.rightAnchor="35.0" />
                   <NumberTextField fx:id="tfKreditlimit" layoutX="579.0" layoutY="34.0" prefHeight="25.0" prefWidth="103.0" />
                   <Pane fx:id="pane" layoutX="7.0" layoutY="11.0" prefHeight="72.0" prefWidth="711.0" />
-                  <Button fx:id="hinzufuegenBT" layoutX="14.0" layoutY="116.0" mnemonicParsing="false" onAction="#geschaeftspartnerHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
-                  <Button fx:id="speichernBT" layoutX="133.0" layoutY="116.0" mnemonicParsing="false" onAction="#speichereAenderung" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
-                  <Button fx:id="abbrechenBT" layoutX="374.0" layoutY="163.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />  
+                  <Button fx:id="hinzufuegenBT" layoutX="12.0" layoutY="163.0" mnemonicParsing="false" onAction="#geschaeftspartnerHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" AnchorPane.leftAnchor="20.0" />
+                  <Button fx:id="speichernBT" layoutX="144.0" layoutY="163.0" mnemonicParsing="false" onAction="#speichereAenderung" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
+                  <Button fx:id="abbrechenBT" layoutX="360.0" layoutY="163.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />  
                </children>
             </AnchorPane>
          </content>
