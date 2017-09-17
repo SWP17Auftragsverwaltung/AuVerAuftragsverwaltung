@@ -920,4 +920,43 @@ public class ZahlungskonditionenController implements Initializable {
         } 
         return istValidiert;  
     }
+    
+        /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 20.08.17    GET     Methode erstellt und fertiggestellt. 
+    /*                     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
+
+    /**
+     *  
+     */
+    @FXML
+    public void pruefePruefeAufAuftragsart() {
+        
+        if (this.cbAuftragsart.getValue().equals("Sofortauftrag")) {
+
+            this.tfSperrzeitWUNSCH.setText("0");
+            this.tfLieferzeitSOFORT.setText("");
+            this.tfSperrzeitWUNSCH.setEditable(false);
+            this.tfLieferzeitSOFORT.setEditable(true);
+
+        } else if (this.cbAuftragsart.getValue().equals("Terminauftrag")) {
+        
+            this.tfLieferzeitSOFORT.setText("0");
+            this.tfSperrzeitWUNSCH.setText("");
+            this.tfLieferzeitSOFORT.setEditable(false);
+            this.tfSperrzeitWUNSCH.setEditable(true);
+            
+        } else {
+            
+            this.tfLieferzeitSOFORT.setText("");
+            this.tfSperrzeitWUNSCH.setText("");
+            this.tfLieferzeitSOFORT.setEditable(true);
+            this.tfSperrzeitWUNSCH.setEditable(true);
+        }
+        
+        
+    }
+    
+    
 }

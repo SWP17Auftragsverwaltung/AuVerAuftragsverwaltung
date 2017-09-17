@@ -582,21 +582,29 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         this.gpTable.getItems().clear();
         setTableContent();
     }
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 20.08.17    GET     Methode erstellt und fertiggestellt. 
+    /*                     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
 
+    /**
+     *  
+     */
     @FXML
-    public void pruefePartnertyp(){
+    public void pruefePartnertyp() {
         
-       if (this.cbPartnerTyp.getValue().equals("L"))
-       {
+        if (this.cbPartnerTyp.getValue().equals("L")) {
 
-          this.tfKreditlimit.setText("0");
-          this.tfKreditlimit.setEditable(false);
+            this.tfKreditlimit.setText("0");
+            this.tfKreditlimit.setEditable(false);
           
-       } else {
+        } else {
         
-          this.tfKreditlimit.setText("");
-          this.tfKreditlimit.setEditable(true);
-       }
+            this.tfKreditlimit.setText("");
+            this.tfKreditlimit.setEditable(true);
+        }
     }
     
     

@@ -39,12 +39,12 @@
                   <Label layoutX="14.0" layoutY="23.0" text="Konditionen-ID" />
                   <TextField fx:id="tfZahlungskonditionsID" editable="false" layoutX="14.0" layoutY="40.0" prefHeight="25.0" prefWidth="100.0" />
                   <Label layoutX="127.0" layoutY="23.0" prefHeight="17.0" prefWidth="78.0" text="Auftragsart" />
-                  <ComboBox fx:id="cbAuftragsart" layoutX="127.0" layoutY="40.0" prefWidth="150.0" promptText="Bitte wählen..." />
+                  <ComboBox fx:id="cbAuftragsart" layoutX="127.0" layoutY="40.0" onAction="#pruefePruefeAufAuftragsart" prefWidth="150.0" promptText="Bitte wählen..." />
                   <Label layoutX="290.0" layoutY="23.0" text="Lieferzeit SOFORT" />
                   <Label layoutX="481.0" layoutY="23.0" text="Sperrzeit WUNSCH" />
-                  <Label layoutX="696.0" layoutY="23.0" text="Mahnzeit 1" />
-                  <Label layoutX="800.0" layoutY="23.0" text="Mahnzeit 2" />
-                  <Label layoutX="907.0" layoutY="23.0" text="Mahnzeit 3" />
+                  <Label layoutX="685.0" layoutY="23.0" text="Mahnzeit 1" />
+                  <Label layoutX="790.0" layoutY="23.0" text="Mahnzeit 2" />
+                  <Label layoutX="898.0" layoutY="23.0" text="Mahnzeit 3" />
                   <Label layoutX="14.0" layoutY="95.0" text="Skontozeit 1" />
                   <Label layoutX="152.0" layoutY="95.0" text="Skonto 1" />
                   <Label layoutX="274.0" layoutY="95.0" text="Skontozeit 2" />
@@ -67,7 +67,7 @@
                   <SkontoTextField fx:id="tfSkonto1" layoutX="157.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
                   <NumberTextField fx:id="tfSkontozeit2" layoutX="274.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
                   <SkontoTextField fx:id="tfSkonto2" layoutX="411.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
-                  <Pane fx:id="pane" layoutX="11.0" layoutY="13.0" prefHeight="135.0" prefWidth="991.0" />
+                  <Pane fx:id="pane" layoutX="3.0" layoutY="14.0" prefHeight="135.0" prefWidth="1024.0" />
                   <Button fx:id="anlegenBT" layoutX="37.0" layoutY="166.0" mnemonicParsing="false" onAction="#zahlungskonditionenAnlegen" prefHeight="40.0" prefWidth="100.0" text="Anlegen" />
                   <Button fx:id="bearbeitenBT" layoutX="150.0" layoutY="166.0" mnemonicParsing="false" onAction="#bearbeiteZahlungskonditionen" prefHeight="40.0" prefWidth="100.0" text="Bearbeiten" />
                   <Button fx:id="loeschenBT" layoutX="262.0" layoutY="166.0" mnemonicParsing="false" onAction="#zahlungskonditionenLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
