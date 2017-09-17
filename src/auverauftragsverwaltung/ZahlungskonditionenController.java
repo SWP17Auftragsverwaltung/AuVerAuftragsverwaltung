@@ -933,32 +933,98 @@ public class ZahlungskonditionenController implements Initializable {
      * 
      */
     @FXML
-    public void pruefePruefeAufAuftragsart() {
+    public void pruefeAufAuftragsart() {
         
-        if (this.cbAuftragsart.getValue().equals("Sofortauftrag")) {
-
-            this.tfSperrzeitWUNSCH.setText("0");
-            this.tfLieferzeitSOFORT.setText("");
-            this.tfSperrzeitWUNSCH.setEditable(false);
-            this.tfLieferzeitSOFORT.setEditable(true);
-
-        } else if (this.cbAuftragsart.getValue().equals("Terminauftrag")) {
-        
-            this.tfLieferzeitSOFORT.setText("0");
-            this.tfSperrzeitWUNSCH.setText("");
-            this.tfLieferzeitSOFORT.setEditable(false);
-            this.tfSperrzeitWUNSCH.setEditable(true);
+        if (this.cbAuftragsart.getValue() != null) { 
             
-        } else {
+            if (this.cbAuftragsart.getValue() == "Sofortauftrag") {
+
+                this.tfSperrzeitWUNSCH.setText("0");
+                this.tfLieferzeitSOFORT.setText("");
+                this.tfMahnzeit1.setText("");
+                this.tfMahnzeit2.setText("");
+                this.tfMahnzeit3.setText("");
+                this.tfSkontozeit1.setText("");
+                this.tfSkonto1.setText("");
+                this.tfSkontozeit2.setText("");
+                this.tfSkonto2.setText("");
+                this.tfSperrzeitWUNSCH.setEditable(false);
+                this.tfLieferzeitSOFORT.setEditable(true);
+                this.tfMahnzeit1.setEditable(true);
+                this.tfMahnzeit2.setEditable(true);
+                this.tfMahnzeit3.setEditable(true);
+                this.tfSkontozeit1.setEditable(true);
+                this.tfSkonto1.setEditable(true);
+                this.tfSkontozeit2.setEditable(true);
+                this.tfSkonto2.setEditable(true);
+
+            } else if (this.cbAuftragsart.getValue() == "Terminauftrag") {
+
+                this.tfLieferzeitSOFORT.setText("0");
+                this.tfSperrzeitWUNSCH.setText("");
+                this.tfMahnzeit1.setText("");
+                this.tfMahnzeit2.setText("");
+                this.tfMahnzeit3.setText("");
+                this.tfSkontozeit1.setText("");
+                this.tfSkonto1.setText("");
+                this.tfSkontozeit2.setText("");
+                this.tfSkonto2.setText("");
+                this.tfLieferzeitSOFORT.setEditable(false);
+                this.tfSperrzeitWUNSCH.setEditable(true);
+                this.tfMahnzeit1.setEditable(true);
+                this.tfMahnzeit2.setEditable(true);
+                this.tfMahnzeit3.setEditable(true);
+                this.tfSkontozeit1.setEditable(true);
+                this.tfSkonto1.setEditable(true);
+                this.tfSkontozeit2.setEditable(true);
+                this.tfSkonto2.setEditable(true);
+
+            } else if (this.cbAuftragsart.getValue() == "Barauftrag"){
+
+                this.tfLieferzeitSOFORT.setText("0");
+                this.tfSperrzeitWUNSCH.setText("0");
+                this.tfMahnzeit1.setText("0");
+                this.tfMahnzeit2.setText("0");
+                this.tfMahnzeit3.setText("0");
+                this.tfSkontozeit1.setText("0");
+                this.tfSkonto1.setText("0");
+                this.tfSkontozeit2.setText("0");
+                this.tfSkonto2.setText("0");
+                
+                this.tfLieferzeitSOFORT.setEditable(false);
+                this.tfSperrzeitWUNSCH.setEditable(false);
+                this.tfMahnzeit1.setEditable(false);
+                this.tfMahnzeit2.setEditable(false);
+                this.tfMahnzeit3.setEditable(false);
+                this.tfSkontozeit1.setEditable(false);
+                this.tfSkonto1.setEditable(false);
+                this.tfSkontozeit2.setEditable(false);
+                this.tfSkonto2.setEditable(false);
+                
+                
+            } else {
+                
+                this.tfSperrzeitWUNSCH.setText("");
+                this.tfLieferzeitSOFORT.setText("");
+                this.tfMahnzeit1.setText("");
+                this.tfMahnzeit2.setText("");
+                this.tfMahnzeit3.setText("");
+                this.tfSkontozeit1.setText("");
+                this.tfSkonto1.setText("");
+                this.tfSkontozeit2.setText("");
+                this.tfSkonto2.setText("");
+                
+                this.tfLieferzeitSOFORT.setEditable(true);
+                this.tfSperrzeitWUNSCH.setEditable(true);
+                this.tfMahnzeit1.setEditable(true);
+                this.tfMahnzeit2.setEditable(true);
+                this.tfMahnzeit3.setEditable(true);
+                this.tfSkontozeit1.setEditable(true);
+                this.tfSkonto1.setEditable(true);
+                this.tfSkontozeit2.setEditable(true);
+                this.tfSkonto2.setEditable(true);
+            }
             
-            this.tfLieferzeitSOFORT.setText("");
-            this.tfSperrzeitWUNSCH.setText("");
-            this.tfLieferzeitSOFORT.setEditable(true);
-            this.tfSperrzeitWUNSCH.setEditable(true);
-        }
-        
-        
-    }
-    
-    
+        }    
+    }      
 }
