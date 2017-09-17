@@ -1339,9 +1339,11 @@ public class AuftraegeController implements Initializable {
             this.cbAuftragsart.setValue(a.getAuftragsart());
             if (a.getAuftragsart().equals("Barauftrag")) {
                 this.tfZahlungskondID.setText("");
+                this.btAuftragskonditionen.setDisable(true);
             
             } else {
                 this.tfZahlungskondID.setText(gibKonditionen(auftragskopfID));
+                this.btAuftragskonditionen.setDisable(false);
             }
             
             this.tfAuftragswert.setText(a.getAuftragswert());          
