@@ -1276,8 +1276,11 @@ public class AuftraegeController implements Initializable {
                 
                 apd.setzeAuftragsposLKZ(ap);
 
+                clearAuftragsPosTextFields();
                 refreshAuftragspositionTable();
                 refreshAuftragskopfTable();
+                this.btBearbeitenAPD.setDisable(true);
+                this.btLoeschenAPD.setDisable(true);
                 this.btAnlegen.setDefaultButton(false);
               
             //Falls NEIN: Meldung schließen und abbrechen    
