@@ -1604,6 +1604,12 @@ public class AuftraegeController implements Initializable {
             String auftragsArt = cbAuftragsart.getValue();           
             String auftragsWert = "0";
             String lkz = "N";
+            
+            if (!"Barauftrag".equals(auftragsArt)) {
+                AuftragskonditionsDAO akond = new AuftragskonditionsDAO();
+                akond.setzeAuftragKondition(
+                auftragskopfID, tfZahlungskondID.getText());
+            }
 
             Auftragskopf auftragskopf = new Auftragskopf(auftragskopfID, 
                 geschaeftspartnerID, auftragsText, erfassungsDatum, lieferDatum,
@@ -1612,11 +1618,6 @@ public class AuftraegeController implements Initializable {
             AuftragskopfDAO akd = new AuftragskopfDAO();
             akd.fuegeAuftragHinzu(auftragskopf);
             
-            if (!"Barauftrag".equals(auftragsArt)) {
-                AuftragskonditionsDAO akond = new AuftragskonditionsDAO();
-                akond.setzeAuftragKondition(
-                    auftragskopfID, tfZahlungskondID.getText());
-            }
             
             clearAuftragskopfTextFields();
 
@@ -2696,6 +2697,11 @@ public class AuftraegeController implements Initializable {
 
         } else if (this.tfErfDatum.getText().isEmpty()) {
             alert.setContentText("Bitte geben sie das Erfassungsdatum ein!");
+            alert.showAndWait();
+            istValidiert = false;
+            
+        } else if (this.tfZahlungskondID.getText().isEmpty()) {
+            alert.setContentText("Bitte geben sie die ZahlungskondiID ein!");
             alert.showAndWait();
             istValidiert = false;
 
