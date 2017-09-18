@@ -649,6 +649,10 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
                 meldung.schließeFenster();
             }
             clearTextFields();
+            this.bearbeitenBT.setDisable(true);
+            this.loeschenBT.setDisable(true);
+            this.abbrechenBT.setDisable(true);
+            this.closeGP.requestFocus();
         }
     }
 

@@ -613,10 +613,6 @@ public class AuftraegeController implements Initializable {
     private TextField tfZahlungskondID;
     
     
-    
-    
-    
-    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 30.08.17    GET     Methode erstellt.

@@ -629,6 +629,10 @@ public class ZahlungskonditionenController implements Initializable {
                 meldung.schließeFenster();                
             }
             clearTextFields();
+            this.bearbeitenBT.setDisable(true);
+            this.loeschenBT.setDisable(true);
+            this.abbrechenBT.setDisable(true);
+            this.closeZK.requestFocus();
         }
     }
 

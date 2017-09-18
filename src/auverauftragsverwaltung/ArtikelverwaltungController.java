@@ -242,8 +242,16 @@ public class ArtikelverwaltungController implements Initializable {
      */
     @FXML
     private TitledPane artikeldatensatzPane;
+    
+    /**
+     * Button um eine Aktion abzubrechen.
+     */
     @FXML
     private Button btAbbrechen;
+    
+    /**
+     * Button um zurückzugehen.
+     */
     @FXML
     private Button btZurueckSetzen;
 
@@ -600,6 +608,10 @@ public class ArtikelverwaltungController implements Initializable {
                 meldung.schließeFenster();
             }
             clearTextFields();
+            this.btBearbeiten.setDisable(true);
+            this.btLoeschen.setDisable(true);
+            this.btAbbrechen.setDisable(true);
+            this.btZurueckSetzen.requestFocus();
         }
     }
 

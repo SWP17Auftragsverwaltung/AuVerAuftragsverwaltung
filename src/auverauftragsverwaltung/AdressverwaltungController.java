@@ -641,6 +641,10 @@ public class AdressverwaltungController implements Initializable {
                 meldung.schließeFenster();               
             }
             clearTextFields();
+            this.abbrechenBT.setDisable(true);
+            this.bearbeitenBT.setDisable(true);
+            this.loeschenBT.setDisable(true);
+            this.closeAW.requestFocus();
         }
     }
 
