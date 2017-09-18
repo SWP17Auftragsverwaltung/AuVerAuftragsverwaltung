@@ -21,8 +21,17 @@
 * 18.08.2017    HEN     adresseSuchen erstellt.
 * 20.08.2017    BER     adresseSuchen() an SucheDAO angepasst
 * 20.08.2017    GET     Methode: aktionAbbrechen() erstellt.
+* 21.08.2017    GET     adresseHinzufuegen() bearbeitet.
+* 22.08.2017    BER     adresseLoeschen(),
+*               HEN     bearbeiteAdresse(),speichereAenderung() bearbeitet.
+* 27.08.2017    GET     aktionAbbrechen() bearbeitet.
+* 08.09.2017    GET     validateEmail(),validateTelefon(),validateFields(),
+*                       validateDatum(),gibDatum(),aktualisiereDatum(),
+*                       istFeiertag(),pruefeAufFeiertag(), 
+*                       pruefeDatumAufVergangenheit() erstellt.
 *-------------------------------------------------------------------------------
- */
+*/
+
 package auverauftragsverwaltung;
 
 import Klassen.Meldung;
@@ -429,8 +438,7 @@ public class AdressverwaltungController implements Initializable {
      * @param zahl Zahl
      */
     private void begrenzeTextFeldEingabe(TextField tf, int zahl) {
-        tf.setTextFormatter(new TextFormatter<>(change
-                -> {
+        tf.setTextFormatter(new TextFormatter<>(change -> {
             return change.getControlNewText().length() <= zahl ? change : null;
         }));
     }
@@ -555,6 +563,7 @@ public class AdressverwaltungController implements Initializable {
         AdresseDAO ad = new AdresseDAO();
         tfAnschriftID.setText(ad.generiereID());
     }
+    
 
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -570,9 +579,7 @@ public class AdressverwaltungController implements Initializable {
      */
     @FXML
     public void adresseHinzufuegen() throws SQLException {
-
         if (validateFields()) {
-
             if (validateEmail() && validateDatum() && validateTelefon()
                     && pruefeDatumAufVergangenheit()) {
 
@@ -612,6 +619,7 @@ public class AdressverwaltungController implements Initializable {
         }
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    HEN     Methode erstellt.
@@ -648,6 +656,7 @@ public class AdressverwaltungController implements Initializable {
         }
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 16.08.17    GET     Methode erstellt.
@@ -678,14 +687,11 @@ public class AdressverwaltungController implements Initializable {
     /**
      * Speichert die gemachten Änderungen in die Datenbank und aktualisiert die
      * View mit den neuen Werten.
-     *
      * @throws java.sql.SQLException SQLException.
      */
     @FXML
     public void speichereAenderung() throws SQLException {
-
         if (validateFields()) {
-
             if (validateEmail() && validateDatum() && validateTelefon()) {
 
                 String anschriftID = tfAnschriftID.getText();
@@ -725,6 +731,7 @@ public class AdressverwaltungController implements Initializable {
         }
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 16.08.17    GET     Methode erstellt.
@@ -758,6 +765,7 @@ public class AdressverwaltungController implements Initializable {
         }
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 18.08.17    HEN     Methode erstellt.
@@ -765,7 +773,6 @@ public class AdressverwaltungController implements Initializable {
     /*------------------------------------------------------------------------*/
     /**
      * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
-     *
      * @throws java.sql.SQLException SQLException
      */
     @FXML
@@ -780,6 +787,7 @@ public class AdressverwaltungController implements Initializable {
         zeigeGefundeneAdressen(gefundeneAdressen);
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 19.08.17    HEN     Methode erstellt.
@@ -788,7 +796,6 @@ public class AdressverwaltungController implements Initializable {
     /*------------------------------------------------------------------------*/
     /**
      * Setzt die Suche zurück.
-     *
      * @throws java.sql.SQLException SQLException
      */
     @FXML
@@ -798,6 +805,7 @@ public class AdressverwaltungController implements Initializable {
         setTableContent();
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 20.08.17    GET     Methode erstellt.
@@ -816,7 +824,6 @@ public class AdressverwaltungController implements Initializable {
             meldung.verwerfenFenster();
 
             if (meldung.antwort()) {
-
                 // Textfeldbereich wird aktiviert
                 this.pane.setDisable(false);
                 this.anlegenBT.setVisible(true);
@@ -840,14 +847,13 @@ public class AdressverwaltungController implements Initializable {
 
     
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+    /* Datum         Name    Was
     /* 08.09.2017    GET     Methode erstellt.
     /* 09.09.2017    GET     Getestet & freigegeben 
     /*------------------------------------------------------------------------*/
      /**
      * Methode prüft vor dem Hinzufügen die E-Mail-Adresse ob 
      * diese korrekt ist.
-     * 
      * @return  true bei korrekter Eingabe und fals bei falscher Eingabe.
      */
     private boolean validateEmail() {
@@ -869,17 +875,16 @@ public class AdressverwaltungController implements Initializable {
 
         }
         return istValidiert;
-
     }
   
+    
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 09.09.2017    GET     Methode erstellt.
+    /* Datum         Name    Was
+    /* 08.09.2017    GET     Methode erstellt.
     /* 10.09.2017    GET     Getestet & freigegeben 
     /*------------------------------------------------------------------------*/
     /**
      * Methode prüft vor dem Hinzufügen die Telefonnummer ob diese korrekt ist.
-     * 
      * @return  true bei korrekter Eingabe und fals bei falscher Eingabe.
      */
     private boolean validateTelefon() {
@@ -893,109 +898,83 @@ public class AdressverwaltungController implements Initializable {
             istValidiert = true;
             
         } else {
-
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Fehlerhafte E-Mail Eingabe!");
             alert.setContentText("Telefonnumer ist nicht dem entsprechendem"
                     + " Muster (0123456789)!");
             alert.showAndWait();
-
         }
         return istValidiert;
     }
 
     
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+    /* Datum         Name    Was
     /* 08.09.2017    GET     Methode erstellt.
     /* 08.09.2017    GET     Getestet & freigegeben 
     /*------------------------------------------------------------------------*/
     /**
      * Prüft ob alle Pflichtfelder eingegeben sind und Korrekt sind.
-     *
      * @return boolschen Wert ob die eingaben korrekt sind.
      */
-    private boolean validateFields() {
-        
+    private boolean validateFields() {   
         boolean istValidiert = true;
         Alert alert = new Alert(AlertType.WARNING);       
         alert.setTitle("Fehlende Eingaben");
 
         if (this.cbAnrede.getValue() == null) {
-
             alert.setContentText("Bitte wählen Sie eine Anrede ein!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfName.getText().isEmpty()) {
-
             alert.setContentText("Bitte geben Sie einen Namen ein!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfVorname.getText().isEmpty()) {
-
             alert.setContentText("Bitte geben Sie einen Vornamen ein!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfTelefon.getText().isEmpty()) {
-
             alert.setContentText("Bitte geben Sie eine Telefonnummer an!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfEmail.getText().isEmpty()) {
-
             alert.setContentText("Bitte geben Sie eine E-Mail-Adresse an!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfStrasse.getText().isEmpty()) {
-
             alert.setContentText("Bitte geben Sie eine Strasse ein!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfHausNr.getText().isEmpty()) {
-
             alert.setContentText("Bitte geben Sie eine Hausnummer an!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfPlz.getText().isEmpty()) {
-
             alert.setContentText("Bitte geben Sie eine Postleitzahl an!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfOrt.getText().isEmpty()) {
-
             alert.setContentText("Bitte wählen Sie einen Ort an!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfStaat.getText().isEmpty()) {
-
             alert.setContentText("Bitte geben Sie einen Staat an!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfDatum.getText().isEmpty()) {
-
             alert.setContentText("Bitte geben sie das Erfassungsdatum an!");
             alert.showAndWait();
-
             istValidiert = false;
 
         }
@@ -1004,24 +983,23 @@ public class AdressverwaltungController implements Initializable {
     
     
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+    /* Datum         Name    Was
     /* 08.09.2017    GET     Methode erstellt.
     /* 08.09.2017    GET     Getestet & freigegeben 
     /*------------------------------------------------------------------------*/
     /**
-     *  Validert das Datum nach der Eingabe vor dem Hinzufügen in die Datenbank.
-     * 
+     * Validert das Datum nach der Eingabe vor dem Hinzufügen in die Datenbank.
      * @return boolscher Ausdruck über den Zustand der Validierung. true oder 
      * false.
      */
     private boolean validateDatum() {
         boolean istValidiert = false;
         
-        Pattern p = Pattern.compile("[0-9][0-9][.][0-9][0-9][.][2-9][0-9][0-9][0-9]");
+        Pattern p 
+            = Pattern.compile("[0-9][0-9][.][0-9][0-9][.][2-9][0-9][0-9][0-9]");
         Matcher m = p.matcher(tfDatum.getText());
 
-        if (m.find() && m.group().equals(tfDatum.getText())) {
-            
+        if (m.find() && m.group().equals(tfDatum.getText())) {         
             if (pruefeAufFeiertag()) {
                 String datum = "";
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -1031,17 +1009,13 @@ public class AdressverwaltungController implements Initializable {
                         "Achtung: Das heutige Datum fällt auf einen Feiertag!");
                 alert.showAndWait();
                 
-                datum = aktualisiereDatum();
-                  
+                datum = aktualisiereDatum();                
                 this.tfDatum.setText(datum);
                 
-            } else {
-                
+            } else {            
                 istValidiert = true;
             }
-            
-            
-            
+                   
         } else {
 
             Alert alert = new Alert(AlertType.WARNING);
@@ -1049,22 +1023,22 @@ public class AdressverwaltungController implements Initializable {
             alert.setContentText("Datum entspricht nicht dem Muster"
                     + "(tt.mm.jjjj)!");
             alert.showAndWait();
-
         }
-
         return istValidiert;
-
     }
     
-    
+ 
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 08.09.2017    GET     Methode erstellt.
+    /* 08.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
     /**
      * Erzeugt das Aktuelle Datum welches in das Datumfeld in der GUI gesetz 
      * gesetzt wird.
-     * 
-     * @return 
+     * @return Aktuelles Datum
      */
     public String gibDatum() {
-
         GregorianCalendar aktuellesDatum = new GregorianCalendar();
         aktuellesDatum.setTimeZone(TimeZone.getTimeZone("CET"));
         aktuellesDatum.getTime();
@@ -1075,7 +1049,6 @@ public class AdressverwaltungController implements Initializable {
                 == GregorianCalendar.SATURDAY) {
 
             aktuellesDatum.add(GregorianCalendar.DATE, 2);
-
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
@@ -1089,35 +1062,37 @@ public class AdressverwaltungController implements Initializable {
 
             aktuellesDatum.add(GregorianCalendar.DATE, 1);
 
-
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Information");
             alert.setHeaderText(
                     "Achtung: Das heutige Datum fällt auf ein Wochenende!!!");
             alert.showAndWait();
-            
-            
-
-        } else if (istFeiertag(aktuellesDatum)) {
-            
+                    
+        } else if (istFeiertag(aktuellesDatum)) {         
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Information");
             alert.setHeaderText(
                     "Achtung: Das heutige Datum fällt auf einen Feiertag!");
-            alert.showAndWait();
-            
+            alert.showAndWait();       
             aktualisiereDatum();
-            
         }
         datum = df.format(aktuellesDatum.getTime());
-
         return datum;
     }
     
-    public String aktualisiereDatum(){
-        
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 08.09.2017    GET     Methode erstellt.
+    /* 08.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    /**
+     * Aktualisiert das übergebene Datum.
+     * @return Aktualisiertes Datum
+     */    
+    public String aktualisiereDatum() {       
         DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
         String neuesDatum = "";
         String datum = this.tfDatum.getText();
@@ -1127,19 +1102,17 @@ public class AdressverwaltungController implements Initializable {
         int year = 0;
         int month = 0;
         int day = 0;
-        
-        
-        while (st.hasMoreTokens()) {
-            
+              
+        while (st.hasMoreTokens()) {        
             String tag = st.nextToken();
             String monat = st.nextToken();
             String jahr =  st.nextToken();
                 
             year = Integer.parseInt(jahr);
             month = Integer.parseInt(monat);
-            day = Integer.parseInt(tag); 
-            
+            day = Integer.parseInt(tag);        
         }
+        
         GregorianCalendar eingegebenesDatum = new GregorianCalendar();    
         month = month - 1;
         
@@ -1151,12 +1124,21 @@ public class AdressverwaltungController implements Initializable {
         eingegebenesDatum.add(GregorianCalendar.DATE, 1);
         
         neuesDatum = df.format(eingegebenesDatum.getTime());
-        return neuesDatum;
-        
+        return neuesDatum;      
     }
+   
     
-    public boolean istFeiertag(GregorianCalendar cal) {
-        
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 08.09.2017    GET     Methode erstellt.
+    /* 08.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    /**
+     * Prüft das übergebene Datum auf Feiertage.
+     * @param cal Zu prüfendes Datum
+     * @return True: Falls Datum auf einen Feiertag fällt. False: Wenn nicht.
+     */        
+    public boolean istFeiertag(GregorianCalendar cal) {       
         boolean istFeiertag;
 
         int jahr = cal.get(GregorianCalendar.YEAR);
@@ -1177,32 +1159,36 @@ public class AdressverwaltungController implements Initializable {
         
         return istFeiertag;
     }
-    
-    public boolean pruefeAufFeiertag() {
-        
+
+
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 08.09.2017    GET     Methode erstellt.
+    /* 08.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    /**
+     * Prüft das Datum auf Feiertage.
+     * @return True: Falls Datum auf einen Feiertag fällt. False: Wenn nicht.
+     */     
+    public boolean pruefeAufFeiertag() {      
         boolean istFeiertag;
         String datum = this.tfDatum.getText();
-        StringTokenizer st 
-                = new StringTokenizer(datum , ".", false);
+        StringTokenizer st = new StringTokenizer(datum, ".", false);
         
         int year = 0;
         int month = 0;
         int day = 0;
         
-        
-        while (st.hasMoreTokens()) {
-            
+        while (st.hasMoreTokens()) {         
             String tag = st.nextToken();
             String monat = st.nextToken();
             String jahr =  st.nextToken();
                 
             year = Integer.parseInt(jahr);
             month = Integer.parseInt(monat);
-            day = Integer.parseInt(tag); 
-            
+            day = Integer.parseInt(tag);          
         }
-        
-        
+                
         Calendar kalender = GregorianCalendar.getInstance();
         kalender.clear();
         kalender.setTimeZone(TimeZone.getTimeZone("CET"));
@@ -1218,12 +1204,17 @@ public class AdressverwaltungController implements Initializable {
         return istFeiertag;
     }
 
+
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 08.09.2017    GET     Methode erstellt.
+    /* 08.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
     /**
      * Prüft das Datuma ob es in der Vergangenheit liegt.
      * @return true wenn es in der Vergangenheit liegt false  wenn nicht.
      */
-    private boolean pruefeDatumAufVergangenheit(){
-        
+    private boolean pruefeDatumAufVergangenheit() {      
         GregorianCalendar aktuellesDatum = new GregorianCalendar();
         aktuellesDatum.setTimeZone(TimeZone.getTimeZone("CET"));
         aktuellesDatum.getTime();
@@ -1237,16 +1228,14 @@ public class AdressverwaltungController implements Initializable {
                 = new StringTokenizer(this.tfDatum.getText(), ".", false);
         
         //Datum in cal Objekt packen.
-        while (st.hasMoreTokens()) {
-            
+        while (st.hasMoreTokens()) {         
             String tag = st.nextToken();
             String monat = st.nextToken();
             String jahr =  st.nextToken();
                 
             year = Integer.parseInt(jahr);
             month = Integer.parseInt(monat);
-            day = Integer.parseInt(tag); 
-            
+            day = Integer.parseInt(tag);          
         }
             
         GregorianCalendar eingegebenesDatum = new GregorianCalendar();    
@@ -1256,10 +1245,8 @@ public class AdressverwaltungController implements Initializable {
         eingegebenesDatum.setTimeZone(TimeZone.getTimeZone("CET"));
         eingegebenesDatum.set(year, month, day);
         eingegebenesDatum.getTime();
-        
-        
-        if (eingegebenesDatum.before(aktuellesDatum)) {
-            
+              
+        if (eingegebenesDatum.before(aktuellesDatum)) {         
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.initStyle(StageStyle.UTILITY);
             alert.setTitle("Information");
@@ -1267,16 +1254,10 @@ public class AdressverwaltungController implements Initializable {
                     "Datum darf nicht in der Vergangenheit liegen!");
             alert.showAndWait();
             
-        } else {
-            
-            istInVergangenheit  = true;
-            
-        }
-
-     
-        return istInVergangenheit;
-        
-        
+        } else {      
+            istInVergangenheit  = true;         
+        }       
+        return istInVergangenheit;     
     }
-
+    
 }
