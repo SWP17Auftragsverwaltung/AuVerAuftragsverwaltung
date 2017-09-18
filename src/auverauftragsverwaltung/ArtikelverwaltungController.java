@@ -808,38 +808,51 @@ public class ArtikelverwaltungController implements Initializable {
         alert.setTitle("Fehlende Eingaben");
 
         if (this.tfEinzelwert.getText().isEmpty()) {
+            
+            this.tfEinzelwert.requestFocus();
             alert.setContentText("Es ist kein Einzelwert eingetragen!");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.tfBestellwert.getText().isEmpty()) {
+            
+            this.tfBestellwert.requestFocus();
             alert.setContentText("Es ist kein Bestellwert eingetragen!");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.cbMwstsatz.getValue() == null) {
+            
+            this.cbMwstsatz.requestFocus();
             alert.setContentText("Bitte den Mehrwertsteuersatz wählen!");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.tfBestandFrei.getText().isEmpty()) {
+            
+            this.tfBestandFrei.requestFocus();
             alert.setContentText("Bitte geben sie die Bestandsmenge FREI an!");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.tfBestandReserviert.getText().isEmpty()) {
+            
+            this.tfBestandReserviert.requestFocus();
             alert.setContentText("Bitte geben sie die Bestandsmenge"
                 + " RESERVIERT an!");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.tfBestandZulauf.getText().isEmpty()) {
+            
+            this.tfBestandZulauf.requestFocus();
             alert.setContentText("Bitte geben sie die Bestandsmenge "
                 + "ZULAUF an!");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.tfBestandVerkauft.getText().isEmpty()) {
+            this.tfBestandVerkauft.requestFocus();
             alert.setContentText("Bitte geben sie die Bestandsmenge"
                 + " VERKAUFT an!");
             alert.showAndWait();
@@ -868,6 +881,8 @@ public class ArtikelverwaltungController implements Initializable {
             istValidiert = true;
             
         } else {   
+            
+            this.tfEinzelwert.requestFocus();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fehlerhafte Einzelwert!");
             alert.setContentText("Der Einzelwert entspricht nicht dem Format "
@@ -896,7 +911,9 @@ public class ArtikelverwaltungController implements Initializable {
         if (m.find() && m.group().equals(this.tfBestellwert.getText())) {
             istValidiert = true;
             
-        } else {         
+        } else { 
+            
+            this.tfBestellwert.requestFocus();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fehlerhafte Bestellwert!");
             alert.setContentText("Der Bestellwert entspricht nicht dem Format "
@@ -925,7 +942,9 @@ public class ArtikelverwaltungController implements Initializable {
         if (m.find() && m.group().equals(this.tfBestandFrei.getText())) {      
             istValidiert = true;
             
-        } else { 
+        } else {
+            
+            this.tfBestandFrei.requestFocus();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fehlerhafte Bestandsangabe!");
             alert.setContentText("Der Bestand FREI entspricht nicht dem Format "
@@ -954,7 +973,9 @@ public class ArtikelverwaltungController implements Initializable {
         if (m.find() && m.group().equals(this.tfBestandReserviert.getText())) {
             istValidiert = true;
             
-        } else {      
+        } else { 
+            
+            this.tfBestandReserviert.requestFocus();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fehlerhafte Bestandsangabe!");
             alert.setContentText("Der Bestand RESERVIERT entspricht nicht "
@@ -983,7 +1004,8 @@ public class ArtikelverwaltungController implements Initializable {
         if (m.find() && m.group().equals(this.tfBestandZulauf.getText())) {
             istValidiert = true;
             
-        } else {        
+        } else {     
+            this.tfBestandZulauf.requestFocus();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fehlerhafte Bestandsangabe!");
             alert.setContentText("Der Bestand ZULAUF entspricht nicht "
@@ -1012,7 +1034,8 @@ public class ArtikelverwaltungController implements Initializable {
         if (m.find() && m.group().equals(this.tfBestandVerkauft.getText())) {
             istValidiert = true;
             
-        } else {  
+        } else { 
+            this.tfBestandVerkauft.requestFocus();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fehlerhafte Bestandsangabe!");
             alert.setContentText("Der Bestand VERKAUFT entspricht nicht "

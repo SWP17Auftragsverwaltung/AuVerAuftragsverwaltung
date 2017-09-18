@@ -951,7 +951,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
             istValidiert = true;
             
         } else {
-            
+            this.tfKreditlimit.requestFocus();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fehlerhaftes Kreditlimit!");
             alert.setContentText("Das Kreditlimit entspricht nicht "
@@ -974,11 +974,13 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
         alert.setTitle("Fehlende Eingaben");
 
         if (this.cbPartnerTyp.getValue().equals("Bitte wählen...")) {
+            this.cbPartnerTyp.requestFocus();
             alert.setContentText("Bitte wählen Sie ein Geschäftspartertyp!");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.tfAnschriftID.getText().isEmpty()) {
+            this.tfAnschriftID.requestFocus();
             alert.setContentText("Bitte wählen Sie eine Anschrift-ID!"
                 + " \n\nMarkieren Sie eine Anschrift und klicken dann"
                 + " in das Feld damit die ID geladen wird.");
@@ -986,6 +988,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
             istValidiert = false;
 
         } else if (this.tfLieferID.getText().isEmpty()) {
+            this.tfLieferID.requestFocus();
             alert.setContentText("Bitte wählen Sie eine Liefer-ID!"
                 + " \n\nMarkieren Sie eine Anschrift und klicken dann"
                 + " in das Feld damit die ID geladen wird.");
@@ -993,6 +996,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
             istValidiert = false;
 
         } else if (this.tfKreditlimit.getText().isEmpty()) {
+            this.tfKreditlimit.requestFocus();
             alert.setContentText("Bitte geben Sie ein Kreditlimit an!");
             alert.showAndWait();
             istValidiert = false;

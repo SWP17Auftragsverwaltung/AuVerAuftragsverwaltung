@@ -888,6 +888,8 @@ public class ZahlungskonditionenController implements Initializable {
             
         } else {
             
+            this.tfSkonto1.requestFocus();
+            
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fehlerhafter Skontowert!");
             alert.setContentText("Das Skonto1 entspricht nicht dem Format "
@@ -926,6 +928,8 @@ public class ZahlungskonditionenController implements Initializable {
             
         } else {
             
+            this.tfSkonto2.requestFocus();
+            
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fehlerhafter Skontowert!");
             alert.setContentText("Das Skonto2 entspricht nicht dem Format "
@@ -950,45 +954,74 @@ public class ZahlungskonditionenController implements Initializable {
         alert.setTitle("Fehlende Eingaben");
 
         if (this.cbAuftragsart.getValue() == null) {
+            
+            this.cbAuftragsart.requestFocus();   
             alert.setContentText("Bitte wählen Sie die Auftragsart!");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.tfLieferzeitSOFORT.getText().isEmpty()) {
+            
+            this.tfLieferzeitSOFORT.requestFocus();
+            
             alert.setContentText("Bitte setzen sie die Lieferzeit SOFORT.");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.tfSperrzeitWUNSCH.getText().isEmpty()) {
+            
+            this.tfSperrzeitWUNSCH.requestFocus();
+            
             alert.setContentText("Bitte setzen sie die Sperrzeit WUNSCH.");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.tfMahnzeit1.getText().isEmpty()) {
+            
+            this.tfMahnzeit1.requestFocus();
+            
             alert.setContentText("Bitte setzen sie die Mahnzeit 1.");
             alert.showAndWait();
             istValidiert = false;
         } else if (this.tfMahnzeit2.getText().isEmpty()) {
+            
+            this.tfMahnzeit2.requestFocus();
+            
             alert.setContentText("Bitte setzen sie die Mahnzeit 2.");
             alert.showAndWait();
             istValidiert = false;
         } else if (this.tfMahnzeit3.getText().isEmpty()) {
+            
+            this.tfMahnzeit3.requestFocus();
+            
             alert.setContentText("Bitte setzen sie die Mahnzeit 3.");
             alert.showAndWait();
             istValidiert = false;
         } else if (this.tfSkontozeit1.getText().isEmpty()) {
+            
+            this.tfSkontozeit1.requestFocus();
+            
             alert.setContentText("Bitte setzen sie die Skontozeit 1.");
             alert.showAndWait();
             istValidiert = false;
         } else if (this.tfSkonto1.getText().isEmpty()) {
+            
+            this.tfSkonto1.requestFocus();
+            
             alert.setContentText("Bitte setzen sie das Skonto 1.");
             alert.showAndWait();
             istValidiert = false;
         } else if (this.tfSkontozeit2.getText().isEmpty()) {
+            
+            this.tfSkontozeit2.requestFocus();
+            
             alert.setContentText("Bitte setzen sie die Skontozeit 2.");
             alert.showAndWait();
             istValidiert = false;
         } else if (this.tfSkonto2.getText().isEmpty()) {
+            
+            this.tfSkonto2.requestFocus();
+            
             alert.setContentText("Bitte setzen sie das Skonto 2.");
             alert.showAndWait();
             istValidiert = false;

@@ -582,7 +582,7 @@ public class AdressverwaltungController implements Initializable {
     public void adresseHinzufuegen() throws SQLException {
         if (validateFields()) {
             if (validateEmail() && validateDatum() && validateTelefon()
-                    && pruefeDatumAufVergangenheit()) {
+                    && pruefeDatumAufVergangenheit() && validateHausNR()) {
 
                 String anschriftID = tfAnschriftID.getText();
                 String anrede = cbAnrede.getValue();
@@ -697,7 +697,7 @@ public class AdressverwaltungController implements Initializable {
     public void speichereAenderung() throws SQLException {
         if (validateFields()) {
             if (validateEmail() && validateDatum() && validateTelefon() 
-                && pruefeDatumAufVergangenheit()) {
+                && pruefeDatumAufVergangenheit() && validateHausNR()) {
                 String anschriftID = tfAnschriftID.getText();
                 String anrede = cbAnrede.getValue();
                 String name = tfName.getText();
@@ -872,7 +872,7 @@ public class AdressverwaltungController implements Initializable {
         if (m.find() && m.group().equals(tfEmail.getText())) {
             istValidiert = true;
         } else {
-
+            this.tfEmail.requestFocus();
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Fehlerhafte E-Mail Eingabe!");
             alert.setContentText("E-Mail Eingabe entspricht nicht dem Muster"
@@ -904,6 +904,8 @@ public class AdressverwaltungController implements Initializable {
             istValidiert = true;
             
         } else {
+            
+            this.tfTelefon.requestFocus();
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Fehlerhafte E-Mail Eingabe!");
             alert.setContentText("Telefonnumer ist nicht dem entsprechendem"
@@ -912,7 +914,36 @@ public class AdressverwaltungController implements Initializable {
         }
         return istValidiert;
     }
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 08.09.2017    GET     Methode erstellt.
+    /* 10.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    /**
+     * Methode prüft vor dem Hinzufügen die Telefonnummer ob diese korrekt ist.
+     * @return  true bei korrekter Eingabe und fals bei falscher Eingabe.
+     */
+    private boolean validateHausNR() {
+        boolean istValidiert = false;
 
+        Pattern p = Pattern.compile("([1-9][0-9]{1,5})([a-zA-Z]{1})");
+        Matcher m = p.matcher(this.tfHausNr.getText());
+        
+        if (m.find() && m.group().equals(this.tfHausNr.getText())) {
+            
+            istValidiert = true;
+            
+        } else {
+            
+            this.tfHausNr.requestFocus();
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Fehlerhafte E-Mail Eingabe!");
+            alert.setContentText("Hausnummer ist nicht dem entsprechendem"
+                    + " Muster (z.B.: 10a, 20b, 100C, 99999A)!");
+            alert.showAndWait();
+        }
+        return istValidiert;
+    }
     
     /*------------------------------------------------------------------------*/
     /* Datum         Name    Was
@@ -929,21 +960,26 @@ public class AdressverwaltungController implements Initializable {
         alert.setTitle("Fehlende Eingaben");
 
         if (this.cbAnrede.getValue() == null) {
+            
+            this.cbAnrede.requestFocus();
             alert.setContentText("Bitte wählen Sie eine Anrede ein!");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.tfName.getText().isEmpty()) {
+            this.tfName.requestFocus();
             alert.setContentText("Bitte geben Sie einen Namen ein!");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.tfVorname.getText().isEmpty()) {
+            this.tfVorname.requestFocus();
             alert.setContentText("Bitte geben Sie einen Vornamen ein!");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.tfTelefon.getText().isEmpty()) {
+            this.tfTelefon.requestFocus();
             alert.setContentText("Bitte geben Sie eine Telefonnummer an!");
             alert.showAndWait();
             istValidiert = false;
@@ -954,31 +990,38 @@ public class AdressverwaltungController implements Initializable {
             istValidiert = false;
 
         } else if (this.tfStrasse.getText().isEmpty()) {
+            this.tfStrasse.requestFocus();
             alert.setContentText("Bitte geben Sie eine Strasse ein!");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.tfHausNr.getText().isEmpty()) {
+            this.tfHausNr.requestFocus();
             alert.setContentText("Bitte geben Sie eine Hausnummer an!");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.tfPlz.getText().isEmpty()) {
+            this.tfPlz.requestFocus();
             alert.setContentText("Bitte geben Sie eine Postleitzahl an!");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.tfOrt.getText().isEmpty()) {
+            
+            this.tfOrt.requestFocus();
             alert.setContentText("Bitte wählen Sie einen Ort an!");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.tfStaat.getText().isEmpty()) {
+            this.tfStaat.requestFocus();
             alert.setContentText("Bitte geben Sie einen Staat an!");
             alert.showAndWait();
             istValidiert = false;
 
         } else if (this.tfDatum.getText().isEmpty()) {
+            this.tfDatum.requestFocus();
             alert.setContentText("Bitte geben sie das Erfassungsdatum an!");
             alert.showAndWait();
             istValidiert = false;
@@ -1024,6 +1067,7 @@ public class AdressverwaltungController implements Initializable {
                    
         } else {
 
+            this.tfDatum.requestFocus();
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Fehlerhafte E-Mail Eingabe!");
             alert.setContentText("Datum entspricht nicht dem Muster"
