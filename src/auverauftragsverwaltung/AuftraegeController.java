@@ -2714,6 +2714,38 @@ public class AuftraegeController implements Initializable {
     
     /*------------------------------------------------------------------------*/
     /* Datum         Name    Was
+    /* 08.09.2017    GET     Methode erstellt.
+    /* 09.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+     /**
+     * Methode prüft vor dem Hinzufügen die E-Mail-Adresse ob 
+     * diese korrekt ist.
+     * @return  true bei korrekter Eingabe und fals bei falscher Eingabe.
+     */
+    private boolean validateDatum() {
+        boolean istValidiert = false;
+
+        Pattern p = Pattern.compile(
+                "[0-9][0-9][.][0-9][0-9][.][2-9][0-9][0-9][0-9]");
+        Matcher m = p.matcher(tfLieferdatum.getText());
+
+        if (m.find() && m.group().equals(tfLieferdatum.getText())) {
+            istValidiert = true;
+        } else {
+            this.tfLieferdatum.requestFocus();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Fehlerhafte Lieferdatum Eingabe!");
+            alert.setContentText("Datum entspricht nicht dem Muster"
+                    + "(tt.mm.jjjj)!");
+            alert.showAndWait();
+
+        }
+        return istValidiert;
+    }
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
     /* 16.09.2017    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
     /**

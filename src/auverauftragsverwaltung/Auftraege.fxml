@@ -34,7 +34,7 @@
                         <Button fx:id="btLoeschen" disable="true" layoutX="529.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragskopfLoeschen" prefHeight="40.0" prefWidth="100.0" text="Löschen" />
                         <Button fx:id="closeAA" layoutX="847.0" layoutY="178.0" mnemonicParsing="false" onAction="#closeAuftraegeAnzeigen" prefHeight="40.0" prefWidth="100.0" text="Zurück" AnchorPane.rightAnchor="35.0" />
                         <TextField fx:id="tfErfDatum" editable="false" layoutX="404.0" layoutY="117.0" onMouseClicked="#datumAendern" prefHeight="25.0" prefWidth="98.0" />
-                        <TextField fx:id="tfLieferdatum" layoutX="520.0" layoutY="117.0" prefHeight="25.0" prefWidth="98.0" />
+                        <DateTextField fx:id="tfLieferdatum" layoutX="520.0" layoutY="117.0" prefHeight="25.0" prefWidth="98.0" />
                         <TextField fx:id="tfAbschlussdatum" layoutX="638.0" layoutY="117.0" prefHeight="25.0" prefWidth="98.0" />
                         <Button fx:id="btAbbrechen" disable="true" layoutX="637.0" layoutY="178.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
                         <Button fx:id="btHinzufuegen" layoutX="311.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
