@@ -874,7 +874,7 @@ public class ZahlungskonditionenController implements Initializable {
         
         boolean istValidiert = false;
         
-        Pattern p = Pattern.compile("[0-9][,.][0-9]?");
+        Pattern p = Pattern.compile("[0-9]{1}([,.][0-9]{1})?");
         Matcher m = p.matcher(this.tfSkonto1.getText());
 
         if (m.find() && m.group().equals(this.tfSkonto1.getText())) {
@@ -884,8 +884,8 @@ public class ZahlungskonditionenController implements Initializable {
         } else {
             
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Fehlerhafter Skontolwert!");
-            alert.setContentText("Das Skonto2 entspricht nicht dem Format "
+            alert.setTitle("Fehlerhafter Skontowert!");
+            alert.setContentText("Das Skonto1 entspricht nicht dem Format "
                     + "(z.B.: 9.9)");
             alert.showAndWait();
         }
@@ -912,7 +912,7 @@ public class ZahlungskonditionenController implements Initializable {
         
         boolean istValidiert = false;
         
-        Pattern p = Pattern.compile("[0-9][,.][0-9]?");
+        Pattern p = Pattern.compile("[0-9]{1}([,.][0-9]{1})?");
         Matcher m = p.matcher(this.tfSkonto2.getText());
 
         if (m.find() && m.group().equals(this.tfSkonto2.getText())) {
