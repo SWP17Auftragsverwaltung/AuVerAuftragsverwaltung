@@ -1272,6 +1272,7 @@ public class AuftraegeController implements Initializable {
             }
             
             clearAuftragsPosTextFields();
+            clearAuftragskopfTextFields();
             this.paneAuftraege.setVisible(true);
             this.paneAuftragspositionen.setVisible(false);
             this.paneGP.setVisible(false);
