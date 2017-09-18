@@ -527,7 +527,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
                 String typ = cbPartnerTyp.getValue();
                 String adresseID = tfAnschriftID.getText();
                 String lieferID = tfLieferID.getText();
-                String kreditlimit = tfKreditlimit.getText();
+                String kreditlimit = tfKreditlimit.getText().replace(',', '.');
                 String lkz = "N";
                 Geschaeftspartner geschaeftspartner = new Geschaeftspartner(
                     geschaeftspartnerID, typ, adresseID, lieferID,
@@ -706,7 +706,8 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
                 String typ = this.cbPartnerTyp.getValue();
                 String anschriftID = this.tfAnschriftID.getText();
                 String lieferID = this.tfLieferID.getText();
-                String kreditlimit = this.tfKreditlimit.getText();
+                String kreditlimit = 
+                        this.tfKreditlimit.getText().replace(',', '.');
                 String lkz = "N";
 
                 Geschaeftspartner gp = new Geschaeftspartner(

@@ -559,8 +559,8 @@ public class ZahlungskonditionenController implements Initializable {
                 String sperrzeit = tfSperrzeitWUNSCH.getText();
                 String skontozeit1 = tfSkontozeit1.getText();
                 String skontozeit2 = tfSkontozeit2.getText();
-                String skonto1 = tfSkonto1.getText();
-                String skonto2 = tfSkonto2.getText();
+                String skonto1 = tfSkonto1.getText().replace(',', '.');
+                String skonto2 = tfSkonto2.getText().replace(',', '.');
                 String mahnzeit1 = tfMahnzeit1.getText();
                 String mahnzeit2 = tfMahnzeit2.getText();
                 String mahnzeit3 = tfMahnzeit3.getText();
@@ -681,8 +681,8 @@ public class ZahlungskonditionenController implements Initializable {
                 String sperrzeit = tfSperrzeitWUNSCH.getText();
                 String skontozeit1 = tfSkontozeit1.getText();
                 String skontozeit2 = tfSkontozeit2.getText();
-                String skonto1 = tfSkonto1.getText();
-                String skonto2 = tfSkonto2.getText();
+                String skonto1 = tfSkonto1.getText().replace(',', '.');
+                String skonto2 = tfSkonto2.getText().replace(',', '.');
                 String mahnzeit1 = tfMahnzeit1.getText();
                 String mahnzeit2 = tfMahnzeit2.getText();
                 String mahnzeit3 = tfMahnzeit3.getText();
