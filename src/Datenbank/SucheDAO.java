@@ -865,7 +865,7 @@ public class SucheDAO extends DataAccess {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
                     + " WHERE LOWER(" 
-                    + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(5) 
+                    + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(6) 
                     + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
                     + " LIKE 'N'";
@@ -887,7 +887,7 @@ public class SucheDAO extends DataAccess {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
                     + " WHERE LOWER(" 
-                    + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(6) 
+                    + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(5) 
                     + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
                     + " LIKE 'N'";
