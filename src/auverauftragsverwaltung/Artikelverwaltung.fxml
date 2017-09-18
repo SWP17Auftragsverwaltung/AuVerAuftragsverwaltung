@@ -11,9 +11,9 @@
       <TableView fx:id="tvArtikel" onMouseClicked="#zeigeWerteAn" prefHeight="359.0" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="80.0">
         <columns>
           <TableColumn fx:id="tcMaterialNr" prefWidth="97.0" text="MaterialNr" />
-          <TableColumn fx:id="tcArtikelbeschreibung" prefWidth="136.0" text="Artikelbeschreibung" />
+          <TableColumn fx:id="tcArtikelbeschreibung" prefWidth="300.0" text="Artikelbeschreibung" />
             <TableColumn fx:id="tcEinzelwert" prefWidth="83.0" text="Einzelwert" />
-            <TableColumn fx:id="tcBestellbeschreibung" prefWidth="124.0" text="Bestellbeschreibung" />
+            <TableColumn fx:id="tcBestellbeschreibung" prefWidth="300.0" text="Bestellbeschreibung" />
             <TableColumn fx:id="tcBestellwert" prefWidth="75.0" text="Bestellwert" />
             <TableColumn fx:id="tcMwstsatz" prefWidth="75.0" text="MwSt. Satz" />
             <TableColumn fx:id="tcBestandFrei" prefWidth="70.0" text="FREI" />
