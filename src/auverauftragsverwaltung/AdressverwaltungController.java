@@ -321,7 +321,7 @@ public class AdressverwaltungController implements Initializable {
             setTableContent();
             this.abbrechenBT.setDisable(true);
             this.bearbeitenBT.setDisable(true);
-            this.loeschenBT.setDisable(true);
+            this.loeschenBT.setDisable(true);         
 
         } catch (SQLException ex) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -559,6 +559,7 @@ public class AdressverwaltungController implements Initializable {
         this.bearbeitenBT.setDisable(true);
         this.loeschenBT.setDisable(true);     
         this.abbrechenBT.setDisable(false);
+        this.tfDatum.setDisable(false);
  
         AdresseDAO ad = new AdresseDAO();
         tfAnschriftID.setText(ad.generiereID());
@@ -613,7 +614,8 @@ public class AdressverwaltungController implements Initializable {
                 this.adressdatensatzPane.setText("Adressdatensatz");
                 this.bearbeitenBT.setDisable(true);
                 this.loeschenBT.setDisable(true);
-                adresseTV.setMouseTransparent(false);              
+                adresseTV.setMouseTransparent(false);  
+                this.tfDatum.setDisable(true);
                 this.abbrechenBT.setDisable(true);
             }
         }
@@ -676,6 +678,7 @@ public class AdressverwaltungController implements Initializable {
         this.loeschenBT.setDisable(true);
         this.abbrechenBT.setDisable(false);
         this.bearbeitenBT.setDisable(true);
+        this.tfDatum.setDisable(true);
     }
 
     
@@ -692,8 +695,8 @@ public class AdressverwaltungController implements Initializable {
     @FXML
     public void speichereAenderung() throws SQLException {
         if (validateFields()) {
-            if (validateEmail() && validateDatum() && validateTelefon()) {
-
+            if (validateEmail() && validateDatum() && validateTelefon() 
+                && pruefeDatumAufVergangenheit()) {
                 String anschriftID = tfAnschriftID.getText();
                 String anrede = cbAnrede.getValue();
                 String name = tfName.getText();
@@ -725,7 +728,7 @@ public class AdressverwaltungController implements Initializable {
                 this.anlegenBT.setDisable(false);
                 this.loeschenBT.setDisable(true);             
                 this.abbrechenBT.setDisable(true);
-                this.bearbeitenBT.setDisable(true);
+                this.bearbeitenBT.setDisable(true);               
                 this.anlegenBT.requestFocus();
             }
         }

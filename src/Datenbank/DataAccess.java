@@ -30,7 +30,7 @@ public class DataAccess {
     /**
      *Variable für die Verbindung zur Datenbank.
      */
-    public Connection con = null;
+    protected Connection con = null;
 
     /**
      *Variable für den Benutzernamen.

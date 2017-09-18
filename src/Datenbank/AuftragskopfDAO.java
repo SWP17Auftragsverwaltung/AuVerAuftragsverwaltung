@@ -20,6 +20,7 @@
 package Datenbank;
 
 import Klassen.Auftragskopf;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -302,7 +303,7 @@ public class AuftragskopfDAO extends DataAccess {
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, auftragskopfID);
-            stmt.setString(2, geschaeftspartnerID);
+            stmt.setString(1, geschaeftspartnerID);
             stmt.setString(3, auftragsText);
             stmt.setString(4, erfassungsDatum);
             stmt.setString(5, lieferDatum);
@@ -316,14 +317,13 @@ public class AuftragskopfDAO extends DataAccess {
             con.commit();
             
         } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.initStyle(StageStyle.UTILITY);
-            alert.setTitle("Fehler");
-            alert.setHeaderText(e.getMessage());
-            alert.showAndWait();
             con.rollback();
         }
-    }    
+    } 
+    
+    public Connection gibConnection() {
+        return this.con;
+    }
 
 
     

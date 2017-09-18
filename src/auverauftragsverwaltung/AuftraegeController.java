@@ -1605,19 +1605,30 @@ public class AuftraegeController implements Initializable {
             String auftragsWert = "0";
             String lkz = "N";
 
-            Auftragskopf auftragskopf = new Auftragskopf(auftragskopfID, 
-                geschaeftspartnerID, auftragsText, erfassungsDatum, lieferDatum,
-                abschlussDatum, status, auftragsArt, auftragsWert, lkz);
-
             AuftragskopfDAO akd = new AuftragskopfDAO();
-            akd.fuegeAuftragHinzu(auftragskopf);
             
-            if (!"Barauftrag".equals(auftragsArt)) {
-                AuftragskonditionsDAO akond = new AuftragskonditionsDAO();
-                akond.setzeAuftragKondition(
-                    auftragskopfID, tfZahlungskondID.getText());
+            try {
+                Auftragskopf auftragskopf = new Auftragskopf(auftragskopfID, 
+                    geschaeftspartnerID, auftragsText, erfassungsDatum, 
+                    lieferDatum, abschlussDatum, status, auftragsArt, 
+                    auftragsWert, lkz);
+                akd.fuegeAuftragHinzu(auftragskopf);
+            
+                if (!"Barauftrag".equals(auftragsArt)) {
+                    AuftragskonditionsDAO akond = new AuftragskonditionsDAO();
+                    akond.setzeAuftragKondition(
+                        auftragskopfID, tfZahlungskondID.getText());
+                }
+            
+            } catch (SQLException e) {
+                akd.gibConnection().rollback();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setTitle("Fehler");
+                alert.setHeaderText("Auftrag konnte nicht hinzugefügt werden.");
+                alert.showAndWait();
             }
-            
+         
             clearAuftragskopfTextFields();
 
             //Buttons setzen
