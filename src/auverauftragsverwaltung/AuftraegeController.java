@@ -1268,9 +1268,23 @@ public class AuftraegeController implements Initializable {
               
             //Falls NEIN: Meldung schließen und abbrechen    
             } else {
-                meldung.schließeFenster();
-                clearAuftragsPosTextFields();
+                meldung.schließeFenster();            
             }
+            
+            clearAuftragsPosTextFields();
+            this.paneAuftraege.setVisible(true);
+            this.paneAuftragspositionen.setVisible(false);
+            this.paneGP.setVisible(false);
+            this.paneAPD.setDisable(true);
+            this.pane.setVisible(true);
+            this.btAendern.setVisible(true);
+            this.btAendern.setDisable(true);
+            this.btSpeichern.setVisible(false);
+            this.btAnlegen.setDisable(false);
+            this.btLoeschen.setDisable(true);
+            this.btAuftragskonditionen.setDisable(true);
+            this.btAuftragspositionen.setDisable(true);
+            this.btAbbrechen.setDisable(true);                               
         }
     }    
        
