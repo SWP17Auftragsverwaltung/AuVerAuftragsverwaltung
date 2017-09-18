@@ -2786,7 +2786,14 @@ public class AuftraegeController implements Initializable {
                 + " \n\n(Nur möglich wenn Auftragsart Terminauftrag ist.)");
             alert.showAndWait();
             istValidiert = false;
-        }
+            
+        } else if ((this.cbAuftragsart.getValue() == "Bestellauftrag" 
+                || this.cbAuftragsart.getValue() == null)
+                && this.tfLieferdatum.getText().isEmpty()) {
+            alert.setContentText("Bitte geben Sie das Lieferdatum ein!");
+            alert.showAndWait();
+            istValidiert = false;
+        }    
         
         return istValidiert;
     }
