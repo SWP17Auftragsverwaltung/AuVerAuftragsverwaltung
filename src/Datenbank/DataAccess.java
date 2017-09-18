@@ -47,7 +47,11 @@ public class DataAccess {
      */
     private String datenbankURL = "jdbc:derby://localhost:1527/SWPWI2017";
 //    private String datenbankURL = erzeugeDatenbankPfad();
-    String relativerPfad;
+    
+    /**
+     * Relativer Datenbankpfad.
+     */
+    private String relativerPfad;
 
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
@@ -145,7 +149,7 @@ public class DataAccess {
         }
 
         datenbankURL 
-            = "jdbc:derby:" + relativerPfad + "/DBTobi";
+            = "jdbc:derby:" + relativerPfad + "/SWPWI2017";
         
         return datenbankURL;
     }
