@@ -8,6 +8,8 @@
 * Datum         Name    Was
 * 18.08.2017    SAM     Erstellt.
 * 26.08.2017    SAM     Fertiggestellt.
+* 11.09.2017    CEL     testFuegeArtikelHinzu()-Methode angepasst.
+                        Getestet und freigegeben.
 *-------------------------------------------------------------------------------
 */
 package Datenbank;
@@ -71,8 +73,8 @@ public class ArtikelDAOTest {
     @Test
     public void testFuegeArtikelHinzu() throws SQLException {
         System.out.println("fuegeArtikelHinzu");
-        Artikel artikel = new Artikel("999999", "Artikeltext", 
-                "Bestelltext", "100", "10", 
+        Artikel artikel = new Artikel("000035", "Artikeltext", 
+                "Bestelltext", "100.00", "10", 
                 "19", "1000", "150", "500", "800", "N");
         ArtikelDAO instance = new ArtikelDAO();
         instance.fuegeArtikelHinzu(artikel);

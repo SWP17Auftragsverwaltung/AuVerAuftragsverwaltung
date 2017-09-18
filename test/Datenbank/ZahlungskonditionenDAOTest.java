@@ -7,7 +7,7 @@
 *-------------------------------------------------------------------------------
 * Datum         Name    Was
 * 20.08.2017    SAM     Erstellt.
-* 26.08.2017    CEL     Fertiggestellt.
+* 26.08.2017    SAM     Fertiggestellt.
 * 06.09.2017    CEL     testFuegeZahlungskonditionenHinzu() korrigiert.
                         Getestet und freigegeben.
 *-------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ public class ZahlungskonditionenDAOTest {
     public void testFuegeZahlungskonditionenHinzu() throws SQLException {
         System.out.println("fuegeZahlungskonditionenHinzu");
         Zahlungskonditionen zahlungskonditionen
-                = new Zahlungskonditionen("000008", "Barzahlung", "4",
+                = new Zahlungskonditionen("100000", "Barzahlung", "4",
                         "1", "12", "21", "10", "10", "12", "13",
                         "14", "N");
         ZahlungskonditionenDAO instance = new ZahlungskonditionenDAO();

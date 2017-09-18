@@ -8,7 +8,8 @@
 * Datum         Name    Was
 * 23.08.2017    CEL     Erstellt.
 * 26.08.2017    CEL     Fertiggestellt.
-* 26.08.2017    CEL     Getestet und freigegeben.
+* 01.00.2017    CEL     testGibLetztID()&testGeneriereID() Methoden angepasst.
+                        Getestet und freigegeben.
 *-------------------------------------------------------------------------------
 */
 package Datenbank;

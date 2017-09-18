@@ -8,7 +8,7 @@
 * Datum         Name    Was
 * 20.08.2017    CEL     Erstellt.
 * 26.08.2017    CEL     Fertiggestellt.
-* 17.09.2017    CEL     Testmethoden hinzugefügt.
+* 17.09.2017    CEL     Testmethoden hinzugefügt (testGibAuftragsstatus, ff..).
                         Getestet und freigegeben.
 *-------------------------------------------------------------------------------
  */
