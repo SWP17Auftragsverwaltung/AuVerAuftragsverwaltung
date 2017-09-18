@@ -1238,6 +1238,19 @@ public class AuftraegeController implements Initializable {
                     
                     refreshAuftragspositionTable();
                     refreshAuftragskopfTable();
+                    this.paneAuftraege.setVisible(true);
+                    this.paneAuftragspositionen.setVisible(false);
+                    this.paneGP.setVisible(false);
+                    this.paneAPD.setDisable(true);
+                    this.pane.setVisible(true);
+                    this.btAendern.setVisible(true);
+                    this.btAendern.setDisable(true);
+                    this.btSpeichern.setVisible(false);
+                    this.btAnlegen.setDisable(false);
+                    this.btLoeschen.setDisable(true);
+                    this.btAuftragskonditionen.setDisable(true);
+                    this.btAuftragspositionen.setDisable(true);
+                    this.btAbbrechen.setDisable(true);   
                 
                 //Falls NEIN: Meldung schließen und abbrechen    
                 } else {
@@ -1272,20 +1285,7 @@ public class AuftraegeController implements Initializable {
             }
             
             clearAuftragsPosTextFields();
-            clearAuftragskopfTextFields();
-            this.paneAuftraege.setVisible(true);
-            this.paneAuftragspositionen.setVisible(false);
-            this.paneGP.setVisible(false);
-            this.paneAPD.setDisable(true);
-            this.pane.setVisible(true);
-            this.btAendern.setVisible(true);
-            this.btAendern.setDisable(true);
-            this.btSpeichern.setVisible(false);
-            this.btAnlegen.setDisable(false);
-            this.btLoeschen.setDisable(true);
-            this.btAuftragskonditionen.setDisable(true);
-            this.btAuftragspositionen.setDisable(true);
-            this.btAbbrechen.setDisable(true);                               
+            clearAuftragskopfTextFields();                                       
         }
     }    
        
@@ -1824,7 +1824,8 @@ public class AuftraegeController implements Initializable {
             this.btAnlegenAPD.setVisible(true);
             this.btBearbeitenAPD.setDisable(true);
             this.btAbbrechenAPD.setDisable(true);
-            this.auftragspositionTP.setText("Auftragspositionsdatensatz");  
+            this.auftragspositionTP.setText("Auftragspositionsdatensatz"); 
+            this.btAnlegenAPD.requestFocus();
         }
     }
  

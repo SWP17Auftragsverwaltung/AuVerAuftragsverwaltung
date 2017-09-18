@@ -1,20 +1,33 @@
+/*------------------------------------------------------------------------------
+* Klasse: Meldung.
+*-------------------------------------------------------------------------------
+* Zweck:
+* - Diese Klasse hält zentral alle Meldungen, die im Programm ausgegeben werden.
+*-------------------------------------------------------------------------------
+* Datum         Name    Was
+* 23.08.2017    GET     Erstellt.
+* 23.08.2017    GET     verwerfeFEnster(),antwort(),schließeFenster(),
+*                       loescheAbfrage() erstellt.
+* 02.09.2017    HEN     dialogDatumWochenende(),dialogDatumFeiertag(),
+*                       dialogDatePicker(),getDayCellFactory() erstellt.
+* 14.09.2017    HEN     loescheLetztePos(),loescheLetztePosAuftrag(),
+*                       loeschePosAuftrag() erstellt.
+* 16.09.2017    HEN     dialogAuftragskonditionen() erstellt.
+* 17.09.2017    HEN     dialogDatePickerLieferdatum(),
+*                       getDayCellFactoryLieferdatum() erstellt.
+*-------------------------------------------------------------------------------
+*/
 package Klassen;
 
 import Datenbank.ZahlungskonditionenDAO;
-import auverauftragsverwaltung.ZahlungskonditionenController;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -25,8 +38,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
-import javax.swing.text.DateFormatter;
-import org.apache.derby.client.am.DateTime;
 
 /**
  *
@@ -133,7 +144,6 @@ public class Meldung {
     /* Datum       Name    Was
     /* 23.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Erzeugt ein Fenster das dem Benutzer ermöglicht, seine Aktion zu
      * verwerfen.
@@ -148,12 +158,10 @@ public class Meldung {
     }
     
 
-    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 02.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Erzeugt ein Fenster das dem Benutzer ermöglicht, seine Aktion zu
      * verwerfen.
@@ -167,13 +175,11 @@ public class Meldung {
         meldung.showAndWait();
     }
 
-
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 02.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Erzeugt ein Fenster das dem Benutzer ermöglicht, seine Aktion zu
      * verwerfen.
@@ -186,21 +192,18 @@ public class Meldung {
         meldung.getButtonTypes().addAll(ButtonType.YES, btDatumAendern);
         meldung.showAndWait();
     }    
- 
     
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 02.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Erzeugt einen angepassten Datepicker, der die Auswahl von Wochenendtagen
      * nicht zulässt.
      * @return Datepicker
      */   
     private Callback<DatePicker, DateCell> getDayCellFactory() {
- 
         final Callback<DatePicker, DateCell> dayCellFactory 
             = new Callback<DatePicker, DateCell>() {
  
@@ -255,14 +258,12 @@ public class Meldung {
             };
         return dayCellFactory;
     }      
-    
-    
+      
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 03.09.17    HEN     Methode erstellt.
+    /* 02.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Erzeugt ein Fenster das dem Benutzer ermöglicht, ein Datum zu wählen.
      * @return Ausgewähltes Datum.
@@ -296,22 +297,20 @@ public class Meldung {
         
         return datum;
     }
-    
-   
+     
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 02.09.17    HEN     Methode erstellt.
+    /* 17.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
-     * Erzeugt einen angepassten Datepicker, der die Auswahl von Wochenendtagen
-     * nicht zulässt.
+     * Erzeugt einen angepassten Datepicker, der zu einem übergebenen Datum die
+     * Feiertage und Wochenenden sperrt.
+     * @param ld Übergebenes Datum
      * @return Datepicker
      */   
     private Callback<DatePicker, DateCell> 
         getDayCellFactoryLiefer(LocalDate ld) {
- 
         final Callback<DatePicker, DateCell> dayCellFactory 
             = new Callback<DatePicker, DateCell>() {
  
@@ -372,7 +371,6 @@ public class Meldung {
     /* Datum       Name    Was
     /* 17.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Erzeugt ein Fenster das dem Benutzer ermöglicht, ein Datum zu wählen. Die
      * Sperrzeit wird auf das Erfassungsdatum gerechnet.
@@ -417,9 +415,8 @@ public class Meldung {
 
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
-    /* 03.09.17    HEN     Methode erstellt.
+    /* 16.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Erzeugt ein Fenster das dem Benutzer ermöglicht, eine Auftragskondition
      * zu wählen.
@@ -484,19 +481,19 @@ public class Meldung {
     
         GridPane grid = new GridPane();
 
-        if (auftragsart.equals("Sofortauftrag")) {
+        if ("Sofortauftrag".equals(auftragsart)) {
             ObservableList<Zahlungskonditionen> zahlungskonditionen
                 = FXCollections.observableArrayList(
                 zkd.gibZahlungskonditionenZuArt(auftragsart));
             tv.setItems(zahlungskonditionen);           
             
-        } else if (auftragsart.equals("Terminauftrag")) {
+        } else if ("Terminauftrag".equals(auftragsart)) {
             ObservableList<Zahlungskonditionen> zahlungskonditionen
                 = FXCollections.observableArrayList(
                 zkd.gibZahlungskonditionenZuArt(auftragsart));
             tv.setItems(zahlungskonditionen);          
         
-        } else if (auftragsart.equals("Bestellauftrag")) {
+        } else if ("Bestellauftrag".equals(auftragsart)) {
             ObservableList<Zahlungskonditionen> zahlungskonditionen
                 = FXCollections.observableArrayList(
                 zkd.gibZahlungskonditionenZuArt(auftragsart));
@@ -511,7 +508,7 @@ public class Meldung {
         GridPane.setConstraints(tv, 0, 0);
         
         meldung.getDialogPane().setContent(grid);       
-        meldung.getButtonTypes().addAll(ButtonType.APPLY, ButtonType.CANCEL);
+        meldung.getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.APPLY);
         meldung.showAndWait();
         
         String[] ausgabe = null;
@@ -521,10 +518,10 @@ public class Meldung {
             Object zk = tv.getSelectionModel().getSelectedItem();
             Zahlungskonditionen z = (Zahlungskonditionen) zk;
             zkID = z.getZahlungskonditionenID();
-            if (auftragsart.equals("Sofortauftrag")) {
+            if ("Sofortauftrag".equals(auftragsart)) {
                 zeit = z.getLieferzeitSOFORT();
             
-            } else if (auftragsart.equals("Terminauftrag")) {
+            } else if ("Terminauftrag".equals(auftragsart)) {
                 zeit = z.getSperrzeitWUNSCH();
             }
                     
@@ -532,14 +529,12 @@ public class Meldung {
         } 
         return ausgabe;
     }      
-    
-    
+       
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 23.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Erzeugt einen positiven Antwortbutton.
      * @return Positiver Button.
@@ -555,7 +550,6 @@ public class Meldung {
     /* Datum       Name    Was
     /* 23.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Schließt ein geöffnet Fenster.
      */       
@@ -564,12 +558,10 @@ public class Meldung {
     }
     
     
-    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 23.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Erzeugt ein Fenster das dem Benutzer die Möglichkeit bietet, seine 
      * "Lösch Aktion" entweder zu bejaen oder zu verneinen.
@@ -583,13 +575,11 @@ public class Meldung {
         meldung.showAndWait();
     }
 
-
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 14.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Erzeugt ein Fenster das dem Benutzer die Möglichkeit bietet, seine 
      * "Lösch Aktion" entweder zu bejaen oder zu verneinen.
@@ -603,13 +593,11 @@ public class Meldung {
         meldung.showAndWait();
     }    
 
-
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 14.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Erzeugt ein Fenster das dem Benutzer die Möglichkeit bietet, seine 
      * "Lösch Aktion" entweder zu bejaen oder zu verneinen.
@@ -628,7 +616,6 @@ public class Meldung {
     /* Datum       Name    Was
     /* 14.09.17    HEN     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Erzeugt ein Fenster das dem Benutzer den Hinweis gibt, dass der Auftrag
      * noch Positionen enthäkt und nicht gelöscht werden kann.
