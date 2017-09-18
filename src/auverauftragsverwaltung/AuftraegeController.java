@@ -1279,6 +1279,7 @@ public class AuftraegeController implements Initializable {
                 clearAuftragsPosTextFields();
                 refreshAuftragspositionTable();
                 refreshAuftragskopfTable();
+                this.btAnlegenAPD.requestFocus();
                 this.btBearbeitenAPD.setDisable(true);
                 this.btLoeschenAPD.setDisable(true);
                 this.btAnlegen.setDefaultButton(false);
@@ -1759,16 +1760,7 @@ public class AuftraegeController implements Initializable {
         String typ = akd.gibGeschaeftspartnerTyp(gpID);
         tfPositionsNrAPD.setText(positionsnummer);       
         tfMengeAPD.clear();
-        
-        if ("K".equals(typ)) {
-            this.tfBestellwertAPD.setDisable(true);
-            this.tfEinzelwertAPD.setDisable(false);
-            
-        } else if ("L".equals(typ)) {
-            this.tfBestellwertAPD.setDisable(false);
-            this.tfEinzelwertAPD.setDisable(true);
-        }
-        
+    
         setTableContentArtikel();
     }       
      
@@ -1890,6 +1882,7 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     public void zeigeAuftragspositionenZuAuftrag() throws SQLException {
+        AuftragskopfDAO akd = new AuftragskopfDAO();
         //Daten aus dem Auftragskopf im oberen Abteil anzeigen.
         tfErfDatumPOS.setText(tfErfDatum.getText());    
         tfAuftragswertPOS.setText(tfAuftragswert.getText());  
@@ -1898,6 +1891,7 @@ public class AuftraegeController implements Initializable {
         tfAuftragskopfIDPOS.setText(tfAuftragskopf.getText());
         tfAbschlussdatumPOS.setText(tfAbschlussdatum.getText());
         tfLieferdatumPOS.setText(tfLieferdatum.getText());
+        String typ = akd.gibGeschaeftspartnerTyp(tfPartnerID.getText());
         setTableContentPositionen();
         
         if (this.cbAuftragsstatus.getValue().equals("Abgeschlossen")
@@ -1922,6 +1916,22 @@ public class AuftraegeController implements Initializable {
             this.btBearbeitenAPD.setDisable(true);
             this.btLoeschenAPD.setDisable(true);
             this.btAbbrechenAPD.setDisable(true);
+        }
+        
+        if ("K".equals(typ)) {
+            this.tfBestellwertAPD.setDisable(true);
+            this.tfEinzelwertAPD.setDisable(false);
+            
+        } else if ("L".equals(typ)) {
+            this.tfBestellwertAPD.setDisable(false);
+            this.tfEinzelwertAPD.setDisable(true);
+        }
+        
+        if ("Bestellauftrag".equals(this.tfAuftragsart.getText())) {
+            this.tfMwStAPD.setDisable(true);
+        
+        } else {
+            this.tfMwStAPD.setDisable(false);
         }
     }      
     
@@ -2223,6 +2233,7 @@ public class AuftraegeController implements Initializable {
         this.btAnlegen.setDisable(false);
         this.btAbbrechen.setDisable(true);
         this.auftragskopfTP.setText("Auftragskopf");
+        this.btAnlegen.requestFocus();
         tvAuftragskopf.setMouseTransparent(false);
         
         tvAuftragskopf.getSelectionModel().select(-1);
