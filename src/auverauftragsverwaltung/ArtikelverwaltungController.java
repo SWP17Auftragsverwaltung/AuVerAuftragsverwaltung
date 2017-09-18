@@ -5,20 +5,24 @@
 * - FXML Controller-Klasse.
 *-------------------------------------------------------------------------------
 * Historie:
-* 14.06.2017    SAM     Angelegt.
-* 26.06.2017    GET     Checkstyleprüfung.
-*                       Fehler bei Start der GUI behoben.
-* 27.07.2017    BER     Javadoc angepasst.
-* 14.08.2017    BER     Angepasst an neue DB.
-* 14.08.2017    HEN     initialize() ergänzt, FXML TableColumns erstellt.
-* 15.08.2017    BER     alleMitLKZ(), alleOhneLKZ()
-* 16.08.2017    BER     artikelAnlegen() erstellt.
-* 17.08.2017    BER     artikelHinzufuegen(), artikelLoeschen() erstellt.
-* 17.08.2017    GET     zeigeWerteAn() erstellt.
-* 18.08.2017    BER     bearbeiteArtikel(), speichereAenderung() erstellt.
-* 19.08.2017    HEN     artikelSuchen() erstellt.
-* 19.08.2017    BER     artikelSuchen() erweitert.
-* 19.08 2017    SEZ     aktionAbbrechen(), setzeSucheZurueck() erstellt.
+* 14.06.2017    SAM    Angelegt.
+* 26.06.2017    GET    Checkstyleprüfung.
+*                      Fehler bei Start der GUI behoben.
+* 27.07.2017    BER    Javadoc angepasst.
+* 14.08.2017    BER    Angepasst an neue DB.
+* 14.08.2017    HEN    initialize() ergänzt, FXML TableColumns erstellt.
+* 15.08.2017    BER    alleMitLKZ(), alleOhneLKZ()
+* 16.08.2017    BER    artikelAnlegen() erstellt.
+* 17.08.2017    BER    artikelHinzufuegen(), artikelLoeschen() erstellt.
+* 17.08.2017    GET    zeigeWerteAn() erstellt.
+* 18.08.2017    BER    bearbeiteArtikel(), speichereAenderung() erstellt.
+* 19.08.2017    HEN    artikelSuchen() erstellt.
+* 19.08.2017    BER    artikelSuchen() erweitert.
+* 19.08 2017    SEZ    aktionAbbrechen(), setzeSucheZurueck() erstellt.
+* 08.09.2017    GET    validateFields() erstellt.   
+* 10.09.2017    GET    validateEinzelwert(),validateBestellwert(),
+*                      validateBestandFREI(),validateBestandRESERVIERT(),
+*                      validateBestandZULAUF(),validateBestandVERKAUFT erstellt.
 *-------------------------------------------------------------------------------
  */
 package auverauftragsverwaltung;
@@ -345,18 +349,16 @@ public class ArtikelverwaltungController implements Initializable {
                 "Bestand Reserviert",
                 "Bestand Zulauf",
                 "Bestand Verkauft");
-
     }
+    
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 15.08.17    SAM     Methode erstellt.
     /* 16.08.17    SAM     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Methode zum Abbrechen der Artikelverwaltung.
-     *
      * @param event ActionEvent welches das Klicken des Buttons "Abbrechen"
      * abfängt.
      */
@@ -366,14 +368,13 @@ public class ArtikelverwaltungController implements Initializable {
         stage.close();
     }
     
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 16.08.17    GET     Methode erstellt.
     /* 17.08.17    GET     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
-    
     /**
-     *
      * @param tf Textfeld
      * @param zahl Länge des Feldes
      */
@@ -382,8 +383,13 @@ public class ArtikelverwaltungController implements Initializable {
             -> change.getControlNewText().length() <= zahl ? change : null));
     }
 
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum       Name    Was
+    /* 16.08.17    GET     Methode erstellt.
+    /* 17.08.17    GET     Getestet & freigegeben.
+    /*------------------------------------------------------------------------*/
     /**
-     *
      * @param ta Textarea.
      * @param zahl Länge der Textarea
      */
@@ -394,13 +400,11 @@ public class ArtikelverwaltungController implements Initializable {
             -> change.getControlNewText().length() <= zahl ? change : null));
     }
 
-    
-    
+ 
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 14.08.17    HEN     ObservableArrayList hinzugefügt
     /*------------------------------------------------------------------------*/
-    
     /**
      * Erstellt ein ArtikelDAO Objekt und gibt eine Artikel ArrayList an eine
      * OberservableList, die dann an die TableView übergeben wird.
@@ -419,11 +423,9 @@ public class ArtikelverwaltungController implements Initializable {
     /* 15.08.17    HEN     Methode erstellt.
     /* 16.08.17    HEN     Getestet & freigegeben.
     /*------------------------------------------------------------------------*/
-
     /**
      * Methode bekommt eine ArrayList mit den gefundenen Artikel übergeben und
      * aktualisiert damit die TableView.
-     *
      * @param artikel Übergebene Adresse.
      * @throws java.sql.SQLException SQL Exception
      */
@@ -434,15 +436,13 @@ public class ArtikelverwaltungController implements Initializable {
         tvArtikel.setItems(artikelAusgabe);
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
-    
     /**
      * Aktualisiert die TableView mit aktuellem Inhalt.
-     *
      * @throws java.sql.SQLException SQL Exception
      */
     public void refreshTable() throws SQLException {
@@ -450,16 +450,15 @@ public class ArtikelverwaltungController implements Initializable {
         setTableContent();
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Löscht alle Eingaben in den Textfeldern.
      */
     public void clearTextFields() {
-
         tfMaterialNr.clear();
         tfEinzelwert.clear();
         tfArtikelbeschreibung.clear();
@@ -477,11 +476,9 @@ public class ArtikelverwaltungController implements Initializable {
     /* Datum       Name    Was
     /* 15.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Sucht nach allen Artikeln mit aktivem LKZ und stellt sie in der Tabelle
      * dar.
-     *
      * @throws java.sql.SQLException SQL Exception
      */
     public void alleOhneLKZ() throws SQLException {
@@ -492,14 +489,13 @@ public class ArtikelverwaltungController implements Initializable {
         tvArtikel.setItems(artikel);
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 16.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Gibt die unteren Eingabefelder für das Anlegen einer neuer Adresse frei.
-     *
      * @throws java.sql.SQLException SQLException
      */
     @FXML
@@ -525,15 +521,14 @@ public class ArtikelverwaltungController implements Initializable {
         tfMaterialNr.setText(ar.generiereID());
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Liest die Daten aus den Eingabefeldern aus und erstellt ein neues Artikel
      * Objekt, welches dann über die DAO in die DB geschrieben wird.
-     *
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
@@ -544,7 +539,7 @@ public class ArtikelverwaltungController implements Initializable {
                 && validateBestandFREI() && validateBestandRESERVIERT()
                 && validateBestandZULAUF() && validateBestandVERKAUFT()) {
                  
-            String artikelID = tfMaterialNr.getText();
+                String artikelID = tfMaterialNr.getText();
                 String einzelwert = tfEinzelwert.getText().replace(',', '.');
                 String artikeltext = tfArtikelbeschreibung.getText();
                 String bestellwert = tfBestellwert.getText().replace(',', '.');
@@ -579,19 +574,17 @@ public class ArtikelverwaltungController implements Initializable {
         }
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 17.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * "Löscht" einen markierten Artikel, in dem das LKZ auf J gesetzt wird.
-     *
      * @throws java.sql.SQLException SQL Exception
      */
     @FXML
     public void artikelLoeschen() throws SQLException {
-
         Object artikel = tvArtikel.getSelectionModel().getSelectedItem();
         Artikel b = (Artikel) artikel;
 
@@ -615,11 +608,11 @@ public class ArtikelverwaltungController implements Initializable {
         }
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 18.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Lässt das Bearbeiten einer ausgewählten Adresse zu.
      */
@@ -630,31 +623,28 @@ public class ArtikelverwaltungController implements Initializable {
         this.btBearbeiten.setVisible(false);
         this.btSpeichern.setVisible(true);
         this.artikeldatensatzPane.setText(
-                "Artikeldatensatz (Bearbeitungsmodus)");
+            "Artikeldatensatz (Bearbeitungsmodus)");
         this.btAnlegen.setDisable(true);
         this.btLoeschen.setDisable(true);
         this.btAbbrechen.setDisable(false);
     }
 
+    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 18.08.17    BER     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Speichert die gemachten Änderungen in die Datenbank und aktualisiert die
      * View mit den neuen Werten.
-     *
      * @throws java.sql.SQLException SQLException.
      */
     @FXML
-    public void speichereAenderung() throws SQLException {
-        
-        if (validateFields()) {
-            
+    public void speichereAenderung() throws SQLException {      
+        if (validateFields()) {      
             if (validateEinzelwert() && validateBestellwert()
-                     && validateBestandFREI() && validateBestandRESERVIERT()
-                     && validateBestandZULAUF() && validateBestandVERKAUFT()) {
+                && validateBestandFREI() && validateBestandRESERVIERT()
+                && validateBestandZULAUF() && validateBestandVERKAUFT()) {
             
                 String artikelID = tfMaterialNr.getText();
                 String einzelwert = tfEinzelwert.getText().replace(',', '.');
@@ -667,10 +657,10 @@ public class ArtikelverwaltungController implements Initializable {
                 String bestandsmengeZulauf = tfBestandZulauf.getText();
                 String bestandsmengeVerkauft = tfBestandVerkauft.getText();
                 String lkz = "N";
-                Artikel artikel = new Artikel(artikelID, artikeltext, bestelltext,
-                        einzelwert, bestellwert, steuer, bestandsmengeFrei,
-                        bestandsmengeReserviert, bestandsmengeZulauf,
-                        bestandsmengeVerkauft, lkz);
+                Artikel artikel = new Artikel(artikelID, artikeltext, 
+                    bestelltext, einzelwert, bestellwert, steuer, 
+                    bestandsmengeFrei, bestandsmengeReserviert, 
+                    bestandsmengeZulauf, bestandsmengeVerkauft, lkz);
 
                 ArtikelDAO aDAO = new ArtikelDAO();
                 aDAO.aendereArtikel(artikel);
@@ -695,7 +685,6 @@ public class ArtikelverwaltungController implements Initializable {
     /* Datum       Name    Was
     /* 17.08.17    GET     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
      */
@@ -728,10 +717,8 @@ public class ArtikelverwaltungController implements Initializable {
     /* 19.08.17    HEN     Methode erstellt.
     /* 19.08.17    BER     An SucheDAO angepasst.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Zeigt die Werte einer ausgewählten Adresse im unteren Bereich an.
-     *
      * @throws java.sql.SQLException SQLException
      */
     @FXML
@@ -748,15 +735,12 @@ public class ArtikelverwaltungController implements Initializable {
     }
 
     
-    
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 19.08.17    SEZ     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
      * Setzt die Suche zurück.
-     *
      * @throws java.sql.SQLException SQLException
      */
     @FXML
@@ -765,23 +749,21 @@ public class ArtikelverwaltungController implements Initializable {
         this.cbSuchfeld.setValue("Bitte wählen...");
         setTableContent();
     }
-    
-    
+       
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 19.08.17    SEZ     Methode erstellt.
     /*------------------------------------------------------------------------*/
-    
     /**
-     *  Methode für Funktionalität des Abbrechen-Buttons. 
+     * Methode für Funktionalität des Abbrechen-Buttons. 
      * Bricht im Bearbeitungsmodus und im Anlegemodus die jeweilige Aktion falls
      * gewünscht ab.
      */
     @FXML
     public void aktionAbbrechen() {
         if (!this.artikeldatensatzPane.getText().equalsIgnoreCase(""
-                + "Artikeldatensatz")) {
+            + "Artikeldatensatz")) {
 
             Meldung meldung = new Meldung();
             meldung.verwerfenFenster();
@@ -807,16 +789,15 @@ public class ArtikelverwaltungController implements Initializable {
             }
         }
     }
+ 
     
     /*------------------------------------------------------------------------*/
     /* Datum       Name    Was
     /* 08.09.2017    GET     Methode erstellt.
     /* 08.09.2017    GET     Getestet & freigegeben 
     /*------------------------------------------------------------------------*/
-    
     /**
      * Prüft ob alle Pflichtfelder eingegeben sind und Korrekt sind.
-     *
      * @return boolschen Wert ob die eingaben korrekt sind.
      */
     private boolean validateFields() {
@@ -825,272 +806,218 @@ public class ArtikelverwaltungController implements Initializable {
         alert.setTitle("Fehlende Eingaben");
 
         if (this.tfEinzelwert.getText().isEmpty()) {
-
             alert.setContentText("Es ist kein Einzelwert eingetragen!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfBestellwert.getText().isEmpty()) {
-
             alert.setContentText("Es ist kein Bestellwert eingetragen!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.cbMwstsatz.getValue() == null) {
-
             alert.setContentText("Bitte den Mehrwertsteuersatz wählen!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfBestandFrei.getText().isEmpty()) {
-
             alert.setContentText("Bitte geben sie die Bestandsmenge FREI an!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfBestandReserviert.getText().isEmpty()) {
-
             alert.setContentText("Bitte geben sie die Bestandsmenge"
-                    + " RESERVIERT an!");
+                + " RESERVIERT an!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfBestandZulauf.getText().isEmpty()) {
-
             alert.setContentText("Bitte geben sie die Bestandsmenge "
-                    + "ZULAUF an!");
+                + "ZULAUF an!");
             alert.showAndWait();
-
             istValidiert = false;
 
         } else if (this.tfBestandVerkauft.getText().isEmpty()) {
-
             alert.setContentText("Bitte geben sie die Bestandsmenge"
-                    + " VERKAUFT an!");
+                + " VERKAUFT an!");
             alert.showAndWait();
-
             istValidiert = false;
-
         } 
         return istValidiert;
     }
     
     
     /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
+    /* Datum         Name    Was
     /* 10.09.2017    GET     Methode erstellt.
     /* 10.09.2017    GET     Getestet & freigegeben 
     /*------------------------------------------------------------------------*/
-    
     /**
      * Prüft ob der Einzelwert korrekt eingegeben wurde.
-     *
      * @return boolschen Wert ob die eingaben korrekt sind.
      */
-    private boolean validateEinzelwert() {
-        
+    private boolean validateEinzelwert() {      
         boolean istValidiert = false;
         
         Pattern p = Pattern.compile("[0-9][0-9]*[,|.]?[0-9]*");
         Matcher m = p.matcher(this.tfEinzelwert.getText());
 
         if (m.find() && m.group().equals(this.tfEinzelwert.getText())) {
-            
             istValidiert = true;
             
-        } else {
-            
+        } else {   
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fehlerhafte Einzelwert!");
             alert.setContentText("Der Einzelwert entspricht nicht dem Format "
-                    + "(z.B.: 199.99)");
+                + "(z.B.: 199.99)");
             alert.showAndWait();
-        }
-        
-        
-        return istValidiert;
-        
+        }    
+        return istValidiert;      
     }
     
-    /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 10.09.2017    GET     Methode erstellt.
-    /* 10.09.2017    GET     Getestet & freigegeben 
-    /*------------------------------------------------------------------------*/
-    
-    /**
-     * Prüft ob der Bestellwert korrekt eingegeben wurde.
-     *
-     * @return boolschen Wert ob die eingaben korrekt sind.
-     */
-    private boolean validateBestellwert() {
-        
-        boolean istValidiert = false;
-        
-        Pattern p = Pattern.compile("[0-9][0-9]*[,|.]?[0-9]*");
-        Matcher m = p.matcher(this.tfBestellwert.getText());
-
-        if (m.find() && m.group().equals(this.tfBestellwert.getText())) {
-            
-            istValidiert = true;
-            
-        } else {
-            
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Fehlerhafte Bestellwert!");
-            alert.setContentText("Der Bestellwert entspricht nicht dem Format "
-                    + "(z.B.: 199.99)");
-            alert.showAndWait();
-        }
-        
-        
-        return istValidiert;
-        
-    }
-    
-    
-    /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 10.09.2017    GET     Methode erstellt.
-    /* 10.09.2017    GET     Getestet & freigegeben 
-    */
-    /*------------------------------------------------------------------------*/
-    
-    /**
-     * Prüft ob der freie Bestand korrekt eingegeben wurde.
-     *
-     * @return boolschen Wert ob die eingaben korrekt sind.
-     */
-    private boolean validateBestandFREI() {
-        boolean istValidiert = false;
-        
-        
-        Pattern p = Pattern.compile("[0]|[1-9][0-9]*");
-        Matcher m = p.matcher(this.tfBestandFrei.getText());
-        
-        if (m.find() && m.group().equals(this.tfBestandFrei.getText())) {
-            
-            istValidiert = true;
-            
-        } else {
-            
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Fehlerhafte Bestandsangabe!");
-            alert.setContentText("Der Bestand FREI entspricht nicht dem Format "
-                    + "(z.B.: 999)");
-            alert.showAndWait();
-        }
-        
-        return istValidiert;
-    }   
-    
-    
-    /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 10.09.2017    GET     Methode erstellt.
-    /* 10.09.2017    GET     Getestet & freigegeben 
-    /*------------------------------------------------------------------------*/
-    
-    /**
-     * Prüft ob der reservierte Bestand korrekt eingegeben wurde.
-     *
-     * @return boolschen Wert ob die eingaben korrekt sind.
-     */
-    private boolean validateBestandRESERVIERT() {
-        boolean istValidiert = false;
-        
-        
-        Pattern p = Pattern.compile("[0]|[1-9][0-9]+");
-        Matcher m =  p.matcher(this.tfBestandReserviert.getText());
-        
-        if (m.find() && m.group().equals(this.tfBestandReserviert.getText())) {
-            
-            istValidiert = true;
-            
-        } else {
-            
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Fehlerhafte Bestandsangabe!");
-            alert.setContentText("Der Bestand RESERVIERT entspricht nicht "
-                    + "dem Format (z.B.: 999)");
-            alert.showAndWait();
-        }
-        
-        return istValidiert;
-    }
-    
-
-    /*------------------------------------------------------------------------*/
-    /* Datum       Name    Was
-    /* 10.09.2017    GET     Methode erstellt.
-    /* 10.09.2017    GET     Getestet & freigegeben 
-    /*------------------------------------------------------------------------*/
-    
-    /**
-     * Prüft ob der im Zulauf befindende Bestand korrekt eingegeben wurde.
-     *
-     * @return boolschen Wert ob die eingaben korrekt sind.
-     */    
-    private boolean validateBestandZULAUF() {
-        boolean istValidiert = false;
-        
-        
-        Pattern p = Pattern.compile("[0]|[1-9][0-9]+");
-        Matcher m =  p.matcher(this.tfBestandZulauf.getText());
-        
-        if (m.find() && m.group().equals(this.tfBestandZulauf.getText())) {
-            
-            istValidiert = true;
-            
-        } else {
-            
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Fehlerhafte Bestandsangabe!");
-            alert.setContentText("Der Bestand ZULAUF entspricht nicht "
-                    + "dem Format (z.B.: 999)");
-            alert.showAndWait();
-        }
-        
-        return istValidiert;
-    }    
     
     /*------------------------------------------------------------------------*/
     /* Datum         Name    Was
     /* 10.09.2017    GET     Methode erstellt.
     /* 10.09.2017    GET     Getestet & freigegeben 
     /*------------------------------------------------------------------------*/
+    /**
+     * Prüft ob der Bestellwert korrekt eingegeben wurde.
+     * @return boolschen Wert ob die eingaben korrekt sind.
+     */
+    private boolean validateBestellwert() {       
+        boolean istValidiert = false;
+        
+        Pattern p = Pattern.compile("[0-9][0-9]*[,|.]?[0-9]*");
+        Matcher m = p.matcher(this.tfBestellwert.getText());
+
+        if (m.find() && m.group().equals(this.tfBestellwert.getText())) {
+            istValidiert = true;
+            
+        } else {         
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Fehlerhafte Bestellwert!");
+            alert.setContentText("Der Bestellwert entspricht nicht dem Format "
+                + "(z.B.: 199.99)");
+            alert.showAndWait();
+        }      
+        return istValidiert;       
+    }
     
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 10.09.2017    GET     Methode erstellt.
+    /* 10.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    /**
+     * Prüft ob der freie Bestand korrekt eingegeben wurde.
+     * @return boolschen Wert ob die eingaben korrekt sind.
+     */
+    private boolean validateBestandFREI() {
+        boolean istValidiert = false;
+          
+        Pattern p = Pattern.compile("[0]|[1-9][0-9]*");
+        Matcher m = p.matcher(this.tfBestandFrei.getText());
+        
+        if (m.find() && m.group().equals(this.tfBestandFrei.getText())) {      
+            istValidiert = true;
+            
+        } else { 
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Fehlerhafte Bestandsangabe!");
+            alert.setContentText("Der Bestand FREI entspricht nicht dem Format "
+                + "(z.B.: 999)");
+            alert.showAndWait();
+        }    
+        return istValidiert;
+    }   
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 10.09.2017    GET     Methode erstellt.
+    /* 10.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    /**
+     * Prüft ob der reservierte Bestand korrekt eingegeben wurde.
+     * @return boolschen Wert ob die eingaben korrekt sind.
+     */
+    private boolean validateBestandRESERVIERT() {
+        boolean istValidiert = false;
+           
+        Pattern p = Pattern.compile("[0]|[1-9][0-9]+");
+        Matcher m =  p.matcher(this.tfBestandReserviert.getText());
+        
+        if (m.find() && m.group().equals(this.tfBestandReserviert.getText())) {
+            istValidiert = true;
+            
+        } else {      
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Fehlerhafte Bestandsangabe!");
+            alert.setContentText("Der Bestand RESERVIERT entspricht nicht "
+                + "dem Format (z.B.: 999)");
+            alert.showAndWait();
+        }    
+        return istValidiert;
+    }
+    
+
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 10.09.2017    GET     Methode erstellt.
+    /* 10.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    /**
+     * Prüft ob der im Zulauf befindende Bestand korrekt eingegeben wurde.
+     * @return boolschen Wert ob die eingaben korrekt sind.
+     */    
+    private boolean validateBestandZULAUF() {
+        boolean istValidiert = false;
+         
+        Pattern p = Pattern.compile("[0]|[1-9][0-9]+");
+        Matcher m =  p.matcher(this.tfBestandZulauf.getText());
+        
+        if (m.find() && m.group().equals(this.tfBestandZulauf.getText())) {
+            istValidiert = true;
+            
+        } else {        
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Fehlerhafte Bestandsangabe!");
+            alert.setContentText("Der Bestand ZULAUF entspricht nicht "
+                + "dem Format (z.B.: 999)");
+            alert.showAndWait();
+        }   
+        return istValidiert;
+    }    
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 10.09.2017    GET     Methode erstellt.
+    /* 10.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
     /**
      * Prüft ob der verkaufte Bestand korrekt eingegeben wurde.
      * @return boolschen Wert ob die eingaben korrekt sind.
      */
     private boolean validateBestandVERKAUFT() {
         boolean istValidiert = false;
-        
-        
+                
         Pattern p = Pattern.compile("[0]|[1-9][0-9]+");
         Matcher m =  p.matcher(this.tfBestandVerkauft.getText());
         
         if (m.find() && m.group().equals(this.tfBestandVerkauft.getText())) {
-            
             istValidiert = true;
             
-        } else {
-            
+        } else {  
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fehlerhafte Bestandsangabe!");
             alert.setContentText("Der Bestand VERKAUFT entspricht nicht "
-                    + "dem Format (z.B.: 999)");
+                + "dem Format (z.B.: 999)");
             alert.showAndWait();
-        }
-        
+        }  
         return istValidiert;
     }
-
 }
     
