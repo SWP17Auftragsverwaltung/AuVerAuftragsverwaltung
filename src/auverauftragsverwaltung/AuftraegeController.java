@@ -606,6 +606,9 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     private Button btAuftragskonditionen;
+    /**
+     * TextField für die ZahlungskonditionsID.
+     */
     @FXML
     private TextField tfZahlungskondID;
     
@@ -1596,7 +1599,7 @@ public class AuftraegeController implements Initializable {
             AuftragskopfDAO akd = new AuftragskopfDAO();
             akd.fuegeAuftragHinzu(auftragskopf);
             
-            if (!auftragsArt.equals("Barauftrag")) {
+            if (!"Barauftrag".equals(auftragsArt)) {
                 AuftragskonditionsDAO akond = new AuftragskonditionsDAO();
                 akond.setzeAuftragKondition(
                     auftragskopfID, tfZahlungskondID.getText());
@@ -1745,11 +1748,11 @@ public class AuftraegeController implements Initializable {
         tfPositionsNrAPD.setText(positionsnummer);       
         tfMengeAPD.clear();
         
-        if (typ.equals("K")) {
+        if ("K".equals(typ)) {
             this.tfBestellwertAPD.setDisable(true);
             this.tfEinzelwertAPD.setDisable(false);
             
-        } else if (typ.equals("L")) {
+        } else if ("L".equals(typ)) {
             this.tfBestellwertAPD.setDisable(false);
             this.tfEinzelwertAPD.setDisable(true);
         }
@@ -1781,10 +1784,10 @@ public class AuftraegeController implements Initializable {
             String positionsnummer = tfPositionsNrAPD.getText();
             String artikelID = tfMaterialNrAPD.getText();
             String wert = "";
-            if (typ.equals("K")) {
+            if ("K".equals(typ)) {
                 wert = tfEinzelwertAPD.getText();
             
-            } else if (typ.equals("L")) {
+            } else if ("L".equals(typ)) {
                 wert = tfBestellwertAPD.getText();
             }
             
@@ -1836,7 +1839,7 @@ public class AuftraegeController implements Initializable {
         int menge =  Integer.parseInt(mengeAPD);
         double rechnung = 0;
         
-        if (typ.equals("K")) {
+        if ("K".equals(typ)) {
             String steuerAPD = tfMwStAPD.getText();
             int steuer = Integer.parseInt(steuerAPD);
         
@@ -1849,7 +1852,7 @@ public class AuftraegeController implements Initializable {
             rechnung = Math.round(rechnung);
             rechnung = rechnung / 100;        
         
-        } else if (typ.equals("L")) {
+        } else if ("L".equals(typ)) {
             String bestellWertAPD = tfBestellwertAPD.getText();
             double bestellwert = Double.parseDouble(bestellWertAPD);
             
@@ -2026,14 +2029,14 @@ public class AuftraegeController implements Initializable {
         
         if (x == 0) {
    
-        } else if (menge.equals("0")) {
+        } else if ("0".equals(menge)) {
             //Menge neu berechnen.          
-            if (typ.equals("K")) {
+            if ("K".equals(typ)) {
                 einzelwertDouble = Double.parseDouble(einzelwert);    
                 neuerWert = alteMengeInt * einzelwertDouble;
                 auftragsposition.setEinzelwert(einzelwert);
             
-            } else if (typ.equals("L")) {
+            } else if ("L".equals(typ)) {
                 bestellwertDouble = Double.parseDouble(bestellwert);    
                 neuerWert = alteMengeInt * bestellwertDouble;
                 auftragsposition.setEinzelwert(bestellwert);
@@ -2048,7 +2051,7 @@ public class AuftraegeController implements Initializable {
             double steuerwert = 0;
             double rechnungSteuer = 0;
             
-            if (typ.equals("K")) {
+            if ("K".equals(typ)) {
                 einzelwertDouble = Double.parseDouble(einzelwert);
                 rechnungSteuer = einzelwertDouble * steuerAPDInt / 100;
                 steuerwert = einzelwertDouble + rechnungSteuer;
@@ -2056,7 +2059,7 @@ public class AuftraegeController implements Initializable {
                 neuerWert = x * steuerwert * (-1);
                 auftragsposition.setEinzelwert(einzelwert);
             
-            } else if (typ.equals("L")) {
+            } else if ("L".equals(typ)) {
                 bestellwertDouble = Double.parseDouble(bestellwert);
             
                 neuerWert = x * bestellwertDouble * (-1);
@@ -2131,10 +2134,10 @@ public class AuftraegeController implements Initializable {
         boolean hatKredit;
         String rechnung;   
         
-        if(partnerTyp.equals("K")) {
+        if ("K".equals(partnerTyp)) {
             //Falls Status von E nach F gewechselt wird, wird geprüft, ob der 
             //freie Bestand ausreicht. Falls JA: wird FREI und RES berechnet.
-            if (statusAlt.equals("E") && statusNeu.equals("F")) {
+            if ("E".equals(statusAlt) && "F".equals(statusNeu)) {
                 istVerfuegbar = bestandVerfuegbar(auftragskopfID);
                 hatKredit = kreditVerfuegbar(auftragskopfID, partnerID);
             
@@ -2160,34 +2163,34 @@ public class AuftraegeController implements Initializable {
                 }        
             //Falls Status von F zurück nach E gewechselt wird, werden die 
             //Mengen von FREI und RES wieder zurückgerechnet.
-            } else if (statusAlt.equals("F") && statusNeu.equals("E")) {
+            } else if ("F".equals(statusAlt) && "E".equals(statusNeu)) {
                 rechnung = "subtraktion";
                 berechneMengeFreiRes(auftragskopfID, rechnung);
                 berechneKreditlimit(auftragswert, partnerID, rechnung);
           
             //Falls Status von F nach A gewechsetl wird, werden die Mengen RES
             //und VER berechnet.
-            } else if (statusAlt.equals("F") && statusNeu.equals("A")) {
+            } else if ("F".equals(statusAlt) && "A".equals(statusNeu)) {
                 berechneMengeResVer(auftragskopfID);
                 abschlussdatum = gibDatum();
             }
         
-        } else if (partnerTyp.equals("L")) {
+        } else if ("L".equals(partnerTyp)) {
             //Falls Status von E nach F gewechselt wird, wird geprüft, ob der 
             //freie Bestand ausreicht. Falls JA: wird FREI und RES berechnet.
-            if (statusAlt.equals("E") && statusNeu.equals("F")) {
+            if ("E".equals(statusAlt) && "F".equals(statusNeu)) {
                 rechnung = "addition";
                 berechneMengeZulauf(auftragskopfID, rechnung);
                 
             //Falls Status von F zurück nach E gewechselt wird, werden die 
             //Mengen von FREI und RES wieder zurückgerechnet.
-            } else if (statusAlt.equals("F") && statusNeu.equals("E")) {
+            } else if ("F".equals(statusAlt) && "E".equals(statusNeu)) {
                 rechnung = "subtraktion";
                 berechneMengeZulauf(auftragskopfID, rechnung);             
           
             //Falls Status von F nach A gewechsetl wird, werden die Mengen RES
             //und VER berechnet.
-            } else if (statusAlt.equals("F") && statusNeu.equals("A")) {
+            } else if ("F".equals(statusAlt) && "A".equals(statusNeu)) {
                 berechneMengeZulaufFrei(auftragskopfID);
                 abschlussdatum = gibDatum();  
             }
@@ -2242,7 +2245,7 @@ public class AuftraegeController implements Initializable {
         String mengeResAlt;
         String mengeResNeu;            
         //Additionsrechnung für die Mengen FREI und RES.
-        if (rechnung.equals("addition")) {
+        if ("addition".equals(rechnung)) {
             for (int i = 0; i < auftragspositionen.size(); i++) {
                 //ArtikelID und Menge des Artikels der Positionen holen
                 artikelID = auftragspositionen.get(i).getArtikelID();
@@ -2266,7 +2269,7 @@ public class AuftraegeController implements Initializable {
                 artd.setzeMengeFreiRes(artikelID, mengeFreiNeu, mengeResNeu);
             }      
         //Subtraktionsrechnung für die Mengen FREI und RES.
-        } else if (rechnung.equals("subtraktion")) {
+        } else if ("subtraktion".equals(rechnung)) {
             for (int i = 0; i < auftragspositionen.size(); i++) {
                 //ArtikelID und Menge des Artikels der Positionen holen
                 artikelID = auftragspositionen.get(i).getArtikelID();
@@ -2369,7 +2372,7 @@ public class AuftraegeController implements Initializable {
         String mengeZulaufAlt;
         String mengeZulaufNeu;       
         
-        if(rechnung.equals("addition")) {
+        if ("addition".equals(rechnung)) {
             for (int i = 0; i < auftragspositionen.size(); i++) {
                 //ArtikelID und Menge des Artikels der Positionen holen
                 artikelID = auftragspositionen.get(i).getArtikelID();
@@ -2385,7 +2388,7 @@ public class AuftraegeController implements Initializable {
                 artd.setzeMengeZulauf(artikelID, mengeZulaufNeu);
             }
         
-        } else if (rechnung.equals("subtraktion")) {
+        } else if ("subtraktion".equals(rechnung)) {
             for (int i = 0; i < auftragspositionen.size(); i++) {            
                 //ArtikelID und Menge des Artikels der Positionen holen
                 artikelID = auftragspositionen.get(i).getArtikelID();
@@ -2476,7 +2479,7 @@ public class AuftraegeController implements Initializable {
         kreditlimit = gpd.gibKreditlimit(gpID);
         
         //Additionsrechnung für das Kreditlimit.
-        if (rechnung.equals("addition")) {         
+        if ("addition".equals(rechnung)) {         
             //Altes Kreditlimit mit neuem in DB verrechnen
             double kreditlimitDouble =  Double.parseDouble(kreditlimit);
             double auftragswertDouble = Double.parseDouble(auftragswert);
@@ -2491,7 +2494,7 @@ public class AuftraegeController implements Initializable {
             gpd.setzeKreditlmit(kreditlimitNeu, gpID);
 
         //Subtraktionsrechnung für die Mengen FREI und RES.
-        } else if (rechnung.equals("subtraktion")) {
+        } else if ("subtraktion".equals(rechnung)) {
             //Altes Kreditlimit mit neuem in DB verrechnen
             double kreditlimitDouble =  Double.parseDouble(kreditlimit);
             double auftragswertDouble = Double.parseDouble(auftragswert);
@@ -2767,10 +2770,10 @@ public class AuftraegeController implements Initializable {
     /**
      * Zeigt die Zahlungskondtionen beim Anlegen eines Auftrags.
      * @throws java.sql.SQLException SQLFehler
-     * @throws java.text.ParseException
+     * @throws java.text.ParseException ParceException
      */
     @FXML
-    public void zeigeZahlungskonditionen() throws SQLException, ParseException {       
+    public void zeigeZahlungskonditionen() throws SQLException, ParseException {
         Meldung meldung = new Meldung();
         String auftragsart = this.cbAuftragsart.getValue();
         //Exception
@@ -2778,12 +2781,13 @@ public class AuftraegeController implements Initializable {
         this.tfZahlungskondID.setText(array[0]);
         int zeit = Integer.parseInt(array[1]);    
         
-        if (auftragsart.equals("Sofortauftrag")) {
+        if ("Sofortauftrag".equals(auftragsart)) {
             this.tfLieferdatum.setText(
-            addiereDatum(this.tfErfDatum.getText(), zeit));
+                addiereDatum(this.tfErfDatum.getText(), zeit));
         
-        } else if (auftragsart.equals("Terminauftrag")){
-            String addiertesDatum = addiereDatum(this.tfErfDatum.getText(), zeit);
+        } else if ("Terminauftrag".equals(auftragsart)) {
+            String addiertesDatum 
+                = addiereDatum(this.tfErfDatum.getText(), zeit);
             String date = meldung.dialogDatepickerLieferdatum(addiertesDatum);
             this.tfLieferdatum.setText(date);
         }       
@@ -2839,14 +2843,14 @@ public class AuftraegeController implements Initializable {
     /*------------------------------------------------------------------------*/
     /* Datum         Name    Was
     /* 17.09.2017    GET     Methode erstellt.
-    /*------------------------------------------------------------------------*/    
+    /*------------------------------------------------------------------------*/
     /**
      * Addiert zu einem eingegebenen Datum eine eingegebene Lieferzeit.
      * @param datum Übergebenes Datum
      * @param lieferzeit Übergebene Lieferzeit
      * @return Addiertes Datum
      */
-    public String addiereDatum(String datum, int lieferzeit){   
+    public String addiereDatum(String datum, int lieferzeit) {   
         DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
         String neuesDatum = "";
         StringTokenizer st = new StringTokenizer(datum, ".", false);

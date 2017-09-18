@@ -754,7 +754,8 @@ public class SucheDAO extends DataAccess {
             if ("Konditionen-ID".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
-                    + " WHERE LOWER(" + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
+                    + " WHERE LOWER(" 
+                    + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(0) 
                     + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
                     + " LIKE 'N'";
@@ -775,7 +776,8 @@ public class SucheDAO extends DataAccess {
             } else if ("Auftragsart".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
-                    + " WHERE LOWER(" + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(1) 
+                    + " WHERE LOWER(" 
+                    + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(1) 
                     + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
                     + " LIKE 'N'";
@@ -796,7 +798,8 @@ public class SucheDAO extends DataAccess {
             } else if ("LieferzeitSOFORT".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
-                    + " WHERE LOWER(" + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(2) 
+                    + " WHERE LOWER(" 
+                    + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(2) 
                     + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
                     + " LIKE 'N'";
@@ -817,7 +820,8 @@ public class SucheDAO extends DataAccess {
             } else if ("SperrzeitWUNSCH".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
-                    + " WHERE LOWER(" + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(3) 
+                    + " WHERE LOWER(" 
+                    + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(3) 
                     + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
                     + " LIKE 'N'";
@@ -838,7 +842,8 @@ public class SucheDAO extends DataAccess {
             } else if ("Skontozeit 1".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
-                    + " WHERE LOWER(" + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(4) 
+                    + " WHERE LOWER(" 
+                    + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(4) 
                     + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
                     + " LIKE 'N'";
@@ -859,7 +864,8 @@ public class SucheDAO extends DataAccess {
             } else if ("Skonto 1".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
-                    + " WHERE LOWER(" + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(5) 
+                    + " WHERE LOWER(" 
+                    + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(5) 
                     + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
                     + " LIKE 'N'";
@@ -880,7 +886,8 @@ public class SucheDAO extends DataAccess {
             } else if ("Skontozeit 2".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
-                    + " WHERE LOWER(" + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(6) 
+                    + " WHERE LOWER(" 
+                    + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(6) 
                     + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
                     + " LIKE 'N'";
@@ -901,7 +908,8 @@ public class SucheDAO extends DataAccess {
             } else if ("Skonto 2".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
-                    + " WHERE LOWER(" + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(7) 
+                    + " WHERE LOWER(" 
+                    + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(7) 
                     + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
                     + " LIKE 'N'";
@@ -922,7 +930,8 @@ public class SucheDAO extends DataAccess {
             } else if ("Mahnzeit 1".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
-                    + " WHERE LOWER(" + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(8) 
+                    + " WHERE LOWER(" 
+                    + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(8) 
                     + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
                     + " LIKE 'N'";
@@ -943,7 +952,8 @@ public class SucheDAO extends DataAccess {
             } else if ("Mahnzeit 2".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
-                    + " WHERE LOWER(" + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(9) 
+                    + " WHERE LOWER(" 
+                    + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(9) 
                     + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
                     + " LIKE 'N'";
@@ -964,7 +974,8 @@ public class SucheDAO extends DataAccess {
             } else if ("Mahnzeit 3".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabZahlungskonditionen() 
-                    + " WHERE LOWER(" + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(10)
+                    + " WHERE LOWER(" 
+                    + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(10)
                     + ") LIKE LOWER('" + neuerSuchbegriff + "') AND " 
                     + attribute.get(TAB_ZAHLUNGSKONDITIONEN).get(11) 
                     + " LIKE 'N'";
