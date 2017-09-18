@@ -303,7 +303,7 @@ public class AuftragskopfDAO extends DataAccess {
 
             stmt = con.prepareStatement(query);
             stmt.setString(1, auftragskopfID);
-            stmt.setString(1, geschaeftspartnerID);
+            stmt.setString(2, geschaeftspartnerID);
             stmt.setString(3, auftragsText);
             stmt.setString(4, erfassungsDatum);
             stmt.setString(5, lieferDatum);
