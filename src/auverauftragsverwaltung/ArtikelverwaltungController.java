@@ -627,6 +627,7 @@ public class ArtikelverwaltungController implements Initializable {
         this.btAnlegen.setDisable(true);
         this.btLoeschen.setDisable(true);
         this.btAbbrechen.setDisable(false);
+        this.tvArtikel.setMouseTransparent(true);
     }
 
     
@@ -675,7 +676,8 @@ public class ArtikelverwaltungController implements Initializable {
                 this.btAnlegen.setDisable(false);            
                 this.btBearbeiten.setDisable(true);
                 this.btLoeschen.setDisable(true);
-                this.btAbbrechen.setDisable(true);         
+                this.btAbbrechen.setDisable(true);
+                this.tvArtikel.setMouseTransparent(false);
             }      
         }
     }

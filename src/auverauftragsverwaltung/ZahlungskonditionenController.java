@@ -657,6 +657,7 @@ public class ZahlungskonditionenController implements Initializable {
         this.loeschenBT.setDisable(true);   
         this.bearbeitenBT.setDisable(true);
         this.abbrechenBT.setDisable(false);
+        this.zahlungskonditionenTV.setMouseTransparent(true);
     }
 
     
@@ -710,7 +711,7 @@ public class ZahlungskonditionenController implements Initializable {
                 this.anlegenBT.setDisable(false);
                 this.loeschenBT.setDisable(true);
                 this.abbrechenBT.setDisable(true);
-
+                this.zahlungskonditionenTV.setMouseTransparent(false);
                 refreshTable();
             }    
         }

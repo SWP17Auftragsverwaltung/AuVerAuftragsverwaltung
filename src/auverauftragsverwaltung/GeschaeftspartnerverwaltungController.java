@@ -680,6 +680,8 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
             this.anlegenBT.setDisable(true);
             this.loeschenBT.setDisable(true);
             this.abbrechenBT.setDisable(false);
+            this.gpTable.setMouseTransparent(true);
+            
         }
     }
 
@@ -730,6 +732,7 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
                 this.loeschenBT.setDisable(true);    
                 this.bearbeitenBT.setDisable(true);
                 this.abbrechenBT.setDisable(true);
+                this.gpTable.setMouseTransparent(false);
             }
         }
     }

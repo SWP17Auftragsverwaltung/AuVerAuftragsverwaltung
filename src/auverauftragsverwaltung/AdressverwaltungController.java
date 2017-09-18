@@ -679,6 +679,7 @@ public class AdressverwaltungController implements Initializable {
         this.abbrechenBT.setDisable(false);
         this.bearbeitenBT.setDisable(true);
         this.tfDatum.setDisable(true);
+        this.adresseTV.setMouseTransparent(true);
     }
 
     
@@ -730,6 +731,8 @@ public class AdressverwaltungController implements Initializable {
                 this.abbrechenBT.setDisable(true);
                 this.bearbeitenBT.setDisable(true);               
                 this.anlegenBT.requestFocus();
+                this.adresseTV.setMouseTransparent(false);
+                
             }
         }
     }
