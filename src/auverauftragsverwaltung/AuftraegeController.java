@@ -960,6 +960,7 @@ public class AuftraegeController implements Initializable {
         this.btLoeschen.setDisable(true);
         this.btAbbrechen.setDisable(false);
         this.btAuftragspositionen.setDisable(true);
+        this.tfErfDatum.setDisable(false);
         
         AuftragskopfDAO akd = new AuftragskopfDAO();
         tfAuftragskopf.setText(akd.generiereID());
@@ -1721,6 +1722,8 @@ public class AuftraegeController implements Initializable {
                     this.paneAuftragspositionen.setVisible(true);
                     this.paneAuftragsposition.setVisible(true);         
                     this.btAnlegenAPD.setDisable(false);
+                    this.btAnlegenAPD.setVisible(true);
+                    this.btHinzufuegenAPD.setVisible(false);
                     this.btSpeichernAPD.setVisible(false);
                     this.btBearbeitenAPD.setVisible(true);
                     this.btBearbeitenAPD.setDisable(true);
@@ -1732,8 +1735,9 @@ public class AuftraegeController implements Initializable {
 
                 } else {
                     meldung.schließeFenster();
-                }
+                }               
             }
+            this.btAnlegenAPD.requestFocus();
         }
     }    
 
@@ -2027,7 +2031,7 @@ public class AuftraegeController implements Initializable {
         this.btAuftragskonditionen.setDisable(true);
         this.auftragskopfTP.setText("Auftragskopf (Bearbeitungsmodus)");
         this.btAbbrechen.setDisable(false);
-        this.tfErfDatum.setEditable(false);
+        this.tfErfDatum.setDisable(true);
         if (this.cbAuftragsstatus.getValue().equals("Erfasst")) {
             this.cbAuftragsstatus.setItems(
                 komboBoxFilter(0, 2, auftragsstatus));
