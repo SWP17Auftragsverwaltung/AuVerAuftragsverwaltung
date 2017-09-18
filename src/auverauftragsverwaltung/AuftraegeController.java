@@ -1882,6 +1882,8 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     public void zeigeAuftragspositionenZuAuftrag() throws SQLException {
+        
+        clearAuftragsPosTextFields();
         AuftragskopfDAO akd = new AuftragskopfDAO();
         //Daten aus dem Auftragskopf im oberen Abteil anzeigen.
         tfErfDatumPOS.setText(tfErfDatum.getText());    
@@ -2805,21 +2807,33 @@ public class AuftraegeController implements Initializable {
     public void zeigeZahlungskonditionen() throws SQLException, ParseException {
         Meldung meldung = new Meldung();
         String auftragsart = this.cbAuftragsart.getValue();
-        //Exception
-        String[] array = meldung.dialogAuftragskondition(auftragsart);
-        this.tfZahlungskondID.setText(array[0]);
-        int zeit = Integer.parseInt(array[1]);    
         
-        if ("Sofortauftrag".equals(auftragsart)) {
-            this.tfLieferdatum.setText(
-                addiereDatum(this.tfErfDatum.getText(), zeit));
-        
-        } else if ("Terminauftrag".equals(auftragsart)) {
-            String addiertesDatum 
-                = addiereDatum(this.tfErfDatum.getText(), zeit);
-            String date = meldung.dialogDatepickerLieferdatum(addiertesDatum);
-            this.tfLieferdatum.setText(date);
-        }       
+        try {
+            //Exception
+            String[] array = meldung.dialogAuftragskondition(auftragsart);
+            this.tfZahlungskondID.setText(array[0]);
+            int zeit = Integer.parseInt(array[1]);    
+
+            if ("Sofortauftrag".equals(auftragsart)) {
+                this.tfLieferdatum.setText(
+                    addiereDatum(this.tfErfDatum.getText(), zeit));
+
+            } else if ("Terminauftrag".equals(auftragsart)) {
+                String addiertesDatum 
+                    = addiereDatum(this.tfErfDatum.getText(), zeit);
+                String date = meldung.dialogDatepickerLieferdatum(
+                        addiertesDatum);
+                this.tfLieferdatum.setText(date);
+            } 
+        } catch (NullPointerException e) {
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Keine Zahlugnskonditionen!");
+            alert.setContentText("Es wurden keine Zahlungskonditionen "
+                    + "gewählt!");
+            alert.showAndWait();
+
+        }
     }
     
     
