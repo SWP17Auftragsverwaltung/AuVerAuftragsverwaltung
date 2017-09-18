@@ -635,13 +635,12 @@ public class AdressverwaltungController implements Initializable {
             if (meldung.antwort()) {
                 AdresseDAO ad = new AdresseDAO();
                 ad.setzeLKZ(b);
-
                 refreshTable();
 
             } else {
-                meldung.schließeFenster();
-                clearTextFields();
+                meldung.schließeFenster();               
             }
+            clearTextFields();
         }
     }
 

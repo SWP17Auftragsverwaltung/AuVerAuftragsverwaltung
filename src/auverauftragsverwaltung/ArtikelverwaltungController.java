@@ -594,12 +594,12 @@ public class ArtikelverwaltungController implements Initializable {
             if (meldung.antwort()) {
                 ArtikelDAO ar = new ArtikelDAO();
                 ar.setzeLKZ(b);
-
                 refreshTable();
+            
             } else {
                 meldung.schließeFenster();
-                clearTextFields();
             }
+            clearTextFields();
         }
     }
 

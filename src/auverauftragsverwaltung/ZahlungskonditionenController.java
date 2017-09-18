@@ -623,12 +623,12 @@ public class ZahlungskonditionenController implements Initializable {
             if (meldung.antwort()) {
                 ZahlungskonditionenDAO zkDAO = new ZahlungskonditionenDAO();
                 zkDAO.setzeLKZ(zk);
-
                 refreshTable();
+            
             } else {
-                meldung.schließeFenster();
-                clearTextFields();
+                meldung.schließeFenster();                
             }
+            clearTextFields();
         }
     }
 

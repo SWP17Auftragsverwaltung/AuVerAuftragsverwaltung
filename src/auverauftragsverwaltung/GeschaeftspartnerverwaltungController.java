@@ -34,8 +34,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
@@ -645,12 +643,12 @@ public class GeschaeftspartnerverwaltungController implements Initializable {
             if (meldung.antwort()) {
                 GeschaeftspartnerDAO gp = new GeschaeftspartnerDAO();
                 gp.setzeLKZ(g);
-
                 refreshTable();
+            
             } else {
                 meldung.schließeFenster();
-                clearTextFields();
             }
+            clearTextFields();
         }
     }
 
