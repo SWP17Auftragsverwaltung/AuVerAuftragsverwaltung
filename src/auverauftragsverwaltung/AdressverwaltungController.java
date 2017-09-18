@@ -696,7 +696,7 @@ public class AdressverwaltungController implements Initializable {
     @FXML
     public void speichereAenderung() throws SQLException {
         if (validateFields()) {
-            if (validateEmail() && validateDatum() && validateTelefon() 
+            if (validateEmail() && validateTelefon() 
                 && pruefeDatumAufVergangenheit() && validateHausNR()) {
                 String anschriftID = tfAnschriftID.getText();
                 String anrede = cbAnrede.getValue();
@@ -896,7 +896,7 @@ public class AdressverwaltungController implements Initializable {
     private boolean validateTelefon() {
         boolean istValidiert = false;
 
-        Pattern p = Pattern.compile("([0][1-9][0-9]{2,4})([0-9]{3,8})");
+        Pattern p = Pattern.compile("([0][1-9][0-9]{2,4})([0-9]{3,15})");
         Matcher m = p.matcher(this.tfTelefon.getText());
         
         if (m.find() && m.group().equals(tfTelefon.getText())) {
@@ -926,7 +926,7 @@ public class AdressverwaltungController implements Initializable {
     private boolean validateHausNR() {
         boolean istValidiert = false;
 
-        Pattern p = Pattern.compile("([1-9][0-9]{1,5})([a-zA-Z]{1})");
+        Pattern p = Pattern.compile("([1-9][0-9]{0,5})([a-zA-Z]{0,1})");
         Matcher m = p.matcher(this.tfHausNr.getText());
         
         if (m.find() && m.group().equals(this.tfHausNr.getText())) {
@@ -1048,7 +1048,8 @@ public class AdressverwaltungController implements Initializable {
             = Pattern.compile("[0-9][0-9][.][0-9][0-9][.][2-9][0-9][0-9][0-9]");
         Matcher m = p.matcher(tfDatum.getText());
 
-        if (m.find() && m.group().equals(tfDatum.getText())) {         
+        if (m.find() && m.group().equals(tfDatum.getText())) { 
+             
             if (pruefeAufFeiertag()) {
                 String datum = "";
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -1061,9 +1062,17 @@ public class AdressverwaltungController implements Initializable {
                 datum = aktualisiereDatum();                
                 this.tfDatum.setText(datum);
                 
-            } else {            
-                istValidiert = true;
-            }
+            } else if (pruefeAufWochenende()) { 
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setTitle("Information");
+                alert.setHeaderText(
+                    "Achtung: Das heutige Datum fällt auf ein Wochenende!!!");
+                alert.showAndWait();
+            } else { 
+                istValidiert = true; 
+            }     
+
                    
         } else {
 
@@ -1170,9 +1179,19 @@ public class AdressverwaltungController implements Initializable {
         eingegebenesDatum.setTimeZone(TimeZone.getTimeZone("CET"));
         eingegebenesDatum.set(year, month, day);
         eingegebenesDatum.getTime();
-        
-        eingegebenesDatum.add(GregorianCalendar.DATE, 1);
-        
+        if (eingegebenesDatum.get(GregorianCalendar.DAY_OF_WEEK)
+                == GregorianCalendar.SATURDAY) { 
+          
+            eingegebenesDatum.add(GregorianCalendar.DATE, 2);
+
+        } else if (eingegebenesDatum.get(GregorianCalendar.DAY_OF_WEEK)
+                == GregorianCalendar.SUNDAY) {
+           
+            eingegebenesDatum.add(GregorianCalendar.DATE, 1);
+           
+        }else {
+            eingegebenesDatum.add(GregorianCalendar.DATE, 1);
+        }
         neuesDatum = df.format(eingegebenesDatum.getTime());
         return neuesDatum;      
     }
@@ -1221,7 +1240,7 @@ public class AdressverwaltungController implements Initializable {
      * @return True: Falls Datum auf einen Feiertag fällt. False: Wenn nicht.
      */     
     public boolean pruefeAufFeiertag() {      
-        boolean istFeiertag;
+        boolean istFeiertag = false;
         String datum = this.tfDatum.getText();
         StringTokenizer st = new StringTokenizer(datum, ".", false);
         
@@ -1253,6 +1272,70 @@ public class AdressverwaltungController implements Initializable {
         
         return istFeiertag;
     }
+    
+    
+    /*------------------------------------------------------------------------*/
+    /* Datum         Name    Was
+    /* 08.09.2017    GET     Methode erstellt.
+    /* 08.09.2017    GET     Getestet & freigegeben 
+    /*------------------------------------------------------------------------*/
+    /**
+     * Prüft das Datum auf Feiertage.
+     * @return True: Falls Datum auf einen Feiertag fällt. False: Wenn nicht.
+     */     
+    public boolean pruefeAufWochenende() {      
+        boolean istWochenende = false;
+        String datum = this.tfDatum.getText();
+        StringTokenizer st = new StringTokenizer(datum, ".", false);
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        String neuesDatum = "";
+        
+        int year = 0;
+        int month = 0;
+        int day = 0;
+        
+        while (st.hasMoreTokens()) {         
+            String tag = st.nextToken();
+            String monat = st.nextToken();
+            String jahr =  st.nextToken();
+                
+            year = Integer.parseInt(jahr);
+            month = Integer.parseInt(monat);
+            day = Integer.parseInt(tag);          
+        }
+                
+        Calendar kalender = GregorianCalendar.getInstance();
+        kalender.clear();
+        kalender.setTimeZone(TimeZone.getTimeZone("CET"));
+        month = month - 1;
+        kalender.set(year, month, day);
+        kalender.getTime();
+        
+        if (kalender.get(GregorianCalendar.DAY_OF_WEEK)
+                == GregorianCalendar.SATURDAY) {
+            
+            istWochenende = false;
+            
+            kalender.add(GregorianCalendar.DATE, 2);
+            neuesDatum = df.format(kalender.getTime());
+            this.tfDatum.setText(neuesDatum);
+            
+
+        } else if (kalender.get(GregorianCalendar.DAY_OF_WEEK)
+                == GregorianCalendar.SUNDAY) {
+            
+            istWochenende = false;
+            kalender.add(GregorianCalendar.DATE, 1);
+            
+            neuesDatum = df.format(kalender.getTime());
+            this.tfDatum.setText(neuesDatum);
+        
+        }
+//        neuesDatum = df.format(kalender.getTime());
+//        this.tfDatum.setText(neuesDatum);
+        return istWochenende;
+    }
+
 
 
     /*------------------------------------------------------------------------*/
