@@ -212,7 +212,7 @@
                   <TextField fx:id="tfSkonto1" layoutX="157.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
                   <TextField fx:id="tfSkontozeit2" layoutX="274.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
                   <TextField fx:id="tfSkonto2" layoutX="411.0" layoutY="111.0" prefHeight="27.0" prefWidth="91.0" />
-                  <Pane fx:id="paneAuftragskonditionen" layoutX="-25.0" layoutY="119.0" prefHeight="135.0" prefWidth="991.0" />
+                  <Pane fx:id="paneAuftragskonditionen" layoutX="-1.0" layoutY="14.0" prefHeight="135.0" prefWidth="974.0" />
                   <Button fx:id="closeZK" layoutX="907.0" layoutY="166.0" mnemonicParsing="false" onAction="#closeAuftragskonditionen" prefHeight="40.0" prefWidth="100.0" text="Schließen" AnchorPane.rightAnchor="35.0" />
                </children>
             </AnchorPane>
