@@ -1278,14 +1278,12 @@ public class AuftraegeController implements Initializable {
 
                 refreshAuftragspositionTable();
                 refreshAuftragskopfTable();
+                this.btAnlegen.setDefaultButton(false);
               
             //Falls NEIN: Meldung schließen und abbrechen    
             } else {
                 meldung.schließeFenster();            
             }
-            
-            clearAuftragsPosTextFields();
-            clearAuftragskopfTextFields();                                       
         }
     }    
        
