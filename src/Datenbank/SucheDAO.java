@@ -419,7 +419,7 @@ public class SucheDAO extends DataAccess {
             } else if ("Einzelwert".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabArtikel() 
-                    + " WHERE " + attribute.get(TAB_ARTIKEL).get(2) + " LIKE '"
+                    + " WHERE " + attribute.get(TAB_ARTIKEL).get(3) + " LIKE '"
                     + neuerSuchbegriff + "' AND " 
                     + attribute.get(TAB_ARTIKEL).get(10) + " LIKE 'N'";
                 stmt = con.createStatement();
@@ -438,7 +438,7 @@ public class SucheDAO extends DataAccess {
             } else if ("Bestellbeschreibung".equals(suchkriterium)) {
                 String query
                     = "SELECT * FROM ROOT." + ddd.getTabArtikel() 
-                    + " WHERE " + attribute.get(TAB_ARTIKEL).get(3) + " LIKE '"
+                    + " WHERE " + attribute.get(TAB_ARTIKEL).get(2) + " LIKE '"
                     + neuerSuchbegriff + "' AND " 
                     + attribute.get(TAB_ARTIKEL).get(10) + " LIKE 'N'";
                 stmt = con.createStatement();

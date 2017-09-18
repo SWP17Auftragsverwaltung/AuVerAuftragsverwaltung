@@ -655,6 +655,7 @@ public class AuftragspositionDAO extends DataAccess {
     public void setzeAuftragsposLKZ(Auftragsposition ap) throws SQLException {
         PreparedStatement stmt = null;
         String positionsnummer = ap.getPositionsnummer();
+        String auftragskopfID = ap.getAuftragskopfID();
 
         try {
             con.setAutoCommit(false);
@@ -663,11 +664,14 @@ public class AuftragspositionDAO extends DataAccess {
                 = "UPDATE ROOT." + ddd.getTabAuftragsposition()
                 + " SET " + attribute.get(TAB_AUFTRAGSPOSITION).get(5) + " = ?"
                 + " WHERE " + attribute.get(TAB_AUFTRAGSPOSITION).get(1) 
+                + " = ?"
+                + " AND " + attribute.get(TAB_AUFTRAGSPOSITION).get(0)
                 + " = ?";
             
             stmt = con.prepareStatement(query);
             stmt.setString(1, "J");
             stmt.setString(2, positionsnummer);
+            stmt.setString(3, auftragskopfID);
             stmt.executeUpdate();
             con.commit();
 

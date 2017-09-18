@@ -39,9 +39,8 @@
                         <Button fx:id="btAbbrechen" disable="true" layoutX="637.0" layoutY="178.0" mnemonicParsing="false" onAction="#aktionAbbrechen" prefHeight="40.0" prefWidth="100.0" text="Abbrechen" />
                         <Button fx:id="btHinzufuegen" layoutX="311.0" layoutY="178.0" mnemonicParsing="false" onAction="#auftragHinzufuegen" prefHeight="40.0" prefWidth="100.0" text="Hinzufügen" visible="false" />
                         <Button fx:id="btSpeichern" layoutX="420.0" layoutY="178.0" mnemonicParsing="false" onAction="#speichereAenderungAuftragskopf" prefHeight="40.0" prefWidth="100.0" text="Speichern" visible="false" />
-                        <Pane fx:id="paneAuftragskopfStatus" layoutX="14.0" layoutY="13.0" prefHeight="79.0" prefWidth="947.0" visible="false" />
                         <TextField fx:id="tfText" layoutX="118.0" layoutY="38.0" prefHeight="25.0" prefWidth="117.0" />
-                        <Button fx:id="btAuftragskonditionen" layoutX="148.0" layoutY="178.0" mnemonicParsing="false" onAction="#zeigeAuftragskonditionen" prefHeight="40.0" prefWidth="150.0" text="Auftragskonditionen" />
+                        <Button fx:id="btAuftragskonditionen" disable="true" layoutX="148.0" layoutY="178.0" mnemonicParsing="false" onAction="#zeigeAuftragskonditionen" prefHeight="40.0" prefWidth="150.0" text="Auftragskonditionen" />
                         <TextField fx:id="tfZahlungskondID" editable="false" layoutX="520.0" layoutY="37.0" onMouseClicked="#zeigeZahlungskonditionen" prefHeight="25.0" prefWidth="98.0" />
                         <Label layoutX="520.0" layoutY="19.0" text="Zahlungskonditions-ID" />
                         <Pane fx:id="pane" layoutX="14.0" layoutY="13.0" prefHeight="132.0" prefWidth="947.0" />

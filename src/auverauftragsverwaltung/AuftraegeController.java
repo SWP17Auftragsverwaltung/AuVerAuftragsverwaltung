@@ -481,16 +481,17 @@ public class AuftraegeController implements Initializable {
     @FXML
     private Button btSpeichernAPD;   
     /**
-     * Pane, zum Deaktivieren der Eingabefelder beim Status "Freigegeben".
-     */
-    @FXML
-    private Pane paneAuftragskopfStatus;  
-    /**
      * ObseravleList für die Kombobox "Status".
      */
-    private ObservableList<String> allOptions 
+    private ObservableList<String> auftragsstatus 
         = FXCollections.observableArrayList(
         "Erfasst", "Freigegeben", "Abgeschlossen");
+    /**
+     * ObseravleList für die Kombobox "Auftragsart".
+     */
+    private ObservableList<String> auftragsarten 
+        = FXCollections.observableArrayList(
+        "Barauftrag", "Sofortauftrag", "Terminauftrag", "Bestellauftrag");
     /**
      * TextField für den MwSt in den AuftragsPositionDatensätzen.
      */
@@ -699,8 +700,8 @@ public class AuftraegeController implements Initializable {
         this.btAbbrechen.setDisable(true);
         this.btAuftragskonditionen.setDisable(true);
         this.zahlungskonditionendatensatzPane.setVisible(false);
-        
-        
+        this.tfAbschlussdatum.setDisable(true);
+              
         try {   
             setTableContent();          
         
@@ -947,8 +948,9 @@ public class AuftraegeController implements Initializable {
     public void auftragAnlegen() throws SQLException {
         clearAuftragskopfTextFields();
         this.tfErfDatum.setText(gibDatum());
-        this.cbAuftragsstatus.setItems(komboBoxFilter(0, 1));
+        this.cbAuftragsstatus.setItems(komboBoxFilter(0, 1, auftragsstatus));
         this.cbAuftragsstatus.setValue("Erfasst");
+        this.cbAuftragsart.setItems(komboBoxFilter(0, 4, auftragsarten));
         
         this.pane.setVisible(false);
         this.auftragskopfTP.setText("Auftragskopf (Anlegemodus)");    
@@ -958,12 +960,13 @@ public class AuftraegeController implements Initializable {
         this.btLoeschen.setDisable(true);
         this.btAbbrechen.setDisable(false);
         this.btAuftragspositionen.setDisable(true);
-
+        
         AuftragskopfDAO akd = new AuftragskopfDAO();
         tfAuftragskopf.setText(akd.generiereID());
         
         this.auftraegeTP.setVisible(false);
         this.paneGP.setVisible(true);
+        this.tvGPAuswahl.setMouseTransparent(true);
         
         setTableContentGP();
     }    
@@ -1093,7 +1096,7 @@ public class AuftraegeController implements Initializable {
         ObservableList<Auftragsposition> auftragspositionen
             = FXCollections.observableArrayList(
                     apd.gibAuftragspositionenZuAuftrag(auftragID));
-        tvAuftragsposition.setItems(auftragspositionen);
+        this.tvAuftragsposition.setItems(auftragspositionen);
     }    
   
     
@@ -1161,7 +1164,8 @@ public class AuftraegeController implements Initializable {
             meldung.loeschenAbfragen();
 
             //Falls JA und LETZTE position
-            if (meldung.antwort() && positionen.size() <= 1) {
+            if (meldung.antwort() && positionen.size() <= 1
+                || positionen.isEmpty()) {
                 //Frage, ob Auftrag mit letzter Position gelöscht werden soll
                 //Hinweis, dass letzte Position gelöscht wird
                 Meldung meldungLetztePos = new Meldung();
@@ -1169,9 +1173,11 @@ public class AuftraegeController implements Initializable {
                 
                 //Falls JA: Letzte Psoition und Kopf löschen
                 if (meldungLetztePos.antwort()) {
-                    String posNR = positionen.get(0).getPositionsnummer();
+                    if (!positionen.isEmpty()) {
+                        String posNR = positionen.get(0).getPositionsnummer();
+                        apd.setzeAuftragsposLkzAuftrag(posNR);
+                    }                   
                     akd.setzeLkzLetztePos(auftragskopfID);
-                    apd.setzeAuftragsposLkzAuftrag(posNR);
                     
                     refreshAuftragspositionTable();
                     refreshAuftragskopfTable();
@@ -1327,7 +1333,9 @@ public class AuftraegeController implements Initializable {
         Object auftragskopf 
                 = tvAuftragskopf.getSelectionModel().getSelectedItem();
         Auftragskopf a = (Auftragskopf) auftragskopf;
-
+        this.btAuftragskonditionen.setDisable(false);
+        this.btAnlegen.setDisable(false);
+        
         if (a != null) {
             String auftragskopfID = a.getAuftragskopfID();
             this.tfAuftragskopf.setText(auftragskopfID);
@@ -1336,9 +1344,6 @@ public class AuftraegeController implements Initializable {
             this.tfErfDatum.setText(a.getErfassungsdatum());
             this.tfLieferdatum.setText(a.getLieferdatum());
             this.tfAbschlussdatum.setText(a.getAbschlussDatum());
-            this.btAnlegen.setVisible(true);
-            this.btAnlegen.setDisable(false);
-            this.btAuftragskonditionen.setDisable(false);
             switch (a.getStatus()) {
                 case "E":
                     this.cbAuftragsstatus.setValue("Erfasst");
@@ -1352,9 +1357,9 @@ public class AuftraegeController implements Initializable {
                 default:
                     break;
             }
-            this.cbAuftragsart.setValue(a.getAuftragsart());
+            this.cbAuftragsart.setValue(a.getAuftragsart());          
             if (a.getAuftragsart().equals("Barauftrag")) {
-                this.tfZahlungskondID.setText("");
+                this.tfZahlungskondID.clear();
                 this.btAuftragskonditionen.setDisable(true);
             
             } else {
@@ -1643,6 +1648,7 @@ public class AuftraegeController implements Initializable {
             this.auftraegeTP.setVisible(true);
             this.btAbbrechen.setDisable(true);
             this.btAuftragspositionen.setDisable(false);
+            this.btAnlegen.requestFocus();
 
             //Auftragskopftabelle aktualisieren
             refreshAuftragskopfTable();
@@ -1680,6 +1686,7 @@ public class AuftraegeController implements Initializable {
                     this.btAbbrechen.setDisable(true);                    
                     this.paneGP.setVisible(false);
                     this.btAnlegen.requestFocus();
+                    this.btAuftragskonditionen.setDisable(true);
                                     
                     clearAuftragskopfTextFields();
 
@@ -1981,13 +1988,15 @@ public class AuftraegeController implements Initializable {
      * Erstellt einen Filter für die Kombobox "Status".
      * @param start Filter Start
      * @param end Filter Ende
+     * @param optionen Oberservable List die gefiltert wird
      * @return Gefilterte Items für die Kombobox
      */   
-    private ObservableList<String> komboBoxFilter(int start, int end) {
+    private ObservableList<String> komboBoxFilter(
+        int start, int end, ObservableList<String> optionen) {
         final ObservableList<String> anzuzeigendeItems 
             = FXCollections.<String>observableArrayList();
     
-        anzuzeigendeItems.addAll(allOptions.subList(start, end));
+        anzuzeigendeItems.addAll(optionen.subList(start, end));
         return anzuzeigendeItems;
     }
    
@@ -2009,17 +2018,29 @@ public class AuftraegeController implements Initializable {
         this.btAnlegen.setDisable(true);
         this.btLoeschen.setDisable(true);
         this.btAuftragspositionen.setDisable(true);
+        this.btAuftragskonditionen.setDisable(true);
         this.auftragskopfTP.setText("Auftragskopf (Bearbeitungsmodus)");
         this.btAbbrechen.setDisable(false);
         this.tfErfDatum.setEditable(false);
         tvAuftragskopf.setMouseTransparent(true);
+        String auftragsart = this.cbAuftragsart.getValue();
 
         if (this.cbAuftragsstatus.getValue().equals("Erfasst")) {
-            this.cbAuftragsstatus.setItems(komboBoxFilter(0, 2));
+            this.cbAuftragsstatus.setItems(
+                komboBoxFilter(0, 2, auftragsstatus));
     
         } else if (this.cbAuftragsstatus.getValue().equals("Freigegeben")) {
-            this.cbAuftragsstatus.setItems(komboBoxFilter(0, 3));
+            this.cbAuftragsstatus.setItems(
+                komboBoxFilter(0, 3, auftragsstatus));
         }  
+        
+        if ("Bestellauftrag".equals(auftragsart)) {        
+            this.cbAuftragsart.setItems(komboBoxFilter(3, 4, auftragsarten));
+        
+        } else {
+            this.cbAuftragsart.setItems(komboBoxFilter(0, 3, auftragsarten));
+        }
+        
     }    
  
     
@@ -2136,122 +2157,125 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     public void speichereAenderungAuftragskopf() throws SQLException { 
-        AuftragskopfDAO akd = new AuftragskopfDAO();
-        AuftragskonditionsDAO akond = new AuftragskonditionsDAO();
-        String auftragskopfID = tfAuftragskopf.getText();
-        String auftragstext = tfText.getText();
-        String partnerID = tfPartnerID.getText();
-        String erfassungsdatum = tfErfDatum.getText();
-        String lieferdatum = this.tfLieferdatum.getText();
-        String abschlussdatum = tfAbschlussdatum.getText();
-        String auftragswert = tfAuftragswert.getText();
-        String statusNeu = cbAuftragsstatus.getValue();
-        String statusAlt = akd.gibAuftragsstatus(auftragskopfID);
-        switch (statusNeu) {
-            case "Erfasst":
-                statusNeu = "E";
-                break;
-            case "Freigegeben":
-                statusNeu = "F";
-                break;
-            case "Abgeschlossen":
-                statusNeu = "A";
-                break;
-            default:
-                break;
-        }
-        String art = cbAuftragsart.getValue();
-        String lkz = "N";
-        
-        akond.aendereAuftragskondition(
-            auftragskopfID, this.tfZahlungskondID.getText());
-        String partnerTyp = akd.gibGeschaeftspartnerTyp(partnerID);
-        boolean istVerfuegbar; 
-        boolean hatKredit;
-        String rechnung;   
-        
-        if ("K".equals(partnerTyp)) {
-            //Falls Status von E nach F gewechselt wird, wird geprüft, ob der 
-            //freie Bestand ausreicht. Falls JA: wird FREI und RES berechnet.
-            if ("E".equals(statusAlt) && "F".equals(statusNeu)) {
-                istVerfuegbar = bestandVerfuegbar(auftragskopfID);
-                hatKredit = kreditVerfuegbar(auftragskopfID, partnerID);
-            
-                if (istVerfuegbar && hatKredit) {
-                    rechnung = "addition";
+        if (validateFields()) {
+            AuftragskopfDAO akd = new AuftragskopfDAO();
+            AuftragskonditionsDAO akond = new AuftragskonditionsDAO();
+            String auftragskopfID = tfAuftragskopf.getText();
+            String auftragstext = tfText.getText();
+            String partnerID = tfPartnerID.getText();
+            String erfassungsdatum = tfErfDatum.getText();
+            String lieferdatum = this.tfLieferdatum.getText();
+            String abschlussdatum = tfAbschlussdatum.getText();
+            String auftragswert = tfAuftragswert.getText();
+            String statusNeu = cbAuftragsstatus.getValue();
+            String statusAlt = akd.gibAuftragsstatus(auftragskopfID);
+            switch (statusNeu) {
+                case "Erfasst":
+                    statusNeu = "E";
+                    break;
+                case "Freigegeben":
+                    statusNeu = "F";
+                    break;
+                case "Abgeschlossen":
+                    statusNeu = "A";
+                    break;
+                default:
+                    break;
+            }
+            String art = cbAuftragsart.getValue();
+            String lkz = "N";
+
+            akond.aendereAuftragskondition(
+                auftragskopfID, this.tfZahlungskondID.getText());
+            String partnerTyp = akd.gibGeschaeftspartnerTyp(partnerID);
+            boolean istVerfuegbar; 
+            boolean hatKredit;
+            String rechnung;   
+
+            if ("K".equals(partnerTyp)) {
+                //Falls Status von E nach F gewechselt wird, wird geprüft,ob der
+                //freie Bestand ausreicht.Falls JA: wird FREI und RES berechnet.
+                if ("E".equals(statusAlt) && "F".equals(statusNeu)) {
+                    istVerfuegbar = bestandVerfuegbar(auftragskopfID);
+                    hatKredit = kreditVerfuegbar(auftragskopfID, partnerID);
+
+                    if (istVerfuegbar && hatKredit) {
+                        rechnung = "addition";
+                        berechneMengeFreiRes(auftragskopfID, rechnung);
+                        berechneKreditlimit(auftragswert, partnerID, rechnung);
+
+                    } else {
+                        //Buttons aktivieren / deaktivieren
+                        this.pane.setVisible(true);
+                        this.btAendern.setVisible(true);
+                        this.btAendern.setDisable(true);
+                        this.btSpeichern.setVisible(false);
+                        this.btAnlegen.setDisable(false);
+                        this.btAbbrechen.setDisable(true);
+                        tvAuftragskopf.setMouseTransparent(false);  
+                        tvAuftragskopf.getSelectionModel().select(-1);
+                        clearAuftragskopfTextFields();
+                        refreshAuftragskopfTable();
+
+                        return;
+                    }        
+                //Falls Status von F zurück nach E gewechselt wird, werden die 
+                //Mengen von FREI und RES wieder zurückgerechnet.
+                } else if ("F".equals(statusAlt) && "E".equals(statusNeu)) {
+                    rechnung = "subtraktion";
                     berechneMengeFreiRes(auftragskopfID, rechnung);
                     berechneKreditlimit(auftragswert, partnerID, rechnung);
-            
-                } else {
-                    //Buttons aktivieren / deaktivieren
-                    this.pane.setVisible(true);
-                    this.btAendern.setVisible(true);
-                    this.btAendern.setDisable(true);
-                    this.btSpeichern.setVisible(false);
-                    this.btAnlegen.setDisable(false);
-                    this.btAbbrechen.setDisable(true);
-                    tvAuftragskopf.setMouseTransparent(false);  
-                    tvAuftragskopf.getSelectionModel().select(-1);
-                    clearAuftragskopfTextFields();
-                    refreshAuftragskopfTable();
-                
-                    return;
-                }        
-            //Falls Status von F zurück nach E gewechselt wird, werden die 
-            //Mengen von FREI und RES wieder zurückgerechnet.
-            } else if ("F".equals(statusAlt) && "E".equals(statusNeu)) {
-                rechnung = "subtraktion";
-                berechneMengeFreiRes(auftragskopfID, rechnung);
-                berechneKreditlimit(auftragswert, partnerID, rechnung);
-          
-            //Falls Status von F nach A gewechsetl wird, werden die Mengen RES
-            //und VER berechnet.
-            } else if ("F".equals(statusAlt) && "A".equals(statusNeu)) {
-                berechneMengeResVer(auftragskopfID);
-                abschlussdatum = gibDatum();
-            }
-        
-        } else if ("L".equals(partnerTyp)) {
-            //Falls Status von E nach F gewechselt wird, wird geprüft, ob der 
-            //freie Bestand ausreicht. Falls JA: wird FREI und RES berechnet.
-            if ("E".equals(statusAlt) && "F".equals(statusNeu)) {
-                rechnung = "addition";
-                berechneMengeZulauf(auftragskopfID, rechnung);
-                
-            //Falls Status von F zurück nach E gewechselt wird, werden die 
-            //Mengen von FREI und RES wieder zurückgerechnet.
-            } else if ("F".equals(statusAlt) && "E".equals(statusNeu)) {
-                rechnung = "subtraktion";
-                berechneMengeZulauf(auftragskopfID, rechnung);             
-          
-            //Falls Status von F nach A gewechsetl wird, werden die Mengen RES
-            //und VER berechnet.
-            } else if ("F".equals(statusAlt) && "A".equals(statusNeu)) {
-                berechneMengeZulaufFrei(auftragskopfID);
-                abschlussdatum = gibDatum();  
-            }
-        }      
-        
-        Auftragskopf auftrag = new Auftragskopf(auftragskopfID, partnerID, 
-            auftragstext, erfassungsdatum, lieferdatum, abschlussdatum, 
-            statusNeu, art, auftragswert, lkz);
 
-        akd.aendereAuftragskopf(auftrag);
-        
-        //Buttons aktivieren / deaktivieren
-        this.pane.setVisible(true);
-        this.btAendern.setVisible(true);
-        this.btAendern.setDisable(true);
-        this.btSpeichern.setVisible(false);
-        this.btAnlegen.setDisable(false);
-        this.btAbbrechen.setDisable(true);
-        this.auftragskopfTP.setText("Auftragskopf");
-        this.btAnlegen.requestFocus();
-        tvAuftragskopf.setMouseTransparent(false);
-        
-        tvAuftragskopf.getSelectionModel().select(-1);
-        clearAuftragskopfTextFields();
-        refreshAuftragskopfTable();
+                //Falls Status von F nach A gewechsetl wird, werden die Mengen 
+                //RES und VER berechnet.
+                } else if ("F".equals(statusAlt) && "A".equals(statusNeu)) {
+                    berechneMengeResVer(auftragskopfID);
+                    abschlussdatum = gibDatum();
+                }
+
+            } else if ("L".equals(partnerTyp)) {
+                //Falls Status von E nach F gewechselt wird, wird geprüft, ob 
+                //der freie Bestand ausreicht. Falls JA: wird FREI und RES 
+                //berechnet.
+                if ("E".equals(statusAlt) && "F".equals(statusNeu)) {
+                    rechnung = "addition";
+                    berechneMengeZulauf(auftragskopfID, rechnung);
+
+                //Falls Status von F zurück nach E gewechselt wird, werden die 
+                //Mengen von FREI und RES wieder zurückgerechnet.
+                } else if ("F".equals(statusAlt) && "E".equals(statusNeu)) {
+                    rechnung = "subtraktion";
+                    berechneMengeZulauf(auftragskopfID, rechnung);             
+
+                //Falls Status von F nach A gewechsetl wird, werden die Mengen 
+                //RES und VER berechnet.
+                } else if ("F".equals(statusAlt) && "A".equals(statusNeu)) {
+                    berechneMengeZulaufFrei(auftragskopfID);
+                    abschlussdatum = gibDatum();  
+                }
+            }      
+
+            Auftragskopf auftrag = new Auftragskopf(auftragskopfID, partnerID, 
+                auftragstext, erfassungsdatum, lieferdatum, abschlussdatum, 
+                statusNeu, art, auftragswert, lkz);
+
+            akd.aendereAuftragskopf(auftrag);
+
+            //Buttons aktivieren / deaktivieren
+            this.pane.setVisible(true);
+            this.btAendern.setVisible(true);
+            this.btAendern.setDisable(true);
+            this.btSpeichern.setVisible(false);
+            this.btAnlegen.setDisable(false);
+            this.btAbbrechen.setDisable(true);
+            this.auftragskopfTP.setText("Auftragskopf");
+            this.btAnlegen.requestFocus();
+            tvAuftragskopf.setMouseTransparent(false);
+
+            tvAuftragskopf.getSelectionModel().select(-1);
+            clearAuftragskopfTextFields();
+            refreshAuftragskopfTable();
+        }
     }
    
     
@@ -2695,7 +2719,7 @@ public class AuftraegeController implements Initializable {
         boolean istValidiert = true;
         Alert alert = new Alert(Alert.AlertType.WARNING);       
         alert.setTitle("Fehlende Eingaben");
-
+      
         if (this.cbAuftragsart.getValue() == null) {
             alert.setContentText("Bitte wählen Sie die Auftragsart!");
             alert.showAndWait();
@@ -2712,7 +2736,8 @@ public class AuftraegeController implements Initializable {
             alert.showAndWait();
             istValidiert = false;
             
-        } else if (this.tfZahlungskondID.getText().isEmpty()) {
+        } else if (this.cbAuftragsart.getValue() != "Barauftrag" 
+            && this.tfZahlungskondID.getText().isEmpty()) {
             alert.setContentText("Bitte geben sie die ZahlungskondiID ein!");
             alert.showAndWait();
             istValidiert = false;
@@ -2740,23 +2765,28 @@ public class AuftraegeController implements Initializable {
      */
     @FXML
     public void zeigeLieferanten() throws SQLException {            
-        if (this.cbAuftragsart.getValue() == "Bestellauftrag") {          
+        String auftragsart = this.cbAuftragsart.getValue();
+        
+        if ("Bestellauftrag".equals(auftragsart)) {          
             GeschaeftspartnerDAO gpd = new GeschaeftspartnerDAO();
             ObservableList<Geschaeftspartner> geschaeftspartner
                 = FXCollections.observableArrayList(
                         gpd.gibAlleLieferanten());
             tvGPAuswahl.setItems(geschaeftspartner);
+            this.tfZahlungskondID.setDisable(false);
      
-        } else if (this.cbAuftragsart.getValue() == "Barauftrag") {   
+        } else if ("Barauftrag".equals(auftragsart)) {   
             this.tfLieferdatum.setText(this.tfErfDatum.getText());
+            this.tfZahlungskondID.clear();
             this.tfZahlungskondID.setDisable(true);
-            setTableContentGPKunden();     
+            setTableContentGPKunden();
         
         } else {
             setTableContentGPKunden();
+            this.tfZahlungskondID.setDisable(false);
         }
         
-        this.tfZahlungskondID.setDisable(false);
+        this.tvGPAuswahl.setMouseTransparent(false);
     }
     
     
