@@ -1359,7 +1359,7 @@ public class AuftraegeController implements Initializable {
             }
             this.cbAuftragsart.setValue(a.getAuftragsart());          
             if (a.getAuftragsart().equals("Barauftrag")) {
-                this.tfZahlungskondID.clear();
+                this.tfZahlungskondID.setText("");
                 this.btAuftragskonditionen.setDisable(true);
             
             } else {
@@ -1490,6 +1490,10 @@ public class AuftraegeController implements Initializable {
 
         if (meldung.antwort()) {
             this.tfErfDatum.setText(date);
+            
+            if ("Barauftrag".equals(this.cbAuftragsart.getValue())) {
+                this.tfLieferdatum.setText(date);
+            }
         }      
     } 
       
@@ -1687,6 +1691,7 @@ public class AuftraegeController implements Initializable {
                     this.paneGP.setVisible(false);
                     this.btAnlegen.requestFocus();
                     this.btAuftragskonditionen.setDisable(true);
+                    this.cbAuftragsart.setDisable(false);
                                     
                     clearAuftragskopfTextFields();
 
@@ -2012,6 +2017,7 @@ public class AuftraegeController implements Initializable {
     @FXML
     public void bearbeiteAuftragskopf() {
         //Buttons aktivieren / deaktivieren
+        this.tvAuftragskopf.setMouseTransparent(true);
         this.pane.setVisible(false);
         this.btAendern.setVisible(false);
         this.btSpeichern.setVisible(true);
@@ -2022,9 +2028,6 @@ public class AuftraegeController implements Initializable {
         this.auftragskopfTP.setText("Auftragskopf (Bearbeitungsmodus)");
         this.btAbbrechen.setDisable(false);
         this.tfErfDatum.setEditable(false);
-        tvAuftragskopf.setMouseTransparent(true);
-        String auftragsart = this.cbAuftragsart.getValue();
-
         if (this.cbAuftragsstatus.getValue().equals("Erfasst")) {
             this.cbAuftragsstatus.setItems(
                 komboBoxFilter(0, 2, auftragsstatus));
@@ -2033,14 +2036,7 @@ public class AuftraegeController implements Initializable {
             this.cbAuftragsstatus.setItems(
                 komboBoxFilter(0, 3, auftragsstatus));
         }  
-        
-        if ("Bestellauftrag".equals(auftragsart)) {        
-            this.cbAuftragsart.setItems(komboBoxFilter(3, 4, auftragsarten));
-        
-        } else {
-            this.cbAuftragsart.setItems(komboBoxFilter(0, 3, auftragsarten));
-        }
-        
+        this.cbAuftragsart.setDisable(true);
     }    
  
     
@@ -2142,6 +2138,8 @@ public class AuftraegeController implements Initializable {
         this.btSpeichernAPD.setVisible(false);
         this.btAnlegenAPD.setDisable(false);
         this.btLoeschenAPD.setDisable(true); 
+        this.btAbbrechenAPD.setDisable(true);
+        this.btAnlegenAPD.requestFocus();
         tvAuftragsposition.setMouseTransparent(false);
     }
     
@@ -2185,8 +2183,10 @@ public class AuftraegeController implements Initializable {
             String art = cbAuftragsart.getValue();
             String lkz = "N";
 
-            akond.aendereAuftragskondition(
-                auftragskopfID, this.tfZahlungskondID.getText());
+            if (!"Barauftrag".equals(art)) {
+                akond.aendereAuftragskondition(
+                    auftragskopfID, this.tfZahlungskondID.getText());
+            }
             String partnerTyp = akd.gibGeschaeftspartnerTyp(partnerID);
             boolean istVerfuegbar; 
             boolean hatKredit;
@@ -2271,6 +2271,7 @@ public class AuftraegeController implements Initializable {
             this.auftragskopfTP.setText("Auftragskopf");
             this.btAnlegen.requestFocus();
             tvAuftragskopf.setMouseTransparent(false);
+            this.cbAuftragsart.setDisable(false);
 
             tvAuftragskopf.getSelectionModel().select(-1);
             clearAuftragskopfTextFields();
@@ -2774,18 +2775,29 @@ public class AuftraegeController implements Initializable {
                         gpd.gibAlleLieferanten());
             tvGPAuswahl.setItems(geschaeftspartner);
             this.tfZahlungskondID.setDisable(false);
+            this.tfLieferdatum.setDisable(false);
+            this.tfLieferdatum.clear();
      
         } else if ("Barauftrag".equals(auftragsart)) {   
             this.tfLieferdatum.setText(this.tfErfDatum.getText());
-            this.tfZahlungskondID.clear();
             this.tfZahlungskondID.setDisable(true);
+            this.tfLieferdatum.setDisable(true);
             setTableContentGPKunden();
         
-        } else {
+        } else if ("Sofortauftrag".equals(auftragsart)) {
             setTableContentGPKunden();
             this.tfZahlungskondID.setDisable(false);
-        }
+            this.tfLieferdatum.setDisable(true);
+            this.tfLieferdatum.clear();
         
+        } else if ("Terminauftrag".equals(auftragsart)) {
+            setTableContentGPKunden();
+            this.tfZahlungskondID.setDisable(false);
+            this.tfLieferdatum.setDisable(false);
+            this.tfLieferdatum.clear();
+        }
+               
+        this.tfZahlungskondID.clear();
         this.tvGPAuswahl.setMouseTransparent(false);
     }
     

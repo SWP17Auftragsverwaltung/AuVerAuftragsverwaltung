@@ -54,7 +54,7 @@
                      <columns>
                         <TableColumn fx:id="tcAuftragsID" prefWidth="156.0" text="Auftrags-ID" />
                         <TableColumn fx:id="tcgeschaeftspartnerID" prefWidth="166.0" text="Geschäftspartner-ID" />
-                        <TableColumn fx:id="tcAuftragsText" text="Text" />
+                        <TableColumn fx:id="tcAuftragsText" prefWidth="150.0" text="Text" />
                         <TableColumn fx:id="tcErfDatum" prefWidth="120.0" text="Erfassungsdatum" />
                         <TableColumn fx:id="tcLieferDatum" prefWidth="129.0" text="Lieferdatum" />
                         <TableColumn fx:id="tcAbschDatum" editable="false" prefWidth="120.0" text="Abschlussdatum" />
@@ -101,12 +101,12 @@
                   <TableView fx:id="tvArtikelauswahl" onMouseClicked="#zeigeWerteTvArtikel" prefHeight="264.0" prefWidth="972.0">
                      <columns>
                         <TableColumn fx:id="tcArtikelIDArtWahl" prefWidth="150.0" text="ArtikelID" />
-                        <TableColumn fx:id="tcArtikeltextArtWahl" prefWidth="126.0" text="Artikeltext" />
-                        <TableColumn fx:id="tcBestelltextArtWahl" prefWidth="101.0" text="Bestelltext" />
+                        <TableColumn fx:id="tcArtikeltextArtWahl" prefWidth="300.0" text="Artikeltext" />
+                        <TableColumn fx:id="tcBestelltextArtWahl" prefWidth="300.0" text="Bestelltext" />
                         <TableColumn fx:id="tcEinzelwertArtArtWahl" prefWidth="81.0" text="Einzelwert" />
                         <TableColumn fx:id="tcBestellwertArtWahl" prefWidth="109.0" text="Bestellwert" />
                         <TableColumn fx:id="tcMwStArtWahl" prefWidth="109.0" text="MwSt." />
-                        <TableColumn fx:id="tcBestandFreiArtWahl" prefWidth="120.0" text="Bestandsmenge FREI" />
+                        <TableColumn fx:id="tcBestandFreiArtWahl" prefWidth="150.0" text="Bestandsmenge FREI" />
                      </columns>
                   </TableView>
                </content>
